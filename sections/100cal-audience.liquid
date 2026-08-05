@@ -1,0 +1,115 @@
+
+<div class="hundred-cal">
+  <section class="hc-audience hc-audience--{{ section.settings.mode }}" id="{{ section.settings.anchor_id }}">
+    {% if section.settings.mode == 'weight' %}
+      <div>
+        <div class="hc-macro-grid">
+          {% for block in section.blocks %}
+            {% if block.type == 'macro' %}
+              <div class="hc-macro-cell" {{ block.shopify_attributes }}>
+                <div class="hc-macro-cell__num">{{ block.settings.value | escape }}</div>
+                <div class="hc-macro-cell__label">{{ block.settings.label | escape }}</div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="hc-meal-plan">
+          <div class="hc-meal-plan__title">{{ section.settings.card_title | escape }}</div>
+          {% for block in section.blocks %}
+            {% if block.type == 'row' %}
+              <div class="hc-meal-plan__row" {{ block.shopify_attributes }}><span>{{ block.settings.label | escape }}</span><strong>{{ block.settings.detail | escape }}</strong></div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    <div>
+      <div class="hc-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="hc-title">{{ section.settings.heading }}</h2>
+      <p class="hc-copy" style="margin-left:0;">{{ section.settings.copy }}</p>
+      <div class="hc-cta-row" style="margin-top:32px;">
+        <a href="{{ section.settings.cta_link }}" class="hc-btn {% if section.settings.mode == 'weight' %}hc-btn--white-outline{% else %}hc-btn--black{% endif %}">{{ section.settings.cta_label }}</a>
+      </div>
+      {% if section.settings.mode == 'gut' %}
+        <div class="hc-mini-tags" style="margin-top:24px;">
+          {% assign tags = section.settings.tags | split: ',' %}
+          {% for tag in tags %}<span class="hc-mini-tag">{{ tag | strip }}</span>{% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if section.settings.mode == 'gut' %}
+      <div>
+        <div class="hc-timeline">
+          <div class="hc-timeline__title">{{ section.settings.card_title | escape }}</div>
+          {% for block in section.blocks %}
+            {% if block.type == 'row' %}
+              <div class="hc-timeline__row" {{ block.shopify_attributes }}>
+                <span class="hc-timeline__label">{{ block.settings.label | escape }}</span>
+                <span>{{ block.settings.detail | escape }}</span>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal Audience",
+  "settings": [
+    { "type": "select", "id": "mode", "label": "Mode", "default": "gut", "options": [
+      { "value": "gut", "label": "Gut health" },
+      { "value": "weight", "label": "Weight loss" }
+    ] },
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID", "default": "gut-health" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "For the Gut Health Seeker" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Your Gut &<br>Brain Are in a<br>Toxic Relationship." },
+    { "type": "textarea", "id": "copy", "label": "Copy", "default": "We know what it feels like when your gut is working against you: the bloating, the brain fog, and the 3pm crash. This isn't a willpower problem. It's a biology problem." },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Take the Gut Brain Health Quiz ->" },
+    { "type": "url", "id": "cta_link", "label": "CTA link", "default": "/collections/all" },
+    { "type": "text", "id": "tags", "label": "Tags", "default": "Ashwagandha, Chicory Root Fiber, Amla, Prebiotic Fiber" },
+    { "type": "text", "id": "card_title", "label": "Card title", "default": "Your 30-Day Gut Reset" }
+  ],
+  "blocks": [
+    { "type": "row", "name": "Timeline or meal row", "settings": [
+      { "type": "text", "id": "label", "label": "Label", "default": "Week 1-2" },
+      { "type": "text", "id": "detail", "label": "Detail", "default": "Less stress eating. Cortisol response starts to regulate." }
+    ] },
+    { "type": "macro", "name": "Weight macro", "settings": [
+      { "type": "text", "id": "value", "label": "Value", "default": "100" },
+      { "type": "text", "id": "label", "label": "Label", "default": "Clean Calories" }
+    ] }
+  ],
+  "presets": [
+    {
+      "name": "100Cal Gut Audience",
+      "settings": { "mode": "gut", "anchor_id": "gut-health" },
+      "blocks": [
+        { "type": "row", "settings": { "label": "Week 1-2", "detail": "Less stress eating. Cortisol response starts to regulate." } },
+        { "type": "row", "settings": { "label": "Week 2-3", "detail": "Better digestion. Bloating subsides as microbiome shifts." } },
+        { "type": "row", "settings": { "label": "Week 3-4", "detail": "Clearer mood. Gut-brain serotonin pathway improving." } },
+        { "type": "row", "settings": { "label": "Month 2+", "detail": "Gut-brain axis rebalanced. Cravings manageable. Energy consistent." } }
+      ]
+    },
+    {
+      "name": "100Cal Weight Audience",
+      "settings": { "mode": "weight", "anchor_id": "weight-loss", "eyebrow": "For the Goal-Driven Snacker", "heading": "100 Calories.<br>10g Protein.<br>Zero Math.", "copy": "No more guessing. No more math at 3pm when your willpower is gone. Every 100Cal Snack is exactly what it says: built to fit your plan, not fight it.", "cta_label": "Shop Best Sellers ->", "card_title": "Sample 1,400 Cal Day" },
+      "blocks": [
+        { "type": "macro", "settings": { "value": "100", "label": "Clean Calories" } },
+        { "type": "macro", "settings": { "value": "10g", "label": "Protein" } },
+        { "type": "macro", "settings": { "value": "5g", "label": "Fiber" } },
+        { "type": "macro", "settings": { "value": "0g", "label": "Added Sugar" } },
+        { "type": "row", "settings": { "label": "Breakfast - Eggs & Avocado Toast", "detail": "400 cal" } },
+        { "type": "row", "settings": { "label": "Mid-Morning - 100Cal Bar", "detail": "100 cal" } },
+        { "type": "row", "settings": { "label": "Lunch - Grilled Chicken Salad", "detail": "450 cal" } },
+        { "type": "row", "settings": { "label": "Afternoon - 100Cal Puffs", "detail": "100 cal" } },
+        { "type": "row", "settings": { "label": "Dinner - Salmon & Veggies", "detail": "500 cal" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,175 @@
+<section class="hc-locations-boutique" id="boutique" {{ section.shopify_attributes }}>
+  <div class="llb-inner">
+    <div class="llb-header fade-up">
+      <div class="llb-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="llb-h">{{ section.settings.heading }}</h2>
+      <p class="llb-sub">{{ section.settings.subtext | escape }}</p>
+    </div>
+    <div class="llb-grid fade-up fade-up-2">
+      {% for block in section.blocks %}
+        {% if block.type == 'boutique_card' %}
+          <div class="llb-card border-{{ block.settings.border_color }}" {{ block.shopify_attributes }}>
+            <div class="llb-tag">{{ block.settings.tag | escape }}</div>
+            <div class="llb-name">{{ block.settings.name | escape }}</div>
+            <div class="llb-area">{{ block.settings.area | escape }}</div>
+            <div class="llb-address">{{ block.settings.address | escape }}</div>
+            <div class="llb-about">{{ block.settings.about | escape }}</div>
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link | escape }}" target="_blank" rel="noopener" class="llb-link">Get Directions →</a>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-locations-boutique {
+  background: var(--black);
+  padding: 80px;
+}
+.hc-locations-boutique .llb-inner { max-width: 1200px; margin: 0 auto; }
+.hc-locations-boutique .llb-header { margin-bottom: 48px; }
+.hc-locations-boutique .llb-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 12px;
+}
+.hc-locations-boutique .llb-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 56px;
+  line-height: .9;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+.hc-locations-boutique .llb-h em { font-style: italic; }
+.hc-locations-boutique .llb-sub {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: rgba(255,255,255,.55);
+  line-height: 1.65;
+  max-width: 580px;
+}
+.hc-locations-boutique .llb-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  background: rgba(255,255,255,.05);
+}
+.hc-locations-boutique .llb-card {
+  background: var(--black);
+  padding: 48px 44px;
+  border-top: 3px solid transparent;
+  transition: background .25s;
+}
+.hc-locations-boutique .llb-card:hover { background: #111617; }
+.hc-locations-boutique .llb-card.border-teal { border-top-color: var(--teal); }
+.hc-locations-boutique .llb-card.border-orange { border-top-color: var(--orange); }
+.hc-locations-boutique .llb-card.border-yellow { border-top-color: var(--yellow); }
+.hc-locations-boutique .llb-tag {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.3);
+  margin-bottom: 16px;
+}
+.hc-locations-boutique .llb-name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 36px;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: .95;
+  margin-bottom: 6px;
+}
+.hc-locations-boutique .llb-area {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 16px;
+}
+.hc-locations-boutique .llb-address {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: rgba(255,255,255,.6);
+  line-height: 1.65;
+  margin-bottom: 6px;
+}
+.hc-locations-boutique .llb-about {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(255,255,255,.5);
+  line-height: 1.7;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,.07);
+  margin-bottom: 20px;
+  margin-top: 6px;
+}
+.hc-locations-boutique .llb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--teal);
+  text-decoration: none;
+  transition: color .2s;
+}
+.hc-locations-boutique .llb-link:hover { color: var(--white); }
+@media (max-width: 1024px) {
+  .hc-locations-boutique { padding: 60px 40px; }
+  .hc-locations-boutique .llb-grid { grid-template-columns: 1fr; }
+  .hc-locations-boutique .llb-h { font-size: 44px; }
+}
+@media (max-width: 768px) {
+  .hc-locations-boutique { padding: 48px 20px; }
+  .hc-locations-boutique .llb-card { padding: 36px 28px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Locations Boutique",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Independent Partners" },
+    { "type": "html", "id": "heading", "label": "Heading (HTML)", "default": "Our Boutique<br>Retail Partners" },
+    { "type": "text", "id": "subtext", "label": "Sub text", "default": "These stores chose us because they believe in what we're building — and that means everything to us." }
+  ],
+  "blocks": [
+    {
+      "type": "boutique_card",
+      "name": "Boutique partner",
+      "settings": [
+        { "type": "select", "id": "border_color", "label": "Border color", "default": "teal", "options": [
+          { "value": "teal", "label": "Teal" },
+          { "value": "orange", "label": "Orange" },
+          { "value": "yellow", "label": "Yellow" }
+        ]},
+        { "type": "text", "id": "tag", "label": "Tag line", "default": "West Los Angeles · Brentwood" },
+        { "type": "text", "id": "name", "label": "Store name", "default": "Vicente Foods" },
+        { "type": "text", "id": "area", "label": "Area", "default": "Brentwood, CA" },
+        { "type": "text", "id": "address", "label": "Address", "default": "12027 San Vicente Blvd, Los Angeles, CA 90049" },
+        { "type": "textarea", "id": "about", "label": "About text", "default": "A Brentwood institution since 1948 — independent, family-owned, and known for carrying products worth trusting." },
+        { "type": "text", "id": "link", "label": "Google Maps URL", "default": "https://maps.google.com/?q=12027+San+Vicente+Blvd+Los+Angeles+CA" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Locations Boutique" }]
+}
+{% endschema %}

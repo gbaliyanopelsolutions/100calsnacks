@@ -1,0 +1,88 @@
+
+<section class="hc-ingr-sweetener" {{ section.shopify_attributes }}>
+  <div class="sweetener-inner">
+    <div class="fade-up">
+      <div class="eyebrow" style="margin-bottom:14px">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="sweetener-h">{{ section.settings.heading }}</h2>
+      <p class="sweetener-body">{{ section.settings.body_1 | escape | newline_to_br }}</p>
+      <p class="sweetener-body">{{ section.settings.body_2 | escape | newline_to_br }}</p>
+    </div>
+    <div class="fade-up fade-up-2">
+      <div class="sweet-vs">
+        <div class="sweet-col no">
+          <div class="sweet-col-label">{{ section.settings.avoid_title | escape }}</div>
+          {% for block in section.blocks %}
+            {% if block.type == 'avoid_item' %}
+              <div class="sweet-item"><span class="si-mark">✗</span>{{ block.settings.label | escape }}</div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="sweet-col yes">
+          <div class="sweet-col-label">{{ section.settings.use_title | escape }}</div>
+          {% for block in section.blocks %}
+            {% if block.type == 'use_item' %}
+              <div class="sweet-item"><span class="si-mark">✓</span>{{ block.settings.label | escape }}</div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-ingr-sweetener { background: #EAE9E5; padding: 80px; }
+.hc-ingr-sweetener .sweetener-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.hc-ingr-sweetener .sweetener-h { font-family: var(--font-head); font-weight: 900; font-size: 52px; line-height: .9; text-transform: uppercase; color: var(--black); margin-bottom: 20px; }
+.hc-ingr-sweetener .sweetener-body { font-family: var(--font-body); font-size: 15px; color: rgba(15,18,19,.6); line-height: 1.75; margin-bottom: 24px; }
+.hc-ingr-sweetener .sweet-vs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.hc-ingr-sweetener .sweet-col { background: #FFFFFF; padding: 28px 24px; box-shadow: 0 1px 3px rgba(15,18,19,.06); }
+.hc-ingr-sweetener .sweet-col-label { font-family: var(--font-head); font-weight: 900; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid transparent; }
+.hc-ingr-sweetener .sweet-col.no .sweet-col-label { color: rgba(15,18,19,.4); border-color: rgba(15,18,19,.12); }
+.hc-ingr-sweetener .sweet-col.yes .sweet-col-label { color: var(--teal); border-color: var(--teal); }
+.hc-ingr-sweetener .sweet-item { font-family: var(--font-body); font-size: 14px; color: rgba(15,18,19,.55); padding: 7px 0; border-bottom: 1px solid rgba(15,18,19,.06); display: flex; align-items: center; gap: 8px; }
+.hc-ingr-sweetener .sweet-item:last-child { border-bottom: none; }
+.hc-ingr-sweetener .si-mark { font-size: 12px; flex-shrink: 0; }
+.hc-ingr-sweetener .sweet-col.no .si-mark { color: rgba(15,18,19,.25); }
+.hc-ingr-sweetener .sweet-col.yes .si-mark { color: var(--teal); }
+@media (max-width: 1024px) {
+  .hc-ingr-sweetener { padding: 80px 40px; }
+  .hc-ingr-sweetener .sweetener-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hc-ingr-sweetener .sweetener-h { font-size: 40px; }
+}
+@media (max-width: 768px) {
+  .hc-ingr-sweetener { padding: 60px 20px; }
+  .hc-ingr-sweetener .sweetener-h { font-size: 34px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Sweetener Philosophy",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Clean Sweetener Philosophy" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Why We Don't Use<br>Sugar Alcohols" },
+    { "type": "textarea", "id": "body_1", "label": "Body copy 1", "default": "Many low-carb snacks rely on erythritol and maltitol to hit their sweetness targets. These compounds are common gut irritants that can disrupt your microbiome - the opposite of what we're building toward." },
+    { "type": "textarea", "id": "body_2", "label": "Body copy 2", "default": "We use monk fruit and allulose instead. Both provide sweetness without glycemic impact, without gut disruption, and without the bloating that sugar alcohols cause." },
+    { "type": "text", "id": "avoid_title", "label": "Avoid column title", "default": "What We Avoid" },
+    { "type": "text", "id": "use_title", "label": "Use column title", "default": "What We Use" }
+  ],
+  "blocks": [
+    {
+      "type": "avoid_item",
+      "name": "Avoid sweetener",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Erythritol — common gut irritant" }
+      ]
+    },
+    {
+      "type": "use_item",
+      "name": "Use sweetener",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Monk Fruit — zero glycemic impact" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Ingredients Sweetener Philosophy" }]
+}
+{% endschema %}

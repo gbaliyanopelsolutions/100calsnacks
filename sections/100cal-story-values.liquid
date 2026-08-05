@@ -1,0 +1,138 @@
+<section class="hc-story-values" {{ section.shopify_attributes }}>
+  <div class="sv-inner">
+    <div class="sv-header fade-up">
+      <div class="sv-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="sv-h">{{ section.settings.heading }}</h2>
+      <p class="sv-sub">{{ section.settings.subtitle | escape }}</p>
+    </div>
+    <div class="sv-grid fade-up fade-up-2">
+      {% for block in section.blocks %}
+        {% if block.type == 'value_card' %}
+          <div class="sv-card" {{ block.shopify_attributes }}>
+            <div class="sv-icon">{{ block.settings.icon | escape }}</div>
+            <div class="sv-name">{{ block.settings.name }}</div>
+            <div class="sv-body">{{ block.settings.body | escape }}</div>
+            <div class="sv-num" aria-hidden="true">0{{ forloop.index }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-story-values {
+  --ink-mid: #555;
+  background: #EAE9E5;
+  padding: 120px 80px;
+}
+.hc-story-values .sv-inner { max-width: 1200px; margin: 0 auto; }
+.hc-story-values .sv-header { margin-bottom: 72px; }
+.hc-story-values .sv-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-bottom: 16px;
+}
+.hc-story-values .sv-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 80px;
+  line-height: .86;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 20px;
+}
+.hc-story-values .sv-h em { font-style: italic; color: var(--teal-dark); }
+.hc-story-values .sv-sub {
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: rgba(15,18,19,.6);
+  line-height: 1.7;
+  max-width: 560px;
+}
+.hc-story-values .sv-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3px;
+  background: rgba(15,18,19,.08);
+}
+.hc-story-values .sv-card {
+  background: var(--white);
+  padding: 48px 44px;
+  position: relative;
+  overflow: hidden;
+  transition: background .3s;
+}
+.hc-story-values .sv-card:hover { background: #F5F3F0; }
+.hc-story-values .sv-icon { font-size: 36px; margin-bottom: 20px; }
+.hc-story-values .sv-name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 32px;
+  text-transform: uppercase;
+  color: var(--black);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.hc-story-values .sv-name em { font-style: italic; color: var(--teal-dark); }
+.hc-story-values .sv-body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: #555;
+  line-height: 1.8;
+  position: relative;
+  z-index: 2;
+  max-width: 440px;
+}
+.hc-story-values .sv-num {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 80px;
+  color: #EAE9E5;
+  line-height: 1;
+  position: absolute;
+  bottom: -10px;
+  right: 20px;
+  pointer-events: none;
+  user-select: none;
+}
+@media (max-width: 1024px) {
+  .hc-story-values { padding: 80px 40px; }
+  .hc-story-values .sv-grid { grid-template-columns: 1fr; }
+  .hc-story-values .sv-h { font-size: 60px; }
+  .hc-story-values .sv-header { margin-bottom: 48px; }
+}
+@media (max-width: 768px) {
+  .hc-story-values { padding: 60px 20px; }
+  .hc-story-values .sv-h { font-size: 48px; }
+  .hc-story-values .sv-card { padding: 36px 28px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Story Values",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Who We Are" },
+    { "type": "html", "id": "heading", "label": "Heading (HTML)", "default": "The Way We<br>Do <em>Things.</em>" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Four things we believe in deeply — not because they sound good on a website, but because they're how we actually show up for the people who trust us." }
+  ],
+  "blocks": [
+    {
+      "type": "value_card",
+      "name": "Value card",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon (emoji)", "default": "🏠" },
+        { "type": "html", "id": "name", "label": "Card name (HTML)", "default": "This is<br><em>Personal.</em>" },
+        { "type": "textarea", "id": "body", "label": "Card body", "default": "We built this brand from lived experience. When you reach out, a real person responds. When something goes wrong, we make it right." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Story Values" }]
+}
+{% endschema %}

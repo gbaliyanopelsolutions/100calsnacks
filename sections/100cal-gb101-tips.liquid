@@ -1,0 +1,123 @@
+
+<section class="hc-gb101-tips" id="tips" {{ section.shopify_attributes }}>
+  <div class="hctp-inner">
+
+    <div class="fade-up">
+      <div class="hctp-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="hctp-h">{{ section.settings.heading }}</h2>
+    </div>
+
+    <div class="hctp-list fade-up fade-up-2">
+      {% for block in section.blocks %}
+        {% if block.type == 'tip' %}
+          <div class="hctp-row" {{ block.shopify_attributes }}>
+            <div class="hctp-num">{{ block.settings.num | escape }}</div>
+            <div class="hctp-body">
+              <div class="hctp-title">{{ block.settings.title | escape }}</div>
+              <div class="hctp-text">{{ block.settings.body | escape }}</div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-gb101-tips {
+  padding: 100px 80px;
+  background: #161B1B;
+}
+.hc-gb101-tips .hctp-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  align-items: start;
+}
+.hc-gb101-tips .hctp-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 16px;
+}
+.hc-gb101-tips .hctp-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 64px;
+  line-height: .9;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.hc-gb101-tips .hctp-list { display: flex; flex-direction: column; gap: 0; }
+.hc-gb101-tips .hctp-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  padding: 32px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.hc-gb101-tips .hctp-row:last-child { border-bottom: none; }
+.hc-gb101-tips .hctp-num {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 60px;
+  color: var(--teal);
+  line-height: .85;
+  opacity: .6;
+  flex-shrink: 0;
+  width: 52px;
+}
+.hc-gb101-tips .hctp-title {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 22px;
+  text-transform: uppercase;
+  color: var(--white);
+  letter-spacing: .5px;
+  margin-bottom: 6px;
+}
+.hc-gb101-tips .hctp-text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: rgba(255,255,255,.7);
+  line-height: 1.65;
+}
+@media (max-width: 1024px) {
+  .hc-gb101-tips { padding: 72px 40px; }
+  .hc-gb101-tips .hctp-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hc-gb101-tips .hctp-h { font-size: 48px; }
+}
+@media (max-width: 768px) {
+  .hc-gb101-tips { padding: 56px 20px; }
+  .hc-gb101-tips .hctp-h { font-size: 38px; }
+  .hc-gb101-tips .hctp-num { font-size: 44px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GB101 Tips",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Snacking Smarter" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "3 Ways to Snack Smarter Today" }
+  ],
+  "blocks": [
+    {
+      "type": "tip",
+      "name": "Tip",
+      "settings": [
+        { "type": "text", "id": "num",   "label": "Number (e.g. 01)" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "body", "label": "Body" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "GB101 Tips" }]
+}
+{% endschema %}

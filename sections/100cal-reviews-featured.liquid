@@ -1,0 +1,245 @@
+<section class="hc-reviews-featured" {{ section.shopify_attributes }}>
+  <div class="rvf-inner">
+    <div class="rvf-header fade-up">
+      <div class="rvf-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="rvf-h">{{ section.settings.heading | escape }}</h2>
+    </div>
+    <div class="rvf-grid fade-up fade-up-2">
+      {% for block in section.blocks %}
+        {% if block.type == 'featured_review' %}
+          {% if block.settings.size == 'large' %}
+            <div class="rvf-card large {{ block.settings.accent }}-accent" {{ block.shopify_attributes }}>
+              <div>
+                <span class="rvf-quote-mark">"</span>
+                <p class="rvf-quote">{{ block.settings.quote | escape }}</p>
+                <div class="rvf-stars">{{ block.settings.stars | escape }}</div>
+                <div class="rvf-meta">
+                  <div class="rvf-name">{{ block.settings.reviewer_name | escape }}</div>
+                  <div class="rvf-source">
+                    <span class="rvf-badge">{{ block.settings.source_badge | escape }}</span>
+                    <span>·</span>
+                    <span>{{ block.settings.date | escape }}</span>
+                  </div>
+                  <div class="rvf-product-tag">{{ block.settings.product_tag | escape }}</div>
+                </div>
+              </div>
+              <div class="rvf-visual">
+                <div class="rvf-visual-emoji">{{ block.settings.visual_emoji | escape }}</div>
+                <div class="rvf-visual-stat">{{ block.settings.visual_stat | escape }}</div>
+                <div class="rvf-visual-label">{{ block.settings.visual_label | escape }}</div>
+              </div>
+            </div>
+          {% else %}
+            <div class="rvf-card {{ block.settings.accent }}-accent" {{ block.shopify_attributes }}>
+              <span class="rvf-quote-mark">"</span>
+              <p class="rvf-quote">{{ block.settings.quote | escape }}</p>
+              <div class="rvf-stars">{{ block.settings.stars | escape }}</div>
+              <div class="rvf-meta">
+                <div class="rvf-name">{{ block.settings.reviewer_name | escape }}</div>
+                <div class="rvf-source">
+                  <span class="rvf-badge">{{ block.settings.source_badge | escape }}</span>
+                  <span>·</span>
+                  <span>{{ block.settings.date | escape }}</span>
+                </div>
+                <div class="rvf-product-tag">{{ block.settings.product_tag | escape }}</div>
+              </div>
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-reviews-featured {
+  --ink: #1A1A1A;
+  --ink-mid: #555;
+  --ink-light: #888;
+  --neutral: #F4F3F0;
+  --platinum: #EAE9E5;
+  background: var(--white);
+  padding: 72px 80px;
+}
+.hc-reviews-featured .rvf-inner { max-width: 1200px; margin: 0 auto; }
+.hc-reviews-featured .rvf-header { margin-bottom: 40px; }
+.hc-reviews-featured .rvf-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-bottom: 10px;
+}
+.hc-reviews-featured .rvf-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 52px;
+  line-height: .9;
+  text-transform: uppercase;
+  color: var(--black);
+}
+.hc-reviews-featured .rvf-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  background: #EAE9E5;
+}
+.hc-reviews-featured .rvf-card {
+  background: var(--white);
+  padding: 40px 36px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.hc-reviews-featured .rvf-card.large {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.hc-reviews-featured .rvf-card.choc-accent { border-top: 3px solid var(--teal); }
+.hc-reviews-featured .rvf-card.pb-accent { border-top: 3px solid var(--yellow); }
+.hc-reviews-featured .rvf-card.bbq-accent { border-top: 3px solid var(--orange); }
+.hc-reviews-featured .rvf-quote-mark {
+  font-family: Georgia, serif;
+  font-size: 80px;
+  color: var(--teal);
+  line-height: .6;
+  margin-bottom: 16px;
+  display: block;
+}
+.hc-reviews-featured .rvf-quote {
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: var(--ink);
+  line-height: 1.75;
+  font-style: italic;
+  margin-bottom: 24px;
+  flex: 1;
+}
+.hc-reviews-featured .rvf-card.large .rvf-quote { font-size: 22px; }
+.hc-reviews-featured .rvf-stars {
+  color: var(--yellow);
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.hc-reviews-featured .rvf-name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: var(--black);
+  letter-spacing: .5px;
+  margin-bottom: 2px;
+}
+.hc-reviews-featured .rvf-source {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--ink-light);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hc-reviews-featured .rvf-badge {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  background: #F4F3F0;
+  color: var(--ink-light);
+}
+.hc-reviews-featured .rvf-product-tag {
+  display: inline-block;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border: 1px solid rgba(15,18,19,.12);
+  color: var(--ink-light);
+}
+.hc-reviews-featured .rvf-visual {
+  background: var(--black);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  min-height: 280px;
+}
+.hc-reviews-featured .rvf-visual-emoji { font-size: 72px; }
+.hc-reviews-featured .rvf-visual-stat {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 48px;
+  color: var(--teal);
+  line-height: 1;
+}
+.hc-reviews-featured .rvf-visual-label {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+}
+@media (max-width: 1024px) {
+  .hc-reviews-featured { padding: 60px 40px; }
+  .hc-reviews-featured .rvf-grid { grid-template-columns: 1fr; }
+  .hc-reviews-featured .rvf-card.large { grid-column: span 1; grid-template-columns: 1fr; }
+  .hc-reviews-featured .rvf-h { font-size: 40px; }
+}
+@media (max-width: 768px) {
+  .hc-reviews-featured { padding: 50px 20px; }
+  .hc-reviews-featured .rvf-card { padding: 28px 24px; }
+  .hc-reviews-featured .rvf-h { font-size: 34px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Reviews Featured",
+  "max_blocks": 10,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Editor's Picks" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Reviews That Say It Best" }
+  ],
+  "blocks": [
+    {
+      "type": "featured_review",
+      "name": "Featured review",
+      "settings": [
+        { "type": "select", "id": "size", "label": "Card size", "default": "regular", "options": [
+          { "value": "large", "label": "Large (full width)" },
+          { "value": "regular", "label": "Regular" }
+        ]},
+        { "type": "select", "id": "accent", "label": "Accent color", "default": "choc", "options": [
+          { "value": "choc", "label": "Chocolate (Teal)" },
+          { "value": "pb", "label": "Peanut Butter (Yellow)" },
+          { "value": "bbq", "label": "BBQ (Orange)" }
+        ]},
+        { "type": "textarea", "id": "quote", "label": "Quote text", "default": "I've tried every protein bar on the market." },
+        { "type": "text", "id": "stars", "label": "Stars", "default": "★★★★★" },
+        { "type": "text", "id": "reviewer_name", "label": "Reviewer name", "default": "Sarah M." },
+        { "type": "text", "id": "source_badge", "label": "Source badge", "default": "Verified Amazon Purchase" },
+        { "type": "text", "id": "date", "label": "Date", "default": "March 2026" },
+        { "type": "text", "id": "product_tag", "label": "Product tag", "default": "Chocolate Brownie Bar" },
+        { "type": "text", "id": "visual_emoji", "label": "Visual emoji (large only)", "default": "🍫" },
+        { "type": "text", "id": "visual_stat", "label": "Visual stat (large only)", "default": "4.5★" },
+        { "type": "text", "id": "visual_label", "label": "Visual label (large only)", "default": "Chocolate Brownie Bar" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Reviews Featured" }]
+}
+{% endschema %}

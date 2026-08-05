@@ -1,0 +1,144 @@
+{
+  "sections": {
+    "policy_hero": {
+      "type": "100cal-policy-hero",
+      "settings": {
+        "home_label": "Home",
+        "home_url": "/",
+        "page_label": "Privacy Policy",
+        "heading": "Privacy<br>Policy",
+        "effective_date": "Effective: January 1, 2026",
+        "updated_date": "Last updated: March 2026"
+      }
+    },
+    "policy_toc": {
+      "type": "100cal-policy-toc",
+      "blocks": {
+        "toc_information": {
+          "type": "toc_link",
+          "settings": { "label": "Information We Collect", "anchor": "#information" }
+        },
+        "toc_how_we_use": {
+          "type": "toc_link",
+          "settings": { "label": "How We Use It", "anchor": "#how-we-use" }
+        },
+        "toc_sharing": {
+          "type": "toc_link",
+          "settings": { "label": "Sharing", "anchor": "#sharing" }
+        },
+        "toc_cookies": {
+          "type": "toc_link",
+          "settings": { "label": "Cookies", "anchor": "#cookies" }
+        },
+        "toc_rights": {
+          "type": "toc_link",
+          "settings": { "label": "Your Rights", "anchor": "#your-rights" }
+        },
+        "toc_contact": {
+          "type": "toc_link",
+          "settings": { "label": "Contact Us", "anchor": "#contact" }
+        }
+      },
+      "block_order": ["toc_information","toc_how_we_use","toc_sharing","toc_cookies","toc_rights","toc_contact"],
+      "settings": {}
+    },
+    "policy_content": {
+      "type": "100cal-policy-content",
+      "blocks": {
+        "sec_information": {
+          "type": "policy_section",
+          "settings": {
+            "num": "01",
+            "title": "Information We Collect",
+            "anchor": "information",
+            "body": "<p>When you visit or make a purchase from 100 Cal Snacks, we collect certain information to fulfil your order and improve your experience. This includes information you provide directly and information collected automatically.</p><p><strong>Information you provide:</strong></p><ul><li>Name, email address, and phone number when you create an account or place an order</li><li>Shipping and billing address</li><li>Payment information (processed securely via Shopify — we do not store card numbers)</li><li>Messages you send via our contact form or email</li></ul><p><strong>Information collected automatically:</strong></p><ul><li>Browser type, device, and operating system</li><li>IP address and approximate location</li><li>Pages visited, time spent, and links clicked on our site</li><li>Referring website or search terms that brought you here</li></ul>",
+            "highlight": "<p>We collect the minimum information needed to run our business. We do not sell your personal data to third parties — ever.</p>"
+          }
+        },
+        "sec_how_we_use": {
+          "type": "policy_section",
+          "settings": {
+            "num": "02",
+            "title": "How We Use It",
+            "anchor": "how-we-use",
+            "body": "<p>We use the information we collect to:</p><ul><li>Process and fulfil your orders, including sending order confirmations and shipping updates</li><li>Respond to your questions and support requests</li><li>Send you marketing communications — only if you've opted in</li><li>Improve our website, products, and customer experience</li><li>Comply with legal obligations</li></ul><p>If you've opted in to marketing emails, you can unsubscribe at any time using the link in any email we send. We will never send you marketing without your consent.</p>",
+            "highlight": ""
+          }
+        },
+        "sec_sharing": {
+          "type": "policy_section",
+          "settings": {
+            "num": "03",
+            "title": "Sharing Your Information",
+            "anchor": "sharing",
+            "body": "<p>We share your information only with the third parties necessary to run our business. These include:</p><ul><li><strong>Shopify</strong> — our e-commerce platform, which processes payments and stores order data</li><li><strong>Shipping carriers</strong> (USPS, UPS, FedEx) — who receive your name and address to deliver your order</li><li><strong>Email service providers</strong> — who send order confirmations and marketing emails on our behalf</li><li><strong>Analytics providers</strong> (Google Analytics) — who help us understand site traffic</li></ul><p>All third-party providers are contractually required to protect your data and may only use it for the specific purpose for which we share it.</p>",
+            "highlight": ""
+          }
+        },
+        "sec_cookies": {
+          "type": "policy_section",
+          "settings": {
+            "num": "04",
+            "title": "Cookies",
+            "anchor": "cookies",
+            "body": "<p>Our website uses cookies — small text files stored on your device — to remember your preferences, keep items in your cart, and understand how people use our site.</p><p>We use:</p><ul><li><strong>Essential cookies</strong> — required for the site to function (cart, checkout, login)</li><li><strong>Analytics cookies</strong> — to understand site usage (Google Analytics)</li><li><strong>Marketing cookies</strong> — to show relevant ads on other platforms (Meta, Google)</li></ul><p>You can disable non-essential cookies in your browser settings at any time. Note that disabling certain cookies may affect site functionality.</p>",
+            "highlight": ""
+          }
+        },
+        "sec_rights": {
+          "type": "policy_section",
+          "settings": {
+            "num": "05",
+            "title": "Your Rights",
+            "anchor": "your-rights",
+            "body": "<p>Depending on where you are located, you may have the right to:</p><ul><li>Access the personal information we hold about you</li><li>Request that we correct inaccurate information</li><li>Request deletion of your personal information</li><li>Object to or restrict how we process your data</li><li>Request a portable copy of your data</li><li>Withdraw consent for marketing at any time</li></ul><p>California residents have additional rights under the CCPA, including the right to know what personal information is collected, the right to opt out of the sale of personal information (we do not sell personal information), and the right to non-discrimination for exercising your rights. We respond to all requests within 30 days.</p>",
+            "highlight": ""
+          }
+        }
+      },
+      "block_order": ["sec_information","sec_how_we_use","sec_sharing","sec_cookies","sec_rights"],
+      "settings": {
+        "contact_title": "Questions or Requests?",
+        "contact_body": "We read every message. Reach out directly and we'll get back to you.",
+        "contact_email": "hi@100calsnacks.com"
+      }
+    },
+    "policy_footer_strip": {
+      "type": "100cal-policy-footer-strip",
+      "blocks": {
+        "link_refund": {
+          "type": "policy_link",
+          "settings": { "label": "Refund Policy", "url": "/policies/refund-policy" }
+        },
+        "link_shipping": {
+          "type": "policy_link",
+          "settings": { "label": "Shipping Policy", "url": "/policies/shipping-policy" }
+        },
+        "link_terms": {
+          "type": "policy_link",
+          "settings": { "label": "Terms of Service", "url": "/policies/terms-of-service" }
+        },
+        "link_cancel": {
+          "type": "policy_link",
+          "settings": { "label": "Cancellation Policy", "url": "/policies/cancellation-policy" }
+        },
+        "link_privacy": {
+          "type": "policy_link",
+          "settings": { "label": "Privacy Policy", "url": "/policies/privacy-policy" }
+        }
+      },
+      "block_order": ["link_refund","link_shipping","link_terms","link_cancel","link_privacy"],
+      "settings": {
+        "eyebrow": "Other Policies",
+        "back_text": "← Back to Shop",
+        "back_url": "/collections/all"
+      }
+    }
+  },
+  "order": [
+    "policy_hero",
+    "policy_toc",
+    "policy_content",
+    "policy_footer_strip"
+  ]
+}

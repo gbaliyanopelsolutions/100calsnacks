@@ -1,0 +1,25 @@
+
+<div class="hundred-cal">
+  <section class="hc-image-break">
+    <div class="hc-image-break__inner">
+      {% if section.settings.image != blank %}
+        {{ section.settings.image | image_url: width: 1800 | image_tag: loading: 'lazy', alt: section.settings.alt }}
+      {% else %}
+        <div style="aspect-ratio:16/7;background:rgba(0,0,0,.08);border:2px dashed rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:28px;font-weight:900;text-transform:uppercase;">{{ section.settings.alt | escape }}</div>
+      {% endif %}
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal Image Break",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "alt", "label": "Alt text", "default": "100Cal Snacks lifestyle image" }
+  ],
+  "presets": [
+    { "name": "100Cal Image Break" }
+  ]
+}
+{% endschema %}

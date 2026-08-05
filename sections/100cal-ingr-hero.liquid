@@ -1,0 +1,201 @@
+<section class="hc-ingr-hero" {{ section.shopify_attributes }}>
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow hero-overline">{{ section.settings.eyebrow | escape }}</div>
+      <h1 class="hero-h1">{{ section.settings.heading }}</h1>
+      <p class="hero-sub">{{ section.settings.subheading | escape | newline_to_br }}</p>
+      <div class="hero-micro">{{ section.settings.micro | escape }}</div>
+      <div class="hero-ctas">
+        {% if section.settings.primary_link != blank %}
+          <a href="{{ section.settings.primary_link }}" class="pill-btn">{{ section.settings.primary_label | escape }}</a>
+        {% endif %}
+        {% if section.settings.secondary_link != blank %}
+          <a href="{{ section.settings.secondary_link }}" class="ghost-btn">{{ section.settings.secondary_label | escape }}</a>
+        {% endif %}
+      </div>
+    </div>
+    <div class="hero-mosaic fade-up">
+      <div class="mosaic-label-top">{{ section.settings.mosaic_title | escape }}</div>
+      {% for block in section.blocks %}
+        {% if block.type == 'mosaic_item' %}
+          <a href="{{ block.settings.anchor | default: '#' }}" class="mosaic-cell" {{ block.shopify_attributes }}>
+            <div class="mosaic-icon">{{ block.settings.icon | escape }}</div>
+            <div class="mosaic-text">
+              <div class="mosaic-label">{{ block.settings.label | escape }}</div>
+              <div class="mosaic-sublabel">{{ block.settings.subtext | escape }}</div>
+            </div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-ingr-hero {
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 80px 80px 80px 56px;
+}
+.hc-ingr-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 70% at 70% 50%, rgba(102,204,204,.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hc-ingr-hero .hero-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.hc-ingr-hero .hero-overline { margin-bottom: 20px; }
+.hc-ingr-hero .hero-h1 {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 80px;
+  line-height: .88;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 28px;
+}
+.hc-ingr-hero .hero-h1 em { font-style: italic; color: var(--teal); display: block; }
+.hc-ingr-hero .hero-sub {
+  font-family: var(--font-body);
+  font-size: 17px;
+  color: rgba(255,255,255,.55);
+  line-height: 1.75;
+  margin-bottom: 32px;
+  max-width: 460px;
+}
+.hc-ingr-hero .hero-micro {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.25);
+  margin-bottom: 36px;
+}
+.hc-ingr-hero .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+.hc-ingr-hero .hero-mosaic { display: flex; flex-direction: column; gap: 3px; }
+.hc-ingr-hero .mosaic-label-top {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.25);
+  margin-bottom: 10px;
+}
+.hc-ingr-hero .mosaic-cell {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.06);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  transition: all .3s;
+  text-decoration: none;
+  color: inherit;
+  border-left: 3px solid transparent;
+}
+.hc-ingr-hero .mosaic-cell:nth-child(2) { border-left-color: var(--teal); }
+.hc-ingr-hero .mosaic-cell:nth-child(3) { border-left-color: var(--orange); }
+.hc-ingr-hero .mosaic-cell:nth-child(4) { border-left-color: var(--yellow); }
+.hc-ingr-hero .mosaic-cell:nth-child(5) { border-left-color: var(--teal-pastel); }
+.hc-ingr-hero .mosaic-cell:nth-child(6) { border-left-color: var(--grey-dark); }
+.hc-ingr-hero .mosaic-cell:nth-child(7) { border-left-color: var(--grey-warm); }
+.hc-ingr-hero .mosaic-cell:hover { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.12); }
+.hc-ingr-hero .mosaic-icon { font-size: 22px; flex-shrink: 0; width: 32px; text-align: center; }
+.hc-ingr-hero .mosaic-label {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 15px;
+  text-transform: uppercase;
+  color: var(--white);
+  letter-spacing: .5px;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+.hc-ingr-hero .mosaic-sublabel { font-family: var(--font-body); font-size: 12px; color: rgba(255,255,255,.35); line-height: 1.3; }
+.hc-ingr-hero .pill-btn:hover { background: var(--teal-dark); color: var(--white); }
+.hc-ingr-hero .ghost-btn { color: var(--white); border-color: rgba(255,255,255,.2); }
+.hc-ingr-hero .ghost-btn:hover { border-color: var(--white); }
+
+/* Global fade-up — used by all ingr sections on the same page */
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity .65s ease, transform .65s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-up-2 { transition-delay: .12s; }
+.fade-up-3 { transition-delay: .24s; }
+.fade-up-4 { transition-delay: .36s; }
+
+@media (max-width: 1024px) {
+  .hc-ingr-hero { padding-left: 40px; padding-right: 40px; }
+  .hc-ingr-hero .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hc-ingr-hero .hero-h1 { font-size: 60px; }
+}
+@media (max-width: 768px) {
+  .hc-ingr-hero { padding: 60px 20px; }
+  .hc-ingr-hero .hero-h1 { font-size: 42px; }
+  .hc-ingr-hero .hero-sub { font-size: 15px; }
+}
+{% endstylesheet %}
+
+{% javascript %}
+(() => {
+  const boot = () => {
+    const fadeEls = Array.from(document.querySelectorAll('.fade-up'));
+    if (!fadeEls.length) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    fadeEls.forEach((el) => observer.observe(el));
+  };
+  document.addEventListener('DOMContentLoaded', boot);
+  document.addEventListener('shopify:section:load', boot);
+  boot();
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Ingredients Hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Ingredient Index" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Every Ingredient<br>Has a Purpose.<br><em>Every Calorie<br>Earns Its Place.</em>" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Ingredients designed for the gut-brain axis - supporting gut health, stable energy, and real satiety. All within 100 calories." },
+    { "type": "text", "id": "micro", "label": "Micro copy", "default": "✓ No sugar alcohols   ✓ No palm oil   ✓ No artificial anything" },
+    { "type": "text", "id": "primary_label", "label": "Primary CTA label", "default": "Explore Ingredients ↓" },
+    { "type": "text", "id": "primary_link", "label": "Primary CTA link", "default": "#library" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary CTA label", "default": "By Product →" },
+    { "type": "text", "id": "secondary_link", "label": "Secondary CTA link", "default": "#product-maps" },
+    { "type": "text", "id": "mosaic_title", "label": "Mosaic title", "default": "Ingredient Families - Click to Explore" }
+  ],
+  "blocks": [
+    {
+      "type": "mosaic_item",
+      "name": "Mosaic item",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "🦠" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Prebiotic Fiber" },
+        { "type": "text", "id": "subtext", "label": "Subtext", "default": "Microbiome health & gut-brain signaling" },
+        { "type": "text", "id": "anchor", "label": "Anchor or link", "default": "#chicory" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Ingredients Hero" }]
+}
+{% endschema %}

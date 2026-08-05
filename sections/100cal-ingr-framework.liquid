@@ -1,0 +1,75 @@
+<section class="hc-ingr-framework" {{ section.shopify_attributes }}>
+  <div class="framework-inner">
+    <div class="framework-header fade-up">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px">{{ section.settings.eyebrow | escape }}</div>
+        <h2 class="framework-h">{{ section.settings.heading }}</h2>
+      </div>
+      <p class="framework-sub">{{ section.settings.subheading | escape | newline_to_br }}</p>
+    </div>
+    <div class="framework-grid fade-up fade-up-2">
+      {% for block in section.blocks %}
+        {% if block.type == 'framework_card' %}
+          <div class="framework-block" {{ block.shopify_attributes }}>
+            <div class="framework-icon">{{ block.settings.icon | escape }}</div>
+            <div class="framework-name">{{ block.settings.title | escape }}</div>
+            <div class="framework-desc">{{ block.settings.description | escape }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-ingr-framework {
+  background: #EAE9E5;
+  padding: 80px;
+}
+.hc-ingr-framework .framework-inner { max-width: 1200px; margin: 0 auto; }
+.hc-ingr-framework .framework-header { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; margin-bottom: 48px; }
+.hc-ingr-framework .framework-h { font-family: var(--font-head); font-weight: 900; font-size: 52px; line-height: .9; text-transform: uppercase; color: var(--black); }
+.hc-ingr-framework .framework-sub { font-family: var(--font-body); font-size: 15px; color: rgba(15,18,19,.6); line-height: 1.7; }
+.hc-ingr-framework .framework-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+.hc-ingr-framework .framework-block { background: #FFFFFF; padding: 32px 24px; border-top: 3px solid transparent; box-shadow: 0 1px 3px rgba(15,18,19,.06); }
+.hc-ingr-framework .framework-block:nth-child(1) { border-top-color: var(--teal); }
+.hc-ingr-framework .framework-block:nth-child(2) { border-top-color: var(--orange); }
+.hc-ingr-framework .framework-block:nth-child(3) { border-top-color: var(--yellow); }
+.hc-ingr-framework .framework-block:nth-child(4) { border-top-color: var(--grey-dark); }
+.hc-ingr-framework .framework-icon { font-size: 32px; margin-bottom: 14px; }
+.hc-ingr-framework .framework-name { font-family: var(--font-head); font-weight: 900; font-size: 20px; text-transform: uppercase; color: var(--black); letter-spacing: .5px; margin-bottom: 8px; }
+.hc-ingr-framework .framework-desc { font-family: var(--font-body); font-size: 14px; color: rgba(15,18,19,.55); line-height: 1.6; }
+@media (max-width: 1024px) {
+  .hc-ingr-framework { padding: 80px 40px; }
+  .hc-ingr-framework .framework-header { grid-template-columns: 1fr; gap: 40px; }
+  .hc-ingr-framework .framework-grid { grid-template-columns: 1fr; }
+  .hc-ingr-framework .framework-h { font-size: 40px; }
+}
+@media (max-width: 768px) {
+  .hc-ingr-framework { padding: 60px 20px; }
+  .hc-ingr-framework .framework-h { font-size: 34px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Ingredients Framework",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "How Our Ingredients Work Together" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Four Building Blocks of<br>Gut-Brain Nutrition" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "WHY IT WORKS: Every ingredient is selected for a specific role in supporting the gut-brain axis - working together to support energy, satiety, mood, and digestion." }
+  ],
+  "blocks": [
+    {
+      "type": "framework_card",
+      "name": "Framework card",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "🦠" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Prebiotic Fiber" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Feeds beneficial gut bacteria that regulate digestion, produce neurotransmitters, and signal the brain through the gut-brain axis." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Ingredients Framework" }]
+}
+{% endschema %}

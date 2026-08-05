@@ -1,0 +1,67 @@
+
+<div class="hundred-cal">
+  <section class="hc-science" id="{{ section.settings.anchor_id }}">
+    <div class="hc-section-header">
+      <div class="hc-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="hc-title">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="hc-science__grid">
+      <div class="hc-cycle">
+        <div class="hc-cycle__ring"></div>
+        <div class="hc-cycle__center">{{ section.settings.center_label | escape }}</div>
+        {% for block in section.blocks %}
+          <div class="hc-cycle__node" {{ block.shopify_attributes }}>
+            <div class="hc-cycle__label">{{ block.settings.label | escape }}</div>
+            <div class="hc-cycle__sub">{{ block.settings.sub | escape }}</div>
+          </div>
+        {% endfor %}
+      </div>
+      <div>
+        <div class="hc-eyebrow">{{ section.settings.right_eyebrow | escape }}</div>
+        <h3 class="hc-science__title">{{ section.settings.right_heading }}</h3>
+        <div class="hc-science__copy">{{ section.settings.copy }}</div>
+        <div class="hc-solution">
+          <div class="hc-solution__label">{{ section.settings.solution_label | escape }}</div>
+          <div class="hc-mini-tags">
+            {% assign tags = section.settings.solution_tags | split: ',' %}
+            {% for tag in tags %}<span class="hc-mini-tag">{{ tag | strip }}</span>{% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal Science",
+  "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID", "default": "science" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Science Most Brands Won't Explain" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "The Gut-Brain<br>Connection" },
+    { "type": "text", "id": "center_label", "label": "Cycle center", "default": "Cycle" },
+    { "type": "text", "id": "right_eyebrow", "label": "Right eyebrow", "default": "Why This Cycle Matters" },
+    { "type": "html", "id": "right_heading", "label": "Right heading", "default": "Your Gut Makes<br>90% of Your<br>Serotonin." },
+    { "type": "textarea", "id": "copy", "label": "Copy", "default": "Most people blame themselves when they can't stop stress eating. They shouldn't. When your gut is damaged, your brain chemistry follows, and willpower can't fix biology." },
+    { "type": "text", "id": "solution_label", "label": "Solution label", "default": "Our Formula Breaks the Cycle" },
+    { "type": "text", "id": "solution_tags", "label": "Solution tags", "default": "Protein -> neurotransmitter support, Prebiotic fiber -> microbiome health, Adaptogens -> cortisol regulation, 100 Clean Calories -> built-in portion control" }
+  ],
+  "blocks": [
+    { "type": "node", "name": "Cycle node", "settings": [
+      { "type": "text", "id": "label", "label": "Label", "default": "Stress" },
+      { "type": "text", "id": "sub", "label": "Subtext", "default": "Cortisol spikes" }
+    ] }
+  ],
+  "presets": [
+    {
+      "name": "100Cal Science",
+      "blocks": [
+        { "type": "node", "settings": { "label": "Stress", "sub": "Cortisol spikes" } },
+        { "type": "node", "settings": { "label": "Gut Damage", "sub": "Microbiome disrupted" } },
+        { "type": "node", "settings": { "label": "Mood Drops", "sub": "Serotonin depleted" } },
+        { "type": "node", "settings": { "label": "Cravings", "sub": "Hunger signals surge" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

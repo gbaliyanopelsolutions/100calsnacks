@@ -1,0 +1,63 @@
+
+<div class="hundred-cal">
+  <section class="hc-benefits" id="{{ section.settings.anchor_id }}">
+    <div class="hc-section-header">
+      <div class="hc-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="hc-title">{{ section.settings.heading }}</h2>
+      {% if section.settings.subheading != blank %}<p class="hc-copy">{{ section.settings.subheading }}</p>{% endif %}
+    </div>
+    <div class="hc-card-grid hc-card-grid--4">
+      {% for block in section.blocks %}
+        <article class="hc-benefit-card" {{ block.shopify_attributes }}>
+          <div class="hc-benefit-card__icon">{{ block.settings.icon | escape }}</div>
+          <h3 class="hc-benefit-card__title">{{ block.settings.title | escape }}</h3>
+          <div class="hc-benefit-card__result">{{ block.settings.result | escape }}</div>
+          <div class="hc-benefit-card__bar"></div>
+          <p class="hc-benefit-card__copy">{{ block.settings.copy }}</p>
+          <div class="hc-mini-tags">
+            {% assign tags = block.settings.tags | split: ',' %}
+            {% for tag in tags %}
+              <span class="hc-mini-tag">{{ tag | strip }}</span>
+            {% endfor %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal Benefits",
+  "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID", "default": "how-it-works" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "No Fillers. No Fluff. No Wasted Calories." },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Every Calorie<br>Earns Its Place" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "How It Works" }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon/mark", "default": "01" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Energy" },
+        { "type": "text", "id": "result", "label": "Result", "default": "No Sugar Crash" },
+        { "type": "textarea", "id": "copy", "label": "Copy", "default": "Protein and adaptogens help deliver steady, crash-free energy instead." },
+        { "type": "text", "id": "tags", "label": "Tags, comma separated", "default": "Ashwagandha, Nut Butters, Pea Protein" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "100Cal Benefits",
+      "blocks": [
+        { "type": "benefit" },
+        { "type": "benefit", "settings": { "icon": "02", "title": "Focus", "result": "Clearer Thinking", "copy": "When your microbiome is supported, your brain works better too.", "tags": "MCT Oil, Amla Berry, Rosemary" } },
+        { "type": "benefit", "settings": { "icon": "03", "title": "Digestion", "result": "Gut-Friendly Snacking", "copy": "Prebiotic fiber feeds the microbiome and supports smoother digestion.", "tags": "Chicory, Prebiotic Fiber, 0g Sugar Alcohols" } },
+        { "type": "benefit", "settings": { "icon": "04", "title": "Cravings", "result": "Calm Stress Eating", "copy": "Protein and fiber help steady hunger signals and prevent reactive snacking.", "tags": "Low Net Carbs, High Protein, High Fiber" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

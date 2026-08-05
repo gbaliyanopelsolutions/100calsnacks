@@ -1,0 +1,73 @@
+
+<div class="hundred-cal">
+  <footer class="hc-footer">
+    <div class="hc-footer__top">
+      <div>
+        {% if section.settings.logo != blank %}
+          {{ section.settings.logo | image_url: width: 220 | image_tag: loading: 'lazy', alt: shop.name, style: 'max-width:160px;height:auto;margin-bottom:18px;' }}
+        {% endif %}
+        <p class="hc-footer__bio">{{ section.settings.bio }}</p>
+        {% if section.settings.story_label != blank %}
+          <a href="{{ section.settings.story_link | default: '/pages/our-story' }}" style="font-family:var(--font-head);font-weight:900;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);text-decoration:none;margin-top:12px;display:inline-block;">{{ section.settings.story_label }}</a>
+        {% endif %}
+      </div>
+      {% for block in section.blocks %}
+        <div {{ block.shopify_attributes }}>
+          <div class="hc-footer__col-title">{{ block.settings.heading | escape }}</div>
+          {% if block.settings.menu != blank %}
+            <ul class="hc-footer__links">
+              {% for link in block.settings.menu.links %}
+                <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <ul class="hc-footer__links">
+              {% assign links = block.settings.fallback_links | newline_to_br | split: '<br />' %}
+              {% for item in links %}
+                <li><a href="#">{{ item | strip }}</a></li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="hc-footer__bottom">
+      <div>{{ section.settings.copyright }}</div>
+      <div class="hc-woman-badge">{{ section.settings.badge | escape }}</div>
+      <div>{{ section.settings.legal | escape }}</div>
+    </div>
+  </footer>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal Footer",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "textarea", "id": "bio", "label": "Bio", "default": "Built from the struggle. Engineered for the journey. 100 clean calories that support your gut, calm your brain, and prove that doing better doesn't mean settling." },
+    { "type": "text", "id": "story_label", "label": "Story link label", "default": "This is our founder's story ->" },
+    { "type": "url", "id": "story_link", "label": "Story link" },
+    { "type": "text", "id": "copyright", "label": "Copyright", "default": "Copyright 2026 100CalSnacks.com - All Rights Reserved" },
+    { "type": "text", "id": "badge", "label": "Badge", "default": "Woman-Owned Business" },
+    { "type": "text", "id": "legal", "label": "Legal", "default": "Privacy - Terms - Accessibility" }
+  ],
+  "blocks": [
+    { "type": "menu", "name": "Menu column", "settings": [
+      { "type": "text", "id": "heading", "label": "Heading", "default": "Shop" },
+      { "type": "link_list", "id": "menu", "label": "Menu" },
+      { "type": "textarea", "id": "fallback_links", "label": "Fallback links, one per line", "default": "Chocolate Brownie Bar\nPeanut Butter Bar\nBBQ Protein Puffs\nSubscribe & Save\nBundles" }
+    ] }
+  ],
+  "presets": [
+    {
+      "name": "100Cal Footer",
+      "blocks": [
+        { "type": "menu", "settings": { "heading": "Shop" } },
+        { "type": "menu", "settings": { "heading": "Learn", "fallback_links": "Gut Brain Health 101\nOur Science\nIngredient Index\nGLP-1 Guide\nBlog" } },
+        { "type": "menu", "settings": { "heading": "Community", "fallback_links": "#100CalPal\nInstagram\nTikTok\nAffiliate Program\nReviews" } },
+        { "type": "menu", "settings": { "heading": "Support", "fallback_links": "Our Story\nFAQ\nShipping & Returns\nFind In Store\nContact" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

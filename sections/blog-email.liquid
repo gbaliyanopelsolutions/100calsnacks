@@ -1,0 +1,26 @@
+<section class="email-section" data-section-type="blog-email">
+  <div class="email-inner">
+    <div>
+      <h2 class="email-h">{{ section.settings.heading }}</h2>
+      <p class="email-sub">{{ section.settings.subheading }}</p>
+    </div>
+    <div>
+      <form method="post" action="/contact#contact_form" class="email-form">
+        <input class="email-input" type="email" name="contact[email]" placeholder="your@email.com" required>
+        <button class="email-btn" type="submit">{{ section.settings.button_text }}</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Email CTA",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "New Reads, Straight to Your Inbox." },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "No filler. New articles, gut-brain research, and snack science — whenever we publish something worth reading." },
+    { "type": "text", "id": "button_text", "label": "Button text", "default": "Subscribe →" }
+  ],
+  "presets": [ { "name": "Email CTA", "category": "Blog" } ]
+}
+{% endschema %}

@@ -1,0 +1,154 @@
+
+<div class="benefits-strip" {{ section.shopify_attributes }}>
+  <div class="bs-inner">
+    {% for block in section.blocks %}
+      <div class="bs-item" {{ block.shopify_attributes }}>
+        <span class="bs-icon">{{ block.settings.icon }}</span>
+        <div class="bs-label">{{ block.settings.label }}</div>
+        <div class="bs-sub">{{ block.settings.subtext }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .benefits-strip {
+    background: var(--teal);
+    border-top: 2px solid var(--teal-dark);
+    border-bottom: 2px solid var(--teal-dark);
+    overflow: hidden;
+  }
+
+  .bs-inner {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  .bs-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 32px 40px;
+    flex: 1;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    transition: background 0.2s;
+  }
+
+  .bs-item:last-child {
+    border-right: none;
+  }
+
+  .bs-item:hover {
+    background: rgba(0, 0, 0, 0.06);
+  }
+
+  .bs-icon {
+    font-size: 26px;
+  }
+
+  .bs-label {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--black);
+    text-align: center;
+  }
+
+  .bs-sub {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+
+  @media (max-width: 1024px) {
+    .bs-item {
+      padding: 24px 20px;
+      gap: 6px;
+    }
+
+    .bs-label {
+      font-size: 11px;
+    }
+
+    .bs-sub {
+      font-size: 10px;
+    }
+
+    .bs-icon {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .bs-inner {
+      flex-wrap: wrap;
+    }
+
+    .bs-item {
+      flex: 0 1 calc(50% - 1px);
+      border-right: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 20px 16px;
+    }
+
+    .bs-item:nth-child(even) {
+      border-right: none;
+    }
+
+    .bs-item:nth-last-child(-n + 2) {
+      border-bottom: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Benefits Strip",
+  "class": "section-benefits-strip",
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon/Emoji",
+          "default": "🎯"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "100 Clean Calories"
+        },
+        {
+          "type": "text",
+          "id": "subtext",
+          "label": "Subtext",
+          "default": "Every single bar"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Benefits Strip",
+      "blocks": [
+        {"type": "benefit", "settings": {"icon": "🎯", "label": "100 Clean Calories", "subtext": "Every single bar"}},
+        {"type": "benefit", "settings": {"icon": "🚫", "label": "No Sugar Alcohols", "subtext": "Zero gut disruption"}},
+        {"type": "benefit", "settings": {"icon": "🌿", "label": "Prebiotic Fiber", "subtext": "Chicory Root"}},
+        {"type": "benefit", "settings": {"icon": "🧠", "label": "Adaptogens", "subtext": "KSM-66® Ashwagandha"}},
+        {"type": "benefit", "settings": {"icon": "🌾", "label": "Gluten-Free", "subtext": "No gut triggers"}},
+        {"type": "benefit", "settings": {"icon": "🔗", "label": "Gut-Brain Support", "subtext": "The whole point"}}
+      ]
+    }
+  ]
+}
+{% endschema %}

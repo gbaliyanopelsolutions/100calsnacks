@@ -1,0 +1,47 @@
+
+<div class="hundred-cal">
+  <section class="hc-faq" id="{{ section.settings.anchor_id }}" itemscope itemtype="https://schema.org/FAQPage">
+    <div class="hc-section-header">
+      <div class="hc-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="hc-title">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="hc-faq__inner">
+      {% for block in section.blocks %}
+        <details itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" {{ block.shopify_attributes }}>
+          <summary itemprop="name">{{ block.settings.question | escape }}</summary>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">{{ block.settings.answer }}</p>
+          </div>
+        </details>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal FAQ",
+  "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID", "default": "faq" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Got Questions?" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Frequently Asked" }
+  ],
+  "blocks": [
+    { "type": "question", "name": "Question", "settings": [
+      { "type": "text", "id": "question", "label": "Question", "default": "What makes 100CalSnacks different from other protein bars?" },
+      { "type": "textarea", "id": "answer", "label": "Answer", "default": "Most protein bars stop at macros. 100CalSnacks is built around the gut-brain axis with protein, fiber, adaptogens, and clean 100-calorie portion control." }
+    ] }
+  ],
+  "presets": [
+    {
+      "name": "100Cal FAQ",
+      "blocks": [
+        { "type": "question" },
+        { "type": "question", "settings": { "question": "Are 100CalSnacks good for weight loss?", "answer": "They can support a calorie-conscious plan by making portion control simple: 100 calories, meaningful protein, fiber, and no added sugar." } },
+        { "type": "question", "settings": { "question": "Can I eat these on GLP-1 medications?", "answer": "They are designed for easy, nutrient-dense snacking, but always consult your healthcare provider for dietary advice specific to your medication and health needs." } },
+        { "type": "question", "settings": { "question": "Are 100CalSnacks vegan and gluten-free?", "answer": "The current homepage copy positions the products as plant-based, gluten-free, non-GMO, and free from sugar alcohols. Confirm certifications before publishing final claims." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

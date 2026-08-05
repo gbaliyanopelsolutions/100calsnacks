@@ -1,0 +1,90 @@
+
+<div class="hc-policy-toc" {{ section.shopify_attributes }}>
+  <div class="hcpt-inner">
+    <div class="hcpt-label">On This Page</div>
+    {% assign first_link = true %}
+    {% for block in section.blocks %}
+      {% if block.type == 'toc_link' %}
+        <a href="{{ block.settings.anchor | escape }}"
+           class="hcpt-link{% if first_link %} active{% endif %}"
+           {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</a>
+        {% assign first_link = false %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% stylesheet %}
+.hc-policy-toc {
+  background: var(--platinum);
+  border-bottom: 1px solid rgba(15,18,19,.08);
+}
+.hc-policy-toc .hcpt-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 80px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hc-policy-toc .hcpt-inner::-webkit-scrollbar { display: none; }
+.hc-policy-toc .hcpt-label {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--black);
+  padding: 14px 20px 14px 0;
+  white-space: nowrap;
+  border-right: 1px solid rgba(15,18,19,.12);
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+.hc-policy-toc .hcpt-link {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink-mid);
+  text-decoration: none;
+  padding: 14px 16px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all .2s;
+  flex-shrink: 0;
+  display: block;
+}
+.hc-policy-toc .hcpt-link:hover {
+  color: var(--teal-dark);
+  border-bottom-color: var(--teal);
+}
+.hc-policy-toc .hcpt-link.active {
+  color: var(--teal-dark);
+  border-bottom-color: var(--teal);
+  font-weight: 600;
+}
+@media (max-width: 768px) {
+  .hc-policy-toc .hcpt-inner { padding: 0 24px; }
+}
+{% endstylesheet %}
+
+<script src="{{ '100cal-policy-toc.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Policy TOC",
+  "blocks": [
+    {
+      "type": "toc_link",
+      "name": "TOC link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Link label" },
+        { "type": "text", "id": "anchor", "label": "Anchor (e.g. #information)" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Policy TOC" }]
+}
+{% endschema %}

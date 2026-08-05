@@ -1,0 +1,171 @@
+
+<section class="hc-gb101-products" id="products" {{ section.shopify_attributes }}>
+  <div class="hcpr-inner">
+
+    <div class="hcpr-header fade-up">
+      <h2 class="hcpr-h">{{ section.settings.heading }}</h2>
+      <a href="{{ section.settings.shop_all_url | escape }}" class="hcpr-ghost-btn">{{ section.settings.shop_all_text | escape }}</a>
+    </div>
+
+    <div class="hcpr-grid fade-up fade-up-2">
+      {% for block in section.blocks %}
+        {% if block.type == 'product_card' %}
+          <a href="{{ block.settings.url | escape }}" class="hcpr-card" {{ block.shopify_attributes }}>
+            <div class="hcpr-visual" style="background:{{ block.settings.bg_gradient | escape }}">
+              {{ block.settings.visual_emoji | escape }}
+            </div>
+            <div class="hcpr-body">
+              <div class="hcpr-type" style="color:{{ block.settings.type_color | escape }}">{{ block.settings.type_label | escape }}</div>
+              <div class="hcpr-name">{{ block.settings.name | escape }}</div>
+              <div class="hcpr-line">{{ block.settings.line | escape }}</div>
+              <div class="hcpr-cta">Shop Now →</div>
+            </div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-gb101-products {
+  padding: 80px;
+  background: #161B1B;
+}
+.hc-gb101-products .hcpr-inner { max-width: 1200px; margin: 0 auto; }
+.hc-gb101-products .hcpr-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+}
+.hc-gb101-products .hcpr-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 52px;
+  line-height: .9;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.hc-gb101-products .hcpr-ghost-btn {
+  display: inline-block;
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 16px 40px;
+  background: transparent;
+  color: var(--white);
+  border: 2px solid rgba(255,255,255,.25);
+  text-decoration: none;
+  transition: all .25s;
+  white-space: nowrap;
+}
+.hc-gb101-products .hcpr-ghost-btn:hover { border-color: var(--white); background: rgba(255,255,255,.06); }
+.hc-gb101-products .hcpr-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: rgba(255,255,255,.05);
+}
+.hc-gb101-products .hcpr-card {
+  background: var(--black);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: all .3s;
+}
+.hc-gb101-products .hcpr-visual {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  transition: all .3s;
+  position: relative;
+}
+.hc-gb101-products .hcpr-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,.4));
+}
+.hc-gb101-products .hcpr-card:hover .hcpr-visual { filter: brightness(1.12); }
+.hc-gb101-products .hcpr-body { padding: 28px 28px 32px; }
+.hc-gb101-products .hcpr-type {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.hc-gb101-products .hcpr-name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 26px;
+  text-transform: uppercase;
+  color: var(--white);
+  letter-spacing: .5px;
+  margin-bottom: 6px;
+  line-height: 1;
+}
+.hc-gb101-products .hcpr-line {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(255,255,255,.4);
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+.hc-gb101-products .hcpr-cta {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--teal);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap .2s;
+}
+.hc-gb101-products .hcpr-card:hover .hcpr-cta { gap: 10px; }
+@media (max-width: 1024px) {
+  .hc-gb101-products { padding: 64px 40px; }
+  .hc-gb101-products .hcpr-grid { grid-template-columns: 1fr; }
+  .hc-gb101-products .hcpr-h { font-size: 40px; }
+}
+@media (max-width: 768px) {
+  .hc-gb101-products { padding: 48px 20px; }
+  .hc-gb101-products .hcpr-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GB101 Products",
+  "settings": [
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Gut-Brain Snacks<br>for Every Pattern" },
+    { "type": "text", "id": "shop_all_text", "label": "Shop all button text", "default": "Shop All →" },
+    { "type": "text", "id": "shop_all_url", "label": "Shop all URL", "default": "/collections/all" }
+  ],
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product card",
+      "settings": [
+        { "type": "text", "id": "bg_gradient", "label": "Visual gradient (CSS)", "default": "linear-gradient(145deg,#6B3010,#2C1503)" },
+        { "type": "text", "id": "visual_emoji", "label": "Visual emoji" },
+        { "type": "text", "id": "type_color", "label": "Type label colour (hex)", "default": "#C4854A" },
+        { "type": "text", "id": "type_label", "label": "Type label" },
+        { "type": "text", "id": "name", "label": "Product name" },
+        { "type": "textarea", "id": "line", "label": "Tagline" },
+        { "type": "text", "id": "url", "label": "URL" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "GB101 Products" }]
+}
+{% endschema %}

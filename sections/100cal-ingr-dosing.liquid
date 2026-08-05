@@ -1,0 +1,71 @@
+<section class="hc-ingr-dosing" {{ section.shopify_attributes }}>
+  <div class="dosing-inner">
+    <div class="dosing-left fade-up">
+      <div class="eyebrow" style="margin-bottom:14px">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="dosing-h">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="dosing-right fade-up fade-up-2">
+      <p class="dosing-body">{{ section.settings.body | escape | newline_to_br }}</p>
+      <div class="dosing-stats">
+        {% for block in section.blocks %}
+          {% if block.type == 'stat_card' %}
+            <div class="dosing-stat" {{ block.shopify_attributes }}>
+              <div class="dosing-stat-num">{{ block.settings.value | escape }}</div>
+              <div class="dosing-stat-label">{{ block.settings.label | escape }}</div>
+              <div class="dosing-stat-sub">{{ block.settings.subtext | escape }}</div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="dosing-callout">{{ section.settings.callout | escape | newline_to_br }}</div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-ingr-dosing { background: #C2EBEB; padding: 80px; }
+.hc-ingr-dosing .dosing-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start; }
+.hc-ingr-dosing .dosing-h { font-family: var(--font-head); font-weight: 900; font-size: 64px; line-height: .88; text-transform: uppercase; color: var(--black); }
+.hc-ingr-dosing .dosing-h em { font-style: italic; color: #3A9999; display: block; }
+.hc-ingr-dosing .dosing-body { font-family: var(--font-body); font-size: 16px; color: rgba(15,18,19,.65); line-height: 1.75; margin-bottom: 20px; }
+.hc-ingr-dosing .dosing-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin: 32px 0; }
+.hc-ingr-dosing .dosing-stat { background: #0F1213; padding: 24px 20px; }
+.hc-ingr-dosing .dosing-stat-num { font-family: var(--font-head); font-weight: 900; font-size: 44px; color: var(--teal); line-height: 1; margin-bottom: 6px; }
+.hc-ingr-dosing .dosing-stat-label { font-family: var(--font-head); font-weight: 700; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--white); margin-bottom: 8px; }
+.hc-ingr-dosing .dosing-stat-sub { font-family: var(--font-body); font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.5; }
+.hc-ingr-dosing .dosing-callout { border-left: 3px solid #3A9999; padding: 18px 22px; background: rgba(15,18,19,.05); font-family: var(--font-body); font-size: 15px; color: rgba(15,18,19,.65); line-height: 1.7; font-style: italic; }
+@media (max-width: 1024px) {
+  .hc-ingr-dosing { padding: 80px 40px; }
+  .hc-ingr-dosing .dosing-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hc-ingr-dosing .dosing-stats { grid-template-columns: 1fr; }
+  .hc-ingr-dosing .dosing-h { font-size: 48px; }
+}
+@media (max-width: 768px) {
+  .hc-ingr-dosing { padding: 60px 20px; }
+  .hc-ingr-dosing .dosing-h { font-size: 34px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Ingredients Dosing",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Formulation Standard" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Clinically Relevant<br>Levels in<br><em>100 Clean Calories.</em>" },
+    { "type": "textarea", "id": "body", "label": "Body copy", "default": "Most functional snacks include trace amounts of 'functional' ingredients - enough for the label, not enough to make a difference. We formulate differently. Every active ingredient is included at levels aligned with clinical research - so your gut and brain can actually use them." },
+    { "type": "textarea", "id": "callout", "label": "Callout quote", "default": "Every ingredient is chosen to earn its place. Functional nutrition without the caloric cost." }
+  ],
+  "blocks": [
+    {
+      "type": "stat_card",
+      "name": "Stat card",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "250mg" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Adaptogens per 100 Calories" },
+        { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Within the range used in clinical studies on cortisol and stress response" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Ingredients Dosing" }]
+}
+{% endschema %}

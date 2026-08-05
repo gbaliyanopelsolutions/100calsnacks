@@ -1,0 +1,106 @@
+<section class="hc-reviews-cta" {{ section.shopify_attributes }}>
+  <div class="rc-inner">
+    <h2 class="rc-h">{{ section.settings.heading }}</h2>
+    <p class="rc-sub">{{ section.settings.subheading | escape }}</p>
+    <div class="rc-btns">
+      {% if section.settings.primary_link != blank %}
+        <a href="{{ section.settings.primary_link }}" class="rc-btn-dark">{{ section.settings.primary_label | escape }}</a>
+      {% endif %}
+      {% if section.settings.secondary_link != blank %}
+        <a href="{{ section.settings.secondary_link }}" class="rc-btn-ghost">{{ section.settings.secondary_label | escape }}</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-reviews-cta {
+  background: var(--teal);
+  padding: 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hc-reviews-cta::before {
+  content: '★★★★★';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 200px;
+  color: rgba(0,0,0,.05);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: 20px;
+}
+.hc-reviews-cta .rc-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.hc-reviews-cta .rc-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 64px;
+  line-height: .88;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 14px;
+}
+.hc-reviews-cta .rc-sub {
+  font-family: var(--font-body);
+  font-size: 17px;
+  color: rgba(0,0,0,.55);
+  line-height: 1.7;
+  margin-bottom: 32px;
+  font-style: italic;
+}
+.hc-reviews-cta .rc-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.hc-reviews-cta .rc-btn-dark {
+  display: inline-block;
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 18px 44px;
+  background: var(--black);
+  color: var(--white);
+  text-decoration: none;
+  transition: background .2s;
+}
+.hc-reviews-cta .rc-btn-dark:hover { background: #1a1a1a; }
+.hc-reviews-cta .rc-btn-ghost {
+  display: inline-block;
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  background: transparent;
+  color: var(--black);
+  border: 2px solid rgba(0,0,0,.2);
+  text-decoration: none;
+  transition: all .2s;
+}
+.hc-reviews-cta .rc-btn-ghost:hover { border-color: var(--black); }
+@media (max-width: 1024px) { .hc-reviews-cta { padding: 60px 40px; } .hc-reviews-cta .rc-h { font-size: 48px; } }
+@media (max-width: 768px) { .hc-reviews-cta { padding: 50px 20px; } .hc-reviews-cta .rc-h { font-size: 36px; } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Reviews Bottom CTA",
+  "settings": [
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Ready to<br>Try It?" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Join 1,200+ people who found a snack worth coming back to." },
+    { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Shop the Collection →" },
+    { "type": "url", "id": "primary_link", "label": "Primary button link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "Take the Quiz" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary button link" }
+  ],
+  "presets": [{ "name": "Reviews Bottom CTA" }]
+}
+{% endschema %}

@@ -1,0 +1,60 @@
+<section class="taste-section">
+  <div class="taste-inner">
+    <div>
+      <div class="taste-eyebrow">{{ section.settings.taste_eyebrow | escape }}</div>
+      <h2 class="taste-headline">{{ section.settings.taste_headline | newline_to_br }}</h2>
+      <ul class="taste-bullets">
+        <li><span class="tb-dot"></span>{{ section.settings.taste_bullet_1 }}</li>
+        <li><span class="tb-dot"></span>{{ section.settings.taste_bullet_2 }}</li>
+        <li><span class="tb-dot"></span>{{ section.settings.taste_bullet_3 }}</li>
+      </ul>
+      <p class="taste-caption">{{ section.settings.taste_caption }}</p>
+      <p class="taste-conversion">{{ section.settings.taste_conversion }}</p>
+    </div>
+
+    <div class="taste-visual">
+      <div class="bar-break-visual">
+        <div class="bb-piece-1"></div>
+        <div class="bb-piece-2"></div>
+      </div>
+      <div class="bar-annotations">
+        <div class="bar-annot">
+          <span class="bar-annot-arrow">←</span>
+          <div class="bar-annot-text"><strong>{{ section.settings.annotation_1_title }}</strong>{{ section.settings.annotation_1_copy }}</div>
+        </div>
+        <div class="bar-annot">
+          <span class="bar-annot-arrow">←</span>
+          <div class="bar-annot-text"><strong>{{ section.settings.annotation_2_title }}</strong>{{ section.settings.annotation_2_copy }}</div>
+        </div>
+        <div class="bar-annot">
+          <span class="bar-annot-arrow">←</span>
+          <div class="bar-annot-text"><strong>{{ section.settings.annotation_3_title }}</strong>{{ section.settings.annotation_3_copy }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "100Cal Taste & Texture",
+  "settings": [
+    { "type": "text", "id": "taste_eyebrow", "label": "Eyebrow", "default": "Taste & Texture" },
+    { "type": "textarea", "id": "taste_headline", "label": "Headline", "default": "Dense.\nFudgy.\nReal Chocolate." },
+    { "type": "text", "id": "taste_bullet_1", "label": "Bullet 1", "default": "Soft brownie texture" },
+    { "type": "text", "id": "taste_bullet_2", "label": "Bullet 2", "default": "Rich organic cocoa" },
+    { "type": "text", "id": "taste_bullet_3", "label": "Bullet 3", "default": "No chalky protein aftertaste" },
+    { "type": "textarea", "id": "taste_caption", "label": "Caption", "default": "Tastes like a brownie. Not a protein bar." },
+    { "type": "textarea", "id": "taste_conversion", "label": "Conversion text", "default": "No weird sweeteners. Just real chocolate." },
+    { "type": "text", "id": "annotation_1_title", "label": "Annotation 1 title", "default": "Fudgy center" },
+    { "type": "textarea", "id": "annotation_1_copy", "label": "Annotation 1 copy", "default": "Dense, moist texture — not dry, not crumbly" },
+    { "type": "text", "id": "annotation_2_title", "label": "Annotation 2 title", "default": "Real cocoa" },
+    { "type": "textarea", "id": "annotation_2_copy", "label": "Annotation 2 copy", "default": "Organic cocoa powder — rich, not artificial" },
+    { "type": "text", "id": "annotation_3_title", "label": "Annotation 3 title", "default": "Soft bite" },
+    { "type": "textarea", "id": "annotation_3_copy", "label": "Annotation 3 copy", "default": "No hard edges, no waxy coating" }
+  ],
+  "presets": [
+    { "name": "Taste & Texture" }
+  ]
+}
+{% endschema %}

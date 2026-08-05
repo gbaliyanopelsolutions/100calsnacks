@@ -1,0 +1,90 @@
+<section class="hc-story-letter" {{ section.shopify_attributes }}>
+  <div class="sl-inner fade-up">
+    <div class="sl-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+    <div class="sl-body">{{ section.settings.letter_body }}</div>
+    <div class="sl-sig">
+      <div class="sl-sig-name">{{ section.settings.sig_name | escape }}</div>
+      <div class="sl-sig-title">{{ section.settings.sig_title | escape }}</div>
+      <div class="sl-sig-tagline">{{ section.settings.sig_tagline | escape }}</div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-story-letter {
+  --ink: #1A1A1A;
+  --ink-light: #888;
+  background: var(--white);
+  padding: 120px 80px;
+}
+.hc-story-letter .sl-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.hc-story-letter .sl-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-bottom: 32px;
+}
+.hc-story-letter .sl-body {
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: var(--ink);
+  line-height: 1.9;
+  margin-bottom: 48px;
+}
+.hc-story-letter .sl-body p { margin-bottom: 24px; }
+.hc-story-letter .sl-body p:last-child { margin-bottom: 0; }
+.hc-story-letter .sl-sig {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 40px;
+  border-top: 2px solid #EAE9E5;
+}
+.hc-story-letter .sl-sig-name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 28px;
+  text-transform: uppercase;
+  color: var(--black);
+  line-height: 1;
+}
+.hc-story-letter .sl-sig-title {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink-light);
+}
+.hc-story-letter .sl-sig-tagline {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-top: 8px;
+}
+@media (max-width: 1024px) { .hc-story-letter { padding: 80px 40px; } }
+@media (max-width: 768px) {
+  .hc-story-letter { padding: 60px 20px; }
+  .hc-story-letter .sl-body { font-size: 16px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Story Founder Letter",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "A Note from the Founder" },
+    { "type": "html", "id": "letter_body", "label": "Letter body (HTML)", "default": "<p>If you've read this far — thank you. Genuinely.</p><p>Building 100CalSnacks has been the hardest and most rewarding thing I've ever done. There were moments I wasn't sure we'd make it. Moments where the easier path would have been to cut corners, use cheaper ingredients, make the snacks taste a little less real in exchange for a better margin.</p><p>I never did. And I won't.</p><p>Because this brand isn't a business to me first — it's a commitment. To everyone who's ever stood in a grocery store aisle feeling like there's nothing there for them. To everyone managing stress and gut health and trying to figure out how to eat well without it feeling like punishment. To everyone who just wants a snack they can trust.</p><p>You deserve better. We're here to give it to you.</p><p>And if you ever want to talk — about the products, about the science, about your own journey — my door is open. That's not a marketing line. That's just how we do things here.</p>" },
+    { "type": "text", "id": "sig_name", "label": "Signature name", "default": "Tapasya Bali" },
+    { "type": "textarea", "id": "sig_title", "label": "Signature title", "default": "Founder & CEO · 100CalSnacks · Goldman Sachs 100 Most Intriguing Entrepreneur" },
+    { "type": "text", "id": "sig_tagline", "label": "Signature tagline", "default": "Keepin' Snacks 100® — always." }
+  ],
+  "presets": [{ "name": "Story Founder Letter" }]
+}
+{% endschema %}

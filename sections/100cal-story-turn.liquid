@@ -1,0 +1,155 @@
+<section class="hc-story-turn" {{ section.shopify_attributes }}>
+  <div class="st-inner">
+    <div class="st-left fade-up">
+      <div class="st-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="st-h">{{ section.settings.heading }}</h2>
+      <div class="st-body">{{ section.settings.body }}</div>
+    </div>
+    <div class="st-stats fade-up fade-up-2">
+      {% for block in section.blocks %}
+        {% if block.type == 'stat_card' %}
+          {% assign color_index = forloop.index | modulo: 4 %}
+          {% if color_index == 0 %}{% assign color_index = 4 %}{% endif %}
+          <div class="st-stat color-{{ color_index }}" {{ block.shopify_attributes }}>
+            <div class="st-stat-num">{{ block.settings.stat_num | escape }}</div>
+            <div class="st-stat-label">{{ block.settings.stat_label | escape }}</div>
+            <div class="st-stat-sub">{{ block.settings.stat_sub | escape }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-story-turn {
+  background: var(--black);
+  padding: 120px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hc-story-turn::before {
+  content: 'BORN';
+  position: absolute;
+  right: -40px;
+  bottom: -40px;
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 320px;
+  color: rgba(255,255,255,.025);
+  line-height: 1;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+.hc-story-turn .st-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.hc-story-turn .st-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 20px;
+}
+.hc-story-turn .st-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 72px;
+  line-height: .88;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 28px;
+}
+.hc-story-turn .st-h em {
+  font-style: italic;
+  color: var(--teal);
+  display: block;
+}
+.hc-story-turn .st-body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  color: rgba(255,255,255,.7);
+  line-height: 1.85;
+}
+.hc-story-turn .st-body p { margin-bottom: 20px; }
+.hc-story-turn .st-body p:last-child { margin-bottom: 0; }
+.hc-story-turn .st-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: rgba(255,255,255,.05);
+}
+.hc-story-turn .st-stat {
+  padding: 32px 36px;
+  border-left: 4px solid transparent;
+}
+.hc-story-turn .st-stat.color-1 { border-left-color: var(--teal); }
+.hc-story-turn .st-stat.color-2 { border-left-color: var(--orange); }
+.hc-story-turn .st-stat.color-3 { border-left-color: var(--yellow); }
+.hc-story-turn .st-stat.color-4 { border-left-color: var(--teal-pastel); }
+.hc-story-turn .st-stat-num {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 52px;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.hc-story-turn .st-stat-label {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+}
+.hc-story-turn .st-stat-sub {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: rgba(255,255,255,.4);
+  line-height: 1.5;
+  margin-top: 4px;
+}
+@media (max-width: 1024px) {
+  .hc-story-turn { padding: 80px 40px; }
+  .hc-story-turn .st-inner { grid-template-columns: 1fr; gap: 48px; }
+  .hc-story-turn .st-h { font-size: 56px; }
+}
+@media (max-width: 768px) {
+  .hc-story-turn { padding: 60px 20px; }
+  .hc-story-turn .st-h { font-size: 44px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Story The Turn",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Moment Everything Changed" },
+    { "type": "html", "id": "heading", "label": "Heading (HTML)", "default": "So I Made<br><em>My Own.</em>" },
+    { "type": "html", "id": "body", "label": "Body (HTML with p tags)", "default": "<p>100CalSnacks was born from a simple idea: snacking should nourish you, not punish you. That every calorie should earn its place. That you can have something that tastes like a real treat and works like a functional supplement — at the same time.</p><p>I went deep on the science. Gut-brain axis. Prebiotic fiber. Adaptogens. Ashwagandha. The connection between what you eat and how you think, feel, and handle stress. And I built snacks around that science instead of around margins and marketing.</p><p>No sugar alcohols. No palm oil. No artificial anything. Zero compromise on what goes inside — and zero compromise on taste.</p>" }
+  ],
+  "blocks": [
+    {
+      "type": "stat_card",
+      "name": "Stat card",
+      "settings": [
+        { "type": "text", "id": "stat_num", "label": "Stat number", "default": "5" },
+        { "type": "text", "id": "stat_label", "label": "Stat label", "default": "Surgeries" },
+        { "type": "text", "id": "stat_sub", "label": "Stat subtext", "default": "The turning point that made this brand inevitable" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Story The Turn" }]
+}
+{% endschema %}

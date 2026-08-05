@@ -1,0 +1,74 @@
+
+<div class="hundred-cal">
+  <div class="hc-strip hc-strip--{{ section.settings.style }}">
+    <div class="hc-strip__inner">
+      {% for block in section.blocks %}
+        <div class="hc-strip__item" {{ block.shopify_attributes }}>
+          {% if block.settings.icon != blank %}<span>{{ block.settings.icon | escape }}</span>{% endif %}
+          <span>{{ block.settings.label | escape }}</span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal Icon Strip",
+  "settings": [
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Style",
+      "default": "teal",
+      "options": [
+        { "value": "teal", "label": "Teal trust bar" },
+        { "value": "light", "label": "Light value bar" },
+        { "value": "black", "label": "Black clean label bar" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon or mark", "default": "+" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Clean Functional Nutrition" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "100Cal Trust Strip",
+      "settings": { "style": "teal" },
+      "blocks": [
+        { "type": "item", "settings": { "icon": "OK", "label": "Clinically Studied Ingredients" } },
+        { "type": "item", "settings": { "icon": "OK", "label": "Adaptogen & Antioxidant Superfoods" } },
+        { "type": "item", "settings": { "icon": "OK", "label": "Clean Functional Nutrition" } }
+      ]
+    },
+    {
+      "name": "100Cal Value Strip",
+      "settings": { "style": "light" },
+      "blocks": [
+        { "type": "item", "settings": { "icon": "", "label": "Gut-Brain Balance" } },
+        { "type": "item", "settings": { "icon": "", "label": "Calms Cravings" } },
+        { "type": "item", "settings": { "icon": "", "label": "Sustained Energy" } },
+        { "type": "item", "settings": { "icon": "", "label": "Just 100 Calories" } }
+      ]
+    },
+    {
+      "name": "100Cal Clean Label Strip",
+      "settings": { "style": "black" },
+      "blocks": [
+        { "type": "item", "settings": { "icon": "", "label": "Non-GMO" } },
+        { "type": "item", "settings": { "icon": "", "label": "100% Natural" } },
+        { "type": "item", "settings": { "icon": "", "label": "Gluten-Free" } },
+        { "type": "item", "settings": { "icon": "", "label": "No Added Sugars" } },
+        { "type": "item", "settings": { "icon": "", "label": "No Sugar Alcohols" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

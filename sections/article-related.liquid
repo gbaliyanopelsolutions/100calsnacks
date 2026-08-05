@@ -1,0 +1,84 @@
+{%- if section.blocks.size > 0 -%}
+<section class="related-section">
+  <div class="related-inner">
+    <div class="related-header">
+      <h2 class="related-h">{{ section.settings.heading }}</h2>
+      {%- if section.settings.see_all_url != blank -%}
+        <a href="{{ section.settings.see_all_url }}" class="related-all">{{ section.settings.see_all_text }}</a>
+      {%- endif -%}
+    </div>
+    <div class="related-grid">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.url | default: '#' }}" class="related-card" {{ block.shopify_attributes }}>
+          <div class="rc-cat">{{ block.settings.category }}</div>
+          <div class="rc-h">{{ block.settings.title }}</div>
+          {%- if block.settings.excerpt != blank -%}
+            <p class="rc-excerpt">{{ block.settings.excerpt }}</p>
+          {%- endif -%}
+          <div class="rc-meta">{{ block.settings.meta }}</div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Related Reads",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Related Reads" },
+    { "type": "text", "id": "see_all_text", "label": "See all text", "default": "All Articles →" },
+    { "type": "url", "id": "see_all_url", "label": "See all URL" }
+  ],
+  "blocks": [
+    {
+      "type": "related_article",
+      "name": "Related Article",
+      "settings": [
+        { "type": "text", "id": "category", "label": "Category", "default": "Gut-Brain Health" },
+        { "type": "text", "id": "title", "label": "Title", "default": "How Your Microbiome Talks to Your Brain" },
+        { "type": "textarea", "id": "excerpt", "label": "Excerpt", "default": "The vagus nerve, serotonin production, and how 38 trillion microbes are quietly running the show." },
+        { "type": "text", "id": "meta", "label": "Date & read time", "default": "Jan 2026 · 7 min read" },
+        { "type": "url", "id": "url", "label": "Article URL" }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Related Reads",
+      "category": "Article",
+      "blocks": [
+        {
+          "type": "related_article",
+          "settings": {
+            "category": "Gut-Brain Health",
+            "title": "How Your Microbiome Talks to Your Brain",
+            "excerpt": "The vagus nerve, serotonin production, and how 38 trillion microbes are quietly running the show.",
+            "meta": "Jan 2026 · 7 min read"
+          }
+        },
+        {
+          "type": "related_article",
+          "settings": {
+            "category": "Ingredients That Matter",
+            "title": "What Prebiotic Fiber Actually Does to Your Microbiome",
+            "excerpt": "Not all fiber is the same. Here's the specific mechanism that makes prebiotic fiber different.",
+            "meta": "Jan 2026 · 6 min read"
+          }
+        },
+        {
+          "type": "related_article",
+          "settings": {
+            "category": "Energy, Mood & Cravings",
+            "title": "Why Stress Makes You Crave Sugar — And What to Do About It",
+            "excerpt": "The cortisol-craving loop is predictable. Once you see it, you can interrupt it.",
+            "meta": "Feb 2026 · 5 min read"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

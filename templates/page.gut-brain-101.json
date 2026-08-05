@@ -1,0 +1,572 @@
+{
+  "sections": {
+    "gb101_hero": {
+      "type": "100cal-gb101-hero",
+      "settings": {
+        "eyebrow": "Gut-Brain Nutrition 101",
+        "heading": "Your Gut Feeds<br>Your <em>Brain.</em>",
+        "subheading": "Your gut and brain communicate constantly. What you snack on shapes your energy, focus, and cravings.",
+        "primary_label": "Take the Gut-Brain Quiz →",
+        "secondary_label": "Learn the Science ↓",
+        "secondary_link": "#what-is-axis",
+        "scroll_hint": "Scroll to explore"
+      }
+    },
+    "gb101_signs": {
+      "type": "100cal-gb101-signs",
+      "blocks": {
+        "sign_energy": {
+          "type": "sign_card",
+          "settings": {
+            "icon": "⚡",
+            "title": "Afternoon Energy Crashes",
+            "body": "A daily 2–4pm slump often means unstable blood sugar and an under-fuelled gut-brain axis. Your brain needs steady energy, not sugar spikes."
+          }
+        },
+        "sign_cravings": {
+          "type": "sign_card",
+          "settings": {
+            "icon": "😤",
+            "title": "Stress-Driven Cravings",
+            "body": "When cortisol rises, your gut sends urgent hunger signals. If you snack when stressed — not hungry — your gut-brain axis may be stuck in a cortisol loop."
+          }
+        },
+        "sign_bloating": {
+          "type": "sign_card",
+          "settings": {
+            "icon": "🌀",
+            "title": "Bloating After Meals",
+            "body": "Frequent bloating can signal microbiome imbalance. When gut diversity drops, digestion slows and gut-brain communication becomes noisy."
+          }
+        },
+        "sign_fog": {
+          "type": "sign_card",
+          "settings": {
+            "icon": "🧠",
+            "title": "Brain Fog or Mood Dips",
+            "body": "About 95% of serotonin is produced in the gut. When the microbiome is off, mood, clarity, and emotional balance can suffer."
+          }
+        },
+        "sign_satiety": {
+          "type": "sign_card",
+          "settings": {
+            "icon": "🔄",
+            "title": "Never Feeling Satisfied",
+            "body": "If hunger returns soon after eating, your satiety hormones may not be signalling properly — a common gut-brain communication gap."
+          }
+        },
+        "sign_sleep": {
+          "type": "sign_card",
+          "settings": {
+            "icon": "😴",
+            "title": "Disrupted Sleep or Recovery",
+            "body": "The gut-brain axis regulates melatonin and sleep signaling. Microbiome imbalance can quietly affect sleep and recovery."
+          }
+        }
+      },
+      "block_order": ["sign_energy","sign_cravings","sign_bloating","sign_fog","sign_satiety","sign_sleep"],
+      "settings": {
+        "eyebrow": "Know the Signals",
+        "heading": "Signs Your Gut-Brain Axis<br>Needs Support",
+        "sub": "These aren't random bad days. Your body is sending signals that the gut-brain axis is out of balance.",
+        "callout_text": "Do any of these sound familiar? They're often signals your gut-brain axis needs support — and the right snacks can help restore balance.",
+        "callout_label": "Find Your Pattern →",
+        "callout_link": "#archetypes"
+      }
+    },
+    "gb101_axis": {
+      "type": "100cal-gb101-axis",
+      "blocks": {
+        "ch_vagus": {
+          "type": "axis_channel",
+          "settings": {
+            "name": "Vagus Nerve",
+            "color": "teal",
+            "description": "Real-time electrical signals between brain and gut — the body's primary two-way highway"
+          }
+        },
+        "ch_hormones": {
+          "type": "axis_channel",
+          "settings": {
+            "name": "Hormones",
+            "color": "yellow",
+            "description": "Cortisol, serotonin, and ghrelin regulate mood, stress, and hunger in both directions"
+          }
+        },
+        "ch_microbes": {
+          "type": "axis_channel",
+          "settings": {
+            "name": "Gut Microbes",
+            "color": "orange",
+            "description": "Bacteria produce 95% of your body's serotonin, signalling the brain from below"
+          }
+        },
+        "pt_mood": {
+          "type": "axis_point",
+          "settings": { "text": "Mood and emotional regulation" }
+        },
+        "pt_energy": {
+          "type": "axis_point",
+          "settings": { "text": "Energy levels and mental alertness" }
+        },
+        "pt_hunger": {
+          "type": "axis_point",
+          "settings": { "text": "Hunger signals and cravings" }
+        },
+        "pt_digestion": {
+          "type": "axis_point",
+          "settings": { "text": "Digestion and gut comfort" }
+        },
+        "pt_immune": {
+          "type": "axis_point",
+          "settings": { "text": "Immune resilience and inflammation" }
+        }
+      },
+      "block_order": ["ch_vagus","ch_hormones","ch_microbes","pt_mood","pt_energy","pt_hunger","pt_digestion","pt_immune"],
+      "settings": {
+        "brain_icon": "🧠",
+        "brain_label": "Brain",
+        "brain_sub": "Mood · Focus · Stress Response · Sleep",
+        "gut_icon": "🦠",
+        "gut_label": "Gut",
+        "gut_sub": "Digestion · Microbiome · Immunity · Energy",
+        "diagram_caption": "Signals travel in both directions — 24 hours a day",
+        "eyebrow": "The Science",
+        "heading": "Your Gut and Brain<br>Are Always Talking",
+        "body": "The gut brain connection is one of the most important — and most overlooked — systems in your body. Your gut and brain are linked by a powerful two-way network called the gut-brain axis: a system of nerves, hormones, and neurotransmitters that runs between your digestive system and your brain. Scientists call the primary pathway the vagus nerve.",
+        "callout": "When the gut is inflamed or out of balance, the brain feels it — and vice versa. This is why snacking isn't just about calories. It's about communication."
+      }
+    },
+    "gb101_micro": {
+      "type": "100cal-gb101-micro",
+      "blocks": {
+        "stat_microbes": {
+          "type": "micro_stat",
+          "settings": {
+            "num": "38T",
+            "label": "Microbes in the gut",
+            "sub": "Bacteria, viruses, and fungi that shape your health"
+          }
+        },
+        "stat_serotonin": {
+          "type": "micro_stat",
+          "settings": {
+            "num": "95%",
+            "label": "Of serotonin made in gut",
+            "sub": "The mood neurotransmitter is primarily gut-produced"
+          }
+        },
+        "stat_species": {
+          "type": "micro_stat",
+          "settings": {
+            "num": "500+",
+            "label": "Microbial species",
+            "sub": "Diversity is linked to better health outcomes"
+          }
+        },
+        "stat_immune": {
+          "type": "micro_stat",
+          "settings": {
+            "num": "70%",
+            "label": "Of immune cells in gut",
+            "sub": "Your digestive system is your largest immune organ"
+          }
+        },
+        "pt_digest": {
+          "type": "micro_point",
+          "settings": { "text": "Digest nutrients and produce vitamins" }
+        },
+        "pt_inflam": {
+          "type": "micro_point",
+          "settings": { "text": "Regulate inflammation throughout the body" }
+        },
+        "pt_mood": {
+          "type": "micro_point",
+          "settings": { "text": "Influence mood, cognition, and mental clarity" }
+        },
+        "pt_hunger": {
+          "type": "micro_point",
+          "settings": { "text": "Signal hunger, fullness, and food cravings" }
+        }
+      },
+      "block_order": ["stat_microbes","stat_serotonin","stat_species","stat_immune","pt_digest","pt_inflam","pt_mood","pt_hunger"],
+      "settings": {
+        "eyebrow": "The Microbiome",
+        "heading": "Why the Microbiome Matters",
+        "body_intro": "Your gut microbiome health depends on what you eat more than almost any other factor. Your gut is home to trillions of beneficial microbes — bacteria, viruses, and fungi — that act as a second command centre for your body. Foods that support the microbiome build diversity; ultra-processed foods deplete it.",
+        "list_subhead": "Your microbiome helps:",
+        "closing_body": "Every snack is a vote for or against that balance."
+      }
+    },
+    "gb101_snacks": {
+      "type": "100cal-gb101-snacks",
+      "blocks": {
+        "sig_gut": {
+          "type": "signal_card",
+          "settings": {
+            "icon": "🦠",
+            "title": "Feed the Gut, Signal the Brain",
+            "body": "Prebiotic fiber feeds beneficial gut bacteria. A strong microbiome produces more serotonin, reduces inflammation, and sends clear signals to the brain — for better mood and focus."
+          }
+        },
+        "sig_cortisol": {
+          "type": "signal_card",
+          "settings": {
+            "icon": "🌿",
+            "title": "Calm the Cortisol Loop",
+            "body": "Adaptogens help regulate cortisol — the stress hormone that drives cravings and reactive eating. When cortisol stabilizes, gut-brain stress signals quiet down and energy becomes more balanced."
+          }
+        },
+        "sig_satiety": {
+          "type": "signal_card",
+          "settings": {
+            "icon": "💪",
+            "title": "Trigger Real Satiety Signals",
+            "body": "Protein and fiber activate gut hormones that signal fullness to the brain. Together they stabilize blood sugar and help prevent cravings between meals."
+          }
+        },
+        "sig_antioxidant": {
+          "type": "signal_card",
+          "settings": {
+            "icon": "🍇",
+            "title": "Protect with Antioxidants",
+            "body": "Antioxidant-rich whole foods reduce oxidative stress along the gut-brain axis. This helps protect the gut lining and supports healthy communication between gut and brain."
+          }
+        },
+        "ben_sugar_alcohols": {
+          "type": "benefit_cell",
+          "settings": {
+            "num": "0g",
+            "label": "Sugar Alcohols",
+            "body": "Erythritol and maltitol are common gut irritants. We use none. Sweetness from monk fruit only."
+          }
+        },
+        "ben_palm_oil": {
+          "type": "benefit_cell",
+          "settings": {
+            "num": "0g",
+            "label": "Palm Oil",
+            "body": "Linked to inflammation and environmental harm. Our fats come from almond butter, MCT oil, and flaxseed."
+          }
+        },
+        "ben_sugar": {
+          "type": "benefit_cell",
+          "settings": {
+            "num": "0g",
+            "label": "Added Sugar",
+            "body": "Zero added sugar means no glucose spike, no insulin crash, and no disruption to your gut microbiome."
+          }
+        },
+        "ben_artificial": {
+          "type": "benefit_cell",
+          "settings": {
+            "num": "0",
+            "label": "Artificial Anything",
+            "body": "No artificial sweeteners, colors, or flavors. Your microbiome struggles with ultra-processed ingredients — ours doesn't use them."
+          }
+        }
+      },
+      "block_order": ["sig_gut","sig_cortisol","sig_satiety","sig_antioxidant","ben_sugar_alcohols","ben_palm_oil","ben_sugar","ben_artificial"],
+      "settings": {
+        "eyebrow": "What We Actually Do",
+        "heading": "4 Ways Snacks Support Your<br>Gut-Brain Axis",
+        "header_body": "The gut-brain axis regulates stress, cravings, energy, mood, and focus. Snacks built with fiber, protein, and adaptogens help support these pathways. Here's how they work."
+      }
+    },
+    "gb101_archetypes": {
+      "type": "100cal-gb101-archetypes",
+      "blocks": {
+        "arch_focus": {
+          "type": "archetype",
+          "settings": {
+            "type": "focus",
+            "icon": "🧠⚡",
+            "type_name": "Focus Fueler",
+            "tagline": "Energy + Cognitive Performance",
+            "exp1": "Mid-afternoon energy dips and brain fog",
+            "exp2": "Reaching for quick calories to push through",
+            "exp3": "Focus fade after lunch",
+            "helps_text": "Balanced protein + prebiotic fiber to support sustained energy and cognitive fuel without a crash.",
+            "product_name": "Chocolate Brownie Bar",
+            "product_url": "/products/chocolate-brownie-bar"
+          }
+        },
+        "arch_calm": {
+          "type": "archetype",
+          "settings": {
+            "type": "calm",
+            "icon": "🌿✨",
+            "type_name": "Calm Operator",
+            "tagline": "Stress Balance + Gut Comfort",
+            "exp1": "Stress eating or snacking when overwhelmed",
+            "exp2": "Digestive tightness during anxious periods",
+            "exp3": "Hard to stay balanced between meals",
+            "helps_text": "Protein, healthy fats, and adaptogenic ingredients to support calm energy and a balanced stress response.",
+            "product_name": "Peanut Butter Bar",
+            "product_url": "/products/peanut-butter-bar"
+          }
+        },
+        "arch_craving": {
+          "type": "archetype",
+          "settings": {
+            "type": "craving",
+            "icon": "🔥💪",
+            "type_name": "Craving Crusher",
+            "tagline": "Satisfaction + Craving Control",
+            "exp1": "Late afternoon hunger that feels uncontrollable",
+            "exp2": "Strong cravings for salty or crunchy foods",
+            "exp3": "Difficulty feeling satisfied between meals",
+            "helps_text": "Crunchy low carb snacks with protein + fiber that hit the craving signal and trigger real fullness.",
+            "product_name": "BBQ Protein Puffs",
+            "product_url": "/products/bbq-protein-puffs"
+          }
+        },
+        "prev_choc": {
+          "type": "product_preview",
+          "settings": {
+            "type": "focus",
+            "emoji": "🍫",
+            "name": "Chocolate Brownie Bar",
+            "type_label": "Focus Fueler",
+            "url": "/products/chocolate-brownie-bar"
+          }
+        },
+        "prev_pb": {
+          "type": "product_preview",
+          "settings": {
+            "type": "calm",
+            "emoji": "🥜",
+            "name": "Peanut Butter Bar",
+            "type_label": "Calm Operator",
+            "url": "/products/peanut-butter-bar"
+          }
+        },
+        "prev_bbq": {
+          "type": "product_preview",
+          "settings": {
+            "type": "craving",
+            "emoji": "🌶️",
+            "name": "BBQ Protein Puffs",
+            "type_label": "Craving Crusher",
+            "url": "/products/bbq-protein-puffs"
+          }
+        }
+      },
+      "block_order": ["arch_focus","arch_calm","arch_craving","prev_choc","prev_pb","prev_bbq"],
+      "settings": {
+        "eyebrow": "The 3 Gut-Brain Patterns",
+        "heading": "Which Gut-Brain Pattern Fits You?",
+        "sub": "Most people consistently experience one dominant gut-brain pattern. Recognizing yours is the first step to snacking with intention.",
+        "quiz_heading": "Not Sure Which Gut-Brain Pattern Fits You?",
+        "quiz_sub": "Take the free 60-second quiz → Discover your gut-brain score, your dominant pattern, and the snack designed for your body.",
+        "quiz_btn_text": "Take the Quiz →",
+        "quiz_url": "/pages/gut-brain-quiz",
+        "preview_eyebrow": "Designed for These Patterns"
+      }
+    },
+    "gb101_ingredients": {
+      "type": "100cal-gb101-ingredients",
+      "blocks": {
+        "ingr_protein": {
+          "type": "ingr_card",
+          "settings": {
+            "icon": "🌱",
+            "name": "Plant Protein",
+            "benefit": "Sustained Energy · Satiety",
+            "desc": "Slows glucose absorption and triggers satiety hormones. Protein signals the brain that you're full — for longer."
+          }
+        },
+        "ingr_fiber": {
+          "type": "ingr_card",
+          "settings": {
+            "icon": "🫘",
+            "name": "Prebiotic Fiber",
+            "benefit": "Microbiome Support · Digestion",
+            "desc": "Chicory root fiber feeds beneficial bacteria in your gut, supporting microbial diversity and healthy digestive activity."
+          }
+        },
+        "ingr_ashwagandha": {
+          "type": "ingr_card",
+          "settings": {
+            "icon": "🌿",
+            "name": "KSM-66® Ashwagandha",
+            "benefit": "Stress Balance · Cortisol Control",
+            "desc": "A clinically studied adaptogen shown to support the body's stress response and promote calm, sustained energy."
+          }
+        },
+        "ingr_mct": {
+          "type": "ingr_card",
+          "settings": {
+            "icon": "🫙",
+            "name": "MCT Oil",
+            "benefit": "Brain Fuel · Fast Energy",
+            "desc": "Medium-chain triglycerides convert quickly to ketones, providing immediate fuel for brain function without a glucose spike."
+          }
+        },
+        "ingr_amla": {
+          "type": "ingr_card",
+          "settings": {
+            "icon": "🫐",
+            "name": "Amla Fruit",
+            "benefit": "Antioxidants · Nutrient Absorption",
+            "desc": "Contains up to 20x more Vitamin C than an orange. Rich in polyphenols that reduce oxidative stress and strengthen gut lining."
+          }
+        },
+        "ingr_zero_sa": {
+          "type": "ingr_card",
+          "settings": {
+            "icon": "🚫",
+            "name": "Zero Sugar Alcohols",
+            "benefit": "Gut Comfort · Clean Label",
+            "desc": "No erythritol or maltitol — common triggers for bloating and digestive discomfort. Our sweetness comes from monk fruit only."
+          }
+        },
+        "cal_sweeteners": {
+          "type": "ingr_callout",
+          "settings": {
+            "check_icon": "✓",
+            "title": "No Artificial Sweeteners",
+            "body": "Your microbiome prefers real ingredients. Artificial sweeteners can disrupt the microbial balance your gut-brain axis depends on."
+          }
+        },
+        "cal_whole_food": {
+          "type": "ingr_callout",
+          "settings": {
+            "check_icon": "✓",
+            "title": "Whole-Food First",
+            "body": "Real ingredients — organic almond butter, organic flaxseed oil, natural flavors — instead of fillers and isolates."
+          }
+        }
+      },
+      "block_order": ["ingr_protein","ingr_fiber","ingr_ashwagandha","ingr_mct","ingr_amla","ingr_zero_sa","cal_sweeteners","cal_whole_food"],
+      "settings": {
+        "eyebrow": "Functional Ingredients for Gut-Brain Balance",
+        "heading": "Ingredients That Support Gut-Brain Balance",
+        "cta_eyebrow": "Nothing Hidden",
+        "cta_sub": "Every ingredient has a purpose. Thoughtfully chosen to support gut-brain balance - nothing unnecessary.",
+        "cta_text": "See Full Ingredient Breakdown →",
+        "cta_url": "/products/chocolate-brownie-bar"
+      }
+    },
+    "gb101_tips": {
+      "type": "100cal-gb101-tips",
+      "blocks": {
+        "tip_01": {
+          "type": "tip",
+          "settings": {
+            "num": "01",
+            "title": "Snack before the crash",
+            "body": "Fuel your gut-brain axis before blood sugar dips trigger cravings."
+          }
+        },
+        "tip_02": {
+          "type": "tip",
+          "settings": {
+            "num": "02",
+            "title": "Pair Protein + Fiber",
+            "body": "This combination stabilizes glucose and supports satiety hormones."
+          }
+        },
+        "tip_03": {
+          "type": "tip",
+          "settings": {
+            "num": "03",
+            "title": "Feed Your Microbiome Daily",
+            "body": "Prebiotic fibers help beneficial bacteria regulate mood and digestion."
+          }
+        }
+      },
+      "block_order": ["tip_01","tip_02","tip_03"],
+      "settings": {
+        "eyebrow": "Snacking Smarter",
+        "heading": "3 Ways to Snack Smarter Today"
+      }
+    },
+    "gb101_quiz_cta": {
+      "type": "100cal-gb101-quiz-cta",
+      "blocks": {
+        "chip_focus": {
+          "type": "type_chip",
+          "settings": { "label": "🧠⚡ Focus Fueler" }
+        },
+        "chip_calm": {
+          "type": "type_chip",
+          "settings": { "label": "🌿✨ Calm Operator" }
+        },
+        "chip_craving": {
+          "type": "type_chip",
+          "settings": { "label": "🔥💪 Craving Crusher" }
+        }
+      },
+      "block_order": ["chip_focus","chip_calm","chip_craving"],
+      "settings": {
+        "eyebrow": "Personalised to You",
+        "heading": "Discover Your<br>Gut-Brain<br><em>Type</em>",
+        "sub": "Everyone's gut-brain connection is different. Take our free 60-second quiz to discover your dominant pattern, your gut-brain score, and the snack your body responds to best.",
+        "cta1_text": "Take the Gut-Brain Quiz →",
+        "cta1_url": "/pages/gut-brain-quiz",
+        "cta2_text": "Shop All Products",
+        "cta2_url": "/collections/all"
+      }
+    },
+    "gb101_products": {
+      "type": "100cal-gb101-products",
+      "blocks": {
+        "prod_choc": {
+          "type": "product_card",
+          "settings": {
+            "bg_gradient": "linear-gradient(145deg,#6B3010,#2C1503)",
+            "visual_emoji": "🍫",
+            "type_color": "#C4854A",
+            "type_label": "For Focus Fuelers",
+            "name": "Chocolate Brownie Bar",
+            "line": "Steady fuel for focus — protein, fiber, and adaptogenic support in 100 calories.",
+            "url": "/products/chocolate-brownie-bar"
+          }
+        },
+        "prod_pb": {
+          "type": "product_card",
+          "settings": {
+            "bg_gradient": "linear-gradient(145deg,#5C3A10,#2A1A00)",
+            "visual_emoji": "🥜",
+            "type_color": "#C49A3C",
+            "type_label": "For Calm Operators",
+            "name": "Peanut Butter Bar",
+            "line": "Balanced nourishment — smooth, grounding, and crafted for stress-resilient days.",
+            "url": "/products/peanut-butter-bar"
+          }
+        },
+        "prod_bbq": {
+          "type": "product_card",
+          "settings": {
+            "bg_gradient": "linear-gradient(145deg,#5C2200,#2E0E00)",
+            "visual_emoji": "🌶️",
+            "type_color": "#F5A623",
+            "type_label": "For Craving Crushers",
+            "name": "BBQ Protein Puffs",
+            "line": "Satisfying crunch without the crash — cravings met, guilt eliminated.",
+            "url": "/products/bbq-protein-puffs"
+          }
+        }
+      },
+      "block_order": ["prod_choc","prod_pb","prod_bbq"],
+      "settings": {
+        "heading": "Gut-Brain Snacks<br>for Every Pattern",
+        "shop_all_text": "Shop All →",
+        "shop_all_url": "/collections/all"
+      }
+    }
+  },
+  "order": [
+    "gb101_hero",
+    "gb101_signs",
+    "gb101_axis",
+    "gb101_micro",
+    "gb101_snacks",
+    "gb101_archetypes",
+    "gb101_ingredients",
+    "gb101_tips",
+    "gb101_quiz_cta",
+    "gb101_products"
+  ]
+}

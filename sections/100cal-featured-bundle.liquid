@@ -1,0 +1,442 @@
+
+<section class="featured-bundle" {{ section.shopify_attributes }}>
+  <div class="fb-inner">
+    <div>
+      <div class="fb-badge-row">
+        {% if section.settings.badge_primary != blank %}
+          <span class="fb-badge">{{ section.settings.badge_primary }}</span>
+        {% endif %}
+        {% if section.settings.badge_secondary != blank %}
+          <span class="fb-star-badge">{{ section.settings.badge_secondary }}</span>
+        {% endif %}
+      </div>
+      <div class="fb-eyebrow">{{ section.settings.eyebrow }}</div>
+      <h2 class="fb-title">{{ section.settings.heading | newline_to_br }}</h2>
+      <p class="fb-desc">{{ section.settings.description }}</p>
+      
+      <div class="fb-includes">
+        {% for block in section.blocks %}
+          <div class="fb-include-item" {{ block.shopify_attributes }}>
+            <div class="fi-dot"></div>
+            <span>{{ block.settings.item_text }}</span>
+          </div>
+        {% endfor %}
+      </div>
+      
+      <div class="fb-price-row">
+        <span class="fb-price">{{ section.settings.price }}</span>
+        {% if section.settings.original_price != blank %}
+          <span class="fb-price-orig">{{ section.settings.original_price }}</span>
+        {% endif %}
+        {% if section.settings.savings_text != blank %}
+          <span class="fb-savings">{{ section.settings.savings_text }}</span>
+        {% endif %}
+      </div>
+      
+      {% if section.settings.cta_link != blank %}
+        <a href="{{ section.settings.cta_link }}" class="btn-black" style="font-size:15px">
+          {{ section.settings.cta_text }}
+        </a>
+      {% endif %}
+      
+      {% if section.settings.subscription_note != blank %}
+        <p style="font-family:var(--font-body);font-size:13px;color:var(--ink-light);margin-top:14px">
+          {{ section.settings.subscription_note }}
+        </p>
+      {% endif %}
+    </div>
+
+    <div>
+      <div class="fb-product-display">
+        <div class="fb-products-row">
+          {% for block in section.blocks limit: 3 %}
+            <div class="fb-prod-item">
+              <span class="fb-prod-icon">{{ block.settings.icon }}</span>
+              <div class="fb-prod-label">{{ block.settings.label }}</div>
+            </div>
+          {% endfor %}
+        </div>
+        
+        <div class="fb-stat-row">
+          {% for block in section.blocks limit: 3 %}
+            <div class="fb-stat">
+              <div class="fb-stat-num">{{ block.settings.stat_number }}</div>
+              <div class="fb-stat-lbl">{{ block.settings.stat_label }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .featured-bundle {
+    background: var(--neutral-light);
+    padding: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .featured-bundle::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 60%, rgba(102, 204, 204, 0.08) 100%);
+    pointer-events: none;
+  }
+
+  .fb-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .fb-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .fb-badge {
+    background: var(--orange);
+    color: var(--white);
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+  }
+
+  .fb-star-badge {
+    background: var(--yellow);
+    color: var(--black);
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+  }
+
+  .fb-eyebrow {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    margin-bottom: 14px;
+  }
+
+  .fb-title {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 68px;
+    line-height: 0.92;
+    text-transform: uppercase;
+    color: var(--black);
+    margin-bottom: 20px;
+  }
+
+  .fb-desc {
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 32px;
+    max-width: 440px;
+  }
+
+  .fb-includes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+
+  .fb-include-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--ink-mid);
+  }
+
+  .fi-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--teal);
+    flex-shrink: 0;
+  }
+
+  .fb-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .fb-price {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 44px;
+    color: var(--black);
+    line-height: 1;
+  }
+
+  .fb-price-orig {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--ink-light);
+    text-decoration: line-through;
+  }
+
+  .fb-savings {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+
+  .fb-product-display {
+    background: var(--black);
+    padding: 48px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .fb-product-display::before {
+    content: 'SAMPLER';
+    position: absolute;
+    bottom: -10px;
+    left: -10px;
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 100px;
+    text-transform: uppercase;
+    color: rgba(102, 204, 204, 0.04);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .fb-products-row {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .fb-prod-item {
+    text-align: center;
+  }
+
+  .fb-prod-icon {
+    font-size: 52px;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .fb-prod-label {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .fb-stat-row {
+    display: flex;
+    position: relative;
+    z-index: 2;
+  }
+
+  .fb-stat {
+    flex: 1;
+    text-align: center;
+    padding: 16px 12px;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .fb-stat:last-child {
+    border-right: none;
+  }
+
+  .fb-stat-num {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 28px;
+    color: var(--teal);
+    line-height: 1;
+  }
+
+  .fb-stat-lbl {
+    font-family: var(--font-body);
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 1024px) {
+    .fb-inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .fb-title {
+      font-size: 48px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .featured-bundle {
+      padding: 48px 24px;
+    }
+
+    .fb-title {
+      font-size: 52px;
+    }
+
+    .fb-product-display {
+      padding: 32px 24px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Featured Bundle",
+  "class": "section-featured-bundle",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_primary",
+      "label": "Primary Badge",
+      "default": "Most Popular"
+    },
+    {
+      "type": "text",
+      "id": "badge_secondary",
+      "label": "Secondary Badge",
+      "default": "⭐ Best for First-Time Buyers"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Featured Bundle"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Try All\nThree"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Our best way to start. Explore every flavor in one box — and find out what your gut and your cravings actually want."
+    },
+    {
+      "type": "text",
+      "id": "price",
+      "label": "Price",
+      "default": "$28"
+    },
+    {
+      "type": "text",
+      "id": "original_price",
+      "label": "Original Price",
+      "default": "$30"
+    },
+    {
+      "type": "text",
+      "id": "savings_text",
+      "label": "Savings Text",
+      "default": "Save 5%"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Link"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "Shop Sampler"
+    },
+    {
+      "type": "text",
+      "id": "subscription_note",
+      "label": "Subscription Note",
+      "default": "Or subscribe and save an extra 10%."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Bundle Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "item_text",
+          "label": "Item Text",
+          "default": "🍫 Chocolate Brownie Protein Bar"
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Product Icon",
+          "default": "🍫"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Product Label",
+          "default": "Choc Brownie"
+        },
+        {
+          "type": "text",
+          "id": "stat_number",
+          "label": "Stat Number",
+          "default": "3"
+        },
+        {
+          "type": "text",
+          "id": "stat_label",
+          "label": "Stat Label",
+          "default": "Flavors"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Bundle",
+      "blocks": [
+        {"type": "item", "settings": {"item_text": "🍫 Chocolate Brownie Protein Bar", "icon": "🍫", "label": "Choc Brownie", "stat_number": "3", "stat_label": "Flavors"}},
+        {"type": "item", "settings": {"item_text": "🥜 Peanut Butter Protein Bar", "icon": "🥜", "label": "Peanut Butter", "stat_number": "100", "stat_label": "Cal Each"}},
+        {"type": "item", "settings": {"item_text": "🌽 BBQ Protein Puffs", "icon": "🌽", "label": "BBQ Puffs", "stat_number": "0g", "stat_label": "Sugar Alcohols"}}
+      ]
+    }
+  ]
+}
+{% endschema %}

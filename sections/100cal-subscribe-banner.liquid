@@ -1,0 +1,101 @@
+
+<div class="sub-strip" {{ section.shopify_attributes }}>
+  <span class="sub-strip-badge">{{ section.settings.badge_text }}</span>
+  <span class="sub-strip-text">{{ section.settings.main_text }}</span>
+  <span class="sub-strip-sep">·</span>
+  <span class="sub-strip-detail">{{ section.settings.detail_text }}</span>
+</div>
+
+{% stylesheet %}
+  .sub-strip {
+    background: var(--teal-light);
+    border-top: 2px solid var(--teal);
+    border-bottom: 2px solid var(--teal);
+    padding: 14px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .sub-strip-badge {
+    background: var(--teal);
+    color: var(--black);
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+  }
+
+  .sub-strip-text {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+  }
+
+  .sub-strip-sep {
+    color: var(--teal-dark);
+    opacity: 0.4;
+    font-size: 20px;
+  }
+
+  .sub-strip-detail {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  @media (max-width: 768px) {
+    .sub-strip {
+      flex-direction: column;
+      padding: 10px 24px;
+      gap: 12px;
+      text-align: center;
+    }
+
+    .sub-strip-sep {
+      display: none;
+    }
+
+    .sub-strip-detail {
+      font-size: 12px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Subscribe Banner",
+  "class": "section-subscribe-banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Save 10%"
+    },
+    {
+      "type": "text",
+      "id": "main_text",
+      "label": "Main Text",
+      "default": "Subscribe & Save"
+    },
+    {
+      "type": "textarea",
+      "id": "detail_text",
+      "label": "Detail Text",
+      "default": "Your gut-brain snack delivered automatically. Skip or cancel anytime."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Subscribe Banner"
+    }
+  ]
+}
+{% endschema %}

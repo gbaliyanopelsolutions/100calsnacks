@@ -1,0 +1,227 @@
+
+<section class="quiz-cta" {{ section.shopify_attributes }}>
+  <div class="quiz-left">
+    <div class="quiz-eyebrow">{{ section.settings.eyebrow }}</div>
+    <h2 class="quiz-title">{{ section.settings.heading }}</h2>
+    <p class="quiz-sub">{{ section.settings.description }}</p>
+  </div>
+  
+  <div class="quiz-right">
+    <div class="quiz-card">
+      <span class="quiz-card-icon">{{ section.settings.card_icon }}</span>
+      <div class="quiz-card-title">{{ section.settings.card_title }}</div>
+      <div class="quiz-card-sub">{{ section.settings.card_description }}</div>
+      {% if section.settings.cta_link != blank %}
+        <a href="{{ section.settings.cta_link }}" class="btn-teal">{{ section.settings.cta_text }}</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .quiz-cta {
+    background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 50%, #8EDDDD 100%);
+    padding: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quiz-cta::before {
+    content: '?';
+    position: absolute;
+    right: 80px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 400px;
+    color: rgba(0, 0, 0, 0.06);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .quiz-left {
+    position: relative;
+    z-index: 2;
+  }
+
+  .quiz-eyebrow {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.5);
+    margin-bottom: 16px;
+  }
+
+  .quiz-title {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 60px;
+    line-height: 0.92;
+    text-transform: uppercase;
+    color: var(--black);
+    margin-bottom: 16px;
+  }
+
+  .quiz-sub {
+    font-family: var(--font-body);
+    font-size: 17px;
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 1.6;
+    max-width: 480px;
+  }
+
+  .quiz-right {
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+  }
+
+  .quiz-card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 36px 40px;
+    text-align: center;
+    min-width: 280px;
+  }
+
+  .quiz-card-icon {
+    font-size: 48px;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .quiz-card-title {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: var(--black);
+    margin-bottom: 8px;
+  }
+
+  .quiz-card-sub {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.55);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .btn-teal {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.25s;
+  }
+
+  .btn-teal:hover {
+    background: var(--teal-dark);
+    color: var(--white);
+  }
+
+  @media (max-width: 1024px) {
+    .quiz-cta {
+      flex-direction: column;
+      gap: 40px;
+      padding: 60px 40px;
+    }
+
+    .quiz-title {
+      font-size: 48px;
+    }
+
+    .quiz-cta::before {
+      right: 40px;
+      font-size: 200px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .quiz-title {
+      font-size: 36px;
+    }
+
+    .quiz-cta::before {
+      font-size: 120px;
+      right: 20px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Quiz CTA",
+  "class": "section-quiz-cta",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Not Sure Where to Start?"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "Find Your\nGut-Brain\nMatch"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Take the 60-second quiz and we'll tell you which snack is built for your body, your stress level, and your goals."
+    },
+    {
+      "type": "text",
+      "id": "card_icon",
+      "label": "Card Icon",
+      "default": "🧬"
+    },
+    {
+      "type": "text",
+      "id": "card_title",
+      "label": "Card Title",
+      "default": "The Gut-Brain Quiz"
+    },
+    {
+      "type": "text",
+      "id": "card_description",
+      "label": "Card Description",
+      "default": "60 seconds. No email required.\nGet your personal snack recommendation."
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Link"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "Take the Quiz"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quiz CTA"
+    }
+  ]
+}
+{% endschema %}

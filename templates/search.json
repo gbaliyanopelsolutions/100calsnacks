@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "100cal-search",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

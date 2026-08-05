@@ -1,0 +1,135 @@
+<section class="hc-reviews-write" {{ section.shopify_attributes }}>
+  <div class="rw-inner">
+    <div class="fade-up">
+      <h2 class="rw-h">{{ section.settings.heading }}</h2>
+      <p class="rw-sub">{{ section.settings.subheading | escape }}</p>
+    </div>
+    <div class="rw-options fade-up fade-up-2">
+      {% for block in section.blocks %}
+        {% if block.type == 'write_option' %}
+          <a href="{{ block.settings.link }}" class="rw-option {{ block.settings.accent }}" target="{% if block.settings.open_new_tab %}_blank{% else %}_self{% endif %}" {{ block.shopify_attributes }}>
+            <div>
+              <div class="rw-platform">{{ block.settings.platform | escape }}</div>
+              <div class="rw-name">{{ block.settings.name | escape }}</div>
+            </div>
+            <div class="rw-arrow">→</div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-reviews-write {
+  --ink: #1A1A1A;
+  --ink-mid: #555;
+  --ink-light: #888;
+  --neutral: #F4F3F0;
+  --platinum: #EAE9E5;
+  background: var(--black);
+  color: var(--white);
+  padding: 64px 80px;
+}
+.hc-reviews-write .rw-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.hc-reviews-write .rw-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 56px;
+  line-height: .9;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+.hc-reviews-write .rw-h em { font-style: italic; color: var(--teal); }
+.hc-reviews-write .rw-sub {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: rgba(255,255,255,.5);
+  line-height: 1.7;
+}
+.hc-reviews-write .rw-options { display: flex; flex-direction: column; gap: 3px; }
+.hc-reviews-write .rw-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  background: rgba(255,255,255,.04);
+  text-decoration: none;
+  transition: background .2s;
+  border-left: 3px solid transparent;
+}
+.hc-reviews-write .rw-option.choc { border-left-color: var(--teal); }
+.hc-reviews-write .rw-option.pb { border-left-color: var(--yellow); }
+.hc-reviews-write .rw-option.bbq { border-left-color: var(--orange); }
+.hc-reviews-write .rw-option:hover { background: rgba(255,255,255,.07); }
+.hc-reviews-write .rw-platform {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+  margin-bottom: 4px;
+}
+.hc-reviews-write .rw-name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--white);
+  letter-spacing: .5px;
+}
+.hc-reviews-write .rw-arrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--teal);
+  transition: transform .2s;
+}
+.hc-reviews-write .rw-option:hover .rw-arrow { transform: translateX(4px); }
+@media (max-width: 1024px) {
+  .hc-reviews-write { padding: 60px 40px; }
+  .hc-reviews-write .rw-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hc-reviews-write .rw-h { font-size: 44px; }
+}
+@media (max-width: 768px) {
+  .hc-reviews-write { padding: 50px 20px; }
+  .hc-reviews-write .rw-h { font-size: 36px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Reviews Write CTA",
+  "settings": [
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Tried It?<br><em>Tell Us.</em>" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Your review helps someone else make a better decision. And it tells us what's working — and what we can do better." }
+  ],
+  "blocks": [
+    {
+      "type": "write_option",
+      "name": "Write option",
+      "settings": [
+        { "type": "select", "id": "accent", "label": "Accent color", "default": "choc", "options": [
+          { "value": "choc", "label": "Teal" },
+          { "value": "pb", "label": "Yellow" },
+          { "value": "bbq", "label": "Orange" }
+        ]},
+        { "type": "text", "id": "platform", "label": "Platform label", "default": "Write a Review On" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Amazon" },
+        { "type": "text", "id": "link", "label": "Link" },
+        { "type": "checkbox", "id": "open_new_tab", "label": "Open in new tab", "default": true }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Reviews Write CTA" }]
+}
+{% endschema %}

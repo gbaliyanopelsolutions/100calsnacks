@@ -1,0 +1,33 @@
+
+<div class="hundred-cal">
+  <section class="hc-stores" id="{{ section.settings.anchor_id }}">
+    <div>
+      <div class="hc-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="hc-stores__title">{{ section.settings.heading | escape }}</h2>
+      {% if section.settings.copy != blank %}<p class="hc-copy" style="margin-left:0;">{{ section.settings.copy }}</p>{% endif %}
+    </div>
+    <div class="hc-stores__buttons">
+      <a href="{{ section.settings.primary_link | default: '/pages/store-locator' }}" class="hc-btn hc-btn--black">{{ section.settings.primary_label }}</a>
+      <a href="{{ section.settings.secondary_link }}" class="hc-btn hc-btn--outline">{{ section.settings.secondary_label }}</a>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal Store CTA",
+  "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID", "default": "stores" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Now Available In Stores" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find Us Near You" },
+    { "type": "textarea", "id": "copy", "label": "Copy", "default": "Find a store near you and pick up your favorite 100Cal Snacks." },
+    { "type": "text", "id": "primary_label", "label": "Primary label", "default": "Find a Store ->" },
+    { "type": "url", "id": "primary_link", "label": "Primary link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary label", "default": "Shop Online" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary link", "default": "/collections/all" }
+  ],
+  "presets": [
+    { "name": "100Cal Store CTA" }
+  ]
+}
+{% endschema %}

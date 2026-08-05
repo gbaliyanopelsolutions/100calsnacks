@@ -1,0 +1,94 @@
+<section class="hc-locations-growing" {{ section.shopify_attributes }}>
+  <div class="lgr-inner fade-up">
+    <div class="lgr-left">
+      <div class="lgr-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="lgr-h">{{ section.settings.heading }}</h2>
+      <p class="lgr-sub">{{ section.settings.subheading | escape }}</p>
+    </div>
+    <div class="lgr-right">
+      {% if section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link | escape }}" class="lgr-btn">{{ section.settings.button_label | escape }}</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-locations-growing {
+  background: #C2EBEB;
+  padding: 64px 80px;
+}
+.hc-locations-growing .lgr-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+.hc-locations-growing .lgr-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-bottom: 12px;
+}
+.hc-locations-growing .lgr-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 52px;
+  line-height: .9;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 12px;
+}
+.hc-locations-growing .lgr-h em { font-style: italic; }
+.hc-locations-growing .lgr-sub {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: rgba(15,18,19,.6);
+  line-height: 1.7;
+  max-width: 440px;
+}
+.hc-locations-growing .lgr-right { flex-shrink: 0; }
+.hc-locations-growing .lgr-btn {
+  display: inline-block;
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  background: var(--black);
+  color: var(--white);
+  text-decoration: none;
+  transition: background .2s;
+  white-space: nowrap;
+}
+.hc-locations-growing .lgr-btn:hover { background: var(--teal-dark); }
+@media (max-width: 1024px) {
+  .hc-locations-growing { padding: 56px 40px; }
+  .hc-locations-growing .lgr-inner { flex-direction: column; align-items: flex-start; }
+  .hc-locations-growing .lgr-h { font-size: 42px; }
+}
+@media (max-width: 768px) {
+  .hc-locations-growing { padding: 48px 20px; }
+  .hc-locations-growing .lgr-h { font-size: 36px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Locations Growing",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "We're Expanding" },
+    { "type": "html", "id": "heading", "label": "Heading (HTML)", "default": "More Locations<br>Coming Soon." },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "We're growing. New doors are opening and new partnerships are in the works. If we're not near you yet — you can help change that." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Ask Your Local Store →" },
+    { "type": "text", "id": "button_link", "label": "Button link (anchor or URL)", "default": "#request" }
+  ],
+  "presets": [{ "name": "Locations Growing" }]
+}
+{% endschema %}

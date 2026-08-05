@@ -1,0 +1,212 @@
+{{ '100cal-cart.css' | asset_url | stylesheet_tag }}
+{{ '100cal-cart-page.css' | asset_url | stylesheet_tag }}
+
+<div class="hundred-cal hcp-wrap">
+  <div class="page-width hcp-container">
+
+    {%- if cart == empty -%}
+
+      <div class="hcp-empty">
+        <div class="hcp-empty-icon">🛒</div>
+        <h1 class="hcp-empty-title">Your cart is empty.</h1>
+        <p class="hcp-empty-sub">Looks like you haven't added anything yet.</p>
+        <a href="{{ routes.all_products_collection_url }}" class="hc-btn hc-btn--primary">Shop All Products</a>
+      </div>
+
+    {%- else -%}
+
+      <!-- Header -->
+      <div class="hcp-header">
+        <h1 class="hcp-title">
+          Your Cart
+          <span class="hcp-title-count" id="hcp-title-count">{{ cart.item_count }} item{% if cart.item_count != 1 %}s{% endif %}</span>
+        </h1>
+        <a href="{{ routes.all_products_collection_url }}" class="hcp-continue">← Continue Shopping</a>
+      </div>
+
+      <!-- Shipping bar -->
+      {%- assign hcp_threshold = 2500 -%}
+      {%- assign hcp_pct = cart.total_price | divided_by: 25 -%}
+      {%- if hcp_pct > 100 -%}{%- assign hcp_pct = 100 -%}{%- endif -%}
+      <div class="hc-shipping-bar" style="margin-bottom:28px">
+        <div class="hc-shipping-text">
+          <span id="hcp-shipping-msg">
+            {%- if cart.total_price >= hcp_threshold -%}
+              <strong style="color:var(--teal)">🎉 Free shipping unlocked!</strong>
+            {%- else -%}
+              {%- assign hcp_remaining = hcp_threshold | minus: cart.total_price -%}
+              You're <strong>{{ hcp_remaining | money_without_trailing_zeros }}</strong> away from free shipping
+            {%- endif -%}
+          </span>
+          <span class="hc-shipping-unlock">🚚 Free at $25</span>
+        </div>
+        <div class="hc-shipping-track">
+          <div class="hc-shipping-fill" id="hcp-shipping-fill" style="width:{{ hcp_pct }}%"></div>
+          <div class="hc-shipping-tick{% if cart.total_price >= hcp_threshold %} done{% endif %}" id="hcp-shipping-tick"></div>
+        </div>
+      </div>
+
+      <!-- Two-column layout -->
+      <div class="hcp-cols">
+
+        <!-- Items + Upsell -->
+        <div class="hcp-items-col">
+
+          <div id="hcp-items">
+            {%- for item in cart.items -%}
+              <div class="hc-cart-item hcp-item" data-key="{{ item.key }}">
+                <div class="hc-ci-img">
+                  {%- if item.image -%}
+                    <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.title | escape }}" loading="lazy" width="100" height="100">
+                  {%- else -%}
+                    <span class="hc-ci-icon">🍫</span>
+                  {%- endif -%}
+                </div>
+                <div class="hc-ci-body">
+                  <div class="hc-ci-top">
+                    <div>
+                      <div class="hc-ci-name">{{ item.product.title | escape }}</div>
+                      {%- unless item.product.has_only_default_variant -%}
+                        <div class="hc-ci-variant">{{ item.variant.title | escape }}</div>
+                      {%- endunless -%}
+                      {%- if item.selling_plan_allocation -%}
+                        <div class="hc-ci-tag hc-ci-tag--sub">{{ item.selling_plan_allocation.selling_plan.name | escape }}</div>
+                      {%- endif -%}
+                      {%- if item.properties._preorder -%}
+                        <div class="hc-ci-tag hc-ci-tag--preorder">Pre-Order</div>
+                      {%- endif -%}
+                    </div>
+                    <button class="hc-ci-delete" data-key="{{ item.key }}" aria-label="Remove {{ item.product.title | escape }}">✕</button>
+                  </div>
+                  <div class="hc-ci-bottom">
+                    <div class="hc-ci-qty">
+                      <button class="hc-ci-qty-btn" data-key="{{ item.key }}" data-qty="{{ item.quantity | minus: 1 }}">−</button>
+                      <div class="hc-ci-qty-num">{{ item.quantity }}</div>
+                      <button class="hc-ci-qty-btn" data-key="{{ item.key }}" data-qty="{{ item.quantity | plus: 1 }}">+</button>
+                    </div>
+                    <div class="hc-ci-price">
+                      {{ item.line_price | money }}
+                      {%- if item.original_line_price > item.line_price -%}
+                        <span class="hc-ci-price-orig">{{ item.original_line_price | money }}</span>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+
+          <!-- Upsell -->
+          {%- if settings.cart_drawer_collection != blank -%}
+            {%- assign hcp_col = collections[settings.cart_drawer_collection] -%}
+            {%- if hcp_col != blank -%}
+              {%- assign hcp_pids = '' -%}
+              {%- for item in cart.items -%}
+                {%- assign hcp_pids = hcp_pids | append: item.product_id | append: ',' -%}
+              {%- endfor -%}
+              {%- assign hcp_upsell_n = 0 -%}
+              {%- for p in hcp_col.products limit: 4 -%}
+                {%- unless hcp_pids contains p.id -%}{%- assign hcp_upsell_n = hcp_upsell_n | plus: 1 -%}{%- endunless -%}
+              {%- endfor -%}
+              {%- if hcp_upsell_n > 0 -%}
+                <div class="hcp-upsell" id="hcp-rebuy-section">
+                  <div class="hcp-upsell-title">Double <em>(or Triple)</em> Up.</div>
+                  <div class="hcp-upsell-grid">
+                    {%- for p in hcp_col.products limit: 4 -%}
+                      {%- unless hcp_pids contains p.id -%}
+                        <div class="hc-rebuy-card" data-product-id="{{ p.id }}">
+                          <div class="hc-rebuy-img">
+                            {%- if p.featured_image -%}
+                              <img src="{{ p.featured_image | image_url: width: 200 }}" alt="{{ p.title | escape }}" loading="lazy" width="200" height="200">
+                            {%- else -%}
+                              <span style="font-size:38px">🍫</span>
+                            {%- endif -%}
+                          </div>
+                          <div class="hc-rebuy-body">
+                            <div class="hc-rebuy-why">Add to Your Order</div>
+                            <div class="hc-rebuy-name">{{ p.title | escape }}</div>
+                            <div class="hc-rebuy-price">{{ p.price | money }}</div>
+                            <button class="hc-rebuy-add" data-variant-id="{{ p.selected_or_first_available_variant.id }}">Add →</button>
+                          </div>
+                        </div>
+                      {%- endunless -%}
+                    {%- endfor -%}
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endif -%}
+
+          <!-- Trust signals -->
+          <div class="hc-trust-line" style="margin-top:20px">
+            <div class="hc-trust-item"><span>🚚</span> Ships in 2–3 days</div>
+            <div class="hc-trust-item"><span>🌿</span> No Artificial Ingredients</div>
+            <div class="hc-trust-item"><span>🧠</span> Gut-Brain Formulated</div>
+          </div>
+
+        </div>
+
+        <!-- Summary -->
+        <div class="hcp-summary-col">
+          <div class="hcp-summary">
+            <div class="hcp-summary-title">Order Summary</div>
+
+            <div class="hc-subtotal-row">
+              <div class="hc-subtotal-label">Subtotal</div>
+              <div class="hc-subtotal-prices">
+                <div class="hc-subtotal-num" id="hcp-subtotal">{{ cart.total_price | money }}</div>
+                {%- if cart.original_total_price > cart.total_price -%}
+                  <div class="hc-subtotal-orig" id="hcp-subtotal-orig">{{ cart.original_total_price | money }}</div>
+                {%- else -%}
+                  <div class="hc-subtotal-orig" id="hcp-subtotal-orig" style="display:none"></div>
+                {%- endif -%}
+              </div>
+            </div>
+
+            {%- if cart.original_total_price > cart.total_price -%}
+              <div class="hc-savings-line" id="hcp-savings-line">
+                You're saving {{ cart.original_total_price | minus: cart.total_price | money }} 🎉
+              </div>
+            {%- else -%}
+              <div class="hc-savings-line" id="hcp-savings-line" style="display:none"></div>
+            {%- endif -%}
+
+            <div class="hcp-shipping-note" id="hcp-shipping-note">
+              {%- if cart.total_price >= 2500 -%}
+                <span style="color:var(--teal)">🎉 Free shipping included!</span>
+              {%- else -%}
+                Shipping calculated at checkout
+              {%- endif -%}
+            </div>
+
+            <div id="hcp-preorder-notice" class="hc-preorder-notice" style="display:none">
+              <span style="font-size:14px;flex-shrink:0;margin-top:1px">⚠️</span>
+              <div>
+                <div class="hc-preorder-title">Contains a Pre-Order Item</div>
+                <div class="hc-preorder-text">Your order will ship when all pre-order items are ready.</div>
+              </div>
+            </div>
+
+            <a href="/checkout" class="hc-checkout-btn hcp-checkout-btn">
+              <span>Checkout</span>
+              <span class="hc-checkout-arrow">→</span>
+            </a>
+
+            <div class="hcp-guarantee">
+              <span>✦</span> Every Ingredient Has a Purpose · Keepin' Snacks 100®
+            </div>
+          </div>
+        </div>
+
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal Cart Page",
+  "settings": [],
+  "presets": [{ "name": "100Cal Cart Page" }]
+}
+{% endschema %}

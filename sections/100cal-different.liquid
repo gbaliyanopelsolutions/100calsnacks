@@ -1,0 +1,51 @@
+<section class="different-section">
+  <div class="different-inner">
+    <div class="different-left">
+      <div class="different-eyebrow">{{ section.settings.different_eyebrow | escape }}</div>
+      <h2 class="different-title">{{ section.settings.different_title | newline_to_br }}</h2>
+      <p class="different-body-sub">{{ section.settings.different_subtitle }}</p>
+    </div>
+    <div class="different-right">
+      <div class="different-stat-block">
+        <div class="diff-stat">
+          <div class="diff-stat-num">{{ section.settings.stat_1_number | escape }}</div>
+          <div class="diff-stat-label">{{ section.settings.stat_1_label | newline_to_br }}</div>
+        </div>
+        <div class="diff-stat">
+          <div class="diff-stat-num">{{ section.settings.stat_2_number | escape }}</div>
+          <div class="diff-stat-label">{{ section.settings.stat_2_label | newline_to_br }}</div>
+        </div>
+        <div class="diff-stat">
+          <div class="diff-stat-num">{{ section.settings.stat_3_number | escape }}</div>
+          <div class="diff-stat-label">{{ section.settings.stat_3_label | newline_to_br }}</div>
+        </div>
+        <div class="diff-stat">
+          <div class="diff-stat-num">{{ section.settings.stat_4_number | escape }}</div>
+          <div class="diff-stat-label">{{ section.settings.stat_4_label | newline_to_br }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "100Cal Product Philosophy",
+  "settings": [
+    { "type": "text", "id": "different_eyebrow", "label": "Eyebrow", "default": "Product Philosophy" },
+    { "type": "textarea", "id": "different_title", "label": "Title", "default": "The Snack That\nDoes More." },
+    { "type": "textarea", "id": "different_subtitle", "label": "Subtitle", "default": "Functional ingredients designed to support energy, digestion, and stress balance." },
+    { "type": "text", "id": "stat_1_number", "label": "Stat 1 number", "default": "100" },
+    { "type": "textarea", "id": "stat_1_label", "label": "Stat 1 label", "default": "Exact calories.\nEvery single bar." },
+    { "type": "text", "id": "stat_2_number", "label": "Stat 2 number", "default": "0g" },
+    { "type": "textarea", "id": "stat_2_label", "label": "Stat 2 label", "default": "Sugar alcohols.\nNone, ever." },
+    { "type": "text", "id": "stat_3_number", "label": "Stat 3 number", "default": "2" },
+    { "type": "textarea", "id": "stat_3_label", "label": "Stat 3 label", "default": "Body systems\nsupported at once." },
+    { "type": "text", "id": "stat_4_number", "label": "Stat 4 number", "default": "1st" },
+    { "type": "textarea", "id": "stat_4_label", "label": "Stat 4 label", "default": "Snack designed for\nthe gut-brain axis." }
+  ],
+  "presets": [
+    { "name": "Product Philosophy" }
+  ]
+}
+{% endschema %}

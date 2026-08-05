@@ -1,0 +1,181 @@
+
+<div class="hundred-cal">
+  <section class="hc-products">
+    <div class="hc-section-header">
+      <div class="hc-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="hc-title">{{ section.settings.heading }}</h2>
+    </div>
+
+    <div class="hc-card-grid hc-card-grid--3">
+      {% for block in section.blocks %}
+        {% assign product = block.settings.product %}
+        <article class="hc-product-card" {{ block.shopify_attributes }}>
+          <a class="hc-product-card__media" href="{% if product != blank %}{{ product.url }}{% else %}{{ block.settings.link }}{% endif %}" style="background: {{ block.settings.background }};">
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: block.settings.title }}
+            {% elsif product.featured_image != blank %}
+              {{ product.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: product.title }}
+            {% else %}
+              <span class="hc-product-card__icon">{{ block.settings.icon | escape }}</span>
+            {% endif %}
+            {% if block.settings.badge != blank %}
+              <span class="hc-badge badge-left hc-badge--{{ block.settings.badge_color }}">{{ block.settings.badge | escape }}</span>
+            {% endif %}
+            {% if block.settings.sub_badge != blank %}
+              <span class="sub-badge">{{ block.settings.sub_badge | escape }}</span>
+            {% endif %}
+          </a>
+          <div class="hc-product-card__body">
+            <h3 class="hc-product-card__title">{% if product != blank %}{{ product.title }}{% else %}{{ block.settings.title }}{% endif %}</h3>
+            <p class="hc-product-card__sub">{{ block.settings.subtitle | escape }}</p>
+            {% if block.settings.benefits != blank %}
+              <div class="hc-product-benefits">
+                {% assign benefits = block.settings.benefits | newline_to_br | split: '<br />' %}
+                {% for benefit in benefits %}
+                  {% if benefit != blank %}
+                    <div class="hc-product-benefit"><span class="hc-product-benefit-dot"></span>{{ benefit | strip | escape }}</div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% endif %}
+            <div class="hc-macros">
+              {% assign macros = block.settings.macros | newline_to_br | split: '<br />' %}
+              {% for macro in macros limit: 6 %}
+                {% assign pieces = macro | split: '|' %}
+                <div class="hc-macro">
+                  <div class="hc-macro__num">{{ pieces[0] | strip }}</div>
+                  <div class="hc-macro__label">{{ pieces[1] | strip }}</div>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="hc-product-card__row">
+              <div class="hc-product-card__price">{% if product != blank %}{{ product.price | money }}{% else %}{{ block.settings.price | escape }}{% endif %}</div>
+              <div class="hc-product-card__rating">{{ block.settings.rating | escape }} | {% render 'junip-product-summary', product: product %}</div>
+            </div>
+            {% if product != blank and product.available %}
+              {% form 'product', product %}
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                <button class="hc-add-btn" type="submit">{{ section.settings.add_label }}</button>
+              {% endform %}
+            {% elsif block.settings.variant_id != blank %}
+              <button class="hc-add-btn" type="button" data-variant-id="{{ block.settings.variant_id | escape }}">
+                {{ section.settings.add_label }}
+              </button>
+            {% else %}
+              <a class="hc-add-btn" href="{{ block.settings.link | default: '/collections/all' }}">{{ section.settings.add_label }}</a>
+            {% endif %}
+            {% if block.settings.sub_note != blank %}
+              <p class="hc-sub-note"><a href="{{ product.url }}">{{ block.settings.sub_note | escape }}</a></p>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+
+{% stylesheet %}
+  .hc-products {
+    background: var(--white);
+    padding: 80px;
+  }
+
+  .hc-section-header {
+    text-align: left;
+  }
+
+  .hc-macros {
+    display: flex;
+    gap: 16px;
+    padding: 14px 0;
+    border-top: 1px solid var(--neutral-light);
+    border-bottom: 1px solid var(--neutral-light);
+    margin-bottom: 20px;
+    grid-template-columns: unset;
+  }
+
+  .hc-macro {
+    flex: 1;
+  }
+
+  .hc-product-benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 22px;
+  }
+
+  .hc-product-benefit {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--ink-mid);
+  }
+
+  .hc-product-benefit-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--teal);
+    flex-shrink: 0;
+    display: block;
+  }
+
+  .hc-sub-note {
+    text-align: center;
+    margin-top: 10px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--ink-light);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "100Cal Product Grid",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Full Lineup" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Shop 100Cal Snacks" },
+    { "type": "text", "id": "add_label", "label": "Add button label", "default": "Add to Cart" }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Shopify product (connects ATC automatically)" },
+        { "type": "text", "id": "variant_id", "label": "Variant ID (fallback if no product selected)" },
+        { "type": "image_picker", "id": "image", "label": "Override image" },
+        { "type": "text", "id": "title", "label": "Fallback title", "default": "Chocolate Brownie" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Protein Bar" },
+        { "type": "text", "id": "icon", "label": "Fallback icon text", "default": "BAR" },
+        { "type": "text", "id": "badge", "label": "Badge", "default": "Best Seller" },
+        { "type": "select", "id": "badge_color", "label": "Badge color", "default": "orange", "options": [
+          { "value": "orange", "label": "Orange" },
+          { "value": "teal", "label": "Teal" },
+          { "value": "yellow", "label": "Yellow" }
+        ] },
+        { "type": "text", "id": "sub_badge", "label": "Sub badge", "default": "Sub & Save 10%" },
+        { "type": "textarea", "id": "benefits", "label": "Benefits", "default": "Steady Energy Without the Crash\nCalms Cravings Naturally\n100 Clean Calories" },
+        { "type": "text", "id": "background", "label": "Media background CSS", "default": "linear-gradient(135deg,#222,#161616)" },
+        { "type": "textarea", "id": "macros", "label": "Macros, one per line as value|label", "default": "100|Calories\n5g|Protein\n4g|Prebiotic Fiber\n2g|Net Carbs\n0g|Added Sugar\n250mg|Ashwagandha" },
+        { "type": "text", "id": "price", "label": "Fallback price", "default": "$18.99" },
+        { "type": "text", "id": "rating", "label": "Rating", "default": "***** (96)" },
+        { "type": "text", "id": "sub_note", "label": "Sub note", "default": "Subscribe for 10% off · Learn more" },
+        { "type": "url", "id": "link", "label": "Fallback link", "default": "/collections/all" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "100Cal Product Grid",
+      "blocks": [
+        { "type": "product", "settings": { "title": "Chocolate Brownie", "subtitle": "Protein Bar", "badge": "Best Seller", "badge_color": "orange", "sub_badge": "Sub & Save 10%", "benefits": "Steady Energy Without the Crash\nCalms Cravings Naturally\n100 Clean Calories", "price": "$18.99", "rating": "***** (96)", "sub_note": "Subscribe for 10% off · Learn more" } },
+        { "type": "product", "settings": { "title": "Peanut Butter", "subtitle": "Protein Bar", "badge": "New", "badge_color": "teal", "sub_badge": "Sub & Save 10%", "benefits": "Supports Gut Microbiome\nSustained Focus & Calm\n100 Clean Calories", "price": "$19.49", "rating": "***** New", "background": "linear-gradient(135deg,#2a1a0a,#1a0f00)", "sub_note": "Subscribe for 10% off · Learn more" } },
+        { "type": "product", "settings": { "title": "BBQ Protein Puffs", "subtitle": "Savory Snack", "badge": "Keto 2.0", "badge_color": "yellow", "sub_badge": "Sub & Save 10%", "benefits": "Prebiotic Fiber for Gut Health\nCurbs Cortisol-Driven Cravings\n100 Clean Calories", "price": "$24.99", "rating": "***** (58)", "background": "linear-gradient(135deg,#1a1200,#0f0a00)", "sub_note": "Subscribe for 10% off · Learn more" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

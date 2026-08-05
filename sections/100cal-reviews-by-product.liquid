@@ -1,0 +1,237 @@
+<section class="hc-reviews-by-product" {{ section.shopify_attributes }}>
+  <div class="rbp-inner">
+    <div class="rbp-header fade-up">
+      <div class="rbp-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="rbp-h">{{ section.settings.heading | escape }}</h2>
+    </div>
+    <div class="rbp-tabs fade-up fade-up-2">
+      <button type="button" class="rbp-tab active" data-rbp-tab="choc">
+        <span class="rbp-tab-emoji">{{ section.settings.choc_emoji | escape }}</span>{{ section.settings.choc_label | escape }}
+      </button>
+      <button type="button" class="rbp-tab" data-rbp-tab="pb">
+        <span class="rbp-tab-emoji">{{ section.settings.pb_emoji | escape }}</span>{{ section.settings.pb_label | escape }}
+      </button>
+      <button type="button" class="rbp-tab" data-rbp-tab="bbq">
+        <span class="rbp-tab-emoji">{{ section.settings.bbq_emoji | escape }}</span>{{ section.settings.bbq_label | escape }}
+      </button>
+    </div>
+    {% assign products = 'choc|pb|bbq' | split: '|' %}
+    {% for product in products %}
+      <div class="rbp-panel {% if product == 'choc' %}active{% endif %}" data-rbp-panel="{{ product }}">
+        {% for block in section.blocks %}
+          {% if block.type == 'product_review' and block.settings.product == product %}
+            <div class="rev-card" {{ block.shopify_attributes }}>
+              <div class="rev-stars">{{ block.settings.stars | escape }}</div>
+              <div class="rev-title">{{ block.settings.title | escape }}</div>
+              <p class="rev-body">{{ block.settings.body | escape }}</p>
+              <div class="rev-footer">
+                <div>
+                  <div class="rev-name">{{ block.settings.reviewer_name | escape }}</div>
+                  <div class="rev-date">{{ block.settings.date | escape }}</div>
+                </div>
+                <div class="rev-badge">{{ block.settings.badge | escape }}</div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-reviews-by-product {
+  --ink: #1A1A1A;
+  --ink-mid: #555;
+  --ink-light: #888;
+  --neutral: #F4F3F0;
+  --platinum: #EAE9E5;
+  background: var(--black);
+  color: var(--white);
+  padding: 72px 80px;
+}
+.hc-reviews-by-product .rbp-inner { max-width: 1200px; margin: 0 auto; }
+.hc-reviews-by-product .rbp-header { margin-bottom: 40px; }
+.hc-reviews-by-product .rbp-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 10px;
+}
+.hc-reviews-by-product .rbp-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 52px;
+  line-height: .9;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.hc-reviews-by-product .rbp-tabs {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 40px;
+  background: rgba(255,255,255,.04);
+}
+.hc-reviews-by-product .rbp-tab {
+  flex: 1;
+  padding: 18px 20px;
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: rgba(255,255,255,.35);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all .2s;
+  text-align: left;
+  border-bottom: 3px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hc-reviews-by-product .rbp-tab-emoji { font-size: 20px; }
+.hc-reviews-by-product .rbp-tab:hover { color: rgba(255,255,255,.6); background: rgba(255,255,255,.03); }
+.hc-reviews-by-product .rbp-tab.active { color: var(--white); border-bottom-color: var(--teal); background: rgba(255,255,255,.04); }
+.hc-reviews-by-product .rbp-panel { display: none; }
+.hc-reviews-by-product .rbp-panel.active {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: rgba(255,255,255,.05);
+}
+.hc-reviews-by-product .rev-card {
+  background: var(--black);
+  padding: 28px 24px;
+  border-top: 2px solid rgba(255,255,255,.06);
+}
+.hc-reviews-by-product .rev-stars {
+  color: var(--yellow);
+  font-size: 12px;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+.hc-reviews-by-product .rev-title {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 17px;
+  text-transform: uppercase;
+  color: var(--white);
+  letter-spacing: .5px;
+  line-height: 1.05;
+  margin-bottom: 10px;
+}
+.hc-reviews-by-product .rev-body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(255,255,255,.6);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.hc-reviews-by-product .rev-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.hc-reviews-by-product .rev-name {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+}
+.hc-reviews-by-product .rev-badge {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  background: rgba(102,204,204,.1);
+  color: var(--teal);
+}
+.hc-reviews-by-product .rev-date {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: rgba(255,255,255,.2);
+}
+@media (max-width: 1024px) {
+  .hc-reviews-by-product { padding: 60px 40px; }
+  .hc-reviews-by-product .rbp-tabs { flex-direction: column; }
+  .hc-reviews-by-product .rbp-panel.active { grid-template-columns: 1fr; }
+  .hc-reviews-by-product .rbp-h { font-size: 40px; }
+}
+@media (max-width: 768px) {
+  .hc-reviews-by-product { padding: 50px 20px; }
+  .hc-reviews-by-product .rbp-h { font-size: 34px; }
+}
+{% endstylesheet %}
+
+{% javascript %}
+(() => {
+  const initialize = (root) => {
+    if (root.dataset.tabsInit === 'true') return;
+    root.dataset.tabsInit = 'true';
+    root.addEventListener('click', (e) => {
+      const tab = e.target.closest('[data-rbp-tab]');
+      if (!tab || !root.contains(tab)) return;
+      const product = tab.dataset.rbpTab;
+      root.querySelectorAll('.rbp-tab').forEach((t) => t.classList.remove('active'));
+      root.querySelectorAll('.rbp-panel').forEach((p) => p.classList.remove('active'));
+      tab.classList.add('active');
+      const panel = root.querySelector('[data-rbp-panel="' + product + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  };
+  const boot = () => {
+    document.querySelectorAll('.hc-reviews-by-product').forEach((root) => initialize(root));
+  };
+  document.addEventListener('DOMContentLoaded', boot);
+  document.addEventListener('shopify:section:load', boot);
+  boot();
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Reviews By Product",
+  "max_blocks": 15,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Browse by Product" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "More From Our Customers" },
+    { "type": "text", "id": "choc_emoji", "label": "Chocolate emoji", "default": "🍫" },
+    { "type": "text", "id": "choc_label", "label": "Chocolate tab label", "default": "Chocolate Brownie Bar" },
+    { "type": "text", "id": "pb_emoji", "label": "Peanut Butter emoji", "default": "🥜" },
+    { "type": "text", "id": "pb_label", "label": "Peanut Butter tab label", "default": "Peanut Butter Bar" },
+    { "type": "text", "id": "bbq_emoji", "label": "BBQ emoji", "default": "🌶️" },
+    { "type": "text", "id": "bbq_label", "label": "BBQ tab label", "default": "BBQ Protein Puffs" }
+  ],
+  "blocks": [
+    {
+      "type": "product_review",
+      "name": "Product review",
+      "settings": [
+        { "type": "select", "id": "product", "label": "Product", "default": "choc", "options": [
+          { "value": "choc", "label": "Chocolate Brownie Bar" },
+          { "value": "pb", "label": "Peanut Butter Bar" },
+          { "value": "bbq", "label": "BBQ Protein Puffs" }
+        ]},
+        { "type": "text", "id": "stars", "label": "Stars", "default": "★★★★★" },
+        { "type": "text", "id": "title", "label": "Review title", "default": "Actually Tastes Like a Treat" },
+        { "type": "textarea", "id": "body", "label": "Review body", "default": "Bought these skeptically. Ate one and immediately ordered the 20-pack." },
+        { "type": "text", "id": "reviewer_name", "label": "Reviewer name", "default": "Amanda K." },
+        { "type": "text", "id": "date", "label": "Date", "default": "March 2026" },
+        { "type": "text", "id": "badge", "label": "Badge", "default": "Verified Purchase" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Reviews By Product" }]
+}
+{% endschema %}

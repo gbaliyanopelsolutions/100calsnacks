@@ -1,0 +1,180 @@
+<section class="hc-contact-hero" {{ section.shopify_attributes }}>
+  <div class="cch-inner">
+    <div class="fade-up">
+      <div class="cch-overline">{{ section.settings.eyebrow | escape }}</div>
+      <h1 class="cch-h1">{{ section.settings.heading }}</h1>
+      <p class="cch-sub">{{ section.settings.subheading | escape }}</p>
+    </div>
+    <div class="cch-promise fade-up fade-up-2">
+      {% for block in section.blocks %}
+        {% if block.type == 'promise_item' %}
+          <div class="cch-promise-item" {{ block.shopify_attributes }}>
+            <div class="cch-pi-icon">{{ block.settings.icon | escape }}</div>
+            <div>
+              <div class="cch-pi-label">{{ block.settings.label | escape }}</div>
+              <div class="cch-pi-sub">{{ block.settings.sub | escape }}</div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-contact-hero {
+  --ink: #1A1A1A;
+  --ink-mid: #555;
+  --ink-light: #888;
+  --neutral: #F4F3F0;
+  background: var(--black);
+  padding: 100px 80px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hc-contact-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 20% 60%, rgba(102,204,204,.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hc-contact-hero .cch-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: end;
+  position: relative;
+  z-index: 2;
+}
+.hc-contact-hero .cch-overline {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hc-contact-hero .cch-overline::before {
+  content: '';
+  width: 32px;
+  height: 2px;
+  background: var(--teal);
+  flex-shrink: 0;
+}
+.hc-contact-hero .cch-h1 {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 96px;
+  line-height: .85;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+.hc-contact-hero .cch-h1 em {
+  font-style: italic;
+  color: var(--teal);
+  display: block;
+}
+.hc-contact-hero .cch-sub {
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: rgba(255,255,255,.6);
+  line-height: 1.75;
+  max-width: 460px;
+}
+.hc-contact-hero .cch-promise {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-self: end;
+}
+.hc-contact-hero .cch-promise-item {
+  padding: 24px 28px;
+  background: rgba(255,255,255,.04);
+  border-left: 3px solid transparent;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.hc-contact-hero .cch-promise-item:nth-child(1) { border-left-color: var(--teal); }
+.hc-contact-hero .cch-promise-item:nth-child(2) { border-left-color: var(--orange); }
+.hc-contact-hero .cch-promise-item:nth-child(3) { border-left-color: var(--yellow); }
+.hc-contact-hero .cch-pi-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.hc-contact-hero .cch-pi-label {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: var(--white);
+  letter-spacing: .5px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.hc-contact-hero .cch-pi-sub {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: rgba(255,255,255,.45);
+  line-height: 1.5;
+}
+@media (max-width: 1024px) {
+  .hc-contact-hero { padding: 72px 40px 60px; }
+  .hc-contact-hero .cch-inner { grid-template-columns: 1fr; gap: 48px; }
+  .hc-contact-hero .cch-h1 { font-size: 72px; }
+}
+@media (max-width: 768px) {
+  .hc-contact-hero { padding: 56px 20px 48px; }
+  .hc-contact-hero .cch-h1 { font-size: 56px; }
+  .hc-contact-hero .cch-sub { font-size: 16px; }
+}
+{% endstylesheet %}
+
+{% javascript %}
+(() => {
+  const boot = () => {
+    if (window._hcFadeInit) return;
+    window._hcFadeInit = true;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.fade-up').forEach((el) => io.observe(el));
+  };
+  document.addEventListener('DOMContentLoaded', boot);
+  document.addEventListener('shopify:section:load', boot);
+  boot();
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Contact Hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Get in Touch" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "We're<br>Right<br><em>Here.</em>" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "A real person will read your message. Not a bot, not a ticket system — a person who actually cares about getting back to you." }
+  ],
+  "blocks": [
+    {
+      "type": "promise_item",
+      "name": "Promise item",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon (emoji)", "default": "💬" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Real Responses" },
+        { "type": "text", "id": "sub", "label": "Subtext", "default": "Every message is read and replied to by a real person on the team" }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [{ "name": "Contact Hero" }]
+}
+{% endschema %}

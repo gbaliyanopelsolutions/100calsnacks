@@ -1,0 +1,853 @@
+
+<div id="hcqa-data" style="display:none" aria-hidden="true">
+  {% for block in section.blocks %}
+    {% if block.type == 'result_type' %}
+      {%- comment -%}
+        Resolve variant ID: prefer the explicit shopify_product picker; fall back to
+        extracting the product handle from product_url (works with both
+        shopify://products/handle and /products/handle formats stored in the JSON).
+      {%- endcomment -%}
+      {%- if block.settings.shopify_product != blank -%}
+        {%- assign hcqa_vid = block.settings.shopify_product.selected_or_first_available_variant.id -%}
+      {%- else -%}
+        {%- assign hcqa_handle = block.settings.product_url | split: '/' | last | split: '?' | first -%}
+        {%- assign hcqa_res_product = all_products[hcqa_handle] -%}
+        {%- if hcqa_res_product != blank -%}
+          {%- assign hcqa_vid = hcqa_res_product.selected_or_first_available_variant.id -%}
+        {%- else -%}
+          {%- assign hcqa_vid = '' -%}
+        {%- endif -%}
+      {%- endif -%}
+      <div class="hcqa-rtype"
+           data-type="{{ block.settings.type_key | escape }}"
+           data-icon="{{ block.settings.icon | escape }}"
+           data-name="{{ block.settings.archetype_name | escape }}"
+           data-tagline="{{ block.settings.tagline | escape }}"
+           data-desc="{{ block.settings.desc | escape }}"
+           data-accent="{{ block.settings.accent_color | escape }}"
+           data-accent-rgb="{{ block.settings.accent_rgb | escape }}"
+           data-page-bg="{{ block.settings.page_bg | escape }}"
+           data-hero-bg="{{ block.settings.hero_bg | escape }}"
+           data-bg-word="{{ block.settings.bg_word | escape }}"
+           data-product="{{ block.settings.product_name | escape }}"
+           data-product-sub="{{ block.settings.product_sub | escape }}"
+           data-product-url="{{ block.settings.product_url | escape }}"
+           data-product-emoji="{{ block.settings.product_emoji | escape }}"
+           data-product-bg="{{ block.settings.product_bg | escape }}"
+           data-m1n="{{ block.settings.macro_1_n | escape }}"
+           data-m1l="{{ block.settings.macro_1_l | escape }}"
+           data-m2n="{{ block.settings.macro_2_n | escape }}"
+           data-m2l="{{ block.settings.macro_2_l | escape }}"
+           data-m3n="{{ block.settings.macro_3_n | escape }}"
+           data-m3l="{{ block.settings.macro_3_l | escape }}"
+           data-m4n="{{ block.settings.macro_4_n | escape }}"
+           data-m4l="{{ block.settings.macro_4_l | escape }}"
+           data-why1="{{ block.settings.why_1 | escape }}"
+           data-why2="{{ block.settings.why_2 | escape }}"
+           data-why3="{{ block.settings.why_3 | escape }}"
+           data-snack-clock="{{ block.settings.snack_clock | escape }}"
+           data-snack-when="{{ block.settings.snack_when | escape }}"
+           data-snack-time="{{ block.settings.snack_time | escape }}"
+           data-snack-sub="{{ block.settings.snack_sub | escape }}"
+           data-share="{{ block.settings.share_text | escape }}"
+           data-variant-id="{{ hcqa_vid }}"
+      ></div>
+    {% endif %}
+  {% endfor %}
+  {% for block in section.blocks %}
+    {% if block.type == 'question' %}
+      <div class="hcqa-question"
+           data-text="{{ block.settings.question_text | escape }}"
+           data-weight="{{ block.settings.weight | escape }}"
+           data-a-text="{{ block.settings.answer_a_text | escape }}"
+           data-a-type="{{ block.settings.answer_a_type | escape }}"
+           data-b-text="{{ block.settings.answer_b_text | escape }}"
+           data-b-type="{{ block.settings.answer_b_type | escape }}"
+           data-c-text="{{ block.settings.answer_c_text | escape }}"
+           data-c-type="{{ block.settings.answer_c_type | escape }}"
+           data-tiebreaker="{{ block.settings.is_tiebreaker }}"
+           {{ block.shopify_attributes }}
+      ></div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<div class="hc-quiz-app" {{ section.shopify_attributes }}>
+
+  <!-- ENTRY SCREEN -->
+  <div class="hcqa-screen hcqa-screen--entry active" id="hcqa-screen-entry">
+    <div class="hcqa-entry-wrap">
+      <div class="hcqa-entry-inner">
+        <div class="hcqa-entry-eyebrow">{{ section.settings.entry_eyebrow | escape }}</div>
+        <h1 class="hcqa-entry-title">{{ section.settings.entry_title }}</h1>
+        <p class="hcqa-entry-body">{{ section.settings.entry_body | escape }}</p>
+        <div class="hcqa-entry-meta">
+          <div class="hcqa-entry-meta-item">⏱ 60 Seconds</div>
+          <div class="hcqa-entry-meta-item">🎯 7 Questions</div>
+          <div class="hcqa-entry-meta-item">📊 Gut-Brain Score</div>
+        </div>
+        <button class="hcqa-start-btn" id="hcqa-start-btn" type="button">{{ section.settings.entry_cta | escape }}</button>
+        <div class="hcqa-entry-types-label">{{ section.settings.entry_types_label | escape }}</div>
+        <div class="hcqa-entry-types-row">
+          {% for block in section.blocks %}
+            {% if block.type == 'result_type' %}
+              <div class="hcqa-et-tile" {{ block.shopify_attributes }}>
+                <div class="hcqa-et-icon">{{ block.settings.icon }}</div>
+                <div class="hcqa-et-name">{{ block.settings.archetype_name | escape }}</div>
+                <div class="hcqa-et-lock">Take Quiz to Reveal</div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUESTIONS SCREEN -->
+  <div class="hcqa-screen hcqa-screen--questions" id="hcqa-screen-questions">
+    <div class="hcqa-q-wrap">
+      <div class="hcqa-q-inner">
+        <div class="hcqa-q-progress-header">
+          <div class="hcqa-q-progress-top">
+            <span class="hcqa-q-progress-label" id="hcqa-q-label">Question 1</span>
+            <span class="hcqa-q-progress-count" id="hcqa-q-count">1 of 7</span>
+          </div>
+          <div class="hcqa-q-bar"><div class="hcqa-q-bar-fill" id="hcqa-q-bar-fill" style="width:14.3%"></div></div>
+        </div>
+        <div class="hcqa-q-num" id="hcqa-q-num">01 / 07</div>
+        <div class="hcqa-q-text" id="hcqa-q-text"></div>
+        <div class="hcqa-q-answers" id="hcqa-q-answers"></div>
+        <div class="hcqa-q-nav">
+          <button class="hcqa-q-back" id="hcqa-q-back" type="button">← Back</button>
+          <div class="hcqa-q-dots" id="hcqa-q-dots"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div class="hcqa-screen hcqa-screen--result" id="hcqa-screen-result">
+    <div class="hcqa-result-page" id="hcqa-result-page">
+
+      <!-- Score Hero -->
+      <div class="hcqa-score-hero" id="hcqa-score-hero" data-bg-word="">
+        <div class="hcqa-score-hero-inner">
+
+          <div>
+            <div class="hcqa-r-eyebrow">Your Gut-Brain Type</div>
+            <span class="hcqa-r-icon" id="hcqa-r-icon"></span>
+            <h2 class="hcqa-r-type" id="hcqa-r-type"></h2>
+            <p class="hcqa-r-tagline" id="hcqa-r-tagline"></p>
+            <p class="hcqa-r-desc" id="hcqa-r-desc"></p>
+
+            <div class="hcqa-gbs-wrap">
+              <div class="hcqa-gbs-dial">
+                <svg width="80" height="80" viewBox="0 0 80 80">
+                  <circle class="hcqa-gbs-track" cx="40" cy="40" r="32"/>
+                  <circle class="hcqa-gbs-fill" id="hcqa-gbs-fill" cx="40" cy="40" r="32"/>
+                </svg>
+                <div class="hcqa-gbs-num" id="hcqa-gbs-num">--</div>
+              </div>
+              <div>
+                <div class="hcqa-gbs-label">Gut-Brain Score</div>
+                <div class="hcqa-gbs-title" id="hcqa-gbs-title">-- / 100</div>
+                <div class="hcqa-gbs-sub" id="hcqa-gbs-sub">Calculating...</div>
+              </div>
+            </div>
+
+            <div class="hcqa-breakdown">
+              <div class="hcqa-bd-row">
+                <div class="hcqa-bd-top"><span class="hcqa-bd-label">Energy Stability</span><span class="hcqa-bd-pct" id="hcqa-bd-e">--</span></div>
+                <div class="hcqa-bd-bar"><div class="hcqa-bd-bar-fill" id="hcqa-bd-e-bar"></div></div>
+              </div>
+              <div class="hcqa-bd-row">
+                <div class="hcqa-bd-top"><span class="hcqa-bd-label">Stress Balance</span><span class="hcqa-bd-pct" id="hcqa-bd-s">--</span></div>
+                <div class="hcqa-bd-bar"><div class="hcqa-bd-bar-fill" id="hcqa-bd-s-bar"></div></div>
+              </div>
+              <div class="hcqa-bd-row">
+                <div class="hcqa-bd-top"><span class="hcqa-bd-label">Craving Control</span><span class="hcqa-bd-pct" id="hcqa-bd-c">--</span></div>
+                <div class="hcqa-bd-bar"><div class="hcqa-bd-bar-fill" id="hcqa-bd-c-bar"></div></div>
+              </div>
+            </div>
+
+            <div class="hcqa-share-row">
+              <div class="hcqa-share-label">Share Your Score</div>
+              <div class="hcqa-share-btns">
+                <button class="hcqa-share-btn" id="hcqa-btn-twitter" type="button">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                  Share on X
+                </button>
+                <button class="hcqa-share-btn" id="hcqa-btn-instagram" type="button">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                  Instagram
+                </button>
+                <button class="hcqa-share-btn" id="hcqa-btn-copy" type="button">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  Copy Score
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="hcqa-r-product-card">
+            <div class="hcqa-rpc-label" id="hcqa-rpc-label">Your Best Snack Match</div>
+            <div class="hcqa-rpc-name" id="hcqa-rpc-name"></div>
+            <div class="hcqa-rpc-sub" id="hcqa-rpc-sub"></div>
+            <div class="hcqa-rpc-recommended">
+              <span class="hcqa-rpc-recommended-label">Recommended For</span>
+              <span class="hcqa-rpc-recommended-type" id="hcqa-rpc-recommended-type"></span>
+            </div>
+            <div class="hcqa-rpc-visual" id="hcqa-rpc-visual"></div>
+            <div class="hcqa-rpc-macros">
+              <div class="hcqa-rpc-m"><div class="hcqa-rpc-m-num" id="hcqa-m1n">100</div><div class="hcqa-rpc-m-lbl" id="hcqa-m1l">Cal</div></div>
+              <div class="hcqa-rpc-m"><div class="hcqa-rpc-m-num" id="hcqa-m2n">5g</div><div class="hcqa-rpc-m-lbl" id="hcqa-m2l">Protein</div></div>
+              <div class="hcqa-rpc-m"><div class="hcqa-rpc-m-num" id="hcqa-m3n">4g</div><div class="hcqa-rpc-m-lbl" id="hcqa-m3l">Fiber</div></div>
+              <div class="hcqa-rpc-m"><div class="hcqa-rpc-m-num" id="hcqa-m4n">0g</div><div class="hcqa-rpc-m-lbl" id="hcqa-m4l">Sugar</div></div>
+            </div>
+            <div class="hcqa-rpc-why">
+              <div class="hcqa-rpc-why-label">Why it works for you</div>
+              <ul class="hcqa-rpc-why-list" id="hcqa-rpc-why-list"></ul>
+            </div>
+            <button class="hcqa-rpc-cta" id="hcqa-rpc-cta" type="button">Add to Cart →</button>
+            <a class="hcqa-rpc-see-all" href="{{ section.settings.see_all_url | escape }}">{{ section.settings.see_all_label | escape }}</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Snack Moment -->
+      <div class="hcqa-moment-section">
+        <div class="hcqa-moment-inner">
+          <div class="hcqa-moment-header">
+            <span class="hcqa-moment-eyebrow">Based on Your Profile —</span>
+            <h3 class="hcqa-moment-title">Your Ideal <em>Snack Moment</em></h3>
+          </div>
+          <div class="hcqa-moment-card" id="hcqa-moment-card">
+            <div class="hcqa-moment-card-left">
+              <div class="hcqa-moment-clock" id="hcqa-moment-clock"></div>
+              <div class="hcqa-moment-card-label" id="hcqa-moment-card-label">When to Snack</div>
+            </div>
+            <div class="hcqa-moment-card-right">
+              <div class="hcqa-moment-card-value" id="hcqa-moment-card-value"></div>
+              <div class="hcqa-moment-card-time" id="hcqa-moment-card-time"></div>
+              <div class="hcqa-moment-card-sub" id="hcqa-moment-card-sub"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="hcqa-email-section">
+        <div class="hcqa-email-inner">
+          <div>
+            <h3 class="hcqa-email-h">{{ section.settings.email_heading }}</h3>
+            <p class="hcqa-email-p">{{ section.settings.email_body | escape }}</p>
+            <ul class="hcqa-email-bullets">
+              {% if section.settings.email_bullet_1 != blank %}<li><span class="hcqa-email-check" id="hcqa-ec1">✓</span>{{ section.settings.email_bullet_1 | escape }}</li>{% endif %}
+              {% if section.settings.email_bullet_2 != blank %}<li><span class="hcqa-email-check" id="hcqa-ec2">✓</span>{{ section.settings.email_bullet_2 | escape }}</li>{% endif %}
+              {% if section.settings.email_bullet_3 != blank %}<li><span class="hcqa-email-check" id="hcqa-ec3">✓</span>{{ section.settings.email_bullet_3 | escape }}</li>{% endif %}
+              {% if section.settings.email_bullet_4 != blank %}<li><span class="hcqa-email-check" id="hcqa-ec4">✓</span>{{ section.settings.email_bullet_4 | escape }}</li>{% endif %}
+            </ul>
+          </div>
+          <div>
+            <div class="hcqa-email-field">
+              <input type="email" class="hcqa-email-input" id="hcqa-email-input" placeholder="{{ section.settings.email_placeholder | escape }}"/>
+              <button class="hcqa-email-submit" id="hcqa-email-submit" type="button">{{ section.settings.email_cta | escape }}</button>
+            </div>
+            <p class="hcqa-email-feedback" id="hcqa-email-feedback"></p>
+            <p class="hcqa-email-privacy">{{ section.settings.email_privacy | escape }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result Footer -->
+      <div class="hcqa-r-footer">
+        <div class="hcqa-r-footer-inner">
+          <button class="hcqa-r-retake" id="hcqa-retake-btn" type="button">↺ Retake Quiz</button>
+          <div class="hcqa-other-types">
+            <span class="hcqa-other-lbl">Other types:</span>
+            {% for block in section.blocks %}
+              {% if block.type == 'result_type' %}
+                <button class="hcqa-other-chip" type="button" data-peek="{{ block.settings.type_key | escape }}">{{ block.settings.icon }} {{ block.settings.archetype_name | escape }}</button>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+{% stylesheet %}
+.hc-quiz-app { width: 100%; }
+.hcqa-screen { display: none; width: 100%; }
+.hcqa-screen.active { display: block; }
+
+/* ENTRY */
+.hcqa-entry-wrap {
+  min-height: calc(100vh - 68px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 72px 80px;
+  position: relative;
+  overflow: hidden;
+  background: var(--black);
+}
+.hcqa-entry-wrap::before {
+  content: '?';
+  position: absolute;
+  right: -80px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 600px;
+  color: rgba(255,255,255,.02);
+  line-height: 1;
+  pointer-events: none;
+}
+.hcqa-entry-inner { max-width: 860px; width: 100%; position: relative; z-index: 2; }
+.hcqa-entry-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 20px;
+}
+.hcqa-entry-title {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 108px;
+  line-height: .83;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 28px;
+}
+.hcqa-entry-title em { font-style: italic; color: var(--teal); }
+.hcqa-entry-body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: rgba(255,255,255,.72);
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 520px;
+}
+.hcqa-entry-meta { display: flex; gap: 24px; margin-bottom: 36px; flex-wrap: wrap; }
+.hcqa-entry-meta-item {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hcqa-start-btn {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 15px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 20px 52px;
+  background: var(--teal);
+  color: var(--black);
+  border: none;
+  cursor: pointer;
+  transition: all .25s;
+}
+.hcqa-start-btn:hover { background: var(--teal-dark); color: var(--white); transform: translateY(-2px); }
+.hcqa-entry-types-label {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 14px;
+  margin-top: 56px;
+}
+.hcqa-entry-types-row {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.hcqa-et-tile {
+  padding: 18px 14px;
+  border: 1px solid rgba(255,255,255,.07);
+  background: rgba(255,255,255,.02);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+.hcqa-et-icon { font-size: 22px; line-height: 1; opacity: .7; }
+.hcqa-et-name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.75);
+  letter-spacing: .5px;
+  text-align: center;
+  line-height: 1.15;
+}
+.hcqa-et-lock {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  text-align: center;
+}
+
+/* QUESTIONS */
+.hcqa-q-wrap {
+  min-height: calc(100vh - 68px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 48px;
+  background: var(--black);
+}
+.hcqa-q-inner { max-width: 660px; width: 100%; }
+.hcqa-q-progress-header { margin-bottom: 44px; }
+.hcqa-q-progress-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+.hcqa-q-progress-label {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.hcqa-q-progress-count { font-family: var(--font-body); font-size: 13px; color: rgba(255,255,255,.6); }
+.hcqa-q-bar { width: 100%; height: 2px; background: rgba(255,255,255,.08); }
+.hcqa-q-bar-fill { height: 100%; background: var(--teal); transition: width .45s cubic-bezier(.4,0,.2,1); }
+.hcqa-q-num {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(102,204,204,.4);
+  margin-bottom: 12px;
+}
+.hcqa-q-text {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 38px;
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 32px;
+}
+.hcqa-q-answers { display: flex; flex-direction: column; gap: 10px; }
+.hcqa-q-btn {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 22px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.07);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: all .2s;
+  color: var(--white);
+}
+.hcqa-q-btn:hover { background: rgba(102,204,204,.06); border-color: rgba(102,204,204,.25); }
+.hcqa-q-btn.selected { background: rgba(102,204,204,.1); border-color: var(--teal); }
+.hcqa-q-letter {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.2);
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid rgba(255,255,255,.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all .2s;
+}
+.hcqa-q-btn.selected .hcqa-q-letter { color: var(--teal); border-color: var(--teal); }
+.hcqa-q-answer-text { font-family: var(--font-body); font-size: 16px; color: rgba(255,255,255,.85); line-height: 1.4; }
+.hcqa-q-btn:hover .hcqa-q-answer-text,
+.hcqa-q-btn.selected .hcqa-q-answer-text { color: var(--white); }
+.hcqa-q-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 24px; }
+.hcqa-q-back {
+  background: none;
+  border: none;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.2);
+  cursor: pointer;
+  transition: color .2s;
+  padding: 0;
+  visibility: hidden;
+}
+.hcqa-q-back:hover { color: rgba(255,255,255,.6); }
+.hcqa-q-dots { display: flex; gap: 6px; }
+.hcqa-q-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.12); transition: background .3s; }
+.hcqa-q-dot.done { background: var(--teal); }
+.hcqa-q-dot.active { background: var(--white); }
+
+/* RESULT */
+.hcqa-result-page { width: 100%; }
+.hcqa-score-hero { padding: 80px; position: relative; overflow: hidden; }
+.hcqa-score-hero::before {
+  content: attr(data-bg-word);
+  position: absolute;
+  right: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 300px;
+  line-height: 1;
+  pointer-events: none;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.05);
+}
+.hcqa-score-hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  position: relative;
+  z-index: 2;
+}
+.hcqa-r-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.7);
+  margin-bottom: 14px;
+}
+.hcqa-r-icon { font-size: 58px; margin-bottom: 16px; display: block; animation: hcqaPopIn .6s cubic-bezier(.175,.885,.32,1.275); }
+@keyframes hcqaPopIn {
+  from { transform: scale(0) rotate(-12deg); opacity: 0; }
+  to { transform: scale(1) rotate(0); opacity: 1; }
+}
+.hcqa-r-type {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 64px;
+  line-height: .88;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+.hcqa-r-tagline {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.hcqa-r-desc { font-family: var(--font-body); font-size: 15px; color: rgba(255,255,255,.75); line-height: 1.75; margin-bottom: 28px; }
+.hcqa-gbs-wrap {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 26px;
+  background: rgba(0,0,0,.3);
+  border: 1px solid rgba(255,255,255,.08);
+  margin-bottom: 24px;
+}
+.hcqa-gbs-dial { position: relative; width: 80px; height: 80px; flex-shrink: 0; }
+.hcqa-gbs-dial svg { transform: rotate(-90deg); }
+.hcqa-gbs-track { fill: none; stroke: rgba(255,255,255,.1); stroke-width: 6; }
+.hcqa-gbs-fill {
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 201;
+  stroke-dashoffset: 201;
+  transition: stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1);
+}
+.hcqa-gbs-num {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 22px;
+  color: var(--white);
+  line-height: 1;
+}
+.hcqa-gbs-label {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+  margin-bottom: 5px;
+}
+.hcqa-gbs-title { font-family: var(--font-head); font-weight: 900; font-size: 26px; text-transform: uppercase; color: var(--white); line-height: 1; margin-bottom: 3px; }
+.hcqa-gbs-sub { font-family: var(--font-body); font-size: 13px; color: rgba(255,255,255,.6); }
+.hcqa-breakdown { display: flex; flex-direction: column; gap: 13px; margin-bottom: 28px; }
+.hcqa-bd-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+.hcqa-bd-label { font-family: var(--font-head); font-weight: 700; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.hcqa-bd-pct { font-family: var(--font-head); font-weight: 900; font-size: 13px; color: var(--white); }
+.hcqa-bd-bar { width: 100%; height: 3px; background: rgba(255,255,255,.08); }
+.hcqa-bd-bar-fill { height: 100%; width: 0%; transition: width 1s cubic-bezier(.4,0,.2,1); }
+.hcqa-share-row { display: flex; flex-direction: column; gap: 9px; }
+.hcqa-share-label { font-family: var(--font-head); font-weight: 700; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,.55); }
+.hcqa-share-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.hcqa-share-btn {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 9px 15px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  color: rgba(255,255,255,.75);
+  cursor: pointer;
+  transition: all .2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hcqa-share-btn:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.25); color: var(--white); }
+.hcqa-share-btn.copied { color: var(--teal); border-color: var(--teal); }
+
+/* Product Card */
+.hcqa-r-product-card {
+  padding: 34px;
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(0,0,0,.35);
+  display: flex;
+  flex-direction: column;
+}
+.hcqa-rpc-label { font-family: var(--font-head); font-weight: 700; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 6px; }
+.hcqa-rpc-name { font-family: var(--font-head); font-weight: 900; font-size: 32px; text-transform: uppercase; color: var(--white); line-height: .95; margin-bottom: 3px; }
+.hcqa-rpc-sub { font-family: var(--font-body); font-size: 13px; color: rgba(255,255,255,.6); margin-bottom: 10px; }
+.hcqa-rpc-recommended { font-family: var(--font-head); font-weight: 700; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.hcqa-rpc-recommended-label { color: rgba(255,255,255,.5); }
+.hcqa-rpc-recommended-type { padding: 3px 10px; border: 1px solid; font-weight: 900; }
+.hcqa-rpc-visual { height: 128px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 50px; margin-bottom: 16px; position: relative; overflow: hidden; }
+.hcqa-rpc-visual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg,rgba(255,255,255,.05),transparent 40%); }
+.hcqa-rpc-macros { display: flex; gap: 1px; background: rgba(255,255,255,.05); margin-bottom: 16px; }
+.hcqa-rpc-m { flex: 1; text-align: center; padding: 9px 4px; background: rgba(0,0,0,.2); }
+.hcqa-rpc-m-num { font-family: var(--font-head); font-weight: 900; font-size: 17px; color: var(--white); line-height: 1; }
+.hcqa-rpc-m-lbl { font-family: var(--font-head); font-weight: 700; font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.6); margin-top: 3px; }
+.hcqa-rpc-why { margin-bottom: 18px; }
+.hcqa-rpc-why-label { font-family: var(--font-head); font-weight: 700; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: 9px; }
+.hcqa-rpc-why-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.hcqa-rpc-why-item { font-family: var(--font-body); font-size: 14px; color: rgba(255,255,255,.82); display: flex; align-items: flex-start; gap: 8px; line-height: 1.4; }
+.hcqa-rpc-why-check { flex-shrink: 0; font-weight: 700; margin-top: 1px; }
+.hcqa-rpc-cta { width: 100%; padding: 17px; font-family: var(--font-head); font-weight: 900; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; background: var(--teal); color: var(--black); border: none; cursor: pointer; transition: all .25s; margin-bottom: 10px; }
+.hcqa-rpc-cta:hover { background: var(--teal-dark); color: var(--white); }
+.hcqa-rpc-see-all { width: 100%; padding: 11px; font-family: var(--font-head); font-weight: 700; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; background: transparent; color: rgba(255,255,255,.25); border: 1px solid rgba(255,255,255,.1); transition: all .2s; text-decoration: none; text-align: center; display: block; }
+.hcqa-rpc-see-all:hover { border-color: rgba(255,255,255,.3); color: rgba(255,255,255,.6); }
+
+/* Snack Moment */
+.hcqa-moment-section { padding: 48px 80px 72px; border-top: 1px solid rgba(255,255,255,.06); }
+.hcqa-moment-inner { max-width: 1100px; margin: 0 auto; }
+.hcqa-moment-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+.hcqa-moment-eyebrow { font-family: var(--font-head); font-weight: 700; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,.6); }
+.hcqa-moment-title { font-family: var(--font-head); font-weight: 900; font-size: 44px; line-height: .92; text-transform: uppercase; color: var(--white); display: inline; }
+.hcqa-moment-title em { font-style: italic; }
+.hcqa-moment-card { padding: 36px 40px; border-left: 4px solid transparent; display: grid; grid-template-columns: auto 1fr; gap: 0 40px; align-items: start; }
+.hcqa-moment-card-left { display: flex; flex-direction: column; align-items: center; gap: 8px; padding-right: 40px; border-right: 1px solid rgba(255,255,255,.08); }
+.hcqa-moment-clock { font-size: 40px; line-height: 1; }
+.hcqa-moment-card-label { font-family: var(--font-head); font-weight: 700; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; text-align: center; }
+.hcqa-moment-card-value { font-family: var(--font-head); font-weight: 900; font-size: 28px; text-transform: uppercase; color: var(--white); line-height: 1; margin-bottom: 12px; }
+.hcqa-moment-card-time { display: inline-block; font-family: var(--font-head); font-weight: 900; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 6px 14px; border: 1.5px solid; margin-bottom: 14px; }
+.hcqa-moment-card-sub { font-family: var(--font-body); font-size: 14px; color: rgba(255,255,255,.75); line-height: 1.7; }
+
+/* Email */
+.hcqa-email-section { padding: 64px 80px; border-top: 1px solid rgba(255,255,255,.07); }
+.hcqa-email-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.hcqa-email-h { font-family: var(--font-head); font-weight: 900; font-size: 36px; text-transform: uppercase; color: var(--white); line-height: .92; margin-bottom: 10px; }
+.hcqa-email-p { font-family: var(--font-body); font-size: 15px; color: rgba(255,255,255,.7); line-height: 1.65; }
+.hcqa-email-bullets { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 7px; }
+.hcqa-email-bullets li { font-family: var(--font-body); font-size: 14px; color: rgba(255,255,255,.7); display: flex; align-items: center; gap: 8px; }
+.hcqa-email-check { flex-shrink: 0; font-weight: 700; }
+.hcqa-email-field { display: flex; }
+.hcqa-email-input { flex: 1; padding: 14px 18px; font-family: var(--font-body); font-size: 14px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-right: none; color: var(--white); outline: none; }
+.hcqa-email-input::placeholder { color: rgba(255,255,255,.5); }
+.hcqa-email-submit { padding: 14px 22px; font-family: var(--font-head); font-weight: 900; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; border: none; cursor: pointer; white-space: nowrap; transition: all .2s; }
+.hcqa-email-feedback { font-family: var(--font-body); font-size: 13px; margin-top: 10px; min-height: 18px; }
+.hcqa-email-privacy { font-family: var(--font-body); font-size: 11px; color: rgba(255,255,255,.5); margin-top: 8px; }
+
+/* Result Footer */
+.hcqa-r-footer { padding: 40px 80px; border-top: 1px solid rgba(255,255,255,.06); }
+.hcqa-r-footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+.hcqa-r-retake { background: none; border: 1px solid rgba(255,255,255,.1); font-family: var(--font-head); font-weight: 700; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.65); cursor: pointer; padding: 10px 20px; transition: all .2s; }
+.hcqa-r-retake:hover { border-color: rgba(255,255,255,.3); color: rgba(255,255,255,.6); }
+.hcqa-other-types { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.hcqa-other-lbl { font-family: var(--font-head); font-weight: 700; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.5); }
+.hcqa-other-chip { font-family: var(--font-head); font-weight: 700; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; padding: 7px 14px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07); color: rgba(255,255,255,.6); cursor: pointer; transition: all .2s; }
+.hcqa-other-chip:hover { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.15); }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hcqa-score-hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .hcqa-email-inner { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 768px) {
+  .hcqa-entry-wrap { padding: 48px 24px; }
+  .hcqa-entry-title { font-size: 64px; }
+  .hcqa-q-wrap { padding: 40px 24px; }
+  .hcqa-q-text { font-size: 26px; }
+  .hcqa-score-hero { padding: 48px 24px; }
+  .hcqa-score-hero::before { font-size: 160px; }
+  .hcqa-moment-section { padding: 40px 24px 56px; }
+  .hcqa-email-section { padding: 48px 24px; }
+  .hcqa-r-footer { padding: 32px 24px; }
+  .hcqa-r-footer-inner { flex-direction: column; align-items: flex-start; }
+  .hcqa-entry-types-row { grid-template-columns: 1fr; }
+  .hcqa-moment-card { grid-template-columns: 1fr; gap: 24px; }
+  .hcqa-moment-card-left { flex-direction: row; padding-right: 0; border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); padding-bottom: 16px; }
+}
+{% endstylesheet %}
+
+<script src="{{ '100cal-quiz.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Gut-Brain Quiz",
+  "settings": [
+    { "type": "text", "id": "entry_eyebrow", "label": "Entry eyebrow", "default": "60 Seconds · Free · No Email Required" },
+    { "type": "html", "id": "entry_title", "label": "Entry title (HTML)", "default": "What's Your<br>Gut-Brain<br><em>Type?</em>" },
+    { "type": "text", "id": "entry_body", "label": "Entry body text", "default": "Your gut and brain are constantly communicating. Take this quiz to discover your gut-brain score, your profile, and the snack built for your body." },
+    { "type": "text", "id": "entry_cta", "label": "Start button text", "default": "Find My Gut-Brain Type →" },
+    { "type": "text", "id": "entry_types_label", "label": "Archetype row label", "default": "3 Possible Gut-Brain Types — Which one are you?" },
+    { "type": "html", "id": "email_heading", "label": "Email heading (HTML)", "default": "Get Your<br>Gut-Brain Guide" },
+    { "type": "text", "id": "email_body", "label": "Email body", "default": "Enter your email and we'll send you:" },
+    { "type": "text", "id": "email_bullet_1", "label": "Email bullet 1", "default": "Your personalised gut-brain profile" },
+    { "type": "text", "id": "email_bullet_2", "label": "Email bullet 2", "default": "Snack timing tips for your type" },
+    { "type": "text", "id": "email_bullet_3", "label": "Email bullet 3", "default": "Functional ingredient insights" },
+    { "type": "text", "id": "email_bullet_4", "label": "Email bullet 4", "default": "10% off your first order" },
+    { "type": "text", "id": "email_placeholder", "label": "Email placeholder", "default": "your@email.com" },
+    { "type": "text", "id": "email_cta", "label": "Email submit label", "default": "Send It →" },
+    { "type": "text", "id": "email_privacy", "label": "Email privacy note", "default": "No spam, ever. Unsubscribe anytime." },
+    { "type": "url", "id": "see_all_url", "label": "See all products URL" },
+    { "type": "text", "id": "see_all_label", "label": "See all products label", "default": "See All Products →" }
+  ],
+  "blocks": [
+    {
+      "type": "result_type",
+      "name": "Result type",
+      "settings": [
+        { "type": "text", "id": "type_key", "label": "Type key (E, S, or C)" },
+        { "type": "text", "id": "icon", "label": "Icon emoji" },
+        { "type": "text", "id": "archetype_name", "label": "Archetype name" },
+        { "type": "text", "id": "tagline", "label": "Tagline" },
+        { "type": "textarea", "id": "desc", "label": "Description" },
+        { "type": "text", "id": "accent_color", "label": "Accent color (hex)" },
+        { "type": "text", "id": "accent_rgb", "label": "Accent RGB (r,g,b)" },
+        { "type": "text", "id": "page_bg", "label": "Page background (hex)" },
+        { "type": "text", "id": "hero_bg", "label": "Hero background (CSS gradient)" },
+        { "type": "text", "id": "bg_word", "label": "Watermark word" },
+        { "type": "text", "id": "product_name", "label": "Product name" },
+        { "type": "text", "id": "product_sub", "label": "Product subtitle" },
+        { "type": "url", "id": "product_url", "label": "Product URL" },
+        { "type": "text", "id": "product_emoji", "label": "Product emoji" },
+        { "type": "text", "id": "product_bg", "label": "Product visual background (CSS gradient)" },
+        { "type": "text", "id": "macro_1_n", "label": "Macro 1 value" },
+        { "type": "text", "id": "macro_1_l", "label": "Macro 1 label" },
+        { "type": "text", "id": "macro_2_n", "label": "Macro 2 value" },
+        { "type": "text", "id": "macro_2_l", "label": "Macro 2 label" },
+        { "type": "text", "id": "macro_3_n", "label": "Macro 3 value" },
+        { "type": "text", "id": "macro_3_l", "label": "Macro 3 label" },
+        { "type": "text", "id": "macro_4_n", "label": "Macro 4 value" },
+        { "type": "text", "id": "macro_4_l", "label": "Macro 4 label" },
+        { "type": "text", "id": "why_1", "label": "Why it works — point 1" },
+        { "type": "text", "id": "why_2", "label": "Why it works — point 2" },
+        { "type": "text", "id": "why_3", "label": "Why it works — point 3" },
+        { "type": "text", "id": "snack_clock", "label": "Snack moment emoji" },
+        { "type": "text", "id": "snack_when", "label": "Snack moment heading" },
+        { "type": "text", "id": "snack_time", "label": "Snack moment time label" },
+        { "type": "textarea", "id": "snack_sub", "label": "Snack moment body" },
+        { "type": "text", "id": "share_text", "label": "Share text (use {score} for score)" },
+        { "type": "product", "id": "shopify_product", "label": "Shopify product (for Add to Cart)" }
+      ]
+    },
+    {
+      "type": "question",
+      "name": "Quiz question",
+      "settings": [
+        { "type": "text", "id": "question_text", "label": "Question" },
+        {
+          "type": "select",
+          "id": "weight",
+          "label": "Weight",
+          "options": [
+            { "value": "1", "label": "1 — Low" },
+            { "value": "2", "label": "2 — Medium" },
+            { "value": "3", "label": "3 — High" }
+          ],
+          "default": "1"
+        },
+        { "type": "checkbox", "id": "is_tiebreaker", "label": "Use as tie-breaker", "default": false },
+        { "type": "text", "id": "answer_a_text", "label": "Answer A" },
+        {
+          "type": "select",
+          "id": "answer_a_type",
+          "label": "Answer A type",
+          "options": [
+            { "value": "E", "label": "E — Focus Fueler" },
+            { "value": "S", "label": "S — Calm Operator" },
+            { "value": "C", "label": "C — Craving Crusher" }
+          ],
+          "default": "E"
+        },
+        { "type": "text", "id": "answer_b_text", "label": "Answer B" },
+        {
+          "type": "select",
+          "id": "answer_b_type",
+          "label": "Answer B type",
+          "options": [
+            { "value": "E", "label": "E — Focus Fueler" },
+            { "value": "S", "label": "S — Calm Operator" },
+            { "value": "C", "label": "C — Craving Crusher" }
+          ],
+          "default": "S"
+        },
+        { "type": "text", "id": "answer_c_text", "label": "Answer C" },
+        {
+          "type": "select",
+          "id": "answer_c_type",
+          "label": "Answer C type",
+          "options": [
+            { "value": "E", "label": "E — Focus Fueler" },
+            { "value": "S", "label": "S — Calm Operator" },
+            { "value": "C", "label": "C — Craving Crusher" }
+          ],
+          "default": "C"
+        }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Gut-Brain Quiz" }]
+}
+{% endschema %}

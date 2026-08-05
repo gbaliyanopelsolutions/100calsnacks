@@ -1,0 +1,105 @@
+<section class="latest-section" data-section-type="blog-latest">
+  <div class="latest-inner">
+    <div class="latest-header">
+      <h2 class="latest-h">{{ section.settings.heading }}</h2>
+      <div class="latest-filter">
+        <button class="filter-btn active" data-filter="all">All</button>
+        {% assign unique_tags = ',all,' %}
+        {% for article in blog.articles limit: section.settings.limit %}
+          {% for article_tag in article.tags %}
+            {% assign article_tag = article_tag | strip %}
+            {% assign tag_handle = article_tag | handleize %}
+            {% assign tag_search = ',' | append: tag_handle | append: ',' %}
+            {% unless unique_tags contains tag_search %}
+              <button class="filter-btn" data-filter="{{ tag_handle }}">{{ article_tag }}</button>
+              {% assign unique_tags = unique_tags | append: tag_handle | append: ',' %}
+            {% endunless %}
+          {% endfor %}
+          {% unless article.tags.size > 0 %}
+            {% assign article_tag = 'General' %}
+            {% assign tag_handle = article_tag | handleize %}
+            {% assign tag_search = ',' | append: tag_handle | append: ',' %}
+            {% unless unique_tags contains tag_search %}
+              <button class="filter-btn" data-filter="{{ tag_handle }}">{{ article_tag }}</button>
+              {% assign unique_tags = unique_tags | append: tag_handle | append: ',' %}
+            {% endunless %}
+          {% endunless %}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="articles-grid">
+      {% for article in blog.articles limit: section.settings.limit %}
+        {% assign article_tag = article.tags.first | default: 'General' %}
+        {% assign data_cat = article_tag | handleize %}
+        {% assign article_accent = '#66CCCC' %}
+        {% case data_cat %}
+          {% when 'gut-brain-health' %}
+            {% assign article_accent = '#66CCCC' %}
+          {% when 'smart-snacking' %}
+            {% assign article_accent = '#E66443' %}
+          {% when 'energy-mood-cravings' %}
+            {% assign article_accent = '#E9AD3C' %}
+          {% when 'ingredients-that-matter' %}
+            {% assign article_accent = '#A69685' %}
+        {% endcase %}
+        {% assign tag_handles = '' %}
+        {% if article.tags.size > 0 %}
+          {% for tag in article.tags %}
+            {% assign tag_handle = tag | strip | handleize %}
+            {% assign tag_handles = tag_handles | append: tag_handle | append: ',' %}
+          {% endfor %}
+        {% else %}
+          {% assign tag_handles = 'general,' %}
+        {% endif %}
+        {% if article.excerpt != blank %}
+          {% assign article_excerpt = article.excerpt | strip_html | truncate: 140 %}
+        {% else %}
+          {% assign article_excerpt = article.content | strip_html | truncate: 140 %}
+        {% endif %}
+        <a href="{{ article.url }}" class="article-card" data-cat="{{ data_cat }}" data-tags="{{ tag_handles }}" style="--accent: {{ article_accent }};">
+          <div class="article-image-frame">
+            {% if article.image %}
+              <img src="{{ article.image | image_url: width: 800 }}" width="{{ article.image.width }}" height="{{ article.image.height }}" alt="{{ article.image.alt | escape | default: article.title | escape }}">
+            {% else %}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          </div>
+          <div class="ac-cat">{{ article_tag }}</div>
+          <div class="ac-h">{{ article.title }}</div>
+          <p class="ac-excerpt">{{ article_excerpt }}</p>
+          <div class="ac-meta"><span>{{ article.published_at | date: "%b %Y" }}</span><span class="ac-read">Read →</span></div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      var sectionEl = document.currentScript && document.currentScript.parentNode;
+      if(!sectionEl) return;
+      sectionEl.addEventListener('click', function(e){
+        if(!e.target.matches('.filter-btn')) return;
+        var btn = e.target;
+        var filter = btn.getAttribute('data-filter');
+        sectionEl.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active')});
+        btn.classList.add('active');
+        sectionEl.querySelectorAll('.article-card').forEach(function(c){
+          var tags = (c.dataset.tags || '').split(',').filter(Boolean);
+          if(filter==='all' || tags.indexOf(filter) !== -1) c.classList.remove('hidden');
+          else c.classList.add('hidden');
+        });
+      });
+    })();
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Latest Articles",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Latest Reads" },
+    { "type": "number", "id": "limit", "label": "Articles to show", "default": 9 }
+  ],
+  "presets": [ { "name": "Latest Articles", "category": "Blog" } ]
+}
+{% endschema %}

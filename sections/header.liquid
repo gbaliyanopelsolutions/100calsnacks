@@ -1,0 +1,59 @@
+
+<div class="hundred-cal">
+  <nav class="hc-nav" data-100cal-nav>
+    <a class="hc-nav__brand" href="{{ routes.root_url }}">
+      {% if section.settings.logo != blank %}
+        {{ section.settings.logo | image_url: width: 180 | image_tag: class: 'hc-nav__logo', loading: 'eager', alt: section.settings.brand_name }}
+      {% endif %}
+      <span class="hc-nav__name">{{ section.settings.brand_name }}</span>
+    </a>
+
+    {% if section.settings.menu != blank %}
+      <ul class="hc-nav__links">
+        {% for link in section.settings.menu.links %}
+          <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <ul class="hc-nav__links">
+        <li><a href="/collections/all">Shop All</a></li>
+        <li><a href="#gut-health">Gut Brain Health 101</a></li>
+        <li><a href="#science">Our Science</a></li>
+        <li><a href="#founder">Our Story</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#stores">Find In Store</a></li>
+      </ul>
+    {% endif %}
+
+    <div class="hc-nav__ctas">
+      <a class="hc-icon-btn" href="{{ routes.search_url }}" aria-label="Search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </a>
+      <a class="hc-icon-btn" href="{{ routes.cart_url }}" aria-label="Cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="hc-cart-count">{{ cart.item_count }}</span>
+      </a>
+      {% if shop.customer_accounts_enabled %}
+        <a href="{{ routes.account_url }}" class="hc-btn hc-btn--outline">{{ section.settings.account_label }}</a>
+      {% endif %}
+      <a href="{{ section.settings.cta_url }}" class="hc-btn hc-btn--primary">{{ section.settings.cta_label }}</a>
+    </div>
+  </nav>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal Header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "text", "id": "brand_name", "label": "Brand name", "default": "100CalSnacks" },
+    { "type": "link_list", "id": "menu", "label": "Menu" },
+    { "type": "text", "id": "account_label", "label": "Account label", "default": "Log In" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Try It First ->" },
+    { "type": "url", "id": "cta_url", "label": "CTA link", "default": "/collections/all" }
+  ],
+  "presets": [
+    { "name": "100Cal Header" }
+  ]
+}
+{% endschema %}

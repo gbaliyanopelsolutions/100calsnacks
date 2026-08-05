@@ -1,0 +1,91 @@
+<section class="hc-locations-closing" {{ section.shopify_attributes }}>
+  <div class="lcl-inner fade-up">
+    <h2 class="lcl-h">{{ section.settings.heading }}</h2>
+    <p class="lcl-sub">{{ section.settings.subheading | escape }}</p>
+    {% if section.settings.button_link != blank %}
+      <a href="{{ section.settings.button_link }}" class="lcl-btn">{{ section.settings.button_label | escape }}</a>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-locations-closing {
+  background: var(--black);
+  padding: 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hc-locations-closing::before {
+  content: 'FIND US';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 200px;
+  color: rgba(255,255,255,.025);
+  white-space: nowrap;
+  pointer-events: none;
+  line-height: 1;
+}
+.hc-locations-closing .lcl-inner {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.hc-locations-closing .lcl-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 60px;
+  line-height: .88;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 14px;
+}
+.hc-locations-closing .lcl-h em { font-style: italic; color: var(--teal); }
+.hc-locations-closing .lcl-sub {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: rgba(255,255,255,.5);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+.hc-locations-closing .lcl-btn {
+  display: inline-block;
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 16px 40px;
+  background: var(--teal);
+  color: var(--black);
+  text-decoration: none;
+  transition: background .2s;
+}
+.hc-locations-closing .lcl-btn:hover { background: var(--teal-dark); color: var(--white); }
+@media (max-width: 1024px) {
+  .hc-locations-closing { padding: 70px 40px; }
+  .hc-locations-closing .lcl-h { font-size: 48px; }
+}
+@media (max-width: 768px) {
+  .hc-locations-closing { padding: 60px 20px; }
+  .hc-locations-closing .lcl-h { font-size: 40px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Locations Closing CTA",
+  "settings": [
+    { "type": "html", "id": "heading", "label": "Heading (HTML)", "default": "Not Near<br>a Store<br><em>Yet?</em>" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Order direct and get it to your door. We're working on getting closer to you." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop Online →" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [{ "name": "Locations Closing CTA" }]
+}
+{% endschema %}

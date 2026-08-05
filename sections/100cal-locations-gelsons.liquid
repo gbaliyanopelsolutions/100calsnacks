@@ -1,0 +1,218 @@
+<section class="hc-locations-gelsons" id="gelsons" {{ section.shopify_attributes }}>
+  <div class="llg-inner">
+    <div class="llg-header fade-up">
+      <div class="llg-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="llg-h">{{ section.settings.heading | escape }}</h2>
+      <p class="llg-sub">{{ section.settings.subtext | escape }}</p>
+    </div>
+    <div class="llg-tabs fade-up fade-up-2">
+      <button type="button" class="llg-tab active" data-llg-filter="all">{{ section.settings.tab_all | escape }}</button>
+      <button type="button" class="llg-tab" data-llg-filter="la">{{ section.settings.tab_la | escape }}</button>
+      <button type="button" class="llg-tab" data-llg-filter="oc">{{ section.settings.tab_oc | escape }}</button>
+      <button type="button" class="llg-tab" data-llg-filter="sd">{{ section.settings.tab_sd | escape }}</button>
+      <button type="button" class="llg-tab" data-llg-filter="sb">{{ section.settings.tab_sb | escape }}</button>
+      <button type="button" class="llg-tab" data-llg-filter="ie">{{ section.settings.tab_ie | escape }}</button>
+    </div>
+    <div class="llg-grid fade-up fade-up-3">
+      {% for block in section.blocks %}
+        {% if block.type == 'store_card' %}
+          <div class="llg-card" data-llg-region="{{ block.settings.region }}" {{ block.shopify_attributes }}>
+            <div class="llg-card-area">{{ block.settings.area | escape }}</div>
+            <div class="llg-card-name">{{ block.settings.name | escape }}</div>
+            <div class="llg-card-address">{{ block.settings.address | escape }}</div>
+            {% if block.settings.directions_url != blank %}
+              <a href="{{ block.settings.directions_url | escape }}" target="_blank" rel="noopener" class="llg-card-link">Get Directions</a>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-locations-gelsons {
+  --ink-mid: #555;
+  --ink-light: #888;
+  background: var(--white);
+  padding: 80px;
+}
+.hc-locations-gelsons .llg-inner { max-width: 1200px; margin: 0 auto; }
+.hc-locations-gelsons .llg-header { margin-bottom: 48px; }
+.hc-locations-gelsons .llg-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-bottom: 12px;
+}
+.hc-locations-gelsons .llg-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 56px;
+  line-height: .9;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 10px;
+}
+.hc-locations-gelsons .llg-sub {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: #555;
+  line-height: 1.65;
+  max-width: 580px;
+}
+.hc-locations-gelsons .llg-tabs {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+.hc-locations-gelsons .llg-tab {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  background: transparent;
+  border: 1.5px solid rgba(15,18,19,.15);
+  color: #555;
+  cursor: pointer;
+  transition: all .2s;
+}
+.hc-locations-gelsons .llg-tab:hover { border-color: var(--teal-dark); color: var(--teal-dark); }
+.hc-locations-gelsons .llg-tab.active { background: var(--black); border-color: var(--black); color: var(--white); }
+.hc-locations-gelsons .llg-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: #EAE9E5;
+}
+.hc-locations-gelsons .llg-card {
+  background: var(--white);
+  padding: 24px 22px;
+  transition: background .2s;
+}
+.hc-locations-gelsons .llg-card:hover { background: #F8F7F4; }
+.hc-locations-gelsons .llg-card.hidden { display: none; }
+.hc-locations-gelsons .llg-card-area {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-bottom: 4px;
+}
+.hc-locations-gelsons .llg-card-name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 17px;
+  text-transform: uppercase;
+  color: var(--black);
+  letter-spacing: .5px;
+  margin-bottom: 6px;
+  line-height: 1.1;
+}
+.hc-locations-gelsons .llg-card-address {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: #555;
+  line-height: 1.55;
+  margin-bottom: 10px;
+}
+.hc-locations-gelsons .llg-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  text-decoration: none;
+  transition: color .2s;
+}
+.hc-locations-gelsons .llg-card-link::after { content: '→'; transition: transform .2s; }
+.hc-locations-gelsons .llg-card-link:hover { color: var(--black); }
+.hc-locations-gelsons .llg-card-link:hover::after { transform: translateX(3px); }
+@media (max-width: 1024px) {
+  .hc-locations-gelsons { padding: 60px 40px; }
+  .hc-locations-gelsons .llg-grid { grid-template-columns: repeat(2, 1fr); }
+  .hc-locations-gelsons .llg-h { font-size: 44px; }
+}
+@media (max-width: 768px) {
+  .hc-locations-gelsons { padding: 48px 20px; }
+  .hc-locations-gelsons .llg-grid { grid-template-columns: 1fr; }
+  .hc-locations-gelsons .llg-h { font-size: 36px; }
+}
+{% endstylesheet %}
+
+{% javascript %}
+(() => {
+  const init = (root) => {
+    if (root.dataset.filterInit === 'true') return;
+    root.dataset.filterInit = 'true';
+    root.addEventListener('click', (e) => {
+      const tab = e.target.closest('[data-llg-filter]');
+      if (!tab || !root.contains(tab)) return;
+      const region = tab.dataset.llgFilter;
+      root.querySelectorAll('.llg-tab').forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
+      root.querySelectorAll('.llg-card').forEach((card) => {
+        if (region === 'all' || card.dataset.llgRegion === region) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  };
+  const boot = () => { document.querySelectorAll('.hc-locations-gelsons').forEach(init); };
+  document.addEventListener('DOMContentLoaded', boot);
+  document.addEventListener('shopify:section:load', boot);
+  boot();
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Locations Gelsons",
+  "max_blocks": 50,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Retail Partner" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Gelson's Markets" },
+    { "type": "text", "id": "subtext", "label": "Sub text", "default": "29 locations across Southern California — look for us in the health, functional snacks, or protein bar aisle." },
+    { "type": "text", "id": "tab_all", "label": "Tab: All", "default": "All Locations" },
+    { "type": "text", "id": "tab_la", "label": "Tab: LA", "default": "Los Angeles" },
+    { "type": "text", "id": "tab_oc", "label": "Tab: OC", "default": "Orange County" },
+    { "type": "text", "id": "tab_sd", "label": "Tab: SD", "default": "San Diego" },
+    { "type": "text", "id": "tab_sb", "label": "Tab: SB", "default": "Santa Barbara" },
+    { "type": "text", "id": "tab_ie", "label": "Tab: Inland/Desert", "default": "Inland / Desert" }
+  ],
+  "blocks": [
+    {
+      "type": "store_card",
+      "name": "Store location",
+      "settings": [
+        { "type": "select", "id": "region", "label": "Region", "default": "la", "options": [
+          { "value": "la", "label": "Los Angeles" },
+          { "value": "oc", "label": "Orange County" },
+          { "value": "sd", "label": "San Diego" },
+          { "value": "sb", "label": "Santa Barbara" },
+          { "value": "ie", "label": "Inland / Desert" }
+        ]},
+        { "type": "text", "id": "area", "label": "Area label", "default": "Los Angeles" },
+        { "type": "text", "id": "name", "label": "Store name", "default": "Gelson's Hollywood" },
+        { "type": "text", "id": "address", "label": "Address", "default": "5877 Franklin Ave, Hollywood, CA 90028" },
+        { "type": "text", "id": "directions_url", "label": "Google Maps URL", "default": "https://maps.google.com/?q=5877+Franklin+Ave+Hollywood+CA+90028" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Locations Gelsons" }]
+}
+{% endschema %}

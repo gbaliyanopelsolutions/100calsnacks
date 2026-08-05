@@ -1,0 +1,38 @@
+
+<div class="hundred-cal">
+  <section class="hc-video">
+    <div class="hc-section-header">
+      {% if section.settings.eyebrow != blank %}<div class="hc-eyebrow" style="color:var(--teal);">{{ section.settings.eyebrow | escape }}</div>{% endif %}
+      {% if section.settings.heading != blank %}<h2 class="hc-title" style="color:var(--white);">{{ section.settings.heading }}</h2>{% endif %}
+      {% if section.settings.copy != blank %}<p class="hc-copy" style="color:rgba(255,255,255,.58);">{{ section.settings.copy }}</p>{% endif %}
+    </div>
+    <div class="hc-video__inner">
+      <div class="hc-video__frame">
+        {% if section.settings.video_url != blank %}
+          <iframe src="{{ section.settings.video_url }}" title="{{ section.settings.heading | escape }}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        {% elsif section.settings.video != blank %}
+          {{ section.settings.video | video_tag: controls: true, image_size: '1200x' }}
+        {% else %}
+          <div class="hc-video__placeholder"><span class="hc-play">></span>{{ section.settings.placeholder | escape }}</div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal Video",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Watch The Formula" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Product Video" },
+    { "type": "textarea", "id": "copy", "label": "Copy", "default": "See how our ingredients work together for gut-brain balance." },
+    { "type": "video", "id": "video", "label": "Shopify-hosted video" },
+    { "type": "url", "id": "video_url", "label": "Embed URL" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder text", "default": "Product Video Placeholder" }
+  ],
+  "presets": [
+    { "name": "100Cal Video" }
+  ]
+}
+{% endschema %}

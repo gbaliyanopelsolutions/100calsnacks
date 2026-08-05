@@ -1,0 +1,51 @@
+<footer class="blog-footer" data-section-type="blog-footer">
+  <div class="blog-footer-inner">
+    <div class="blog-footer-top">
+      <div>
+        <div class="footer-brand">100<span>Cal</span>Snacks</div>
+        <div class="footer-tagline">Keepin' Snacks 100®</div>
+        <p class="footer-bio">{{ section.settings.bio }}</p>
+      </div>
+      {% for block in section.blocks %}
+        <div>
+          <div class="footer-col-title">{{ block.settings.title }}</div>
+          <ul class="footer-links">
+            {% assign link_items = block.settings.links | split: '\n' %}
+            {% for item in link_items %}
+              {% assign clean = item | strip %}
+              {% if clean != blank %}
+                <li><a href="#">{{ clean }}</a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="blog-footer-bottom">
+      <div>{{ section.settings.copyright }}</div>
+      <div>{{ section.settings.disclaimer }}</div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Blog Footer",
+  "settings": [
+    { "type": "textarea", "id": "bio", "label": "Brand bio", "default": "Built from the struggle. Engineered for the journey. Woman-owned, science-backed, and genuinely built for people who want better." },
+    { "type": "text", "id": "copyright", "label": "Copyright", "default": "© 2026 100CalSnacks.com · Woman-Owned · Science-Backed" },
+    { "type": "text", "id": "disclaimer", "label": "Disclaimer", "default": "* These statements have not been evaluated by the FDA." }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Footer Column",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Column Title", "default": "Snack School" },
+        { "type": "textarea", "id": "links", "label": "Links (one per line)", "default": "Gut-Brain Health\nSmart Snacking\nEnergy, Mood & Cravings\nIngredients That Matter" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Blog Footer", "category": "Blog" } ]
+}
+{% endschema %}

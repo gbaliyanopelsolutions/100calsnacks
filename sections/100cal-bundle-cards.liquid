@@ -1,0 +1,570 @@
+
+<section class="bundle-section" {{ section.shopify_attributes }}>
+  <div class="section-hdr">
+    <div class="s-eyebrow">{{ section.settings.eyebrow }}</div>
+    <h2 class="s-title">{{ section.settings.heading }}</h2>
+    <p class="s-sub">{{ section.settings.subheading }}</p>
+  </div>
+  
+  <div class="bundle-grid">
+    {% for block in section.blocks %}
+      <div class="bundle-card {% if block.settings.is_featured %}is-featured{% endif %}" {{ block.shopify_attributes }}>
+        <div class="bc-header bc-header-{{ block.settings.header_style }}" data-word="{{ block.settings.header_word }}">
+          <span class="bc-badge bc-badge-{{ block.settings.header_style }}">{{ block.settings.badge }}</span>
+          <span class="bc-icon">{{ block.settings.icon }}</span>
+          <div class="bc-title bc-title-{{ block.settings.header_style }}">{{ block.settings.title | newline_to_br }}</div>
+        </div>
+        
+        <div class="bc-body">
+          <p class="bc-sub">{{ block.settings.description }}</p>
+          
+          <ul class="bc-includes">
+            {% for item in block.settings.items %}
+              <li>
+                <span class="bc-check bc-check-{{ block.settings.check_color }}">✓</span>
+                {{ item }}
+              </li>
+            {% endfor %}
+          </ul>
+          
+          <div class="bc-price-row">
+            <span class="bc-price">{{ block.settings.price }}</span>
+            {% if block.settings.original_price != blank %}
+              <span class="bc-orig">{{ block.settings.original_price }}</span>
+            {% endif %}
+            {% if block.settings.savings_badge != blank %}
+              <span class="bc-save bc-save-{{ block.settings.header_style }}">{{ block.settings.savings_badge }}</span>
+            {% endif %}
+          </div>
+          
+          {% if block.settings.cta_link != blank %}
+            <a href="{{ block.settings.cta_link }}" class="bc-btn bc-btn-{{ block.settings.header_style }}">
+              {{ block.settings.cta_text }}
+            </a>
+          {% endif %}
+          
+          {% if block.settings.footer_note != blank %}
+            <p style="font-family:var(--font-body);font-size:12px;color:var(--ink-light);text-align:center;margin-top:12px">
+              {{ block.settings.footer_note }}
+            </p>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .bundle-section {
+    background: var(--white);
+    padding: 80px;
+    border-top: 2px solid var(--neutral-light);
+    margin-top: 40px;
+  }
+
+  .section-hdr {
+    margin-bottom: 52px;
+  }
+
+  .s-eyebrow {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    margin-bottom: 10px;
+  }
+
+  .s-title {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 60px;
+    text-transform: uppercase;
+    color: var(--black);
+    line-height: 0.92;
+  }
+
+  .s-sub {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--ink-light);
+    margin-top: 12px;
+  }
+
+  .bundle-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    margin-top: 52px;
+  }
+
+  .bundle-card {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 0;
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bundle-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.12);
+  }
+
+  .bundle-card.is-featured {
+    border-color: var(--teal);
+    border-width: 3px;
+  }
+
+  .bc-header {
+    padding: 32px 32px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bc-header-sampler {
+    background: var(--teal);
+  }
+
+  .bc-header-duo {
+    background: var(--neutral-light);
+    border-bottom: 2px solid var(--black);
+  }
+
+  .bc-header-stock {
+    background: var(--black);
+  }
+
+  .bc-header::after {
+    content: attr(data-word);
+    position: absolute;
+    bottom: -14px;
+    right: -8px;
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 88px;
+    text-transform: uppercase;
+    line-height: 1;
+    pointer-events: none;
+    opacity: 0.08;
+    color: var(--black);
+  }
+
+  .bc-header-stock::after {
+    color: var(--white);
+    opacity: 0.06;
+  }
+
+  .bc-badge {
+    display: inline-block;
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    margin-bottom: 16px;
+  }
+
+  .bc-badge-sampler {
+    background: var(--black);
+    color: var(--teal);
+  }
+
+  .bc-badge-duo {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .bc-badge-stock {
+    background: var(--teal);
+    color: var(--black);
+  }
+
+  .bc-header-sampler .bc-badge {
+    margin-bottom: 20px;
+    margin-top: -4px;
+  }
+
+  .bc-icon {
+    font-size: 44px;
+    margin-bottom: 12px;
+    display: block;
+    position: relative;
+    z-index: 2;
+  }
+
+  .bc-title {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 42px;
+    text-transform: uppercase;
+    line-height: 0.95;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .bc-title-sampler {
+    color: var(--black);
+  }
+
+  .bc-title-duo {
+    color: var(--black);
+  }
+
+  .bc-title-stock {
+    color: var(--white);
+  }
+
+  .bc-body {
+    padding: 28px 32px 32px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .bc-sub {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--ink-mid);
+    margin-bottom: 22px;
+    line-height: 1.65;
+  }
+
+  .bc-includes {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 28px;
+    flex: 1;
+  }
+
+  .bc-includes li {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--ink-mid);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid var(--neutral-light);
+  }
+
+  .bc-includes li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .bc-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+    font-weight: 900;
+  }
+
+  .bc-check-teal {
+    background: var(--teal-light);
+    color: var(--teal-dark);
+  }
+
+  .bc-check-orange {
+    background: rgba(230, 100, 67, 0.12);
+    color: var(--orange);
+  }
+
+  .bc-check-black {
+    background: var(--black);
+    color: var(--teal);
+  }
+
+  .bc-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .bc-price {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 44px;
+    color: var(--black);
+    line-height: 1;
+  }
+
+  .bc-orig {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--ink-light);
+    text-decoration: line-through;
+  }
+
+  .bc-save {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+  }
+
+  .bc-save-teal {
+    background: var(--teal-light);
+    color: var(--teal-dark);
+  }
+
+  .bc-save-orange {
+    background: rgba(230, 100, 67, 0.12);
+    color: var(--orange);
+  }
+
+  .bc-save-black {
+    background: var(--black);
+    color: var(--teal);
+  }
+
+  .bc-btn {
+    width: 100%;
+    padding: 15px;
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+
+  .bc-btn-sampler {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .bc-btn-sampler:hover {
+    background: var(--teal);
+    color: var(--black);
+  }
+
+  .bc-btn-duo {
+    background: transparent;
+    color: var(--black);
+    border: 2px solid var(--black);
+  }
+
+  .bc-btn-duo:hover {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .bc-btn-stock {
+    background: var(--teal);
+    color: var(--black);
+  }
+
+  .bc-btn-stock:hover {
+    background: var(--teal-dark);
+    color: var(--white);
+  }
+
+  @media (max-width: 1024px) {
+    .bundle-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .bundle-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .s-title {
+      font-size: 40px;
+    }
+
+    .bc-title {
+      font-size: 28px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Bundle Cards",
+  "class": "section-bundle-cards",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Save More"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Build Your Bundle"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Stock up smart. Every bundle ships free."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bundle",
+      "name": "Bundle Card",
+      "settings": [
+        {
+          "type": "select",
+          "id": "header_style",
+          "label": "Card Style",
+          "options": [
+            {"value": "sampler", "label": "Sampler (Teal)"},
+            {"value": "duo", "label": "Duo (Neutral)"},
+            {"value": "stock", "label": "Stock (Black)"}
+          ],
+          "default": "sampler"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_featured",
+          "label": "Featured (show teal border)"
+        },
+        {
+          "type": "text",
+          "id": "header_word",
+          "label": "Background Word",
+          "default": "SAMPLER"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge Text",
+          "default": "⭐ Most Popular"
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon",
+          "default": "🎁"
+        },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Card Title",
+          "default": "Sampler\nPack"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Our best way to start. Try all three flavors and discover what your gut and your cravings actually want."
+        },
+        {
+          "type": "select",
+          "id": "check_color",
+          "label": "Check Icon Color",
+          "options": [
+            {"value": "teal", "label": "Teal"},
+            {"value": "orange", "label": "Orange"},
+            {"value": "black", "label": "Black"}
+          ],
+          "default": "teal"
+        },
+        {
+          "type": "textarea",
+          "id": "items",
+          "label": "Includes Items (one per line)",
+          "default": "🍫 Chocolate Brownie Protein Bar\n🥜 Peanut Butter Protein Bar\n🌽 BBQ Protein Puffs\nFree shipping included"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "$28"
+        },
+        {
+          "type": "text",
+          "id": "original_price",
+          "label": "Original Price"
+        },
+        {
+          "type": "text",
+          "id": "savings_badge",
+          "label": "Savings Badge",
+          "default": "Save 5%"
+        },
+        {
+          "type": "url",
+          "id": "cta_link",
+          "label": "CTA Link"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "CTA Text",
+          "default": "Shop Sampler"
+        },
+        {
+          "type": "text",
+          "id": "footer_note",
+          "label": "Footer Note (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bundle Cards",
+      "blocks": [
+        {
+          "type": "bundle",
+          "settings": {
+            "header_style": "sampler",
+            "is_featured": true,
+            "header_word": "SAMPLER",
+            "badge": "⭐ Most Popular",
+            "icon": "🎁",
+            "title": "Sampler\nPack"
+          }
+        },
+        {
+          "type": "bundle",
+          "settings": {
+            "header_style": "duo",
+            "header_word": "DUO",
+            "badge": "Flexible Pick",
+            "icon": "✌️",
+            "title": "Build Your\nDuo"
+          }
+        },
+        {
+          "type": "bundle",
+          "settings": {
+            "header_style": "stock",
+            "header_word": "STOCK",
+            "badge": "Best Value",
+            "icon": "📦",
+            "title": "Stock Up\n& Save"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

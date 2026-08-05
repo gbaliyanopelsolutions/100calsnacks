@@ -1,0 +1,34 @@
+
+<div class="value-strip" {{ section.shopify_attributes }}>
+  <div class="value-strip-trust">
+    <div class="vst-item"><span>{{ section.settings.value_trust_1 }}</span></div>
+    <div class="vst-divider"></div>
+    <div class="vst-item"><span>{{ section.settings.value_trust_2 }}</span></div>
+    <div class="vst-divider"></div>
+    <div class="vst-item"><span>{{ section.settings.value_trust_3 }}</span></div>
+  </div>
+  <div class="value-strip-badges">
+    <span class="vs-badge">{{ section.settings.value_badge_1 }}</span>
+    <span class="vs-badge">{{ section.settings.value_badge_2 }}</span>
+    <span class="vs-badge">{{ section.settings.value_badge_3 }}</span>
+    <span class="vs-badge">{{ section.settings.value_badge_4 }}</span>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal Value Strip",
+  "settings": [
+    { "type": "text", "id": "value_trust_1", "label": "Trust item 1", "default": "Free Shipping on $25+" },
+    { "type": "text", "id": "value_trust_2", "label": "Trust item 2", "default": "No Artificial Ingredients" },
+    { "type": "text", "id": "value_trust_3", "label": "Trust item 3", "default": "Gut-Brain Nutrition" },
+    { "type": "text", "id": "value_badge_1", "label": "Badge 1", "default": "✓ Gluten Free" },
+    { "type": "text", "id": "value_badge_2", "label": "Badge 2", "default": "✓ Vegan" },
+    { "type": "text", "id": "value_badge_3", "label": "Badge 3", "default": "✓ Non-GMO" },
+    { "type": "text", "id": "value_badge_4", "label": "Badge 4", "default": "✓ Clean Keto" }
+  ],
+  "presets": [
+    { "name": "Value Strip" }
+  ]
+}
+{% endschema %}

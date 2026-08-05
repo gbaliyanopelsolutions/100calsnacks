@@ -1,0 +1,47 @@
+<section class="editorial-section" data-section-type="blog-editorial">
+  <div class="editorial-inner">
+    <div class="editorial-grid">
+      <div class="editorial-copy">
+        <div class="editorial-eyebrow">{{ section.settings.eyebrow }}</div>
+        <h2 class="editorial-h">{{ section.settings.heading }}</h2>
+        <p>{{ section.settings.copy_1 }}</p>
+        <p>{{ section.settings.copy_2 }}</p>
+        <p>{{ section.settings.copy_3 }}</p>
+      </div>
+      <div class="editorial-list">
+        {% for block in section.blocks %}
+          {% assign accent = block.settings.accent_color | default: '#66CCCC' %}
+          <div class="editorial-item" style="--item-accent: {{ accent }};">
+            <p class="editorial-item-title">{{ block.settings.title }}</p>
+            <p class="editorial-item-copy">{{ block.settings.copy }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog Editorial",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "What You'll Learn in Snack School" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Science You Can Actually Use." },
+    { "type": "textarea", "id": "copy_1", "label": "Paragraph 1", "default": "Snack School is built around a single belief: understanding your biology makes better decisions easier. Every article starts with the science and then connects it to practical, everyday snacking choices." },
+    { "type": "textarea", "id": "copy_2", "label": "Paragraph 2", "default": "We cover how the microbiome, vagus nerve, and gut hormones shape cravings, energy, and mood so you can make more informed choices without shame or rigid rules." },
+    { "type": "textarea", "id": "copy_3", "label": "Paragraph 3", "default": "We also explain functional ingredients like ashwagandha, prebiotic fiber, monk fruit, and amla in plain language, so you know what actually matters at the dose that counts." }
+  ],
+  "blocks": [
+    {
+      "type": "insight",
+      "name": "Insight",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Gut-Brain Axis" },
+        { "type": "textarea", "id": "copy", "label": "Copy", "default": "How your microbiome, vagus nerve, and gut hormones influence cravings, mood, and energy." },
+        { "type": "color", "id": "accent_color", "label": "Accent Color", "default": "#66CCCC" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Blog Editorial", "category": "Blog" } ]
+}
+{% endschema %}

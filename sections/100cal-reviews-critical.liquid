@@ -1,0 +1,161 @@
+<section class="hc-reviews-critical" {{ section.shopify_attributes }}>
+  <div class="rcrit-inner">
+    <div class="rcrit-header fade-up">
+      <div class="rcrit-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="rcrit-h">{{ section.settings.heading | escape }}</h2>
+      <p class="rcrit-intro">{{ section.settings.intro | escape }}</p>
+    </div>
+    <div class="rcrit-grid fade-up fade-up-2">
+      {% for block in section.blocks %}
+        {% if block.type == 'critical_review' %}
+          <div class="rcrit-card" {{ block.shopify_attributes }}>
+            <div class="rcrit-rating-label">{{ block.settings.rating_label | escape }}</div>
+            <div class="rcrit-title">{{ block.settings.title | escape }}</div>
+            <p class="rcrit-quote">"{{ block.settings.review_text | escape }}"</p>
+            <div class="rcrit-source">{{ block.settings.review_source | escape }}</div>
+            <div class="rcrit-response-block">
+              <div class="rcrit-response-title">Our Response</div>
+              <p class="rcrit-response-body">{{ block.settings.response_text }}</p>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-reviews-critical {
+  --ink: #1A1A1A;
+  --ink-mid: #555;
+  --ink-light: #888;
+  --neutral: #F4F3F0;
+  --platinum: #EAE9E5;
+  background: #EAE9E5;
+  padding: 72px 80px;
+  border-top: 1px solid rgba(15,18,19,.08);
+}
+.hc-reviews-critical .rcrit-inner { max-width: 1200px; margin: 0 auto; }
+.hc-reviews-critical .rcrit-header { margin-bottom: 40px; }
+.hc-reviews-critical .rcrit-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-bottom: 10px;
+}
+.hc-reviews-critical .rcrit-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 52px;
+  line-height: .9;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 12px;
+}
+.hc-reviews-critical .rcrit-intro {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: #555;
+  line-height: 1.7;
+  max-width: 600px;
+}
+.hc-reviews-critical .rcrit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  background: rgba(15,18,19,.08);
+}
+.hc-reviews-critical .rcrit-card {
+  background: var(--white);
+  padding: 36px 32px;
+}
+.hc-reviews-critical .rcrit-rating-label {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 12px;
+}
+.hc-reviews-critical .rcrit-title {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 10px;
+}
+.hc-reviews-critical .rcrit-quote {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+.hc-reviews-critical .rcrit-source {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 20px;
+}
+.hc-reviews-critical .rcrit-response-block {
+  border-top: 2px solid var(--teal);
+  padding-top: 20px;
+}
+.hc-reviews-critical .rcrit-response-title {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-bottom: 8px;
+}
+.hc-reviews-critical .rcrit-response-body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--black);
+  line-height: 1.7;
+}
+.hc-reviews-critical .rcrit-response-body a { color: var(--teal); }
+@media (max-width: 1024px) {
+  .hc-reviews-critical { padding: 60px 40px; }
+  .hc-reviews-critical .rcrit-grid { grid-template-columns: 1fr; }
+  .hc-reviews-critical .rcrit-h { font-size: 40px; }
+}
+@media (max-width: 768px) {
+  .hc-reviews-critical { padding: 50px 20px; }
+  .hc-reviews-critical .rcrit-h { font-size: 34px; }
+  .hc-reviews-critical .rcrit-card { padding: 28px 24px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Reviews We Heard You",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Honest Feedback" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "We Heard You." },
+    { "type": "textarea", "id": "intro", "label": "Intro copy", "default": "We read every review — including the ones that sting a little. Here's some critical feedback we've received, and what we did with it. We show these because hiding them would be easier, and that's not how we do things." }
+  ],
+  "blocks": [
+    {
+      "type": "critical_review",
+      "name": "Critical review",
+      "settings": [
+        { "type": "text", "id": "rating_label", "label": "Rating label", "default": "★★☆☆☆ Critical Review" },
+        { "type": "text", "id": "title", "label": "Review title", "default": "Too Dense for Me" },
+        { "type": "textarea", "id": "review_text", "label": "Review text", "default": "The taste is fine but the texture is heavier than I expected — more like a meal replacement than a snack." },
+        { "type": "text", "id": "review_source", "label": "Review source", "default": "— Verified Amazon Purchase, Jan 2026" },
+        { "type": "html", "id": "response_text", "label": "Our response (HTML allowed)", "default": "That's fair. Our bars are intentionally dense because the fiber and protein content is real — that's what makes them filling at 100 calories." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Reviews We Heard You" }]
+}
+{% endschema %}

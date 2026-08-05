@@ -1,0 +1,311 @@
+
+<section class="social-proof" {{ section.shopify_attributes }}>
+  <div class="sp-header">
+    <div class="sp-rating-block">
+      <div class="sp-big-num">{{ section.settings.rating }}</div>
+      <div>
+        <span class="sp-stars">{% for i in (1..5) %}★{% endfor %}</span>
+        <div class="sp-count">{{ section.settings.review_count }}</div>
+        <div class="sp-headline">{{ section.settings.headline }}</div>
+      </div>
+    </div>
+    {% if section.settings.cta_link != blank %}
+      <a href="{{ section.settings.cta_link }}" class="sp-cta-link">{{ section.settings.cta_text }}</a>
+    {% endif %}
+  </div>
+  
+  <div class="reviews-grid">
+    {% for block in section.blocks %}
+      <div class="review-card" {{ block.shopify_attributes }}>
+        <span class="r-tag r-tag-{{ block.settings.tag_color }}">{{ block.settings.tag_text }}</span>
+        <div class="r-stars">{% for i in (1..5) %}★{% endfor %}</div>
+        <p class="r-quote">{{ block.settings.quote }}</p>
+        <div class="r-name">{{ block.settings.customer_name }}</div>
+        <div class="r-product">{{ block.settings.product_name }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .social-proof {
+    background: var(--neutral-light);
+    padding: 80px;
+  }
+
+  .sp-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 52px;
+  }
+
+  .sp-rating-block {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .sp-big-num {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 80px;
+    color: var(--black);
+    line-height: 1;
+  }
+
+  .sp-stars {
+    font-size: 22px;
+    color: var(--yellow);
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .sp-count {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--ink-light);
+  }
+
+  .sp-headline {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 22px;
+    text-transform: uppercase;
+    color: var(--black);
+    margin-top: 6px;
+  }
+
+  .sp-cta-link {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    text-decoration: none;
+    border-bottom: 2px solid var(--teal);
+    padding-bottom: 2px;
+    transition: color 0.2s;
+  }
+
+  .sp-cta-link:hover {
+    color: var(--black);
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(0, 0, 0, 0.12);
+    border: 2px solid rgba(0, 0, 0, 0.12);
+  }
+
+  .review-card {
+    background: var(--white);
+    padding: 32px 28px;
+  }
+
+  .r-tag {
+    display: inline-block;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    margin-bottom: 14px;
+  }
+
+  .r-tag-gut {
+    background: var(--teal-light);
+    color: var(--teal-dark);
+  }
+
+  .r-tag-energy {
+    background: var(--yellow);
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  .r-tag-stress {
+    background: rgba(230, 100, 67, 0.12);
+    color: var(--orange);
+  }
+
+  .r-stars {
+    font-size: 14px;
+    color: var(--yellow);
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+
+  .r-quote {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.75);
+    line-height: 1.7;
+    margin-bottom: 18px;
+  }
+
+  .r-name {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ink-light);
+  }
+
+  .r-product {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--teal-dark);
+    margin-top: 3px;
+  }
+
+  @media (max-width: 1024px) {
+    .reviews-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .reviews-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .sp-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .sp-big-num {
+      font-size: 56px;
+    }
+
+    .sp-headline {
+      font-size: 18px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Collection Reviews",
+  "class": "section-collection-reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "rating",
+      "label": "Rating Number",
+      "default": "4.9"
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Review Count Text",
+      "default": "from 1,200+ snackers"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Real People. Real Results."
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Link"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "Read All 1,200+ Reviews →"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review Card",
+      "settings": [
+        {
+          "type": "select",
+          "id": "tag_color",
+          "label": "Tag Color",
+          "options": [
+            {"value": "gut", "label": "Gut Health (Teal)"},
+            {"value": "energy", "label": "Portion Control (Yellow)"},
+            {"value": "stress", "label": "Stress Relief (Orange)"}
+          ],
+          "default": "gut"
+        },
+        {
+          "type": "text",
+          "id": "tag_text",
+          "label": "Tag Text",
+          "default": "Gut Health"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review Quote"
+        },
+        {
+          "type": "text",
+          "id": "customer_name",
+          "label": "Customer Name",
+          "default": "Sarah M., Los Angeles"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product Name",
+          "default": "Chocolate Brownie Bar"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "tag_color": "gut",
+            "tag_text": "Gut Health",
+            "quote": "\"I've struggled with bloating from every protein bar I've ever tried. These are the first ones that actually made my gut feel better, not worse.\"",
+            "customer_name": "Sarah M., Los Angeles",
+            "product_name": "Chocolate Brownie Bar"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "tag_color": "energy",
+            "tag_text": "Portion Control",
+            "quote": "\"I've been tracking macros for two years and these fit perfectly. 100 clean calories, 10g protein — I don't have to do any math. And they taste like dessert.\"",
+            "customer_name": "Mike T., Chicago",
+            "product_name": "Peanut Butter Bar"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "tag_color": "stress",
+            "tag_text": "Stress Relief",
+            "quote": "\"I'm a stress eater. Since I started keeping these at my desk, I reach for them instead of the vending machine AND I feel calmer after. The ashwagandha is real.\"",
+            "customer_name": "Priya K., New York",
+            "product_name": "BBQ Protein Puffs"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

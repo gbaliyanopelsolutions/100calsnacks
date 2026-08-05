@@ -1,0 +1,245 @@
+{
+  "sections": {
+    "main": {
+      "type": "100cal-faq-page",
+      "settings": {
+        "hero_eyebrow": "Help & Info",
+        "hero_heading": "Got<br><em>Questions?</em>",
+        "hero_subheading": "Everything you want to know about our snacks, ingredients, orders, and the science behind what we do.",
+        "product_label": "The Product",
+        "ingredients_label": "Ingredients",
+        "diet_label": "Diet & Health",
+        "orders_label": "Orders & Shipping",
+        "subscription_label": "Subscription",
+        "stores_label": "In Stores",
+        "contact_overline": "Didn't Find Your Answer?",
+        "contact_heading": "Talk to a Real Person.",
+        "contact_body": "We read every message and respond within 24 hours. No bots, no scripts - just us.",
+        "contact_button_label": "Contact Us ->",
+        "contact_button_link": "/pages/contact",
+        "quick_links_title": "Useful Links",
+        "popular_title": "Most Asked",
+        "cta_heading": "Still Not Sure?<br><em>Try One.</em>",
+        "cta_subheading": "Take the 2-minute quiz and get matched to the snack designed for your gut-brain pattern.",
+        "cta_primary_label": "Take the Quiz ->",
+        "cta_primary_link": "/pages/quiz",
+        "cta_secondary_label": "Shop Now",
+        "cta_secondary_link": "/collections/all"
+      },
+      "blocks": {
+        "faq_product_1": {
+          "type": "faq",
+          "settings": {
+            "category": "product",
+            "question": "What makes 100 Cal Snacks different from other protein bars?",
+            "answer": "<p>Most snack bars are either joyless diet food or full of ingredients that disrupt your gut. 100 Cal Snacks are formulated specifically for the gut-brain axis - using prebiotic fiber, KSM-66 ashwagandha, and real functional ingredients at clinically relevant levels.</p><p>Every calorie earns its place.</p>",
+            "link_label": "See every ingredient ->",
+            "link_url": "/pages/ingredients"
+          }
+        },
+        "faq_product_2": {
+          "type": "faq",
+          "settings": {
+            "category": "product",
+            "question": "What products do you currently offer?",
+            "answer": "<p>We currently have three products: Chocolate Brownie Protein Bar, Peanut Butter Protein Bar, and BBQ Protein Puffs. Each is 100 calories, formulated for the gut-brain axis, and free from artificial ingredients and sugar alcohols.</p>"
+          }
+        },
+        "faq_ingredients_1": {
+          "type": "faq",
+          "settings": {
+            "category": "ingredients",
+            "question": "What is the gut-brain axis and why does it matter?",
+            "answer": "<p>The gut-brain axis is the two-way communication network between your digestive system and your brain. Your gut microbiome influences hunger signals, mood, energy, and cravings.</p><p>Snacks formulated with prebiotic fiber and adaptogens can support this system - helping to regulate cravings rather than spike and crash them.</p>",
+            "link_label": "Read Gut-Brain 101 ->",
+            "link_url": "/pages/gut-brain-101"
+          }
+        },
+        "faq_ingredients_2": {
+          "type": "faq",
+          "settings": {
+            "category": "ingredients",
+            "question": "Why do you use monk fruit instead of sugar alcohols?",
+            "answer": "<p>We use monk fruit - zero glycemic impact, no digestive side effects, and it doesn't disrupt your gut microbiome. No erythritol, no maltitol, no xylitol.</p><p>Sugar alcohols can cause bloating and may disrupt the beneficial gut bacteria we're trying to feed.</p>"
+          }
+        },
+        "faq_diet_1": {
+          "type": "faq",
+          "settings": {
+            "category": "diet",
+            "question": "Are 100 Cal Snacks gluten-free?",
+            "answer": "<p>Yes. All three products are 100% gluten-free.</p>"
+          }
+        },
+        "faq_diet_2": {
+          "type": "faq",
+          "settings": {
+            "category": "diet",
+            "question": "Are 100 Cal Snacks suitable for keto?",
+            "answer": "<p>Yes - each serving contains fewer than 3g net carbs, making them keto-compatible.</p>"
+          }
+        },
+        "faq_orders_1": {
+          "type": "faq",
+          "settings": {
+            "category": "orders",
+            "question": "How long does shipping take?",
+            "answer": "<p>In-stock orders typically ship within 1-2 business days and arrive within 2-3 business days after dispatch.</p>"
+          }
+        },
+        "faq_orders_2": {
+          "type": "faq",
+          "settings": {
+            "category": "orders",
+            "question": "Do you offer free shipping?",
+            "answer": "<p>Yes - free shipping on all orders over $25. Orders under $25 have a flat shipping rate calculated at checkout.</p>"
+          }
+        },
+        "faq_subscription_1": {
+          "type": "faq",
+          "settings": {
+            "category": "subscription",
+            "question": "How does the Subscribe & Save discount work?",
+            "answer": "<p>Subscribe to any product and save 10% on every order. You choose the delivery frequency and we take care of the rest.</p>"
+          }
+        },
+        "faq_subscription_2": {
+          "type": "faq",
+          "settings": {
+            "category": "subscription",
+            "question": "Can I pause or cancel my subscription?",
+            "answer": "<p>Yes - any time, no penalties, no questions. Log into your account and manage from there, or email us and we will handle it within 24 hours.</p>"
+          }
+        },
+        "faq_stores_1": {
+          "type": "faq",
+          "settings": {
+            "category": "stores",
+            "question": "Where can I find 100 Cal Snacks in stores?",
+            "answer": "<p>We are currently available at Gelson's Markets across Southern California, Vicente Foods in Brentwood, and Rainbow Acres in West LA.</p>",
+            "link_label": "Find your nearest store ->",
+            "link_url": "/pages/store-locator"
+          }
+        },
+        "faq_stores_2": {
+          "type": "faq",
+          "settings": {
+            "category": "stores",
+            "question": "Are you expanding to more stores?",
+            "answer": "<p>Yes - new retail doors are opening and new partnerships are in progress. Subscribe to our emails to hear about new locations as they go live.</p>"
+          }
+        },
+        "quick_link_1": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Gut-Brain Health 101",
+            "link": "/pages/gut-brain-101"
+          }
+        },
+        "quick_link_2": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Ingredient Index",
+            "link": "/pages/ingredients"
+          }
+        },
+        "quick_link_3": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Take the Quiz",
+            "link": "/pages/quiz"
+          }
+        },
+        "quick_link_4": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Find a Store",
+            "link": "/pages/store-locator"
+          }
+        },
+        "quick_link_5": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Refund Policy",
+            "link": "/policies/refund-policy"
+          }
+        },
+        "quick_link_6": {
+          "type": "quick_link",
+          "settings": {
+            "label": "Shipping Policy",
+            "link": "/policies/shipping-policy"
+          }
+        },
+        "shortcut_1": {
+          "type": "shortcut",
+          "settings": {
+            "label": "Do you offer free shipping?",
+            "category": "orders",
+            "keyword": "free shipping"
+          }
+        },
+        "shortcut_2": {
+          "type": "shortcut",
+          "settings": {
+            "label": "Can I pause my subscription?",
+            "category": "subscription",
+            "keyword": "pause"
+          }
+        },
+        "shortcut_3": {
+          "type": "shortcut",
+          "settings": {
+            "label": "Why no sugar alcohols?",
+            "category": "ingredients",
+            "keyword": "sugar alcohols"
+          }
+        },
+        "shortcut_4": {
+          "type": "shortcut",
+          "settings": {
+            "label": "Are these gluten-free?",
+            "category": "diet",
+            "keyword": "gluten"
+          }
+        },
+        "shortcut_5": {
+          "type": "shortcut",
+          "settings": {
+            "label": "What is the gut-brain axis?",
+            "category": "ingredients",
+            "keyword": "gut-brain axis"
+          }
+        }
+      },
+      "block_order": [
+        "faq_product_1",
+        "faq_product_2",
+        "faq_ingredients_1",
+        "faq_ingredients_2",
+        "faq_diet_1",
+        "faq_diet_2",
+        "faq_orders_1",
+        "faq_orders_2",
+        "faq_subscription_1",
+        "faq_subscription_2",
+        "faq_stores_1",
+        "faq_stores_2",
+        "quick_link_1",
+        "quick_link_2",
+        "quick_link_3",
+        "quick_link_4",
+        "quick_link_5",
+        "quick_link_6",
+        "shortcut_1",
+        "shortcut_2",
+        "shortcut_3",
+        "shortcut_4",
+        "shortcut_5"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,225 @@
+<section class="hc-reviews-rating" {{ section.shopify_attributes }}>
+  <div class="rr-inner fade-up">
+    <div class="rr-left">
+      <div class="rr-big">{{ section.settings.overall_score | escape }}</div>
+      <div class="rr-stars-big">{{ section.settings.overall_stars | escape }}</div>
+      <div class="rr-total">{{ section.settings.total_count | escape }}</div>
+      <div class="rr-note">{{ section.settings.transparency_note | escape }}</div>
+    </div>
+    <div class="rr-right">
+      {% assign bars = '5|4|3|2|1' | split: '|' %}
+      {% for star in bars %}
+        {% assign pct_key = 'star_' | append: star | append: '_pct' %}
+        {% assign pct = section.settings[pct_key] %}
+        <div class="rr-bar-row">
+          <div class="rr-bar-label">{{ star }} <span>★</span></div>
+          <div class="rr-bar-track"><div class="rr-bar-fill" data-width="{{ pct }}" style="width:0%"></div></div>
+          <div class="rr-bar-pct">{{ pct }}%</div>
+        </div>
+      {% endfor %}
+      <div class="rr-products">
+        {% for block in section.blocks %}
+          {% if block.type == 'product_rating' %}
+            <div class="rr-product-card" {{ block.shopify_attributes }}>
+              <div>
+                <div class="rrp-name">{{ block.settings.name | escape }}</div>
+                <div class="rrp-count">{{ block.settings.review_count | escape }}</div>
+              </div>
+              <div class="rrp-score">
+                <div class="rrp-stars">{{ block.settings.stars | escape }}</div>
+                <div class="rrp-num">{{ block.settings.score | escape }}</div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-reviews-rating {
+  --ink: #1A1A1A;
+  --ink-mid: #555;
+  --ink-light: #888;
+  background: #EAE9E5;
+  padding: 64px 80px;
+}
+.hc-reviews-rating .rr-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.hc-reviews-rating .rr-left { text-align: center; }
+.hc-reviews-rating .rr-big {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 120px;
+  color: var(--black);
+  line-height: .85;
+  margin-bottom: 8px;
+}
+.hc-reviews-rating .rr-stars-big {
+  color: var(--yellow);
+  font-size: 28px;
+  letter-spacing: 4px;
+  margin-bottom: 8px;
+}
+.hc-reviews-rating .rr-total {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink-light);
+  margin-bottom: 8px;
+}
+.hc-reviews-rating .rr-note {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--teal-dark);
+  line-height: 1.5;
+  font-style: italic;
+}
+.hc-reviews-rating .rr-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+.hc-reviews-rating .rr-bar-label {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+  width: 36px;
+  text-align: right;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.hc-reviews-rating .rr-bar-label span { color: var(--yellow); font-size: 10px; }
+.hc-reviews-rating .rr-bar-track {
+  flex: 1;
+  height: 8px;
+  background: rgba(15,18,19,.1);
+  position: relative;
+}
+.hc-reviews-rating .rr-bar-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: var(--teal);
+  transition: width .8s ease;
+}
+.hc-reviews-rating .rr-bar-pct {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink-light);
+  width: 36px;
+  flex-shrink: 0;
+}
+.hc-reviews-rating .rr-products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  background: rgba(15,18,19,.08);
+  margin-top: 32px;
+}
+.hc-reviews-rating .rr-product-card {
+  background: var(--white);
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.hc-reviews-rating .rrp-name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 2px;
+}
+.hc-reviews-rating .rrp-count {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--ink-light);
+}
+.hc-reviews-rating .rrp-score { display: flex; align-items: center; gap: 6px; }
+.hc-reviews-rating .rrp-stars { color: var(--yellow); font-size: 12px; }
+.hc-reviews-rating .rrp-num {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 14px;
+  color: var(--black);
+}
+@media (max-width: 1024px) {
+  .hc-reviews-rating { padding: 60px 40px; }
+  .hc-reviews-rating .rr-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hc-reviews-rating .rr-left { text-align: left; }
+  .hc-reviews-rating .rr-big { font-size: 80px; }
+}
+@media (max-width: 768px) {
+  .hc-reviews-rating { padding: 50px 20px; }
+  .hc-reviews-rating .rr-products { grid-template-columns: 1fr; }
+}
+{% endstylesheet %}
+
+{% javascript %}
+(() => {
+  const animateBars = (root) => {
+    if (root.dataset.barsAnimated === 'true') return;
+    root.dataset.barsAnimated = 'true';
+    root.querySelectorAll('.rr-bar-fill').forEach((bar) => {
+      const target = bar.dataset.width + '%';
+      setTimeout(() => { bar.style.width = target; }, 100);
+    });
+  };
+  const boot = () => {
+    document.querySelectorAll('.hc-reviews-rating').forEach((root) => {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) animateBars(root); });
+      }, { threshold: 0.3 });
+      io.observe(root);
+    });
+  };
+  document.addEventListener('DOMContentLoaded', boot);
+  document.addEventListener('shopify:section:load', boot);
+  boot();
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Reviews Rating Summary",
+  "settings": [
+    { "type": "text", "id": "overall_score", "label": "Overall score", "default": "4.4" },
+    { "type": "text", "id": "overall_stars", "label": "Stars display", "default": "★★★★☆" },
+    { "type": "text", "id": "total_count", "label": "Total count label", "default": "Based on 1,200+ verified reviews" },
+    { "type": "text", "id": "transparency_note", "label": "Transparency note", "default": "We show all reviews — including the critical ones." },
+    { "type": "range", "id": "star_5_pct", "label": "5★ percentage", "min": 0, "max": 100, "step": 1, "default": 58 },
+    { "type": "range", "id": "star_4_pct", "label": "4★ percentage", "min": 0, "max": 100, "step": 1, "default": 18 },
+    { "type": "range", "id": "star_3_pct", "label": "3★ percentage", "min": 0, "max": 100, "step": 1, "default": 12 },
+    { "type": "range", "id": "star_2_pct", "label": "2★ percentage", "min": 0, "max": 100, "step": 1, "default": 7 },
+    { "type": "range", "id": "star_1_pct", "label": "1★ percentage", "min": 0, "max": 100, "step": 1, "default": 5 }
+  ],
+  "blocks": [
+    {
+      "type": "product_rating",
+      "name": "Product rating",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Product name", "default": "Chocolate Brownie" },
+        { "type": "text", "id": "review_count", "label": "Review count", "default": "596 reviews" },
+        { "type": "text", "id": "stars", "label": "Stars", "default": "★★★★★" },
+        { "type": "text", "id": "score", "label": "Score", "default": "4.5" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Reviews Rating Summary" }]
+}
+{% endschema %}

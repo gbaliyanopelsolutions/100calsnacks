@@ -1,0 +1,161 @@
+
+<section class="hc-gb101-quiz-cta" id="quiz" {{ section.shopify_attributes }}>
+  <div class="hcqc-inner">
+    <div class="hcqc-eyebrow fade-up">{{ section.settings.eyebrow | escape }}</div>
+    <h2 class="hcqc-h fade-up fade-up-2">{{ section.settings.heading }}</h2>
+    <p class="hcqc-sub fade-up fade-up-3">{{ section.settings.sub | escape }}</p>
+    <div class="hcqc-btns fade-up fade-up-4">
+      <a href="{{ section.settings.cta1_url | escape }}" class="hcqc-pill-btn">{{ section.settings.cta1_text | escape }}</a>
+      <a href="{{ section.settings.cta2_url | escape }}" class="hcqc-ghost-btn">{{ section.settings.cta2_text | escape }}</a>
+    </div>
+    <div class="hcqc-chips fade-up fade-up-4">
+      {% for block in section.blocks %}
+        {% if block.type == 'type_chip' %}
+          <div class="hcqc-chip" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-gb101-quiz-cta {
+  padding: 100px 80px;
+  background: var(--teal);
+  position: relative;
+  overflow: hidden;
+}
+.hc-gb101-quiz-cta::before {
+  content: 'QUIZ';
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 320px;
+  color: rgba(0,0,0,.14);
+  pointer-events: none;
+  white-space: nowrap;
+}
+.hc-gb101-quiz-cta .hcqc-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.hc-gb101-quiz-cta .hcqc-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.5);
+  margin-bottom: 20px;
+}
+.hc-gb101-quiz-cta .hcqc-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 80px;
+  line-height: .88;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 20px;
+}
+.hc-gb101-quiz-cta .hcqc-h em { font-style: italic; }
+.hc-gb101-quiz-cta .hcqc-sub {
+  font-family: var(--font-body);
+  font-size: 17px;
+  color: rgba(0,0,0,.6);
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+.hc-gb101-quiz-cta .hcqc-btns {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.hc-gb101-quiz-cta .hcqc-pill-btn {
+  display: inline-block;
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 18px 44px;
+  background: var(--black);
+  color: var(--white);
+  text-decoration: none;
+  transition: all .25s;
+}
+.hc-gb101-quiz-cta .hcqc-pill-btn:hover { background: #1a1a1a; }
+.hc-gb101-quiz-cta .hcqc-ghost-btn {
+  display: inline-block;
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 16px 40px;
+  background: transparent;
+  color: rgba(0,0,0,.6);
+  border: 2px solid rgba(0,0,0,.25);
+  text-decoration: none;
+  transition: all .25s;
+}
+.hc-gb101-quiz-cta .hcqc-ghost-btn:hover { border-color: rgba(0,0,0,.5); color: var(--black); }
+.hc-gb101-quiz-cta .hcqc-chips {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.hc-gb101-quiz-cta .hcqc-chip {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border: 1px solid rgba(0,0,0,.15);
+  color: rgba(0,0,0,.5);
+  background: rgba(0,0,0,.06);
+}
+@media (max-width: 1024px) {
+  .hc-gb101-quiz-cta { padding: 72px 40px; }
+  .hc-gb101-quiz-cta .hcqc-h { font-size: 60px; }
+}
+@media (max-width: 768px) {
+  .hc-gb101-quiz-cta { padding: 56px 20px; }
+  .hc-gb101-quiz-cta .hcqc-h { font-size: 48px; }
+  .hc-gb101-quiz-cta::before { font-size: 180px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GB101 Quiz CTA",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Personalised to You" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Discover Your<br>Gut-Brain<br><em>Type</em>" },
+    { "type": "textarea", "id": "sub", "label": "Subheading", "default": "Everyone's gut-brain connection is different. Take our free 60-second quiz to discover your dominant pattern, your gut-brain score, and the snack your body responds to best." },
+    { "type": "text", "id": "cta1_text", "label": "Primary button text", "default": "Take the Gut-Brain Quiz →" },
+    { "type": "text", "id": "cta1_url", "label": "Primary button URL", "default": "/pages/gut-brain-quiz" },
+    { "type": "text", "id": "cta2_text", "label": "Secondary button text", "default": "Shop All Products" },
+    { "type": "text", "id": "cta2_url", "label": "Secondary button URL", "default": "/collections/all" }
+  ],
+  "blocks": [
+    {
+      "type": "type_chip",
+      "name": "Type chip",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "GB101 Quiz CTA" }]
+}
+{% endschema %}

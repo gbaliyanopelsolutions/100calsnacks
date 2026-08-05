@@ -1,0 +1,149 @@
+
+<div class="hc-policy-content" {{ section.shopify_attributes }}>
+  <div class="hcpc-layout">
+
+    {% for block in section.blocks %}
+      {% if block.type == 'policy_section' %}
+        <div class="hcpc-section" id="{{ block.settings.anchor | escape }}" {{ block.shopify_attributes }}>
+          <div class="hcpc-section-num">{{ block.settings.num | escape }}</div>
+          <h2 class="hcpc-section-title">{{ block.settings.title | escape }}</h2>
+          <div class="hcpc-body">
+            {{ block.settings.body }}
+            {% if block.settings.highlight != blank %}
+              <div class="hcpc-highlight">{{ block.settings.highlight }}</div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <div class="hcpc-contact" id="contact">
+      <div class="hcpc-contact-title">{{ section.settings.contact_title | escape }}</div>
+      <p class="hcpc-contact-body">{{ section.settings.contact_body | escape }}</p>
+      <a href="mailto:{{ section.settings.contact_email | escape }}" class="hcpc-contact-email">{{ section.settings.contact_email | escape }}</a>
+    </div>
+
+  </div>
+</div>
+
+{% stylesheet %}
+.hc-policy-content {
+  background: var(--white);
+}
+.hc-policy-content .hcpc-layout {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 56px 80px 80px;
+}
+.hc-policy-content .hcpc-section {
+  margin-bottom: 48px;
+  scroll-margin-top: 130px;
+}
+.hc-policy-content .hcpc-section:last-of-type { margin-bottom: 0; }
+.hc-policy-content .hcpc-section-num {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-bottom: 8px;
+}
+.hc-policy-content .hcpc-section-title {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 32px;
+  text-transform: uppercase;
+  color: var(--black);
+  line-height: .95;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--platinum);
+}
+.hc-policy-content .hcpc-body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--ink-mid);
+  line-height: 1.85;
+}
+.hc-policy-content .hcpc-body p { margin-bottom: 16px; }
+.hc-policy-content .hcpc-body p:last-child { margin-bottom: 0; }
+.hc-policy-content .hcpc-body strong { color: var(--ink); font-weight: 700; }
+.hc-policy-content .hcpc-body a { color: var(--teal-dark); text-decoration: underline; text-underline-offset: 3px; }
+.hc-policy-content .hcpc-body a:hover { color: var(--black); }
+.hc-policy-content .hcpc-body ul,
+.hc-policy-content .hcpc-body ol { padding-left: 20px; margin-bottom: 16px; }
+.hc-policy-content .hcpc-body li { margin-bottom: 8px; line-height: 1.7; }
+.hc-policy-content .hcpc-highlight {
+  background: var(--platinum);
+  padding: 20px 24px;
+  margin: 20px 0 0;
+  border-left: 3px solid var(--teal);
+}
+.hc-policy-content .hcpc-highlight p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink);
+  line-height: 1.7;
+}
+.hc-policy-content .hcpc-contact {
+  background: var(--black);
+  padding: 28px 32px;
+  margin-top: 48px;
+  scroll-margin-top: 130px;
+}
+.hc-policy-content .hcpc-contact-title {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 22px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.hc-policy-content .hcpc-contact-body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(255,255,255,.55);
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+.hc-policy-content .hcpc-contact-email {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 16px;
+  color: var(--teal);
+  text-decoration: none;
+  letter-spacing: .5px;
+}
+.hc-policy-content .hcpc-contact-email:hover { color: var(--white); }
+@media (max-width: 768px) {
+  .hc-policy-content .hcpc-layout { padding: 40px 24px 56px; }
+  .hc-policy-content .hcpc-section-title { font-size: 26px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Policy Content",
+  "settings": [
+    { "type": "text", "id": "contact_title", "label": "Contact box title", "default": "Questions or Requests?" },
+    { "type": "textarea", "id": "contact_body", "label": "Contact box body", "default": "We read every message. Reach out directly and we'll get back to you." },
+    { "type": "text", "id": "contact_email", "label": "Contact email", "default": "hi@100calsnacks.com" }
+  ],
+  "blocks": [
+    {
+      "type": "policy_section",
+      "name": "Policy section",
+      "settings": [
+        { "type": "text", "id": "num", "label": "Section number (e.g. 01)" },
+        { "type": "text", "id": "title", "label": "Section title" },
+        { "type": "text", "id": "anchor", "label": "Anchor ID (no #, e.g. information)" },
+        { "type": "richtext", "id": "body", "label": "Body content" },
+        { "type": "richtext", "id": "highlight", "label": "Highlight box (optional)" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Policy Content" }]
+}
+{% endschema %}

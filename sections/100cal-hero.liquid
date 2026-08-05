@@ -1,0 +1,75 @@
+
+<div class="hundred-cal">
+  <section class="hc-hero">
+    <div class="hc-hero__left">
+      <h1 class="hc-hero__heading">{{ section.settings.heading }}</h1>
+      <p class="hc-hero__sub">{{ section.settings.subheading }}</p>
+      <div class="hc-pill-row">
+        {% for block in section.blocks %}
+          {% if block.type == 'pill' %}
+            <span class="hc-pill" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</span>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% if section.settings.rating != blank %}
+        <p class="hc-hero__rating">{{ section.settings.rating | escape }}</p>
+      {% endif %}
+      <div class="hc-cta-row">
+        <a href="{{ section.settings.primary_link }}" class="hc-btn hc-btn--primary">{{ section.settings.primary_label }}</a>
+        {% if section.settings.secondary_label != blank %}
+          <a href="{{ section.settings.secondary_link | default: '#how-it-works' }}" class="hc-btn hc-btn--white-outline">{{ section.settings.secondary_label }}</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="hc-hero__right">
+      <div class="hc-hero__num">{{ section.settings.background_number | escape }}</div>
+      <div class="hc-product-visual">
+        {% if section.settings.product_image != blank %}
+          {{ section.settings.product_image | image_url: width: 720 | image_tag: loading: 'eager', alt: section.settings.product_name }}
+        {% else %}
+          <div class="hc-product-visual__icon">{{ section.settings.product_icon | escape }}</div>
+          <div class="hc-product-visual__name">{{ section.settings.product_name | escape }}</div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal Hero",
+  "settings": [
+    { "type": "html", "id": "heading", "label": "Heading", "default": "The<br><em>Overqualified</em><br>Snack." },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "100 clean calories designed to support the gut-brain connection." },
+    { "type": "text", "id": "rating", "label": "Rating line", "default": "***** 4.9/5 - 1,200+ Reviews" },
+    { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Shop Now ->" },
+    { "type": "url", "id": "primary_link", "label": "Primary button link", "default": "/collections/all" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "See How It Works" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary button link" },
+    { "type": "text", "id": "background_number", "label": "Background number", "default": "100" },
+    { "type": "image_picker", "id": "product_image", "label": "Product image" },
+    { "type": "text", "id": "product_icon", "label": "Fallback product mark", "default": "BAR" },
+    { "type": "text", "id": "product_name", "label": "Product name", "default": "Chocolate Brownie" }
+  ],
+  "blocks": [
+    {
+      "type": "pill",
+      "name": "Pill",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Protein" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "100Cal Hero",
+      "blocks": [
+        { "type": "pill", "settings": { "label": "Protein" } },
+        { "type": "pill", "settings": { "label": "Fiber" } },
+        { "type": "pill", "settings": { "label": "Adaptogens" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,77 @@
+<section class="pillars-section" data-section-type="blog-pillars">
+  <div class="pillars-inner">
+    <div class="pillars-header">
+      <div class="pillars-eyebrow">{{ section.settings.eyebrow }}</div>
+      <h2 class="pillars-h">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="pillars-grid">
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          <a href="{{ block.settings.link }}" class="pillar-card" data-cat="{{ block.settings.cat | default: '' }}">
+            <div class="pillar-num">{{ forloop.index | plus: 0 | prepend: '0' | slice: -2 }}</div>
+            <div class="pillar-icon">{{ block.settings.icon }}</div>
+            <div class="pillar-name">{{ block.settings.title }}</div>
+            <p class="pillar-desc">{{ block.settings.description }}</p>
+            <div class="pillar-count">{{ block.settings.count }}</div>
+            <div class="pillar-arrow">Explore →</div>
+          </a>
+        {% endfor %}
+      {% else %}
+        <a href="#" class="pillar-card" data-cat="gut-brain-health">
+          <div class="pillar-num">01</div>
+          <div class="pillar-icon">🧠</div>
+          <div class="pillar-name">Gut-Brain Health</div>
+          <p class="pillar-desc">The science of the gut-brain axis — how your gut talks to your brain, why cravings happen, and what your microbiome has to do with your mood.</p>
+          <div class="pillar-count">12 Articles</div>
+          <div class="pillar-arrow">Explore →</div>
+        </a>
+        <a href="#" class="pillar-card" data-cat="smart-snacking">
+          <div class="pillar-num">02</div>
+          <div class="pillar-icon">🎯</div>
+          <div class="pillar-name">Smart Snacking</div>
+          <p class="pillar-desc">How to snack with intention — timing, pairing, reading labels, avoiding the traps, and building habits that stick between meals.</p>
+          <div class="pillar-count">9 Articles</div>
+          <div class="pillar-arrow">Explore →</div>
+        </a>
+        <a href="#" class="pillar-card" data-cat="energy-mood-cravings">
+          <div class="pillar-num">03</div>
+          <div class="pillar-icon">⚡</div>
+          <div class="pillar-name">Energy, Mood & Cravings</div>
+          <p class="pillar-desc">Stress eating, afternoon crashes, emotional cravings — the real reasons they happen and what you can actually do about them.</p>
+          <div class="pillar-count">8 Articles</div>
+          <div class="pillar-arrow">Explore →</div>
+        </a>
+        <a href="#" class="pillar-card" data-cat="ingredients-that-matter">
+          <div class="pillar-num">04</div>
+          <div class="pillar-icon">🔬</div>
+          <div class="pillar-name">Ingredients That Matter</div>
+          <p class="pillar-desc">A deep dive into what's actually inside functional snacks — why ashwagandha, prebiotic fiber, amla, monk fruit, and other ingredients matter.</p>
+          <div class="pillar-count">11 Articles</div>
+          <div class="pillar-arrow">Explore →</div>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog Pillars",
+  "blocks": [
+    { "type": "pillar", "name": "Pillar", "settings": [
+      { "type": "text", "id": "title", "label": "Title", "default": "Gut-Brain Health" },
+      { "type": "text", "id": "icon", "label": "Icon (emoji/text)", "default": "🧠" },
+      { "type": "textarea", "id": "description", "label": "Description", "default": "The science of the gut-brain axis — how your gut talks to your brain, why cravings happen, and what your microbiome has to do with your mood." },
+      { "type": "text", "id": "count", "label": "Count text", "default": "12 Articles" },
+      { "type": "url", "id": "link", "label": "Link" },
+      { "type": "text", "id": "cat", "label": "Category handle", "default": "gut-brain-health" }
+    ] }
+  ],
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Browse by Topic" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Four Things We Write About" }
+  ],
+  "presets": [ { "name": "Blog Pillars", "category": "Blog" } ]
+}
+{% endschema %}

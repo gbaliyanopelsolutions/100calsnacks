@@ -1,0 +1,22 @@
+<div class="hundred-cal">
+  <div class="hc-topbar">
+    {{ section.settings.text_before | escape }}
+    {% if section.settings.text_middle != blank %}<span>{{ section.settings.separator | escape }}</span>{{ section.settings.text_middle | escape }}{% endif %}
+    {% if section.settings.text_after != blank %}<span>{{ section.settings.separator | escape }}</span>{{ section.settings.text_after | escape }}{% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal Announcement",
+  "settings": [
+    { "type": "text", "id": "text_before", "label": "First message", "default": "Free Shipping on Orders $25+" },
+    { "type": "text", "id": "text_middle", "label": "Second message", "default": "Subscribe & Save 10%" },
+    { "type": "text", "id": "text_after", "label": "Third message", "default": "Now Available in Stores" },
+    { "type": "text", "id": "separator", "label": "Separator", "default": "*" }
+  ],
+  "presets": [
+    { "name": "100Cal Announcement" }
+  ]
+}
+{% endschema %}

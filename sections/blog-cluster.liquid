@@ -1,0 +1,27 @@
+<section class="cluster-section" data-section-type="blog-cluster">
+  <div class="cluster-inner">
+    <div class="cluster-header">
+      <div class="cluster-eyebrow">{{ section.settings.eyebrow }}</div>
+      <h2 class="cluster-h">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="cluster-tags">
+      {% assign blog_tags = section.settings.tags | split: ',' %}
+      {% for tag in blog_tags %}
+        {% assign tag_handle = tag | strip | handleize %}
+        <a href="{{ blog.url }}/tagged/{{ tag_handle }}" class="cluster-tag">{{ tag | strip }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Topic Cluster",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Topics We Cover" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Search What You're Curious About" },
+    { "type": "text", "id": "tags", "label": "Tags (comma separated)", "default": "Gut-Brain Axis, Stress Cravings, Prebiotic Fiber, Ashwagandha, Microbiome Health" }
+  ],
+  "presets": [ { "name": "Topic Cluster", "category": "Blog" } ]
+}
+{% endschema %}

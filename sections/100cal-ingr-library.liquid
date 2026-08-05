@@ -1,0 +1,304 @@
+
+<section class="hc-ingr-library" id="library" {{ section.shopify_attributes }}>
+  <div class="library-inner">
+    <div class="library-header fade-up">
+      <div class="eyebrow" style="margin-bottom:14px">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="library-h">{{ section.settings.heading }}</h2>
+      <p class="library-sub">{{ section.settings.subheading | escape | newline_to_br }}</p>
+    </div>
+
+    <div class="filter-tabs fade-up fade-up-2">
+      <button type="button" class="filter-tab active" data-filter-tab="all">{{ section.settings.filter_all | escape }}</button>
+      <button type="button" class="filter-tab" data-filter-tab="fiber">{{ section.settings.filter_fiber | escape }}</button>
+      <button type="button" class="filter-tab" data-filter-tab="protein">{{ section.settings.filter_protein | escape }}</button>
+      <button type="button" class="filter-tab" data-filter-tab="fats">{{ section.settings.filter_fats | escape }}</button>
+      <button type="button" class="filter-tab" data-filter-tab="adaptogens">{{ section.settings.filter_adaptogens | escape }}</button>
+      <button type="button" class="filter-tab" data-filter-tab="antioxidants">{{ section.settings.filter_antioxidants | escape }}</button>
+      <button type="button" class="filter-tab" data-filter-tab="sweeteners">{{ section.settings.filter_sweeteners | escape }}</button>
+      <button type="button" class="filter-tab" data-filter-tab="other">{{ section.settings.filter_other | escape }}</button>
+    </div>
+
+    {% assign groups = 'fiber|protein|fats|adaptogens|antioxidants|sweeteners|other' | split: '|' %}
+    {% for group in groups %}
+      <div class="ingr-group fade-up" data-group="{{ group }}" {% if group == 'fiber' %}id="chicory"{% elsif group == 'protein' %}id="protein"{% elsif group == 'fats' %}id="almond-butter"{% elsif group == 'adaptogens' %}id="ashwagandha"{% elsif group == 'antioxidants' %}id="cocoa"{% elsif group == 'sweeteners' %}id="monk-fruit"{% endif %}>
+        {% case group %}
+          {% when 'fiber' %}
+            <div class="group-header" style="border-left-color:var(--teal)">
+              <div class="group-icon">{{ section.settings.group_fiber_icon | escape }}</div>
+              <div class="group-name">{{ section.settings.group_fiber_name | escape }}</div>
+              <div class="group-count">{{ section.settings.group_fiber_count | escape }}</div>
+            </div>
+          {% when 'protein' %}
+            <div class="group-header" style="border-left-color:var(--orange)">
+              <div class="group-icon">{{ section.settings.group_protein_icon | escape }}</div>
+              <div class="group-name">{{ section.settings.group_protein_name | escape }}</div>
+              <div class="group-count">{{ section.settings.group_protein_count | escape }}</div>
+            </div>
+          {% when 'fats' %}
+            <div class="group-header" style="border-left-color:var(--yellow)">
+              <div class="group-icon">{{ section.settings.group_fats_icon | escape }}</div>
+              <div class="group-name">{{ section.settings.group_fats_name | escape }}</div>
+              <div class="group-count">{{ section.settings.group_fats_count | escape }}</div>
+            </div>
+          {% when 'adaptogens' %}
+            <div class="group-header" style="border-left-color:var(--teal-pastel)">
+              <div class="group-icon">{{ section.settings.group_adaptogens_icon | escape }}</div>
+              <div class="group-name">{{ section.settings.group_adaptogens_name | escape }}</div>
+              <div class="group-count">{{ section.settings.group_adaptogens_count | escape }}</div>
+            </div>
+          {% when 'antioxidants' %}
+            <div class="group-header" style="border-left-color:var(--grey-dark)">
+              <div class="group-icon">{{ section.settings.group_antioxidants_icon | escape }}</div>
+              <div class="group-name">{{ section.settings.group_antioxidants_name | escape }}</div>
+              <div class="group-count">{{ section.settings.group_antioxidants_count | escape }}</div>
+            </div>
+          {% when 'sweeteners' %}
+            <div class="group-header" style="border-left-color:var(--grey-warm)">
+              <div class="group-icon">{{ section.settings.group_sweeteners_icon | escape }}</div>
+              <div class="group-name">{{ section.settings.group_sweeteners_name | escape }}</div>
+              <div class="group-count">{{ section.settings.group_sweeteners_count | escape }}</div>
+            </div>
+          {% else %}
+            <div class="group-header">
+              <div class="group-icon">{{ section.settings.group_other_icon | escape }}</div>
+              <div class="group-name">{{ section.settings.group_other_name | escape }}</div>
+              <div class="group-count">{{ section.settings.group_other_count | escape }}</div>
+            </div>
+        {% endcase %}
+
+        <div class="ingr-cards">
+          {% for block in section.blocks %}
+            {% if block.type == 'ingredient_card' and block.settings.group == group %}
+              <div class="ingr-card" {{ block.shopify_attributes }}>
+                <button type="button" class="ingr-card-toggle">+</button>
+                <div class="ingr-card-header">
+                  <div class="ingr-card-icon">{{ block.settings.icon | escape }}</div>
+                  <div class="ingr-card-top">
+                    <div class="ingr-card-name">{{ block.settings.name | escape }}</div>
+                    <div class="ingr-card-tagline">{{ block.settings.tagline | escape }}</div>
+                  </div>
+                </div>
+                <div class="ingr-card-body">
+                  <div class="ingr-card-detail">
+                    <div class="ingr-detail-row">
+                      <div class="ingr-detail-label">What it is</div>
+                      <div class="ingr-detail-text">{{ block.settings.what_it_is | escape }}</div>
+                    </div>
+                    <div class="ingr-detail-row">
+                      <div class="ingr-detail-label">Why it matters</div>
+                      <div class="ingr-detail-text">{{ block.settings.why_it_matters | escape }}</div>
+                    </div>
+                    <div class="ingr-detail-row">
+                      <div class="ingr-detail-label">Gut-Brain Benefit</div>
+                      <div class="ingr-detail-text gut-brain">{{ block.settings.gut_brain_benefit | escape }}</div>
+                    </div>
+                    <div class="ingr-detail-row">
+                      <div class="ingr-detail-label">Appears In</div>
+                      <div class="ingr-products">
+                        {% if block.settings.product_1 != blank %}<span class="ingr-product-tag choc">{{ block.settings.product_1 | escape }}</span>{% endif %}
+                        {% if block.settings.product_2 != blank %}<span class="ingr-product-tag pb">{{ block.settings.product_2 | escape }}</span>{% endif %}
+                        {% if block.settings.product_3 != blank %}<span class="ingr-product-tag bbq">{{ block.settings.product_3 | escape }}</span>{% endif %}
+                      </div>
+                    </div>
+                    {% if block.settings.read_more_label != blank and block.settings.read_more_link != blank %}
+                      <div class="ingr-detail-row">
+                        <div class="ingr-read-more-label">{{ block.settings.read_more_label | escape }}</div>
+                        <a href="{{ block.settings.read_more_link }}" class="ingr-read-more" target="{% if block.settings.open_new_tab %}_blank{% else %}_self{% endif %}">{{ block.settings.read_more_text | escape }}</a>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-ingr-library {
+  background: #111617;
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 80px;
+  color: var(--white);
+}
+.hc-ingr-library .library-inner { max-width: 1200px; margin: 0 auto; }
+.hc-ingr-library .library-header { margin-bottom: 56px; }
+.hc-ingr-library .library-h { font-family: var(--font-head); font-weight: 900; font-size: 64px; line-height: .88; text-transform: uppercase; color: var(--white); margin-bottom: 16px; }
+.hc-ingr-library .library-sub { font-family: var(--font-body); font-size: 16px; color: rgba(255,255,255,.5); max-width: 600px; line-height: 1.7; }
+.hc-ingr-library .filter-tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 48px; }
+.hc-ingr-library .filter-tab { font-family: var(--font-head); font-weight: 700; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 9px 18px; background: transparent; border: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.35); cursor: pointer; transition: all .2s; }
+.hc-ingr-library .filter-tab:hover { border-color: rgba(255,255,255,.3); color: rgba(255,255,255,.7); }
+.hc-ingr-library .filter-tab.active { background: var(--teal); border-color: var(--teal); color: var(--black); }
+.hc-ingr-library .ingr-group { margin-bottom: 80px; }
+.hc-ingr-library .ingr-group:last-child { margin-bottom: 0; }
+.hc-ingr-library .group-header { display: flex; align-items: center; gap: 20px; padding: 24px 32px; background: #EAE9E5; border-left: 6px solid var(--teal); margin-bottom: 2px; }
+.hc-ingr-library .group-icon { font-size: 28px; line-height: 1; flex-shrink: 0; }
+.hc-ingr-library .group-name { font-family: var(--font-head); font-weight: 900; font-size: 36px; text-transform: uppercase; color: var(--black); letter-spacing: .5px; line-height: 1; }
+.hc-ingr-library .group-count { font-family: var(--font-head); font-weight: 700; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(15,18,19,.4); margin-left: auto; padding: 5px 14px; border: 1px solid rgba(15,18,19,.15); white-space: nowrap; }
+.hc-ingr-library .ingr-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(255,255,255,.06); }
+.hc-ingr-library .ingr-card { background: #111617; padding: 0; transition: all .25s; cursor: pointer; position: relative; }
+.hc-ingr-library .ingr-card:hover { background: #111; }
+.hc-ingr-library .ingr-card.expanded { background: #0E1414; }
+.hc-ingr-library .ingr-card-header { padding: 24px 24px 20px; display: flex; align-items: flex-start; gap: 14px; border-left: 3px solid transparent; transition: border-color .2s; }
+.hc-ingr-library .ingr-card:hover .ingr-card-header,
+.hc-ingr-library .ingr-card.expanded .ingr-card-header { border-left-color: var(--teal); }
+.hc-ingr-library .ingr-card-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+.hc-ingr-library .ingr-card-name { font-family: var(--font-head); font-weight: 900; font-size: 18px; text-transform: uppercase; color: var(--white); letter-spacing: .5px; line-height: 1; margin-bottom: 4px; }
+.hc-ingr-library .ingr-card-tagline { font-family: var(--font-body); font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.4; }
+.hc-ingr-library .ingr-card-toggle { position: absolute; top: 24px; right: 20px; width: 24px; height: 24px; border: 1px solid rgba(255,255,255,.12); display: flex; align-items: center; justify-content: center; font-size: 14px; color: rgba(255,255,255,.3); transition: all .2s; background: none; cursor: pointer; flex-shrink: 0; }
+.hc-ingr-library .ingr-card.expanded .ingr-card-toggle { background: var(--teal); border-color: var(--teal); color: var(--black); transform: rotate(45deg); }
+.hc-ingr-library .ingr-card-body { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+.hc-ingr-library .ingr-card.expanded .ingr-card-body { max-height: 500px; }
+.hc-ingr-library .ingr-card-detail { padding: 0 24px 24px 61px; display: flex; flex-direction: column; gap: 12px; }
+.hc-ingr-library .ingr-detail-row { display: flex; flex-direction: column; gap: 4px; }
+.hc-ingr-library .ingr-detail-label { font-family: var(--font-head); font-weight: 700; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,.25); }
+.hc-ingr-library .ingr-detail-text { font-family: var(--font-body); font-size: 14px; color: rgba(255,255,255,.65); line-height: 1.6; }
+.hc-ingr-library .ingr-detail-text.gut-brain { color: var(--teal); }
+.hc-ingr-library .ingr-products { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+.hc-ingr-library .ingr-product-tag { font-family: var(--font-head); font-weight: 700; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.4); }
+.hc-ingr-library .ingr-product-tag.choc { border-color: rgba(102,204,204,.35); color: var(--teal); }
+.hc-ingr-library .ingr-product-tag.pb { border-color: rgba(233,173,60,.35); color: var(--yellow); }
+.hc-ingr-library .ingr-product-tag.bbq { border-color: rgba(230,100,67,.35); color: var(--orange); }
+.hc-ingr-library .ingr-read-more-label { font-family: var(--font-head); font-weight: 700; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.3); margin-top: 16px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.hc-ingr-library .ingr-read-more-label::before,
+.hc-ingr-library .ingr-read-more-label::after { content: ""; flex: 1; height: 1px; background: rgba(255,255,255,.06); }
+.hc-ingr-library .ingr-read-more { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-head); font-weight: 700; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal); text-decoration: none; border-bottom: 1px solid rgba(102,204,204,.3); padding-bottom: 2px; transition: all .2s; }
+@media (max-width: 1024px) {
+  .hc-ingr-library { padding: 80px 40px; }
+  .hc-ingr-library .ingr-cards { grid-template-columns: 1fr; }
+  .hc-ingr-library .library-h { font-size: 48px; }
+  .hc-ingr-library .group-name { font-size: 28px; }
+}
+@media (max-width: 768px) {
+  .hc-ingr-library { padding: 60px 20px; }
+  .hc-ingr-library .library-h { font-size: 34px; }
+}
+{% endstylesheet %}
+
+{% javascript %}
+(() => {
+  const initialize = (root) => {
+    if (!root || root.dataset.libraryInitialized === 'true') return;
+    root.dataset.libraryInitialized = 'true';
+
+    const filterTabs = Array.from(root.querySelectorAll('[data-filter-tab]'));
+    const groups = Array.from(root.querySelectorAll('[data-group]'));
+
+    const setFilter = (group) => {
+      filterTabs.forEach((tab) => tab.classList.toggle('active', tab.dataset.filterTab === group));
+      groups.forEach((item) => {
+        item.style.display = group === 'all' || item.dataset.group === group ? '' : 'none';
+      });
+    };
+
+    root.addEventListener('click', (e) => {
+      const tab = e.target.closest('[data-filter-tab]');
+      if (tab && root.contains(tab)) { setFilter(tab.dataset.filterTab); return; }
+
+      const cardToggle = e.target.closest('.ingr-card-toggle');
+      if (cardToggle && root.contains(cardToggle)) {
+        const card = cardToggle.closest('.ingr-card');
+        if (!card) return;
+        const cards = card.closest('.ingr-cards').querySelectorAll('.ingr-card');
+        const wasOpen = card.classList.contains('expanded');
+        cards.forEach((c) => c.classList.remove('expanded'));
+        if (!wasOpen) card.classList.add('expanded');
+        return;
+      }
+
+      const card = e.target.closest('.ingr-card');
+      if (card && root.contains(card) && !e.target.closest('.ingr-card-toggle')) {
+        const cards = card.closest('.ingr-cards').querySelectorAll('.ingr-card');
+        const wasOpen = card.classList.contains('expanded');
+        cards.forEach((c) => c.classList.remove('expanded'));
+        if (!wasOpen) card.classList.add('expanded');
+      }
+    });
+
+    setFilter('all');
+  };
+
+  const boot = () => {
+    document.querySelectorAll('.hc-ingr-library').forEach((root) => initialize(root));
+  };
+
+  document.addEventListener('DOMContentLoaded', boot);
+  document.addEventListener('shopify:section:load', boot);
+  boot();
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Ingredients Library",
+  "max_blocks": 30,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Full Ingredient Index" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Ingredient Library" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Every ingredient across all products - organized by function. Click any card to see the science, the gut-brain benefit, and which products it appears in." },
+    { "type": "text", "id": "filter_all", "label": "Filter: All", "default": "All Ingredients" },
+    { "type": "text", "id": "filter_fiber", "label": "Filter: Fiber", "default": "Fiber Sources" },
+    { "type": "text", "id": "filter_protein", "label": "Filter: Protein", "default": "Protein" },
+    { "type": "text", "id": "filter_fats", "label": "Filter: Fats", "default": "Healthy Fats" },
+    { "type": "text", "id": "filter_adaptogens", "label": "Filter: Adaptogens", "default": "Adaptogens" },
+    { "type": "text", "id": "filter_antioxidants", "label": "Filter: Antioxidants", "default": "Antioxidants" },
+    { "type": "text", "id": "filter_sweeteners", "label": "Filter: Sweeteners", "default": "Sweeteners" },
+    { "type": "text", "id": "filter_other", "label": "Filter: Other", "default": "Other" },
+    { "type": "text", "id": "group_fiber_icon", "label": "Fiber icon", "default": "🌱" },
+    { "type": "text", "id": "group_fiber_name", "label": "Fiber name", "default": "Fiber Sources" },
+    { "type": "text", "id": "group_fiber_count", "label": "Fiber count", "default": "2 Ingredients" },
+    { "type": "text", "id": "group_protein_icon", "label": "Protein icon", "default": "💪" },
+    { "type": "text", "id": "group_protein_name", "label": "Protein name", "default": "Protein Sources" },
+    { "type": "text", "id": "group_protein_count", "label": "Protein count", "default": "5 Ingredients" },
+    { "type": "text", "id": "group_fats_icon", "label": "Fats icon", "default": "🥑" },
+    { "type": "text", "id": "group_fats_name", "label": "Fats name", "default": "Healthy Fats" },
+    { "type": "text", "id": "group_fats_count", "label": "Fats count", "default": "6 Ingredients" },
+    { "type": "text", "id": "group_adaptogens_icon", "label": "Adaptogens icon", "default": "🌿" },
+    { "type": "text", "id": "group_adaptogens_name", "label": "Adaptogens name", "default": "Adaptogens" },
+    { "type": "text", "id": "group_adaptogens_count", "label": "Adaptogens count", "default": "2 Ingredients" },
+    { "type": "text", "id": "group_antioxidants_icon", "label": "Antioxidants icon", "default": "🍇" },
+    { "type": "text", "id": "group_antioxidants_name", "label": "Antioxidants name", "default": "Antioxidants & Plant Compounds" },
+    { "type": "text", "id": "group_antioxidants_count", "label": "Antioxidants count", "default": "5 Ingredients" },
+    { "type": "text", "id": "group_sweeteners_icon", "label": "Sweeteners icon", "default": "🍈" },
+    { "type": "text", "id": "group_sweeteners_name", "label": "Sweeteners name", "default": "Natural Sweeteners" },
+    { "type": "text", "id": "group_sweeteners_count", "label": "Sweeteners count", "default": "2 Ingredients" },
+    { "type": "text", "id": "group_other_icon", "label": "Other icon", "default": "⚗️" },
+    { "type": "text", "id": "group_other_name", "label": "Other name", "default": "Functional Extras" },
+    { "type": "text", "id": "group_other_count", "label": "Other count", "default": "2 Ingredients" }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient_card",
+      "name": "Ingredient card",
+      "settings": [
+        { "type": "select", "id": "group", "label": "Group", "default": "fiber", "options": [
+          { "value": "fiber", "label": "Fiber Sources" },
+          { "value": "protein", "label": "Protein" },
+          { "value": "fats", "label": "Healthy Fats" },
+          { "value": "adaptogens", "label": "Adaptogens" },
+          { "value": "antioxidants", "label": "Antioxidants" },
+          { "value": "sweeteners", "label": "Sweeteners" },
+          { "value": "other", "label": "Other" }
+        ] },
+        { "type": "text", "id": "icon", "label": "Icon", "default": "🌿" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Chicory Root Fiber" },
+        { "type": "text", "id": "tagline", "label": "Tagline", "default": "Natural prebiotic fiber - the gut's preferred fuel" },
+        { "type": "textarea", "id": "what_it_is", "label": "What it is", "default": "Inulin-type prebiotic fiber derived from chicory root." },
+        { "type": "textarea", "id": "why_it_matters", "label": "Why it matters", "default": "Feeds beneficial gut bacteria and supports digestion." },
+        { "type": "textarea", "id": "gut_brain_benefit", "label": "Gut-Brain benefit", "default": "Supports microbiome diversity and clearer gut-brain signaling." },
+        { "type": "text", "id": "product_1", "label": "Product tag 1 (Chocolate)", "default": "Chocolate Brownie Bar" },
+        { "type": "text", "id": "product_2", "label": "Product tag 2 (Peanut Butter)", "default": "Peanut Butter Bar" },
+        { "type": "text", "id": "product_3", "label": "Product tag 3 (BBQ)", "default": "BBQ Protein Puffs" },
+        { "type": "text", "id": "read_more_label", "label": "Read more label", "default": "Read More" },
+        { "type": "text", "id": "read_more_link", "label": "Read more link" },
+        { "type": "text", "id": "read_more_text", "label": "Read more text", "default": "Why Prebiotic Fiber Matters for Gut Health →" },
+        { "type": "checkbox", "id": "open_new_tab", "label": "Open in new tab", "default": true }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Ingredients Library" }]
+}
+{% endschema %}

@@ -1,0 +1,126 @@
+<section class="hc-locations-intro" {{ section.shopify_attributes }}>
+  <div class="li-grid fade-up">
+    {% for block in section.blocks %}
+      {% if block.type == 'retailer_badge' %}
+        <a href="{{ block.settings.link | escape }}" class="li-badge" {{ block.shopify_attributes }}>
+          <div>
+            <div class="li-badge-top">
+              <div class="li-label">{{ block.settings.label | escape }}</div>
+              <div class="li-dot li-dot--{{ block.settings.dot_color }}"></div>
+            </div>
+            <div class="li-name">{{ block.settings.name }}</div>
+            <div class="li-sub">{{ block.settings.sub | escape }}</div>
+          </div>
+          <div class="li-arrow">{{ block.settings.arrow_label | escape }}</div>
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-locations-intro {
+  --ink-mid: #555;
+  background: #EAE9E5;
+  padding: 64px 80px;
+}
+.hc-locations-intro .li-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  background: rgba(15,18,19,.08);
+}
+.hc-locations-intro .li-badge {
+  background: var(--white);
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 160px;
+  text-decoration: none;
+  transition: background .25s;
+}
+.hc-locations-intro .li-badge:hover { background: #F5F3F0; }
+.hc-locations-intro .li-badge-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.hc-locations-intro .li-label {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(15,18,19,.35);
+}
+.hc-locations-intro .li-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.hc-locations-intro .li-dot--teal { background: var(--teal); }
+.hc-locations-intro .li-dot--orange { background: var(--orange); }
+.hc-locations-intro .li-dot--yellow { background: var(--yellow); }
+.hc-locations-intro .li-name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 30px;
+  text-transform: uppercase;
+  color: var(--black);
+  line-height: .95;
+  margin-bottom: 8px;
+}
+.hc-locations-intro .li-sub {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+.hc-locations-intro .li-arrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-top: 12px;
+  display: inline-block;
+  transition: transform .2s;
+}
+.hc-locations-intro .li-badge:hover .li-arrow { transform: translateX(4px); }
+@media (max-width: 1024px) {
+  .hc-locations-intro { padding: 48px 40px; }
+  .hc-locations-intro .li-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) { .hc-locations-intro { padding: 40px 20px; } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Locations Retailer Intro",
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "retailer_badge",
+      "name": "Retailer badge",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Location count / label", "default": "29 Locations" },
+        { "type": "select", "id": "dot_color", "label": "Dot color", "default": "teal", "options": [
+          { "value": "teal", "label": "Teal" },
+          { "value": "orange", "label": "Orange" },
+          { "value": "yellow", "label": "Yellow" }
+        ]},
+        { "type": "html", "id": "name", "label": "Retailer name (HTML)", "default": "Gelson's<br>Markets" },
+        { "type": "text", "id": "sub", "label": "Sub text", "default": "Southern California's premier specialty grocer — from LA to San Diego" },
+        { "type": "text", "id": "arrow_label", "label": "Arrow label", "default": "See All Locations →" },
+        { "type": "text", "id": "link", "label": "Link (anchor or URL)", "default": "#gelsons" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Locations Retailer Intro" }]
+}
+{% endschema %}

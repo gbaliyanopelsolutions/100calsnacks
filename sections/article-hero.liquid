@@ -1,0 +1,64 @@
+
+{%- assign cat_label = section.settings.category_label | default: article.tags.first | default: article.blog.title -%}
+{%- assign cat_url = section.settings.category_url | default: article.blog.url -%}
+
+<div class="breadcrumb">
+  <div class="bc-inner">
+    <a href="{{ blog.url }}">{{ blog.title | default: 'Snack School' }}</a>
+    <span class="bc-sep">/</span>
+    {%- if section.settings.category_url != blank -%}
+      <a href="{{ cat_url }}">{{ cat_label }}</a>
+      <span class="bc-sep">/</span>
+    {%- endif -%}
+    <span class="bc-current">{{ article.title }}</span>
+  </div>
+</div>
+
+<section class="art-hero">
+  <div class="art-hero-inner">
+    <div class="art-hero-text">
+      <a href="{{ cat_url }}" class="art-cat">{{ cat_label }}</a>
+      <h1 class="art-h1">{{ article.title }}</h1>
+      {%- assign deck_text = section.settings.deck | default: article.excerpt | strip_html -%}
+      {%- if deck_text != blank -%}
+        <p class="art-deck">{{ deck_text }}</p>
+      {%- endif -%}
+      <div class="art-meta">
+        <span>By {{ article.author }}</span>
+        <span class="art-meta-sep">·</span>
+        <span>{{ article.published_at | date: "%B %-d, %Y" }}</span>
+        {%- if section.settings.reading_time != blank -%}
+          <span class="art-meta-sep">·</span>
+          <span class="art-reading-time">{{ section.settings.reading_time }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="art-hero-img">
+      {%- if article.image -%}
+        <img
+          src="{{ article.image | image_url: width: 960 }}"
+          width="{{ article.image.width }}"
+          height="{{ article.image.height }}"
+          alt="{{ article.image.alt | escape | default: article.title | escape }}"
+          loading="eager">
+      {%- else -%}
+        <div class="art-hero-img-placeholder">{{ section.settings.fallback_emoji | default: '🧠🦠' }}</div>
+        <div class="art-hero-img-label">Article Image</div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Article Hero",
+  "settings": [
+    { "type": "text", "id": "category_label", "label": "Category label (falls back to first article tag)" },
+    { "type": "url", "id": "category_url", "label": "Category URL" },
+    { "type": "richtext", "id": "deck", "label": "Deck / subheadline (falls back to article excerpt)" },
+    { "type": "text", "id": "reading_time", "label": "Reading time", "default": "8 min read" },
+    { "type": "text", "id": "fallback_emoji", "label": "Fallback emoji (used when article has no featured image)", "default": "🧠🦠" }
+  ],
+  "presets": [ { "name": "Article Hero", "category": "Article" } ]
+}
+{% endschema %}

@@ -1,0 +1,1057 @@
+
+{%- assign faq_categories = 'product|ingredients|diet|orders|subscription|stores' | split: '|' -%}
+
+<div class="hundred-cal hc-faq-page" id="faq-page-{{ section.id }}" data-100cal-faq-page {{ section.shopify_attributes }}>
+  <section class="hc-faq-page__hero">
+    <div class="hc-faq-page__hero-inner">
+      <div class="hc-faq-page__overline">{{ section.settings.hero_eyebrow | escape }}</div>
+      <h1 class="hc-faq-page__title">{{ section.settings.hero_heading }}</h1>
+      <p class="hc-faq-page__sub">{{ section.settings.hero_subheading | escape | newline_to_br }}</p>
+    </div>
+
+    <div class="hc-faq-page__tabs" role="tablist" aria-label="FAQ categories">
+      {% for category in faq_categories %}
+        {%- case category -%}
+          {%- when 'product' -%}
+            {%- assign category_label = section.settings.product_label -%}
+          {%- when 'ingredients' -%}
+            {%- assign category_label = section.settings.ingredients_label -%}
+          {%- when 'diet' -%}
+            {%- assign category_label = section.settings.diet_label -%}
+          {%- when 'orders' -%}
+            {%- assign category_label = section.settings.orders_label -%}
+          {%- when 'subscription' -%}
+            {%- assign category_label = section.settings.subscription_label -%}
+          {%- when 'stores' -%}
+            {%- assign category_label = section.settings.stores_label -%}
+        {%- endcase -%}
+
+        <button
+          type="button"
+          class="cat-tab{% if forloop.first %} active{% endif %}"
+          data-faq-tab="{{ category }}"
+          role="tab"
+          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+        >
+          {{ category_label | escape }}
+        </button>
+      {% endfor %}
+    </div>
+  </section>
+
+  <div class="faq-main">
+    <div class="faq-panels">
+      {% for category in faq_categories %}
+        {%- case category -%}
+          {%- when 'product' -%}
+            {%- assign category_label = section.settings.product_label -%}
+          {%- when 'ingredients' -%}
+            {%- assign category_label = section.settings.ingredients_label -%}
+          {%- when 'diet' -%}
+            {%- assign category_label = section.settings.diet_label -%}
+          {%- when 'orders' -%}
+            {%- assign category_label = section.settings.orders_label -%}
+          {%- when 'subscription' -%}
+            {%- assign category_label = section.settings.subscription_label -%}
+          {%- when 'stores' -%}
+            {%- assign category_label = section.settings.stores_label -%}
+        {%- endcase -%}
+
+        {%- assign category_count = 0 -%}
+        {% for block in section.blocks %}
+          {% if block.type == 'faq' and block.settings.category == category %}
+            {% assign category_count = category_count | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+
+        <section class="faq-panel{% if forloop.first %} active{% endif %}" id="panel-{{ category }}" data-faq-panel="{{ category }}" role="tabpanel">
+          <div class="faq-category-label">
+            <span>{{ category_label | escape }}</span>
+            <span class="faq-category-count">{{ category_count }} questions</span>
+          </div>
+
+          {% for block in section.blocks %}
+            {% if block.type == 'faq' and block.settings.category == category %}
+              <div class="faq-item" {{ block.shopify_attributes }}>
+                <button type="button" class="faq-question" data-faq-question>
+                  <span class="faq-q-text">{{ block.settings.question | escape }}</span>
+                  <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                  <div class="faq-answer-body">{{ block.settings.answer }}</div>
+                  {% if block.settings.link_label != blank and block.settings.link_url != blank %}
+                    <a href="{{ block.settings.link_url }}" class="faq-link">{{ block.settings.link_label | escape }}</a>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </section>
+      {% endfor %}
+    </div>
+
+    <aside class="faq-sidebar">
+      <div class="sb-contact">
+        <div class="sb-contact-overline">{{ section.settings.contact_overline | escape }}</div>
+        <div class="sb-contact-h">{{ section.settings.contact_heading | escape }}</div>
+        <p class="sb-contact-body">{{ section.settings.contact_body | escape | newline_to_br }}</p>
+        {% if section.settings.contact_button_link != blank %}
+          <a href="{{ section.settings.contact_button_link }}" class="sb-contact-btn">{{ section.settings.contact_button_label | escape }}</a>
+        {% endif %}
+      </div>
+
+      <div class="sb-quicklinks">
+        <div class="sb-ql-title">{{ section.settings.quick_links_title | escape }}</div>
+        {% for block in section.blocks %}
+          {% if block.type == 'quick_link' %}
+            <a href="{{ block.settings.link | default: '#' }}" class="sb-ql-link" {{ block.shopify_attributes }}>
+              <span>{{ block.settings.label | escape }}</span>
+              <span class="sb-ql-arrow">→</span>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="sb-popular">
+        <div class="sb-pop-title">{{ section.settings.popular_title | escape }}</div>
+        {% for block in section.blocks %}
+          {% if block.type == 'shortcut' %}
+            <button
+              type="button"
+              class="sb-pop-link"
+              data-faq-shortcut
+              data-faq-shortcut-category="{{ block.settings.category }}"
+              data-faq-shortcut-keyword="{{ block.settings.keyword | escape }}"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.label | escape }}
+            </button>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </aside>
+  </div>
+
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h2 class="cta-h">{{ section.settings.cta_heading }}</h2>
+      <p class="cta-sub">{{ section.settings.cta_subheading | escape | newline_to_br }}</p>
+      <div class="cta-btns">
+        {% if section.settings.cta_primary_link != blank %}
+          <a href="{{ section.settings.cta_primary_link }}" class="cta-btn-dark">{{ section.settings.cta_primary_label | escape }}</a>
+        {% endif %}
+        {% if section.settings.cta_secondary_label != blank and section.settings.cta_secondary_link != blank %}
+          <a href="{{ section.settings.cta_secondary_link }}" class="cta-btn-ghost">{{ section.settings.cta_secondary_label | escape }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+</div>
+
+{% stylesheet %}
+  .hc-faq-page {
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  .hc-faq-page__hero {
+    background: var(--black);
+    border-bottom: 3px solid var(--teal);
+    overflow: hidden;
+    padding: 64px 80px 0;
+    position: relative;
+  }
+
+  .hc-faq-page__hero::after {
+    content: '?';
+    color: rgba(255, 255, 255, 0.025);
+    font-family: Georgia, serif;
+    font-size: 320px;
+    line-height: 1;
+    pointer-events: none;
+    position: absolute;
+    right: 40px;
+    bottom: -40px;
+  }
+
+  .hc-faq-page__hero-inner {
+    margin: 0 auto;
+    max-width: 1100px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hc-faq-page__overline {
+    align-items: center;
+    color: var(--teal);
+    display: flex;
+    font-family: var(--font-head);
+    font-size: 11px;
+    font-weight: 700;
+    gap: 12px;
+    letter-spacing: 5px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  .hc-faq-page__overline::before {
+    background: var(--teal);
+    content: '';
+    flex-shrink: 0;
+    height: 2px;
+    width: 28px;
+  }
+
+  .hc-faq-page__title {
+    color: var(--white);
+    font-family: var(--font-head);
+    font-size: 88px;
+    font-weight: 900;
+    line-height: 0.84;
+    margin: 0 0 20px;
+    text-transform: uppercase;
+  }
+
+  .hc-faq-page__title em {
+    color: var(--teal);
+    font-style: italic;
+  }
+
+  .hc-faq-page__sub {
+    color: rgba(255, 255, 255, 0.55);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.75;
+    margin: 0 0 48px;
+    max-width: 520px;
+  }
+
+  .hc-faq-page__tabs {
+    background: rgba(255, 255, 255, 0.04);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .hc-faq-page__tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cat-tab {
+    background: transparent;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    flex: 0 0 auto;
+    font-family: var(--font-head);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 16px 24px;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .cat-tab:hover {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .cat-tab.active {
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom-color: var(--teal);
+    color: var(--teal);
+  }
+
+  .faq-main {
+    display: grid;
+    gap: 64px;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    margin: 0 auto;
+    max-width: 1100px;
+    padding: 64px 80px;
+  }
+
+  .faq-panel {
+    display: none;
+  }
+
+  .faq-panel.active {
+    display: block;
+  }
+
+  .faq-category-label {
+    align-items: center;
+    border-bottom: 2px solid var(--neutral-light);
+    color: var(--teal-dark);
+    display: flex;
+    font-family: var(--font-head);
+    font-size: 10px;
+    font-weight: 700;
+    justify-content: space-between;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .faq-category-count {
+    color: var(--ink-light);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--neutral-light);
+  }
+
+  .faq-item:first-of-type {
+    border-top: 1px solid var(--neutral-light);
+  }
+
+  .faq-question {
+    align-items: center;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+    padding: 20px 0;
+    text-align: left;
+    transition: color 0.2s ease;
+    width: 100%;
+  }
+
+  .faq-question:hover .faq-q-text,
+  .faq-question.open .faq-q-text {
+    color: var(--teal-dark);
+  }
+
+  .faq-q-text {
+    color: var(--black);
+    flex: 1;
+    font-family: var(--font-head);
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 0.3px;
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+
+  .faq-icon {
+    align-items: center;
+    border: 1.5px solid rgba(15, 18, 19, 0.15);
+    color: var(--ink-light);
+    display: flex;
+    flex-shrink: 0;
+    font-size: 16px;
+    font-weight: 300;
+    height: 28px;
+    justify-content: center;
+    line-height: 1;
+    transition: all 0.2s ease;
+    width: 28px;
+  }
+
+  .faq-question.open .faq-icon {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: var(--black);
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    display: none;
+    padding: 0 0 20px;
+  }
+
+  .faq-answer.open {
+    display: block;
+  }
+
+  .faq-answer-body {
+    color: var(--ink-mid);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .faq-answer-body p {
+    margin: 0 0 12px;
+  }
+
+  .faq-answer-body p:last-child {
+    margin-bottom: 0;
+  }
+
+  .faq-answer-body a {
+    color: var(--teal-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .faq-answer-body strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .faq-link {
+    color: var(--teal-dark);
+    display: inline-flex;
+    font-family: var(--font-head);
+    font-size: 11px;
+    font-weight: 900;
+    gap: 6px;
+    letter-spacing: 1.5px;
+    margin-top: 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+  }
+
+  .faq-link:hover {
+    color: var(--black);
+  }
+
+  .faq-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: sticky;
+    top: 88px;
+  }
+
+  .sb-contact {
+    background: var(--black);
+    padding: 28px 24px;
+  }
+
+  .sb-contact-overline {
+    color: var(--teal);
+    font-family: var(--font-head);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .sb-contact-h {
+    color: var(--white);
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .sb-contact-body {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+
+  .sb-contact-btn {
+    background: var(--teal);
+    color: var(--black);
+    display: block;
+    font-family: var(--font-head);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    padding: 13px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.2s ease;
+  }
+
+  .sb-contact-btn:hover {
+    background: var(--teal-dark);
+    color: var(--white);
+  }
+
+  .sb-quicklinks {
+    background: var(--neutral-light);
+    padding: 24px;
+  }
+
+  .sb-ql-title,
+  .sb-pop-title {
+    color: var(--black);
+    font-family: var(--font-head);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+
+  .sb-ql-link {
+    align-items: center;
+    border-bottom: 1px solid rgba(15, 18, 19, 0.08);
+    color: var(--ink-mid);
+    display: flex;
+    font-family: var(--font-body);
+    font-size: 14px;
+    justify-content: space-between;
+    padding: 10px 0;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .sb-ql-link:last-child {
+    border-bottom: none;
+  }
+
+  .sb-ql-link:hover {
+    color: var(--teal-dark);
+  }
+
+  .sb-ql-arrow {
+    color: var(--ink-light);
+    font-size: 12px;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .sb-ql-link:hover .sb-ql-arrow {
+    color: var(--teal-dark);
+    transform: translateX(3px);
+  }
+
+  .sb-popular {
+    background: var(--white);
+    border: 1.5px solid var(--neutral-light);
+    padding: 24px;
+  }
+
+  .sb-pop-link {
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--neutral-light);
+    color: var(--ink-mid);
+    cursor: pointer;
+    display: block;
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 8px 0;
+    text-align: left;
+    transition: color 0.2s ease;
+    width: 100%;
+  }
+
+  .sb-pop-link:last-child {
+    border-bottom: none;
+  }
+
+  .sb-pop-link:hover {
+    color: var(--teal-dark);
+  }
+
+  .cta-section {
+    background: var(--teal);
+    overflow: hidden;
+    padding: 72px 80px;
+    position: relative;
+    text-align: center;
+  }
+
+  .cta-section::before {
+    color: rgba(0, 0, 0, 0.06);
+    content: '100CAL';
+    font-family: var(--font-head);
+    font-size: 180px;
+    font-weight: 900;
+    left: 50%;
+    letter-spacing: 8px;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+  }
+
+  .cta-inner {
+    margin: 0 auto;
+    max-width: 600px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .cta-h {
+    color: var(--black);
+    font-family: var(--font-head);
+    font-size: 60px;
+    font-weight: 900;
+    line-height: 0.9;
+    margin: 0 0 14px;
+    text-transform: uppercase;
+  }
+
+  .cta-h em {
+    font-style: italic;
+  }
+
+  .cta-sub {
+    color: rgba(0, 0, 0, 0.55);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.7;
+    margin: 0 0 28px;
+  }
+
+  .cta-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .cta-btn-dark {
+    background: var(--black);
+    color: var(--white);
+    display: inline-block;
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    padding: 16px 40px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.2s ease;
+  }
+
+  .cta-btn-dark:hover {
+    background: #1a1a1a;
+  }
+
+  .cta-btn-ghost {
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    color: var(--black);
+    display: inline-block;
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    padding: 14px 32px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+  }
+
+  .cta-btn-ghost:hover {
+    border-color: var(--black);
+  }
+
+  @media (max-width: 1024px) {
+    .hc-faq-page__hero,
+    .faq-main,
+    .cta-section {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+
+    .faq-main {
+      gap: 40px;
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .faq-sidebar {
+      position: static;
+    }
+
+    .hc-faq-page__title {
+      font-size: 64px;
+    }
+
+    .cta-h {
+      font-size: 48px;
+    }
+
+    .cta-section::before {
+      font-size: 200px;
+      right: 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hc-faq-page__hero,
+    .faq-main,
+    .cta-section {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .hc-faq-page__hero {
+      padding-top: 48px;
+    }
+
+    .hc-faq-page__title {
+      font-size: 44px;
+    }
+
+    .hc-faq-page__sub {
+      font-size: 15px;
+      margin-bottom: 32px;
+    }
+
+    .cat-tab {
+      padding: 14px 18px;
+    }
+
+    .faq-question {
+      padding: 18px 0;
+    }
+
+    .faq-q-text {
+      font-size: 18px;
+    }
+
+    .faq-answer-body {
+      font-size: 15px;
+    }
+
+    .cta-section {
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+
+    .cta-h {
+      font-size: 34px;
+    }
+
+    .cta-sub {
+      font-size: 15px;
+    }
+
+    .cta-section::before {
+      font-size: 120px;
+      right: 20px;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  (() => {
+    const initializeFaqPage = (root) => {
+      if (!root || root.dataset.faqInitialized === 'true') return;
+      root.dataset.faqInitialized = 'true';
+
+      const tabs = Array.from(root.querySelectorAll('[data-faq-tab]'));
+      const panels = Array.from(root.querySelectorAll('[data-faq-panel]'));
+
+      const closeOpenAnswers = (panel) => {
+        if (!panel) return;
+        panel.querySelectorAll('.faq-question.open').forEach((question) => {
+          question.classList.remove('open');
+          const answer = question.nextElementSibling;
+          if (answer) answer.classList.remove('open');
+          const icon = question.querySelector('.faq-icon');
+          if (icon) icon.textContent = '+';
+        });
+      };
+
+      const activateTab = (category) => {
+        tabs.forEach((tab) => {
+          const isActive = tab.dataset.faqTab === category;
+          tab.classList.toggle('active', isActive);
+          tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        panels.forEach((panel) => {
+          const isActive = panel.dataset.faqPanel === category;
+          panel.classList.toggle('active', isActive);
+          if (!isActive) closeOpenAnswers(panel);
+        });
+      };
+
+      const toggleQuestion = (button) => {
+        const answer = button.nextElementSibling;
+        const panel = button.closest('.faq-panel');
+        if (!answer || !panel) return;
+
+        const isOpen = button.classList.contains('open');
+        closeOpenAnswers(panel);
+
+        if (!isOpen) {
+          button.classList.add('open');
+          answer.classList.add('open');
+        }
+      };
+
+      const openShortcut = (shortcut) => {
+        const category = shortcut.dataset.faqShortcutCategory;
+        const keyword = shortcut.dataset.faqShortcutKeyword || '';
+
+        activateTab(category);
+
+        window.requestAnimationFrame(() => {
+          const panel = root.querySelector(`[data-faq-panel="${category}"]`);
+          if (!panel) return;
+
+          const questions = Array.from(panel.querySelectorAll('.faq-q-text'));
+          const target = questions.find((question) => question.textContent.toLowerCase().includes(keyword.toLowerCase()));
+
+          if (target) {
+            const button = target.closest('.faq-question');
+            if (button) toggleQuestion(button);
+            const item = target.closest('.faq-item');
+            if (item) item.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      };
+
+      root.addEventListener('click', (event) => {
+        const tab = event.target.closest('[data-faq-tab]');
+        if (tab && root.contains(tab)) {
+          activateTab(tab.dataset.faqTab);
+          return;
+        }
+
+        const question = event.target.closest('[data-faq-question]');
+        if (question && root.contains(question)) {
+          toggleQuestion(question);
+          return;
+        }
+
+        const shortcut = event.target.closest('[data-faq-shortcut]');
+        if (shortcut && root.contains(shortcut)) {
+          openShortcut(shortcut);
+        }
+      });
+
+      if (tabs.length > 0) {
+        activateTab(tabs[0].dataset.faqTab);
+      }
+    };
+
+    const boot = () => {
+      document.querySelectorAll('[data-100cal-faq-page]').forEach((root) => initializeFaqPage(root));
+    };
+
+    document.addEventListener('DOMContentLoaded', boot);
+    document.addEventListener('shopify:section:load', (event) => {
+      const root = event.target && event.target.querySelector ? event.target.querySelector('[data-100cal-faq-page]') : null;
+      if (root) initializeFaqPage(root);
+    });
+
+    boot();
+  })();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "100Cal FAQ Page",
+  "settings": [
+    { "type": "text", "id": "hero_eyebrow", "label": "Hero eyebrow", "default": "Help & Info" },
+    { "type": "html", "id": "hero_heading", "label": "Hero heading", "default": "Got<br><em>Questions?</em>" },
+    { "type": "textarea", "id": "hero_subheading", "label": "Hero subheading", "default": "Everything you want to know about our snacks, ingredients, orders, and the science behind what we do." },
+    { "type": "text", "id": "product_label", "label": "Product tab label", "default": "The Product" },
+    { "type": "text", "id": "ingredients_label", "label": "Ingredients tab label", "default": "Ingredients" },
+    { "type": "text", "id": "diet_label", "label": "Diet tab label", "default": "Diet & Health" },
+    { "type": "text", "id": "orders_label", "label": "Orders tab label", "default": "Orders & Shipping" },
+    { "type": "text", "id": "subscription_label", "label": "Subscription tab label", "default": "Subscription" },
+    { "type": "text", "id": "stores_label", "label": "Stores tab label", "default": "In Stores" },
+    { "type": "text", "id": "contact_overline", "label": "Contact overline", "default": "Didn't Find Your Answer?" },
+    { "type": "text", "id": "contact_heading", "label": "Contact heading", "default": "Talk to a Real Person." },
+    { "type": "textarea", "id": "contact_body", "label": "Contact body", "default": "We read every message and respond within 24 hours. No bots, no scripts - just us." },
+    { "type": "text", "id": "contact_button_label", "label": "Contact button label", "default": "Contact Us ->" },
+    { "type": "url", "id": "contact_button_link", "label": "Contact button link" },
+    { "type": "text", "id": "quick_links_title", "label": "Quick links title", "default": "Useful Links" },
+    { "type": "text", "id": "popular_title", "label": "Popular questions title", "default": "Most Asked" },
+    { "type": "html", "id": "cta_heading", "label": "CTA heading", "default": "Still Not Sure?<br><em>Try One.</em>" },
+    { "type": "textarea", "id": "cta_subheading", "label": "CTA subheading", "default": "Take the 2-minute quiz and get matched to the snack designed for your gut-brain pattern." },
+    { "type": "text", "id": "cta_primary_label", "label": "Primary CTA label", "default": "Take the Quiz ->" },
+    { "type": "url", "id": "cta_primary_link", "label": "Primary CTA link" },
+    { "type": "text", "id": "cta_secondary_label", "label": "Secondary CTA label", "default": "Shop Now" },
+    { "type": "url", "id": "cta_secondary_link", "label": "Secondary CTA link" }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "category",
+          "label": "Category",
+          "default": "product",
+          "options": [
+            { "value": "product", "label": "Product" },
+            { "value": "ingredients", "label": "Ingredients" },
+            { "value": "diet", "label": "Diet & Health" },
+            { "value": "orders", "label": "Orders & Shipping" },
+            { "value": "subscription", "label": "Subscription" },
+            { "value": "stores", "label": "In Stores" }
+          ]
+        },
+        { "type": "text", "id": "question", "label": "Question", "default": "What makes 100 Cal Snacks different from other protein bars?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Most snack bars are either joyless diet food or full of ingredients that disrupt your gut. 100 Cal Snacks are formulated specifically for the gut-brain axis - using prebiotic fiber, KSM-66 ashwagandha, and real functional ingredients at clinically relevant levels.</p><p>Every calorie earns its place.</p>" },
+        { "type": "text", "id": "link_label", "label": "Link label", "default": "Learn more ->" },
+        { "type": "url", "id": "link_url", "label": "Link URL" }
+      ]
+    },
+    {
+      "type": "quick_link",
+      "name": "Sidebar quick link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Gut-Brain Health 101" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    },
+    {
+      "type": "shortcut",
+      "name": "Popular question shortcut",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Do you offer free shipping?" },
+        {
+          "type": "select",
+          "id": "category",
+          "label": "Category",
+          "default": "orders",
+          "options": [
+            { "value": "product", "label": "Product" },
+            { "value": "ingredients", "label": "Ingredients" },
+            { "value": "diet", "label": "Diet & Health" },
+            { "value": "orders", "label": "Orders & Shipping" },
+            { "value": "subscription", "label": "Subscription" },
+            { "value": "stores", "label": "In Stores" }
+          ]
+        },
+        { "type": "text", "id": "keyword", "label": "Keyword to match", "default": "shipping" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "100Cal FAQ Page",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "category": "product",
+            "question": "What makes 100 Cal Snacks different from other protein bars?",
+            "answer": "<p>Most snack bars are either joyless diet food or full of ingredients that disrupt your gut. 100 Cal Snacks are formulated specifically for the gut-brain axis - using prebiotic fiber, KSM-66 ashwagandha, and real functional ingredients at clinically relevant levels.</p><p>Every calorie earns its place.</p>",
+            "link_label": "See every ingredient ->",
+            "link_url": "/pages/ingredients"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "category": "product",
+            "question": "What products do you currently offer?",
+            "answer": "<p>We currently have three products: Chocolate Brownie Protein Bar, Peanut Butter Protein Bar, and BBQ Protein Puffs. Each is 100 calories, formulated for the gut-brain axis, and free from artificial ingredients and sugar alcohols.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "category": "ingredients",
+            "question": "What is the gut-brain axis and why does it matter?",
+            "answer": "<p>The gut-brain axis is the two-way communication network between your digestive system and your brain. Your gut microbiome influences hunger signals, mood, energy, and cravings.</p><p>Snacks formulated with prebiotic fiber and adaptogens can support this system - helping to regulate cravings rather than spike and crash them.</p>",
+            "link_label": "Read Gut-Brain 101 ->",
+            "link_url": "/pages/gut-brain-101"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "category": "ingredients",
+            "question": "Why do you use monk fruit instead of sugar alcohols?",
+            "answer": "<p>We use monk fruit - zero glycemic impact, no digestive side effects, and it doesn't disrupt your gut microbiome. No erythritol, no maltitol, no xylitol.</p><p>Sugar alcohols can cause bloating and may disrupt the beneficial gut bacteria we're trying to feed.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "category": "diet",
+            "question": "Are 100 Cal Snacks gluten-free?",
+            "answer": "<p>Yes. All three products are 100% gluten-free.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "category": "diet",
+            "question": "Are 100 Cal Snacks suitable for keto?",
+            "answer": "<p>Yes - each serving contains fewer than 3g net carbs, making them keto-compatible.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "category": "orders",
+            "question": "How long does shipping take?",
+            "answer": "<p>In-stock orders typically ship within 1-2 business days and arrive within 2-3 business days after dispatch.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "category": "orders",
+            "question": "Do you offer free shipping?",
+            "answer": "<p>Yes - free shipping on all orders over $25. Orders under $25 have a flat shipping rate calculated at checkout.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "category": "subscription",
+            "question": "How does the Subscribe & Save discount work?",
+            "answer": "<p>Subscribe to any product and save 10% on every order. You choose the delivery frequency and we take care of the rest.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "category": "subscription",
+            "question": "Can I pause or cancel my subscription?",
+            "answer": "<p>Yes - any time, no penalties, no questions. Log into your account and manage from there, or email us and we will handle it within 24 hours.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "category": "stores",
+            "question": "Where can I find 100 Cal Snacks in stores?",
+            "answer": "<p>We are currently available at Gelson's Markets across Southern California, Vicente Foods in Brentwood, and Rainbow Acres in West LA.</p>",
+            "link_label": "Find your nearest store ->",
+            "link_url": "/pages/store-locator"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "category": "stores",
+            "question": "Are you expanding to more stores?",
+            "answer": "<p>Yes - new retail doors are opening and new partnerships are in progress. Subscribe to our emails to hear about new locations as they go live.</p>"
+          }
+        },
+        { "type": "quick_link", "settings": { "label": "Gut-Brain Health 101", "link": "/pages/gut-brain-101" } },
+        { "type": "quick_link", "settings": { "label": "Ingredient Index", "link": "/pages/ingredients" } },
+        { "type": "quick_link", "settings": { "label": "Take the Quiz", "link": "/pages/quiz" } },
+        { "type": "quick_link", "settings": { "label": "Find a Store", "link": "/pages/store-locator" } },
+        { "type": "quick_link", "settings": { "label": "Refund Policy", "link": "/policies/refund-policy" } },
+        { "type": "quick_link", "settings": { "label": "Shipping Policy", "link": "/policies/shipping-policy" } },
+        { "type": "shortcut", "settings": { "label": "Do you offer free shipping?", "category": "orders", "keyword": "free shipping" } },
+        { "type": "shortcut", "settings": { "label": "Can I pause my subscription?", "category": "subscription", "keyword": "pause" } },
+        { "type": "shortcut", "settings": { "label": "Why no sugar alcohols?", "category": "ingredients", "keyword": "sugar alcohols" } },
+        { "type": "shortcut", "settings": { "label": "Are these gluten-free?", "category": "diet", "keyword": "gluten" } },
+        { "type": "shortcut", "settings": { "label": "What is the gut-brain axis?", "category": "ingredients", "keyword": "gut-brain axis" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,382 @@
+
+<product-info
+  id="MainProduct-{{ section.id }}"
+  class="section-{{ section.id }}-padding"
+  data-section="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-update-url="true"
+  data-url="{{ product.url }}"
+>
+  {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
+
+  <script src="{{ 'product-info.js' | asset_url }}" defer></script>
+  <script src="{{ 'product-form.js' | asset_url }}" defer></script>
+  <script src="{{ '100cal-product.js' | asset_url }}" defer></script>
+  {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+  {{ 'component-slider.css' | asset_url | stylesheet_tag }}
+  {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="#">{{ section.settings.breadcrumb_home_label }}</a><span class="sep">/</span>
+    <a href="#">{{ section.settings.breadcrumb_collection_label }}</a><span class="sep">/</span>
+    <span class="current">{{ section.settings.breadcrumb_current }}</span>
+  </div>
+
+  <!-- Sticky bar (mobile / pinned) -->
+  <div class="sticky-bar" id="sticky-bar" data-section="{{ section.id }}">
+    <div class="sticky-inner">
+      <div class="sticky-product">
+        <div class="sticky-thumb">{{ section.settings.sticky_thumb }}</div>
+        <div>
+          <div class="sticky-name">{{ section.settings.sticky_name }}</div>
+          <div class="sticky-tagline">{{ section.settings.sticky_tagline }}</div>
+        </div>
+      </div>
+      <div class="sticky-actions">
+        <label class="sticky-sub-toggle">
+          <input type="checkbox" id="sticky-sub"> {{ section.settings.sticky_sub_label }}
+        </label>
+        <div class="sticky-price">{{ section.settings.sticky_price }}</div>
+        <button type="button" class="sticky-btn">{{ section.settings.sticky_add_to_cart }}</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-width">
+    <div class="product product--{{ section.settings.media_size }} product--left product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col grid--2-col-tablet">
+      <div class="grid__item product__media-wrapper">
+        {% render 'product-media-gallery', variant_images: variant_images %}
+      </div>
+
+      <div class="product__info-wrapper grid__item">
+        <section id="ProductInfo-{{ section.id }}" class="product__info-container">
+          <div class="hero-box">
+            <div class="hero-copy">
+              <div class="pdp-overqualified">{{ section.settings.hero_eyebrow | escape }}</div>
+              <h1 class="pdp-main-headline">{{ section.settings.hero_headline | newline_to_br }}</h1>
+              <p class="pdp-flavor-sub">{{ section.settings.hero_text }}</p>
+              <div class="hero-meta">
+                <div class="meta-pill">{{ section.settings.meta_pill_1 | escape }}</div>
+                <div class="meta-pill">{{ section.settings.meta_pill_2 | escape }}</div>
+                <div class="meta-pill">{{ section.settings.meta_pill_3 | escape }}</div>
+              </div>
+            </div>
+
+            <div class="buy-box" id="buy-box">
+
+              {%- assign hc_has_star_block = false -%}
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'star_rating' -%}
+                  <div class="pdp-stars-row" {{ block.shopify_attributes }}>
+                    {% render 'junip-product-summary', product: product %}
+                  </div>
+                  {%- assign hc_has_star_block = true -%}
+                {%- endif -%}
+              {%- endfor -%}
+              {%- unless hc_has_star_block -%}
+                <div class="pdp-stars-row">
+                  {% render 'junip-product-summary', product: product %}
+                </div>
+              {%- endunless -%}
+
+              <div class="pdp-macros">
+                <div class="macro-cell macro-cal">
+                  <div class="macro-num">{{ section.settings.top_macro_1_number }}</div>
+                  <div class="macro-label">{{ section.settings.top_macro_1_label }}</div>
+                </div>
+                <div class="macro-cell">
+                  <div class="macro-num">{{ section.settings.top_macro_2_number }}</div>
+                  <div class="macro-label">{{ section.settings.top_macro_2_label }}</div>
+                </div>
+                <div class="macro-cell">
+                  <div class="macro-num">{{ section.settings.top_macro_3_number }}</div>
+                  <div class="macro-label">{{ section.settings.top_macro_3_label }}</div>
+                </div>
+                <div class="macro-cell">
+                  <div class="macro-num">{{ section.settings.top_macro_4_number }}</div>
+                  <div class="macro-label">{{ section.settings.top_macro_4_label }}</div>
+                </div>
+              </div>
+
+              <div class="buy-box-header hc-benefit-card__title">
+                <div class="buy-box-eyebrow">{{ section.settings.buy_box_eyebrow | escape }}</div>
+                <div id="price-{{ section.id }}" role="status" class="buy-box-price">
+                  {% render 'price', product: product, use_variant: true, show_badges: true, price_class: 'price--large' %}
+                </div>
+              </div>
+
+              <product-form class="product-form" data-section-id="{{ section.id }}">
+                <form method="post" action="{{ routes.cart_add_url }}" id="product-form-{{ section.id }}" accept-charset="UTF-8">
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+                  {% unless product.has_only_default_variant %}
+                    <variant-selects id="variant-selects-{{ section.id }}" data-section="{{ section.id }}" >
+                      {% for option in product.options_with_values %}
+                        {% assign is_pack_option = false %}
+                        {% if option.name contains 'Pack' %}
+                          {% assign is_pack_option = true %}
+                        {% elsif option.name contains 'pack' %}
+                          {% assign is_pack_option = true %}
+                        {% endif %}
+                        {% assign is_pack_option = true %}
+                        <fieldset class="js product-form__input product-form__input--pill{% if is_pack_option %} pack-selector{% endif %} fade-up fade-up-300">
+                          {% if is_pack_option %}
+                            <div class="pack-selector-header">
+                              <div class="pack-label">{{ option.name }}</div>
+                            </div>
+                            <div class="pack-options">
+                          {% else %}
+                            <legend class="form__label pack-selector-header"><div class="pack-label">{{ option.name }}</div></legend>
+                          {% endif %}
+                          {% for value in option.values %}
+                            {% if value.available %}
+                              {% assign option_disabled = false %}
+                            {% else %}
+                              {% assign option_disabled = true %}
+                            {% endif %}
+                            {% capture input_id %}{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}{% endcapture %}
+                            <div class="variant-input-wrap">
+                            <input
+                              type="radio"
+                              id="{{ input_id }}"
+                              name="options[{{ option.name | escape }}]"
+                              value="{{ value | escape }}"
+                              form="product-form-{{ section.id }}"
+                              data-product-url="{{ value.product_url }}"
+                              data-option-value-id="{{ value.id }}"
+                              {% if value.selected %}checked{% endif %}
+                              {% if option_disabled %}disabled class="disabled"{% endif %}
+                            >
+                            {% if is_pack_option %}
+                              {% assign pack_variant_price = product.selected_or_first_available_variant.price %}
+                              {% for variant in product.variants %}
+                                {% if option.position == 1 and variant.option1 == value %}
+                                  {% assign pack_variant_price = variant.price %}
+                                {% elsif option.position == 2 and variant.option2 == value %}
+                                  {% assign pack_variant_price = variant.price %}
+                                {% elsif option.position == 3 and variant.option3 == value %}
+                                  {% assign pack_variant_price = variant.price %}
+                                {% endif %}
+                              {% endfor %}
+                              <label class="pack-option" for="{{ input_id }}">
+                                <div class="pack-count">{{ value }}</div>
+                                <div class="pack-price">{{ pack_variant_price | money }}</div>
+                                <div class="pack-per">per bar</div>
+                              </label>
+                            {% else %}
+                              <label for="{{ input_id }}">{{ value }}{% if option_disabled %} · Sold out{% endif %}</label>
+                            {% endif %}
+                            </div>
+                          {% endfor %}
+                          {% if is_pack_option %}
+                            </div>
+                          {% endif %}
+                        </fieldset>
+                      {% endfor %}
+                      <script type="application/json" data-selected-variant>{{ product.selected_or_first_available_variant | json }}</script>
+                    </variant-selects>
+                  {% endunless %}
+
+                  {%- for block in section.blocks -%}
+                    {%- if block.type == '@app' -%}
+                      {% render block %}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                  <div id="Quantity-Form-{{ section.id }}">
+                    <div class="product-form__input product-form__quantity pack-qty-row fade-up fade-up-4">
+                      <label class="quantity__label form__label pack-qty-label" for="Quantity-{{ section.id }}">Quantity</label>
+                      <div class="quantity-selector pack-qty-control">
+                        <button type="button" class="quantity-button pack-qty-btn" onclick="document.getElementById('Quantity-{{ section.id }}').stepDown()">−</button>
+                        <input
+                          type="number"
+                          id="Quantity-{{ section.id }}"
+                          name="quantity"
+                          value="1"
+                          min="1"
+                          class="quantity__input pack-qty-num"
+                        >
+                        <button type="button" class="quantity-button pack-qty-btn" onclick="document.getElementById('Quantity-{{ section.id }}').stepUp()">+</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="product-form__buttons">
+                    {%- liquid
+                      assign check_against_inventory = true
+                      if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
+                        assign check_against_inventory = false
+                      endif
+                      if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
+                        assign quantity_rule_soldout = true
+                      endif
+                    -%}
+                    <button
+                      id="ProductSubmitButton-{{ section.id }}"
+                      type="submit"
+                      name="add"
+                      class="product-form__submit atc-btn"
+                      {% if product.selected_or_first_available_variant.available == false
+                        or quantity_rule_soldout
+                        or product.selected_or_first_available_variant == null
+                      %}
+                        disabled
+                      {% endif %}
+                    >
+                      <span>
+                        {%- if product.selected_or_first_available_variant == null -%}
+                          {{ 'products.product.unavailable' | t }}
+                        {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
+                          {{ 'products.product.sold_out' | t }}
+                        {%- else -%}
+                          {{ 'products.product.add_to_cart' | t }}
+                        {%- endif -%}
+                      </span>
+                      {%- render 'loading-spinner' -%}
+                    </button>
+                  </div>
+                </form>
+              </product-form>
+
+              <div class="subscribe-note">
+                <div class="subscribe-label">{{ section.settings.subscribe_label | escape }}</div>
+                <div class="subscribe-copy">{{ section.settings.subscribe_copy }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-detail-copy">
+            <div class="product-detail-text">
+              <p class="detail-eyebrow">{{ section.settings.detail_eyebrow | escape }}</p>
+              <h2 class="detail-headline">{{ section.settings.detail_headline | newline_to_br }}</h2>
+              <p class="detail-copy">{{ section.settings.detail_copy }}</p>
+            </div>
+            <div class="product-stats">
+              <div class="stat-card">
+                <div class="stat-number">{{ section.settings.stat_1_number | escape }}</div>
+                <div class="stat-label">{{ section.settings.stat_1_label }}</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">{{ section.settings.stat_2_number | escape }}</div>
+                <div class="stat-label">{{ section.settings.stat_2_label }}</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">{{ section.settings.stat_3_number | escape }}</div>
+                <div class="stat-label">{{ section.settings.stat_3_label }}</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">{{ section.settings.stat_4_number | escape }}</div>
+                <div class="stat-label">{{ section.settings.stat_4_label }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="macro-grid">
+            <div class="macro-card">
+              <div class="macro-icon">🍫</div>
+              <div class="macro-title">{{ section.settings.macro_1_title }}</div>
+            </div>
+            <div class="macro-card">
+              <div class="macro-icon">🌿</div>
+              <div class="macro-title">{{ section.settings.macro_2_title }}</div>
+            </div>
+            <div class="macro-card">
+              <div class="macro-icon">⚡</div>
+              <div class="macro-title">{{ section.settings.macro_3_title }}</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  {%- if product.media.size > 0 -%}
+    <script src="{{ 'media-gallery.js' | asset_url }}" defer></script>
+  {%- endif -%}
+</product-info>
+
+{% schema %}
+{
+  "name": "100Cal Product",
+  "settings": [
+    { "type": "text", "id": "hero_eyebrow", "label": "Hero eyebrow", "default": "100Cal Snacks" },
+    { "type": "textarea", "id": "hero_headline", "label": "Hero headline", "default": "The Snack That\nDoes More." },
+    { "type": "textarea", "id": "hero_text", "label": "Hero text", "default": "A gut-brain snack built to support energy, digestion, and calm without added sugar." },
+    { "type": "text", "id": "meta_pill_1", "label": "Meta pill 1", "default": "100 Calories" },
+    { "type": "text", "id": "meta_pill_2", "label": "Meta pill 2", "default": "4g Prebiotic Fiber" },
+    { "type": "text", "id": "meta_pill_3", "label": "Meta pill 3", "default": "250mg Ashwagandha" },
+    { "type": "text", "id": "buy_box_eyebrow", "label": "Buy box eyebrow", "default": "Choose Your Pack" },
+    { "type": "text", "id": "subscribe_label", "label": "Subscribe label", "default": "Subscribe & save 10%" },
+    { "type": "textarea", "id": "subscribe_copy", "label": "Subscribe copy", "default": "Free shipping on orders $25+. Pause or cancel anytime." },
+    { "type": "text", "id": "detail_eyebrow", "label": "Detail eyebrow", "default": "Why It Works" },
+    { "type": "textarea", "id": "detail_headline", "label": "Detail headline", "default": "Dense. Fudgy. Real Chocolate." },
+    { "type": "textarea", "id": "detail_copy", "label": "Detail copy", "default": "This bar delivers the texture of a brownie with clean ingredients that support gut and brain balance. No chalky protein aftertaste, no weird sugar alcohols, no compromise." },
+    { "type": "text", "id": "stat_1_number", "label": "Stat 1 number", "default": "100" },
+    { "type": "textarea", "id": "stat_1_label", "label": "Stat 1 label", "default": "Exact calories per bar" },
+    { "type": "text", "id": "stat_2_number", "label": "Stat 2 number", "default": "0g" },
+    { "type": "textarea", "id": "stat_2_label", "label": "Stat 2 label", "default": "Sugar alcohols" },
+    { "type": "text", "id": "stat_3_number", "label": "Stat 3 number", "default": "2" },
+    { "type": "textarea", "id": "stat_3_label", "label": "Stat 3 label", "default": "Body systems supported" },
+    { "type": "text", "id": "stat_4_number", "label": "Stat 4 number", "default": "1st" },
+    { "type": "textarea", "id": "stat_4_label", "label": "Stat 4 label", "default": "Gut-brain axis snack" },
+    { "type": "text", "id": "macro_1_title", "label": "Macro 1 title", "default": "Soft brownie texture" },
+    { "type": "text", "id": "macro_2_title", "label": "Macro 2 title", "default": "Rich organic cocoa" },
+    { "type": "text", "id": "macro_3_title", "label": "Macro 3 title", "default": "No chalky aftertaste" },
+
+    { "type": "text", "id": "breadcrumb_home_label", "label": "Breadcrumb home label", "default": "Home" },
+    { "type": "text", "id": "breadcrumb_collection_label", "label": "Breadcrumb collection label", "default": "Shop All" },
+    { "type": "text", "id": "breadcrumb_current", "label": "Breadcrumb current", "default": "Chocolate Brownie Bar" },
+
+    { "type": "text", "id": "sticky_thumb", "label": "Sticky thumb", "default": "🍫" },
+    { "type": "text", "id": "sticky_name", "label": "Sticky name", "default": "Chocolate Brownie Bar" },
+    { "type": "text", "id": "sticky_tagline", "label": "Sticky tagline", "default": "100 Cal · 5g Plant Protein · Gut-Brain Support" },
+    { "type": "text", "id": "sticky_sub_label", "label": "Sticky subscribe label", "default": "Subscribe & Save 10%" },
+    { "type": "text", "id": "sticky_price", "label": "Sticky price text", "default": "$18.99" },
+    { "type": "text", "id": "sticky_add_to_cart", "label": "Sticky add to cart text", "default": "Add to Cart" },
+
+    { "type": "text", "id": "review_score", "label": "Review score", "default": "4.9" },
+    { "type": "text", "id": "review_stars", "label": "Review stars", "default": "★★★★★" },
+    { "type": "text", "id": "review_count_text", "label": "Review count text", "default": "312 reviews" },
+
+    { "type": "text", "id": "top_macro_1_number", "label": "Top macro 1 number", "default": "100" },
+    { "type": "text", "id": "top_macro_1_label", "label": "Top macro 1 label", "default": "Calories" },
+    { "type": "text", "id": "top_macro_2_number", "label": "Top macro 2 number", "default": "5g" },
+    { "type": "text", "id": "top_macro_2_label", "label": "Top macro 2 label", "default": "Plant Protein" },
+    { "type": "text", "id": "top_macro_3_number", "label": "Top macro 3 number", "default": "4g" },
+    { "type": "text", "id": "top_macro_3_label", "label": "Top macro 3 label", "default": "Prebiotic Fiber" },
+    { "type": "text", "id": "top_macro_4_number", "label": "Top macro 4 number", "default": "2g" },
+    { "type": "text", "id": "top_macro_4_label", "label": "Top macro 4 label", "default": "Net Carbs" },
+
+    { "type": "text", "id": "badge_cal_text", "label": "Gallery badge cal text", "default": "100 Cal" },
+    { "type": "text", "id": "badge_new_text", "label": "Gallery badge new text", "default": "Best Seller" },
+    { "type": "select", "id": "gallery_layout", "label": "Gallery layout", "default": "thumbnail", "options": [
+      { "value": "thumbnail", "label": "Thumbnails below" },
+      { "value": "thumbnail_slider", "label": "Thumbnails slider" },
+      { "value": "stacked", "label": "Stacked" }
+    ] },
+    { "type": "select", "id": "mobile_thumbnails", "label": "Mobile thumbnails", "default": "show", "options": [
+      { "value": "show", "label": "Show" },
+      { "value": "hide", "label": "Hide" },
+      { "value": "columns", "label": "Columns" }
+    ] },
+    { "type": "select", "id": "media_size", "label": "Gallery size", "default": "large", "options": [
+      { "value": "large", "label": "Large" },
+      { "value": "medium", "label": "Medium" },
+      { "value": "small", "label": "Small" }
+    ] }
+  ],
+  "blocks": [
+    {
+      "type": "star_rating",
+      "name": "Star Rating / Reviews",
+      "settings": []
+    },
+    { "type": "@app" }
+  ],
+  "presets": [
+    {
+      "name": "100Cal Product"
+    }
+  ]
+}
+{% endschema %}

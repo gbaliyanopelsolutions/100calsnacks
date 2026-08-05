@@ -1,0 +1,42 @@
+<div class="art-toc-strip" data-auto-toc>
+  <div class="art-toc-strip-inner">
+    <div class="art-toc-label">{{ section.settings.label }}</div>
+    {%- for block in section.blocks -%}
+      <a href="#{{ block.settings.anchor }}" class="art-toc-item" {{ block.shopify_attributes }}>{{ block.settings.text }}</a>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Article TOC",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "In This Article" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "TOC Item",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Link text", "default": "Section Heading" },
+        { "type": "text", "id": "anchor", "label": "Anchor ID (without #)", "default": "section-heading" }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Article TOC",
+      "category": "Article",
+      "blocks": [
+        { "type": "item", "settings": { "text": "What Is the Gut-Brain Axis?", "anchor": "what-is-gut-brain" } },
+        { "type": "item", "settings": { "text": "How Your Gut Controls Cravings", "anchor": "how-gut-controls-cravings" } },
+        { "type": "item", "settings": { "text": "The 3pm Crash", "anchor": "the-3pm-crash" } },
+        { "type": "item", "settings": { "text": "Stress & Cravings", "anchor": "stress-eating" } },
+        { "type": "item", "settings": { "text": "What to Eat", "anchor": "what-to-eat" } },
+        { "type": "item", "settings": { "text": "The Snacking Solution", "anchor": "the-snack-solution" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,1074 @@
+
+<div class="hcnv-wrapper" {{ section.shopify_attributes }}>
+
+  <!-- Desktop mega-menu overlay -->
+  <div class="hcnv-mm-overlay"></div>
+
+  <!-- ===================== DESKTOP NAV ===================== -->
+  <header class="hcnv-header" role="banner">
+    <nav class="hcnv-nav" aria-label="Main navigation">
+
+      <a class="hcnv-brand" href="{{ routes.root_url }}">
+        {% if section.settings.logo != blank %}
+          {{ section.settings.logo | image_url: width: 210 | image_tag: class: 'hcnv-logo', loading: 'eager', alt: section.settings.brand_name }}
+        {% else %}
+          100<em>Cal</em>Snacks
+        {% endif %}
+      </a>
+
+      <ul class="hcnv-links" role="list">
+
+        <!-- Shop — mega-menu trigger -->
+        <li class="hcnv-item hcnv-shop-item">
+          <button class="hcnv-link hcnv-shop-trigger" aria-expanded="false" aria-haspopup="true">
+            {{ section.settings.shop_label | escape }}
+            <span class="hcnv-chevron" aria-hidden="true">▾</span>
+          </button>
+
+          <div class="hcnv-mega" role="navigation" aria-label="Shop menu">
+
+            <!-- Col 1: Products -->
+            <div class="hcnv-mm-col hcnv-mm-col-1">
+              <div class="hcnv-mm-title">{{ section.settings.mm_col1_label | escape }}</div>
+              {%- assign mm_products = section.blocks | where: 'type', 'mm_product' -%}
+              {% for block in mm_products %}
+                <a href="{{ block.settings.url }}" class="hcnv-prod-link{% if forloop.first %} hcnv-prod-link--all{% endif %}" {{ block.shopify_attributes }}>
+                  {% if block.settings.emoji != blank %}<span class="hcnv-pl-emoji">{{ block.settings.emoji }}</span>{% endif %}
+                  <div class="hcnv-pl-info">
+                    <div class="hcnv-pl-name">{{ block.settings.name | escape }}</div>
+                    {% if block.settings.sub != blank %}<div class="hcnv-pl-sub">{{ block.settings.sub | escape }}</div>{% endif %}
+                  </div>
+                  <span class="hcnv-pl-arrow" aria-hidden="true">→</span>
+                </a>
+              {% endfor %}
+            </div>
+
+            <!-- Col 2: Goals -->
+            <div class="hcnv-mm-col hcnv-mm-col-2">
+              <div class="hcnv-mm-title">{{ section.settings.mm_col2_label | escape }}</div>
+              {%- assign mm_goals = section.blocks | where: 'type', 'mm_goal' -%}
+              {% for block in mm_goals %}
+                <a href="{{ block.settings.url }}" class="hcnv-goal-link{% if block.settings.is_quiz %} hcnv-goal-link--quiz{% endif %}" {{ block.shopify_attributes }}>
+                  <div class="hcnv-gl-icon hcnv-gl-icon--{{ block.settings.icon_color }}">{{ block.settings.icon_emoji }}</div>
+                  <div class="hcnv-gl-info">
+                    <div class="hcnv-gl-name">{{ block.settings.name | escape }}</div>
+                    {% if block.settings.desc != blank %}<div class="hcnv-gl-desc">{{ block.settings.desc | escape }}</div>{% endif %}
+                  </div>
+                  <span class="hcnv-gl-arrow" aria-hidden="true">→</span>
+                </a>
+              {% endfor %}
+            </div>
+
+            <!-- Col 3: Featured card -->
+            <div class="hcnv-mm-col-3">
+              <div class="hcnv-feat-img">
+                {% if section.settings.feat_badge != blank %}
+                  <div class="hcnv-feat-badge">{{ section.settings.feat_badge | escape }}</div>
+                {% endif %}
+                <span aria-hidden="true">{{ section.settings.feat_emoji }}</span>
+              </div>
+              <div class="hcnv-feat-body">
+                {% if section.settings.feat_eyebrow != blank %}<div class="hcnv-feat-eyebrow">{{ section.settings.feat_eyebrow | escape }}</div>{% endif %}
+                <div class="hcnv-feat-name">{{ section.settings.feat_name | escape }}</div>
+                {% if section.settings.feat_prop != blank %}<div class="hcnv-feat-prop">{{ section.settings.feat_prop | escape }}</div>{% endif %}
+                <a href="{{ section.settings.feat_url }}" class="hcnv-feat-cta">{{ section.settings.feat_cta_label | escape }}</a>
+              </div>
+            </div>
+
+          </div><!-- /mega -->
+        </li>
+
+        <!-- Remaining nav links from menu linklist -->
+        {% if section.settings.menu != blank %}
+          {% for link in linklists[section.settings.menu].links %}
+            <li class="hcnv-item">
+              <a href="{{ link.url }}" class="hcnv-link">{{ link.title | escape }}</a>
+            </li>
+          {% endfor %}
+        {% else %}
+          <li class="hcnv-item"><a href="/pages/gut-brain-101" class="hcnv-link">Gut-Brain 101</a></li>
+          <li class="hcnv-item"><a href="/pages/ingredients" class="hcnv-link">Ingredients</a></li>
+          <li class="hcnv-item"><a href="/pages/quiz" class="hcnv-link">Quiz</a></li>
+          <li class="hcnv-item"><a href="/blogs/snack-school" class="hcnv-link">Snack School</a></li>
+        {% endif %}
+
+      </ul>
+
+      <div class="hcnv-right">
+        <button class="hcnv-icon-btn hcnv-search-btn" aria-label="Search" aria-expanded="false" aria-controls="hcnv-search-panel">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <a class="hcnv-cart-btn" href="{{ routes.cart_url }}">
+          {{ section.settings.cta_label | escape }}{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}
+        </a>
+      </div>
+
+    </nav>
+  </header>
+
+  <!-- ===================== MOBILE NAV ===================== -->
+  <div class="hcnv-mobile">
+    <div class="hcnv-mob-overlay"></div>
+
+    <div class="hcnv-mob-bar">
+      <a class="hcnv-mob-brand" href="{{ routes.root_url }}">
+        {% if section.settings.logo != blank %}
+          {{ section.settings.logo | image_url: width: 140 | image_tag: loading: 'eager', alt: section.settings.brand_name }}
+        {% else %}
+          100<em>Cal</em>Snacks
+        {% endif %}
+      </a>
+      <div class="hcnv-mob-right">
+        <button class="hcnv-icon-btn hcnv-search-btn hcnv-mob-search-btn" aria-label="Search" aria-expanded="false" aria-controls="hcnv-search-panel">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <a class="hcnv-mob-cart" href="{{ routes.cart_url }}">
+          {{ section.settings.cta_label | escape }}{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}
+        </a>
+        <button class="hcnv-mob-ham" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Slide-in drawer -->
+    <div class="hcnv-mob-drawer" role="navigation" aria-label="Mobile menu">
+      <div class="hcnv-mob-drawer-hd">
+        <span class="hcnv-mob-drawer-brand">100<em>Cal</em>Snacks</span>
+        <button class="hcnv-mob-close" aria-label="Close menu">✕</button>
+      </div>
+
+      <div class="hcnv-mob-body">
+        <div class="hcnv-mob-sec-label">{{ section.settings.mm_col1_label | escape }}</div>
+
+        {%- assign mm_products = section.blocks | where: 'type', 'mm_product' -%}
+        {% for block in mm_products %}
+          <a href="{{ block.settings.url }}" class="hcnv-mob-link{% if forloop.first %} hcnv-mob-link--feat{% endif %}">
+            <div class="hcnv-mob-link-l">
+              {% if block.settings.emoji != blank %}<span class="hcnv-mob-emoji">{{ block.settings.emoji }}</span>{% endif %}
+              <span class="hcnv-mob-link-name">{{ block.settings.name | escape }}</span>
+            </div>
+            <span class="hcnv-mob-arrow" aria-hidden="true">→</span>
+          </a>
+        {% endfor %}
+
+        <div class="hcnv-mob-nav-links">
+          {% if section.settings.menu != blank %}
+            {% for link in linklists[section.settings.menu].links %}
+              <a href="{{ link.url }}" class="hcnv-mob-nav-link">{{ link.title | escape }}</a>
+            {% endfor %}
+          {% else %}
+            <a href="/pages/gut-brain-101" class="hcnv-mob-nav-link">Gut-Brain 101</a>
+            <a href="/pages/ingredients" class="hcnv-mob-nav-link">Ingredients</a>
+            <a href="/pages/quiz" class="hcnv-mob-nav-link hcnv-mob-nav-link--quiz">🧠 Take the Snack Quiz</a>
+            <a href="/blogs/snack-school" class="hcnv-mob-nav-link">Snack School</a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="hcnv-mob-cta">
+        <a href="{{ section.settings.feat_url }}" class="hcnv-mob-cta-btn">{{ section.settings.mob_cta_label | escape }}</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SEARCH PANEL ===================== -->
+  <div class="hcnv-search-panel" id="hcnv-search-panel" aria-hidden="true" role="search" aria-label="Site search">
+    <div class="hcnv-search-inner">
+      <div class="hcnv-search-row">
+        <div class="hcnv-search-field">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input
+            id="hcnv-search-input"
+            type="search"
+            name="q"
+            placeholder="Search products, articles…"
+            class="hcnv-search-input"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            aria-label="Search"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-controls="hcnv-search-results"
+          >
+          <button type="button" class="hcnv-search-clear" id="hcnv-search-clear" aria-label="Clear search" hidden>✕</button>
+        </div>
+        <button type="button" class="hcnv-search-close" id="hcnv-search-close" aria-label="Close search">
+          <span aria-hidden="true">✕</span> Close
+        </button>
+      </div>
+      <div class="hcnv-search-results" id="hcnv-search-results" role="listbox" aria-label="Search results"></div>
+    </div>
+  </div>
+
+</div><!-- /hcnv-wrapper -->
+
+<script src="{{ '100cal-nav.js' | asset_url }}" defer="defer"></script>
+
+{% stylesheet %}
+.hcnv-header, .hcnv-mobile {
+  --ink: #1A1A1A;
+  --ink-caption: #5A5A5A;
+  --ink-light: #888;
+}
+
+/* =====================================================
+   DESKTOP HEADER
+===================================================== */
+.hcnv-header {
+  background: var(--white);
+  border-bottom: 2px solid var(--black);
+  position: relative;
+  z-index: 300;
+}
+.hcnv-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 56px;
+  height: 72px;
+}
+.hcnv-brand {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 22px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.hcnv-brand em { color: var(--orange); font-style: normal; }
+.hcnv-logo { width: 180px; height: auto; display: block; }
+
+.hcnv-links {
+  display: flex;
+  gap: 0;
+  list-style: none;
+  height: 72px;
+  margin: 0;
+  padding: 0;
+}
+.hcnv-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.hcnv-link {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 0 18px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color .2s;
+  position: relative;
+  white-space: nowrap;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+.hcnv-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 18px;
+  right: 18px;
+  height: 2px;
+  background: var(--teal);
+  transform: scaleX(0);
+  transition: transform .2s;
+  transform-origin: left;
+}
+.hcnv-link:hover,
+.hcnv-link.active { color: var(--teal-dark); }
+.hcnv-link:hover::after,
+.hcnv-link.active::after { transform: scaleX(1); }
+
+.hcnv-chevron {
+  font-size: 9px;
+  transition: transform .25s;
+  display: inline-block;
+  color: var(--ink-light);
+  margin-top: 1px;
+}
+.hcnv-shop-item.open .hcnv-chevron { transform: rotate(180deg); }
+.hcnv-shop-item.open > .hcnv-link { color: var(--teal-dark); }
+.hcnv-shop-item.open > .hcnv-link::after { transform: scaleX(1); }
+
+.hcnv-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.hcnv-icon-btn {
+  display: flex;
+  align-items: center;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color .2s;
+}
+.hcnv-icon-btn:hover { color: var(--teal-dark); }
+.hcnv-cart-btn {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  background: var(--teal);
+  color: var(--black);
+  text-decoration: none;
+  transition: background .2s;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.hcnv-cart-btn:hover { background: var(--teal-dark); color: var(--white); }
+
+/* =====================================================
+   MEGA MENU
+===================================================== */
+.hcnv-mega {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: -56px;
+  width: 100vw;
+  max-width: 860px;
+  background: var(--white);
+  border-top: 3px solid var(--teal);
+  box-shadow: 0 16px 48px rgba(15,18,19,.14);
+  display: grid;
+  grid-template-columns: 220px 220px 1fr;
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity .22s ease, transform .22s ease;
+  z-index: 400;
+}
+.hcnv-shop-item.open .hcnv-mega {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+.hcnv-mm-col { padding: 28px 24px; }
+.hcnv-mm-title {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--platinum);
+}
+.hcnv-mm-col-1 { border-right: 1px solid var(--platinum); }
+.hcnv-mm-col-2 { border-right: 1px solid var(--platinum); }
+
+.hcnv-prod-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  text-decoration: none;
+  border-bottom: 1px solid var(--platinum);
+  transition: color .15s;
+  cursor: pointer;
+}
+.hcnv-prod-link:last-child { border-bottom: none; }
+.hcnv-prod-link:hover .hcnv-pl-name { color: var(--teal-dark); }
+.hcnv-prod-link:hover .hcnv-pl-arrow { opacity: 1; transform: translateX(2px); }
+.hcnv-pl-emoji { font-size: 18px; flex-shrink: 0; width: 28px; text-align: center; }
+.hcnv-pl-info { flex: 1; }
+.hcnv-pl-name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: var(--ink);
+  letter-spacing: .3px;
+  line-height: 1;
+  transition: color .15s;
+}
+.hcnv-pl-sub {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--ink-caption);
+  margin-top: 2px;
+  line-height: 1.3;
+}
+.hcnv-pl-arrow {
+  font-size: 11px;
+  color: var(--teal-dark);
+  opacity: 0;
+  transition: opacity .15s, transform .15s;
+}
+.hcnv-prod-link--all .hcnv-pl-name { color: var(--teal-dark); }
+.hcnv-prod-link--all:hover .hcnv-pl-name { color: var(--black); }
+
+.hcnv-goal-link {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 0;
+  text-decoration: none;
+  border-bottom: 1px solid var(--platinum);
+  transition: all .15s;
+  cursor: pointer;
+}
+.hcnv-goal-link:last-child { border-bottom: none; }
+.hcnv-goal-link:hover .hcnv-gl-name { color: var(--teal-dark); }
+.hcnv-goal-link:hover .hcnv-gl-arrow { opacity: 1; transform: translateX(2px); }
+.hcnv-gl-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  margin-top: 1px;
+}
+.hcnv-gl-icon--teal   { background: rgba(102,204,204,.12); }
+.hcnv-gl-icon--orange { background: rgba(230,100,67,.1); }
+.hcnv-gl-icon--yellow { background: rgba(233,173,60,.1); }
+.hcnv-gl-icon--black  { background: rgba(15,18,19,.06); }
+.hcnv-gl-info { flex: 1; }
+.hcnv-gl-name {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: var(--ink);
+  letter-spacing: .3px;
+  line-height: 1.1;
+  transition: color .15s;
+}
+.hcnv-gl-desc {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--ink-caption);
+  margin-top: 2px;
+  line-height: 1.3;
+}
+.hcnv-gl-arrow {
+  font-size: 11px;
+  color: var(--teal-dark);
+  opacity: 0;
+  transition: opacity .15s, transform .15s;
+  margin-top: 2px;
+}
+.hcnv-goal-link--quiz {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: var(--teal-pastel);
+  border-bottom: none;
+  border-left: 3px solid var(--teal);
+}
+.hcnv-goal-link--quiz:hover { background: rgba(102,204,204,.25); }
+.hcnv-goal-link--quiz .hcnv-gl-name { color: var(--teal-dark); }
+.hcnv-goal-link--quiz:hover .hcnv-gl-name { color: var(--black); }
+
+.hcnv-mm-col-3 {
+  padding: 0;
+  background: var(--black);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.hcnv-feat-img {
+  flex: 1;
+  min-height: 160px;
+  background: linear-gradient(135deg,#1A2A2A 0%,#0F1213 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  position: relative;
+  overflow: hidden;
+}
+.hcnv-feat-img::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 80% at 50% 50%,rgba(102,204,204,.08) 0%,transparent 70%);
+}
+.hcnv-feat-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  background: var(--teal);
+  color: var(--black);
+}
+.hcnv-feat-body { padding: 18px 20px; }
+.hcnv-feat-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 5px;
+}
+.hcnv-feat-name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--white);
+  letter-spacing: .5px;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+.hcnv-feat-prop {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: rgba(255,255,255,.82);
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+.hcnv-feat-cta {
+  display: block;
+  width: 100%;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 11px 16px;
+  background: var(--teal);
+  color: var(--black);
+  text-decoration: none;
+  text-align: center;
+  transition: background .2s;
+  border: none;
+  cursor: pointer;
+}
+.hcnv-feat-cta:hover { background: var(--teal-dark); color: var(--white); }
+
+.hcnv-mm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,18,19,.3);
+  z-index: 290;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .22s;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+.hcnv-mm-overlay.visible { opacity: 1; pointer-events: all; }
+
+/* =====================================================
+   MOBILE NAV
+===================================================== */
+.hcnv-mobile { display: none; }
+.hcnv-mob-bar {
+  background: var(--white);
+  border-bottom: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 60px;
+  position: relative;
+  z-index: 300;
+}
+.hcnv-mob-brand {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+}
+.hcnv-mob-brand em { color: var(--orange); font-style: normal; }
+.hcnv-mob-right { display: flex; align-items: center; gap: 12px; }
+.hcnv-mob-cart {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  background: var(--teal);
+  color: var(--black);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.hcnv-mob-ham {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+.hcnv-mob-ham span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--black);
+  transition: all .25s;
+  transform-origin: center;
+}
+.hcnv-mob-ham.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hcnv-mob-ham.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hcnv-mob-ham.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.hcnv-mob-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  background: var(--black);
+  z-index: 500;
+  transform: translateX(100%);
+  transition: transform .3s cubic-bezier(.4,0,.2,1);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.hcnv-mob-drawer.open { transform: translateX(0); }
+.hcnv-mob-drawer-hd {
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  flex-shrink: 0;
+}
+.hcnv-mob-drawer-brand {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--white);
+  letter-spacing: 1px;
+}
+.hcnv-mob-drawer-brand em { color: var(--teal); font-style: normal; }
+.hcnv-mob-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(255,255,255,.4);
+  font-size: 20px;
+  padding: 4px;
+  transition: color .2s;
+  line-height: 1;
+}
+.hcnv-mob-close:hover { color: var(--white); }
+
+.hcnv-mob-body { flex: 1; }
+.hcnv-mob-sec-label {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.3);
+  padding: 20px 20px 10px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.hcnv-mob-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  text-decoration: none;
+  transition: background .15s;
+}
+.hcnv-mob-link:hover,
+.hcnv-mob-link:active { background: rgba(255,255,255,.04); }
+.hcnv-mob-link-l { display: flex; align-items: center; gap: 10px; }
+.hcnv-mob-emoji { font-size: 16px; width: 24px; text-align: center; flex-shrink: 0; }
+.hcnv-mob-link-name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: var(--white);
+  letter-spacing: .5px;
+}
+.hcnv-mob-link--feat .hcnv-mob-link-name { color: var(--teal); }
+.hcnv-mob-arrow { font-size: 12px; color: rgba(255,255,255,.3); }
+
+.hcnv-mob-nav-links {
+  padding: 8px 0;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.hcnv-mob-nav-link {
+  display: block;
+  padding: 13px 20px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  transition: color .15s;
+}
+.hcnv-mob-nav-link:hover { color: var(--white); }
+.hcnv-mob-nav-link--quiz { color: var(--teal); }
+
+.hcnv-mob-cta {
+  padding: 20px;
+  flex-shrink: 0;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.hcnv-mob-cta-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: var(--teal);
+  color: var(--black);
+  text-align: center;
+  text-decoration: none;
+  transition: background .2s;
+}
+.hcnv-mob-cta-btn:hover { background: var(--teal-dark); color: var(--white); }
+
+.hcnv-mob-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,18,19,.55);
+  z-index: 490;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+.hcnv-mob-overlay.visible { opacity: 1; pointer-events: all; }
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media (max-width: 767px) {
+  .hcnv-header     { display: none; }
+  .hcnv-mm-overlay { display: none; }
+  .hcnv-mobile     { display: block; }
+}
+
+/* =====================================================
+   SEARCH PANEL
+===================================================== */
+.hcnv-mob-search-btn { color: var(--black); }
+
+.hcnv-search-panel {
+  position: fixed;
+  top: 45px;
+  left: 0;
+  right: 0;
+  z-index: 450;
+  background: var(--white);
+  border-bottom: 2px solid var(--black);
+  box-shadow: 0 12px 40px rgba(15,18,19,.13);
+  transform: translateY(-8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+  max-height: calc(100vh - 72px);
+  overflow-y: auto;
+}
+.hcnv-search-panel.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+.hcnv-search-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 20px 24px 24px;
+}
+.hcnv-search-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hcnv-search-field {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--black);
+  background: var(--neutral);
+  padding: 0 4px 0 14px;
+  gap: 10px;
+}
+.hcnv-search-field svg { flex-shrink: 0; color: var(--ink-light); }
+.hcnv-search-input {
+  flex: 1;
+  border: none!important;
+  box-shadow: unset!important;
+  background: transparent;
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: .3px;
+  color: var(--black);
+  padding: 14px 0;
+  outline: none!important;
+  -webkit-appearance: none;
+}
+.hcnv-search-input::-webkit-search-cancel-button { display: none; }
+.hcnv-search-input::placeholder { color: var(--ink-light); font-weight: 400; }
+.hcnv-search-clear {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 10px;
+  color: var(--ink-light);
+  font-size: 14px;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.hcnv-search-clear:hover { color: var(--black); }
+.hcnv-search-close {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ink-mid);
+  padding: 8px 0;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.hcnv-search-close:hover { color: var(--black); }
+
+/* Results */
+.hcnv-search-results { margin-top: 16px; }
+.hcnv-sr-section { margin-bottom: 8px; }
+.hcnv-sr-label {
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--platinum);
+}
+.hcnv-sr-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 8px;
+  text-decoration: none;
+  border-bottom: 1px solid var(--platinum);
+  transition: background .12s;
+  border-radius: 4px;
+}
+.hcnv-sr-item:last-child { border-bottom: none; }
+.hcnv-sr-item:hover,
+.hcnv-sr-item.hcnv-sr-active { background: var(--neutral); }
+.hcnv-sr-img {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+  background: var(--neutral-mid);
+  display: block;
+}
+.hcnv-sr-img-placeholder {
+  width: 52px;
+  height: 52px;
+  background: var(--neutral-mid);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.hcnv-sr-info { flex: 1; min-width: 0; }
+.hcnv-sr-title {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--black);
+  letter-spacing: .3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hcnv-sr-sub { font-size: 12px; color: var(--ink-mid); margin-top: 2px; }
+.hcnv-sr-price {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--black);
+  text-align: right;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.hcnv-sr-price-sale { color: var(--orange); }
+.hcnv-sr-price-orig {
+  font-size: 11px;
+  color: var(--ink-light);
+  text-decoration: line-through;
+  display: block;
+}
+.hcnv-sr-all {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 10px 8px;
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  text-decoration: none;
+  border-top: 1px solid var(--platinum);
+  border-radius: 4px;
+  transition: background .12s, color .12s;
+}
+.hcnv-sr-all:hover,
+.hcnv-sr-all.hcnv-sr-active { background: var(--neutral); color: var(--black); }
+.hcnv-sr-empty {
+  font-size: 14px;
+  color: var(--ink-mid);
+  padding: 20px 8px;
+  text-align: center;
+}
+.hcnv-sr-loading {
+  font-size: 13px;
+  color: var(--ink-light);
+  padding: 16px 8px;
+  text-align: center;
+  font-family: var(--font-head);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+  .hcnv-search-panel { top: 60px; max-height: calc(100vh - 60px); }
+  .hcnv-search-input { font-size: 16px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "100Cal Header New",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "text", "id": "brand_name", "label": "Brand name", "default": "100CalSnacks" },
+    { "type": "text", "id": "shop_label", "label": "Shop trigger label", "default": "Shop" },
+    { "type": "link_list", "id": "menu", "label": "Main nav menu" },
+    { "type": "header", "content": "Cart button" },
+    { "type": "text", "id": "cta_label", "label": "Cart label", "default": "Cart" },
+    { "type": "header", "content": "Mega menu labels" },
+    { "type": "text", "id": "mm_col1_label", "label": "Products col title", "default": "Shop by Product" },
+    { "type": "text", "id": "mm_col2_label", "label": "Goals col title", "default": "Shop by Goal" },
+    { "type": "header", "content": "Featured card (col 3)" },
+    { "type": "text", "id": "feat_badge", "label": "Badge text", "default": "★ Best Seller" },
+    { "type": "text", "id": "feat_emoji", "label": "Feature emoji", "default": "🍫" },
+    { "type": "text", "id": "feat_eyebrow", "label": "Eyebrow text", "default": "Most Popular" },
+    { "type": "text", "id": "feat_name", "label": "Product name", "default": "Chocolate Brownie Bar" },
+    { "type": "text", "id": "feat_prop", "label": "Tagline", "default": "Gut-brain formulated. 0g added sugar. Every calorie earns its place." },
+    { "type": "text", "id": "feat_cta_label", "label": "CTA label", "default": "Shop Best Seller →" },
+    { "type": "url", "id": "feat_url", "label": "Featured product URL" },
+    { "type": "text", "id": "mob_cta_label", "label": "Mobile drawer CTA", "default": "Shop Now →" }
+  ],
+  "blocks": [
+    {
+      "type": "mm_product",
+      "name": "Shop product link",
+      "settings": [
+        { "type": "text", "id": "emoji", "label": "Emoji" },
+        { "type": "text", "id": "name",  "label": "Product name" },
+        { "type": "text", "id": "sub",   "label": "Subtitle" },
+        { "type": "url",  "id": "url",   "label": "Link URL" }
+      ]
+    },
+    {
+      "type": "mm_goal",
+      "name": "Shop goal link",
+      "settings": [
+        { "type": "text", "id": "icon_emoji", "label": "Icon emoji" },
+        {
+          "type": "select",
+          "id": "icon_color",
+          "label": "Icon bg colour",
+          "options": [
+            { "value": "teal",   "label": "Teal" },
+            { "value": "orange", "label": "Orange" },
+            { "value": "yellow", "label": "Yellow" },
+            { "value": "black",  "label": "Dark" }
+          ],
+          "default": "teal"
+        },
+        { "type": "text",     "id": "name",    "label": "Goal name" },
+        { "type": "text",     "id": "desc",    "label": "Description" },
+        { "type": "url",      "id": "url",     "label": "Link URL" },
+        { "type": "checkbox", "id": "is_quiz", "label": "Quiz link style", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "100Cal Header New",
+      "blocks": [
+        { "type": "mm_product", "settings": { "emoji": "🛍",  "name": "All Products",           "sub": "Browse the full range" } },
+        { "type": "mm_product", "settings": { "emoji": "🍫",  "name": "Chocolate Brownie Bar",  "sub": "100 cal · 5g protein · 4g fiber" } },
+        { "type": "mm_product", "settings": { "emoji": "🥜",  "name": "Peanut Butter Bar",      "sub": "100 cal · 5g protein · amla" } },
+        { "type": "mm_product", "settings": { "emoji": "🌶️", "name": "BBQ Protein Puffs",      "sub": "100 cal · savory · gut-friendly" } },
+        { "type": "mm_goal", "settings": { "icon_emoji": "⚡", "icon_color": "teal",   "name": "Focus & Steady Energy",  "desc": "Ashwagandha + prebiotic fiber",       "is_quiz": false } },
+        { "type": "mm_goal", "settings": { "icon_emoji": "🧘", "icon_color": "orange", "name": "Stress Cravings",         "desc": "Cortisol support + adaptogens",       "is_quiz": false } },
+        { "type": "mm_goal", "settings": { "icon_emoji": "🌿", "icon_color": "yellow", "name": "Gut-Friendly Snacking",   "desc": "Prebiotic fiber + no sugar alcohols", "is_quiz": false } },
+        { "type": "mm_goal", "settings": { "icon_emoji": "🧠", "icon_color": "black",  "name": "Take the Snack Quiz",     "desc": "Find your gut-brain match in 2 min",  "is_quiz": true  } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,27 @@
+
+<div class="cred-strip" {{ section.shopify_attributes }}>
+  <div class="cred-items">
+    <span class="cred-item">{{ section.settings.cred_item_1 }}</span>
+    <span class="cred-sep-dot">·</span>
+    <span class="cred-item">{{ section.settings.cred_item_2 }}</span>
+    <span class="cred-sep-dot">·</span>
+    <span class="cred-item">{{ section.settings.cred_item_3 }}</span>
+    <span class="cred-sep-dot">·</span>
+    <span class="cred-item">{{ section.settings.cred_item_4 }}</span>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal Cred Strip",
+  "settings": [
+    { "type": "text", "id": "cred_item_1", "label": "Cred item 1", "default": "🔬 Scientist Formulated" },
+    { "type": "text", "id": "cred_item_2", "label": "Cred item 2", "default": "Woman-Owned Brand" },
+    { "type": "text", "id": "cred_item_3", "label": "Cred item 3", "default": "🌿 Adaptogenic Formula" },
+    { "type": "text", "id": "cred_item_4", "label": "Cred item 4", "default": "⚗️ Functional Ingredients" }
+  ],
+  "presets": [
+    { "name": "Cred Strip" }
+  ]
+}
+{% endschema %}

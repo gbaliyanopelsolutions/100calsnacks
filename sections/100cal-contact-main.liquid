@@ -1,0 +1,577 @@
+<section class="hc-contact-main" {{ section.shopify_attributes }}>
+  <div class="ccm-inner">
+
+    <div class="ccm-form-wrap fade-up">
+      {% form 'contact' %}
+        {% if form.posted_successfully? %}
+          <div class="ccm-success">
+            <div class="ccm-success-icon">{{ section.settings.success_icon | escape }}</div>
+            <div class="ccm-success-h">{{ section.settings.success_heading | escape }}</div>
+            <div class="ccm-success-body">{{ section.settings.success_body }}</div>
+          </div>
+        {% else %}
+          {% if form.errors %}
+            <div class="ccm-errors">{{ form.errors | default_errors }}</div>
+          {% endif %}
+
+          <h2 class="ccm-form-title">{{ section.settings.form_heading }}</h2>
+          <p class="ccm-form-sub">{{ section.settings.form_sub | escape }}</p>
+
+          <div class="ccm-reason-label">{{ section.settings.reason_label | escape }}</div>
+          <div class="ccm-reason-tabs">
+            {% assign reason_idx = 0 %}
+            {% for block in section.blocks %}
+              {% if block.type == 'reason_tab' %}
+                {% assign reason_idx = reason_idx | plus: 1 %}
+                {% if reason_idx == 1 %}{% assign first_reason = block.settings.label %}{% endif %}
+                <button type="button"
+                  class="ccm-reason-tab{% if reason_idx == 1 %} active{% endif %}"
+                  data-reason="{{ block.settings.label | escape }}"
+                  data-helper="{{ block.settings.helper_text | escape }}"
+                  {{ block.shopify_attributes }}>
+                  {{ block.settings.label | escape }}
+                </button>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <input type="hidden" name="contact[reason]" id="ccm-reason-val" value="{{ first_reason | escape }}">
+
+          <div class="ccm-field-row">
+            <div class="ccm-field">
+              <label for="ccm-fname">{{ section.settings.label_first | escape }}</label>
+              <input type="text" id="ccm-fname" name="contact[first_name]" placeholder="{{ section.settings.placeholder_first | escape }}">
+            </div>
+            <div class="ccm-field">
+              <label for="ccm-lname">{{ section.settings.label_last | escape }}</label>
+              <input type="text" id="ccm-lname" name="contact[last_name]" placeholder="{{ section.settings.placeholder_last | escape }}">
+            </div>
+          </div>
+
+          <div class="ccm-field">
+            <label for="ContactEmail">{{ section.settings.label_email | escape }} *</label>
+            <input type="email" id="ContactEmail" name="contact[email]" required placeholder="{{ section.settings.placeholder_email | escape }}">
+          </div>
+
+          <div class="ccm-field">
+            <label for="ccm-phone">{{ section.settings.label_phone | escape }}</label>
+            <input type="tel" id="ccm-phone" name="contact[phone]" placeholder="{{ section.settings.placeholder_phone | escape }}">
+          </div>
+
+          <div class="ccm-field">
+            <label for="ContactBody">{{ section.settings.label_message | escape }} *</label>
+            <textarea id="ContactBody" name="contact[body]" required placeholder="{{ section.settings.placeholder_message | escape }}"></textarea>
+          </div>
+          <div class="ccm-field-helper" id="ccm-helper"></div>
+
+          <button type="submit" class="ccm-submit">{{ section.settings.submit_label | escape }}</button>
+          <p class="ccm-privacy">{{ section.settings.privacy_text | escape }}</p>
+        {% endif %}
+      {% endform %}
+    </div>
+
+    <div class="ccm-info-wrap">
+
+      <div class="ccm-email-card fade-up fade-up-2">
+        <div class="ccm-ec-eyebrow">{{ section.settings.email_eyebrow | escape }}</div>
+        <div class="ccm-ec-h">{{ section.settings.email_heading }}</div>
+        <div class="ccm-ec-body">{{ section.settings.email_body | escape }}</div>
+        <a href="mailto:{{ section.settings.email_address | escape }}" class="ccm-email-link">
+          {{ section.settings.email_address | escape }} ↗
+        </a>
+      </div>
+
+      <div class="ccm-hours-card fade-up fade-up-2">
+        <div class="ccm-hc-h">{{ section.settings.hours_heading | escape }}</div>
+        <div class="ccm-hc-sub">{{ section.settings.hours_sub | escape }}</div>
+        <div class="ccm-hours-list">
+          {% for block in section.blocks %}
+            {% if block.type == 'hours_row' %}
+              <div class="ccm-hr-row" {{ block.shopify_attributes }}>
+                <span class="ccm-hr-day">{{ block.settings.day | escape }}</span>
+                <span class="ccm-hr-time">{{ block.settings.time | escape }}</span>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="ccm-social-card fade-up fade-up-3">
+        <div class="ccm-sc-h">{{ section.settings.social_heading | escape }}</div>
+        <div class="ccm-sc-sub">{{ section.settings.social_sub | escape }}</div>
+        <div class="ccm-social-links">
+          {% for block in section.blocks %}
+            {% if block.type == 'social_link' %}
+              <a href="{{ block.settings.url | escape }}" target="_blank" rel="noopener" class="ccm-social-link" {{ block.shopify_attributes }}>
+                <div>
+                  <div class="ccm-sl-name">{{ block.settings.name | escape }}</div>
+                  <div class="ccm-sl-handle">{{ block.settings.handle | escape }}</div>
+                </div>
+                <div class="ccm-sl-arrow">→</div>
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-contact-main {
+  --ink: #1A1A1A;
+  --ink-mid: #555;
+  --ink-light: #888;
+  --neutral: #F4F3F0;
+  background: var(--platinum);
+  padding: 80px;
+}
+.hc-contact-main .ccm-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.hc-contact-main .ccm-form-wrap {
+  background: var(--white);
+  padding: 56px 48px;
+}
+.hc-contact-main .ccm-errors {
+  background: #fff3f3;
+  border-left: 3px solid var(--orange);
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink);
+}
+.hc-contact-main .ccm-form-title {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 40px;
+  text-transform: uppercase;
+  color: var(--black);
+  line-height: .9;
+  margin-bottom: 8px;
+}
+.hc-contact-main .ccm-form-title em {
+  font-style: italic;
+  color: var(--teal-dark);
+}
+.hc-contact-main .ccm-form-sub {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink-mid);
+  line-height: 1.65;
+  margin-bottom: 36px;
+}
+.hc-contact-main .ccm-reason-label {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 10px;
+}
+.hc-contact-main .ccm-reason-tabs {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.hc-contact-main .ccm-reason-tab {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1.5px solid rgba(15,18,19,.15);
+  color: var(--ink-mid);
+  cursor: pointer;
+  transition: all .2s;
+}
+.hc-contact-main .ccm-reason-tab:hover {
+  border-color: var(--teal-dark);
+  color: var(--teal-dark);
+}
+.hc-contact-main .ccm-reason-tab.active {
+  background: var(--black);
+  border-color: var(--black);
+  color: var(--white);
+}
+.hc-contact-main .ccm-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.hc-contact-main .ccm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.hc-contact-main .ccm-field label {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-light);
+}
+.hc-contact-main .ccm-field input,
+.hc-contact-main .ccm-field textarea {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--neutral);
+  border: 1.5px solid transparent;
+  padding: 14px 16px;
+  outline: none;
+  transition: border-color .2s;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  width: 100%;
+}
+.hc-contact-main .ccm-field input:focus,
+.hc-contact-main .ccm-field textarea:focus {
+  border-color: var(--teal-dark);
+  background: var(--white);
+}
+.hc-contact-main .ccm-field input::placeholder,
+.hc-contact-main .ccm-field textarea::placeholder {
+  color: rgba(15,18,19,.3);
+}
+.hc-contact-main .ccm-field textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+.hc-contact-main .ccm-field-helper {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--teal-dark);
+  line-height: 1.5;
+  margin-top: 6px;
+  display: none;
+  padding: 8px 12px;
+  background: rgba(58,153,153,.06);
+  border-left: 2px solid var(--teal);
+}
+.hc-contact-main .ccm-field-helper.visible { display: block; }
+.hc-contact-main .ccm-submit {
+  width: 100%;
+  padding: 18px;
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+  transition: background .2s;
+  margin-top: 8px;
+}
+.hc-contact-main .ccm-submit:hover { background: var(--teal-dark); }
+.hc-contact-main .ccm-privacy {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: rgba(15,18,19,.35);
+  line-height: 1.55;
+  margin-top: 12px;
+  text-align: center;
+}
+.hc-contact-main .ccm-success {
+  text-align: center;
+  padding: 48px 32px;
+}
+.hc-contact-main .ccm-success-icon { font-size: 48px; margin-bottom: 16px; }
+.hc-contact-main .ccm-success-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 36px;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 10px;
+}
+.hc-contact-main .ccm-success-body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--ink-mid);
+  line-height: 1.65;
+}
+.hc-contact-main .ccm-success-body a { color: var(--black); }
+.hc-contact-main .ccm-info-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.hc-contact-main .ccm-email-card {
+  background: var(--white);
+  padding: 36px 32px;
+}
+.hc-contact-main .ccm-ec-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-bottom: 12px;
+}
+.hc-contact-main .ccm-ec-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 28px;
+  text-transform: uppercase;
+  color: var(--black);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.hc-contact-main .ccm-ec-body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink-mid);
+  line-height: 1.65;
+  margin-bottom: 20px;
+}
+.hc-contact-main .ccm-email-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: none;
+  letter-spacing: .5px;
+  border-bottom: 2px solid var(--teal);
+  padding-bottom: 3px;
+  transition: color .2s;
+}
+.hc-contact-main .ccm-email-link:hover { color: var(--teal-dark); }
+.hc-contact-main .ccm-hours-card {
+  background: var(--black);
+  padding: 32px;
+}
+.hc-contact-main .ccm-hc-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 22px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 6px;
+  line-height: 1;
+}
+.hc-contact-main .ccm-hc-sub {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(255,255,255,.55);
+  line-height: 1.6;
+}
+.hc-contact-main .ccm-hours-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 20px;
+}
+.hc-contact-main .ccm-hr-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.hc-contact-main .ccm-hr-row:last-child { border-bottom: none; }
+.hc-contact-main .ccm-hr-day {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+}
+.hc-contact-main .ccm-hr-time {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.hc-contact-main .ccm-social-card {
+  background: var(--white);
+  padding: 32px;
+}
+.hc-contact-main .ccm-sc-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 22px;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 6px;
+}
+.hc-contact-main .ccm-sc-sub {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink-mid);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.hc-contact-main .ccm-social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.hc-contact-main .ccm-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 16px;
+  background: var(--neutral);
+  text-decoration: none;
+  transition: background .2s;
+}
+.hc-contact-main .ccm-social-link:hover { background: var(--teal-pastel); }
+.hc-contact-main .ccm-sl-name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: var(--black);
+  letter-spacing: .5px;
+}
+.hc-contact-main .ccm-sl-handle {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink-light);
+}
+.hc-contact-main .ccm-sl-arrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--teal-dark);
+  transition: transform .2s;
+}
+.hc-contact-main .ccm-social-link:hover .ccm-sl-arrow { transform: translateX(4px); }
+@media (max-width: 1024px) {
+  .hc-contact-main { padding: 60px 40px; }
+  .hc-contact-main .ccm-inner { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 768px) {
+  .hc-contact-main { padding: 40px 20px; }
+  .hc-contact-main .ccm-form-wrap { padding: 36px 24px; }
+  .hc-contact-main .ccm-field-row { grid-template-columns: 1fr; }
+  .hc-contact-main .ccm-form-title { font-size: 32px; }
+}
+{% endstylesheet %}
+
+{% javascript %}
+(() => {
+  const initialize = (root) => {
+    if (root.dataset.ccmInit === 'true') return;
+    root.dataset.ccmInit = 'true';
+    const tabs = root.querySelectorAll('.ccm-reason-tab');
+    const reasonInput = root.querySelector('#ccm-reason-val');
+    const helper = root.querySelector('#ccm-helper');
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((t) => t.classList.remove('active'));
+        tab.classList.add('active');
+        if (reasonInput) reasonInput.value = tab.dataset.reason;
+        if (helper) {
+          const msg = tab.dataset.helper;
+          if (msg) {
+            helper.textContent = msg;
+            helper.classList.add('visible');
+          } else {
+            helper.textContent = '';
+            helper.classList.remove('visible');
+          }
+        }
+      });
+    });
+  };
+  const boot = () => {
+    document.querySelectorAll('.hc-contact-main').forEach((root) => initialize(root));
+  };
+  document.addEventListener('DOMContentLoaded', boot);
+  document.addEventListener('shopify:section:load', boot);
+  boot();
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Contact Form & Info",
+  "settings": [
+    { "type": "header", "content": "Form" },
+    { "type": "html", "id": "form_heading", "label": "Form heading", "default": "Send Us<br>a <em>Message</em>" },
+    { "type": "textarea", "id": "form_sub", "label": "Form subtext", "default": "Questions, feedback, your story, a problem with your order — anything. We want to hear it." },
+    { "type": "text", "id": "reason_label", "label": "Reason label", "default": "What's on your mind?" },
+    { "type": "text", "id": "label_first", "label": "First name label", "default": "First Name" },
+    { "type": "text", "id": "placeholder_first", "label": "First name placeholder", "default": "Your first name" },
+    { "type": "text", "id": "label_last", "label": "Last name label", "default": "Last Name" },
+    { "type": "text", "id": "placeholder_last", "label": "Last name placeholder", "default": "Your last name" },
+    { "type": "text", "id": "label_email", "label": "Email label", "default": "Email Address" },
+    { "type": "text", "id": "placeholder_email", "label": "Email placeholder", "default": "you@email.com" },
+    { "type": "text", "id": "label_phone", "label": "Phone label", "default": "Phone Number (optional)" },
+    { "type": "text", "id": "placeholder_phone", "label": "Phone placeholder", "default": "+1 (555) 000-0000" },
+    { "type": "text", "id": "label_message", "label": "Message label", "default": "Your Message" },
+    { "type": "textarea", "id": "placeholder_message", "label": "Message placeholder", "default": "Tell us what's going on — the more detail the better, and the faster we can help." },
+    { "type": "text", "id": "submit_label", "label": "Submit button", "default": "Send Message →" },
+    { "type": "text", "id": "privacy_text", "label": "Privacy note", "default": "We'll never share your information. Reply comes directly from our team." },
+    { "type": "header", "content": "Success State" },
+    { "type": "text", "id": "success_icon", "label": "Success icon", "default": "💚" },
+    { "type": "text", "id": "success_heading", "label": "Success heading", "default": "Got It — Thank You." },
+    { "type": "html", "id": "success_body", "label": "Success body", "default": "Thanks — a real person on our team will be with you soon.<br><br>If it's urgent, email us at <a href=\"mailto:hi@100CalSnacks.com\">hi@100CalSnacks.com</a>" },
+    { "type": "header", "content": "Email Card" },
+    { "type": "text", "id": "email_eyebrow", "label": "Email card eyebrow", "default": "Direct Line" },
+    { "type": "html", "id": "email_heading", "label": "Email card heading", "default": "Prefer Email?<br>We've Got You." },
+    { "type": "textarea", "id": "email_body", "label": "Email card body", "default": "Drop us a line any time. We check this constantly and reply thoughtfully — with a real answer to what you actually wrote." },
+    { "type": "text", "id": "email_address", "label": "Email address", "default": "hi@100CalSnacks.com" },
+    { "type": "header", "content": "Hours Card" },
+    { "type": "text", "id": "hours_heading", "label": "Hours heading", "default": "When We're Around" },
+    { "type": "text", "id": "hours_sub", "label": "Hours subtext", "default": "Here's when you can expect to hear from us." },
+    { "type": "header", "content": "Social Card" },
+    { "type": "text", "id": "social_heading", "label": "Social heading", "default": "Find Us Out There" },
+    { "type": "text", "id": "social_sub", "label": "Social subtext", "default": "DMs are open. We actually reply to those too." }
+  ],
+  "blocks": [
+    {
+      "type": "reason_tab",
+      "name": "Reason tab",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Tab label", "default": "My Order" },
+        { "type": "text", "id": "helper_text", "label": "Helper text (optional)" }
+      ]
+    },
+    {
+      "type": "hours_row",
+      "name": "Hours row",
+      "settings": [
+        { "type": "text", "id": "day", "label": "Day / Period", "default": "Monday — Friday" },
+        { "type": "text", "id": "time", "label": "Time", "default": "9am – 6pm PT" }
+      ]
+    },
+    {
+      "type": "social_link",
+      "name": "Social link",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Platform name", "default": "Instagram" },
+        { "type": "text", "id": "handle", "label": "Handle", "default": "@100CalSnacks" },
+        { "type": "text", "id": "url", "label": "URL", "default": "https://www.instagram.com/100CalSnacks" }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [{ "name": "Contact Form & Info" }]
+}
+{% endschema %}

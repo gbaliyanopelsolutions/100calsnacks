@@ -1,0 +1,187 @@
+
+<section class="hc-gb101-snacks" id="why-snacks" {{ section.shopify_attributes }}>
+  <div class="hcsn-inner">
+
+    <div class="hcsn-header fade-up">
+      <div>
+        <div class="hcsn-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+        <h2 class="hcsn-h">{{ section.settings.heading }}</h2>
+      </div>
+      <p class="hcsn-header-body">{{ section.settings.header_body | escape }}</p>
+    </div>
+
+    <div class="hcsn-signals fade-up fade-up-2">
+      {% for block in section.blocks %}
+        {% if block.type == 'signal_card' %}
+          <div class="hcsn-signal-card" {{ block.shopify_attributes }}>
+            <div class="hcsn-signal-icon">{{ block.settings.icon | escape }}</div>
+            <div class="hcsn-signal-title">{{ block.settings.title | escape }}</div>
+            <div class="hcsn-signal-body">{{ block.settings.body | escape }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="hcsn-benefits fade-up fade-up-3">
+      {% for block in section.blocks %}
+        {% if block.type == 'benefit_cell' %}
+          <div class="hcsn-benefit" {{ block.shopify_attributes }}>
+            <div class="hcsn-benefit-num">{{ block.settings.num | escape }}</div>
+            <div class="hcsn-benefit-label">{{ block.settings.label | escape }}</div>
+            <div class="hcsn-benefit-body">{{ block.settings.body | escape }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-gb101-snacks {
+  padding: 100px 80px;
+  background: #C2EBEB;
+}
+.hc-gb101-snacks .hcsn-inner { max-width: 1200px; margin: 0 auto; }
+.hc-gb101-snacks .hcsn-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+  margin-bottom: 64px;
+}
+.hc-gb101-snacks .hcsn-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-bottom: 16px;
+}
+.hc-gb101-snacks .hcsn-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 64px;
+  line-height: .9;
+  text-transform: uppercase;
+  color: var(--black);
+}
+.hc-gb101-snacks .hcsn-header-body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: rgba(15,18,19,.6);
+  line-height: 1.8;
+  max-width: 380px;
+}
+.hc-gb101-snacks .hcsn-signals {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 56px;
+}
+.hc-gb101-snacks .hcsn-signal-card {
+  padding: 28px;
+  border: 1px solid rgba(15,18,19,.1);
+  background: #FFFFFF;
+  transition: border-color .2s;
+  box-shadow: 0 1px 3px rgba(15,18,19,.06);
+}
+.hc-gb101-snacks .hcsn-signal-card:hover { border-color: var(--teal-dark); }
+.hc-gb101-snacks .hcsn-signal-icon { font-size: 28px; margin-bottom: 12px; }
+.hc-gb101-snacks .hcsn-signal-title {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 6px;
+  letter-spacing: .5px;
+}
+.hc-gb101-snacks .hcsn-signal-body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(15,18,19,.6);
+  line-height: 1.6;
+}
+.hc-gb101-snacks .hcsn-benefits {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.hc-gb101-snacks .hcsn-benefit {
+  background: #FFFFFF;
+  padding: 28px 24px;
+  border-top: 2px solid transparent;
+  transition: border-color .3s;
+  box-shadow: 0 1px 3px rgba(15,18,19,.06);
+}
+.hc-gb101-snacks .hcsn-benefit:hover { border-color: var(--teal); }
+.hc-gb101-snacks .hcsn-benefit-num {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 42px;
+  color: var(--teal-dark);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.hc-gb101-snacks .hcsn-benefit-label {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(15,18,19,.6);
+  margin-bottom: 8px;
+}
+.hc-gb101-snacks .hcsn-benefit-body {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: rgba(15,18,19,.55);
+  line-height: 1.55;
+}
+@media (max-width: 1024px) {
+  .hc-gb101-snacks { padding: 72px 40px; }
+  .hc-gb101-snacks .hcsn-header { grid-template-columns: 1fr; gap: 24px; }
+  .hc-gb101-snacks .hcsn-signals { grid-template-columns: repeat(2, 1fr); }
+  .hc-gb101-snacks .hcsn-benefits { grid-template-columns: repeat(2, 1fr); }
+  .hc-gb101-snacks .hcsn-h { font-size: 48px; }
+}
+@media (max-width: 768px) {
+  .hc-gb101-snacks { padding: 56px 20px; }
+  .hc-gb101-snacks .hcsn-signals { grid-template-columns: 1fr; }
+  .hc-gb101-snacks .hcsn-h { font-size: 38px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GB101 Snacks",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "What We Actually Do" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "4 Ways Snacks Support Your<br>Gut-Brain Axis" },
+    { "type": "textarea", "id": "header_body", "label": "Header body", "default": "The gut-brain axis regulates stress, cravings, energy, mood, and focus. Snacks built with fiber, protein, and adaptogens help support these pathways. Here's how they work." }
+  ],
+  "blocks": [
+    {
+      "type": "signal_card",
+      "name": "Signal card",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon (emoji)" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "body", "label": "Body" }
+      ]
+    },
+    {
+      "type": "benefit_cell",
+      "name": "Benefit cell",
+      "settings": [
+        { "type": "text", "id": "num", "label": "Number / value" },
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "textarea", "id": "body", "label": "Body" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "GB101 Snacks" }]
+}
+{% endschema %}

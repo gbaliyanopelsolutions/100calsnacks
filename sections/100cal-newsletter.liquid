@@ -1,0 +1,36 @@
+
+<div class="hundred-cal">
+  <section class="hc-newsletter">
+    <div class="hc-newsletter__inner">
+      <h2 class="hc-title">{{ section.settings.heading }}</h2>
+      <p class="hc-copy">{{ section.settings.copy }}</p>
+      {% form 'customer', class: 'hc-newsletter__form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="email" name="contact[email]" value="{{ form.email }}" placeholder="{{ section.settings.placeholder }}" autocorrect="off" autocapitalize="off" autocomplete="email" required>
+        <button type="submit">{{ section.settings.button_label }}</button>
+        {% if form.posted_successfully? %}
+          <p style="width:100%;font-weight:700;">{{ section.settings.success_message }}</p>
+        {% endif %}
+        {% if form.errors %}
+          <p style="width:100%;color:var(--red);">{{ form.errors | default_errors }}</p>
+        {% endif %}
+      {% endform %}
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal Newsletter",
+  "settings": [
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Join The Gutsy-Brainy Club" },
+    { "type": "textarea", "id": "copy", "label": "Copy", "default": "Get early access to new launches and 10% off your first order. Trusted by 5,000+ snackers fixing their gut-brain connection." },
+    { "type": "text", "id": "placeholder", "label": "Email placeholder", "default": "Enter your email" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Sign Up" },
+    { "type": "text", "id": "success_message", "label": "Success message", "default": "Thanks for joining." }
+  ],
+  "presets": [
+    { "name": "100Cal Newsletter" }
+  ]
+}
+{% endschema %}

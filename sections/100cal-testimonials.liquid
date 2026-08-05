@@ -1,0 +1,68 @@
+
+<div class="hundred-cal">
+  <section class="hc-testimonials" id="{{ section.settings.anchor_id }}">
+    <div class="hc-section-header">
+      <div class="hc-eyebrow" style="color: var(--teal);">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="hc-title" style="color: var(--white);">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="hc-card-grid hc-card-grid--3">
+      {% for block in section.blocks %}
+        <article class="hc-testimonial-card" {{ block.shopify_attributes }}>
+          <div class="hc-testimonial-tag hc-badge--{{ block.settings.tag_color }}">{{ block.settings.tag | escape }}</div>
+          <div class="hc-stars">{{ block.settings.stars | escape }}</div>
+          <p class="hc-testimonial-quote">"{{ block.settings.quote | escape }}"</p>
+          <div class="hc-testimonial-name">{{ block.settings.name | escape }}</div>
+        </article>
+      {% endfor %}
+    </div>
+    {% if section.settings.cta_label != blank %}
+      <div style="text-align:center;margin-top:60px;">
+        <div style="font-family:var(--font-head);font-weight:900;font-size:28px;color:var(--teal);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;">{{ section.settings.hashtag | escape }}</div>
+        <p style="color:rgba(255,255,255,.38);margin:0 0 28px;">{{ section.settings.subcopy | escape }}</p>
+        <a href="{{ section.settings.cta_link | default: '/pages/reviews' }}" class="hc-btn hc-btn--white-outline">{{ section.settings.cta_label }}</a>
+      </div>
+    {% endif %}
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal Testimonials",
+  "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID", "default": "reviews" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Proof. Not Promises." },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Real People.<br>Real Results." },
+    { "type": "text", "id": "hashtag", "label": "Hashtag", "default": "#100CalPal" },
+    { "type": "text", "id": "subcopy", "label": "Subcopy", "default": "Share your story - Follow @100CalSnacks" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Read All 1,200+ Reviews ->" },
+    { "type": "url", "id": "cta_link", "label": "CTA link" }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "text", "id": "tag", "label": "Tag", "default": "Gut Health" },
+        { "type": "select", "id": "tag_color", "label": "Tag color", "default": "teal", "options": [
+          { "value": "teal", "label": "Teal" },
+          { "value": "orange", "label": "Orange" },
+          { "value": "yellow", "label": "Yellow" }
+        ] },
+        { "type": "text", "id": "stars", "label": "Stars", "default": "*****" },
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "I've struggled with bloating from every protein bar I've ever tried. These are the first ones that actually made my gut feel better, not worse." },
+        { "type": "text", "id": "name", "label": "Name", "default": "- Sarah M., Los Angeles" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "100Cal Testimonials",
+      "blocks": [
+        { "type": "testimonial" },
+        { "type": "testimonial", "settings": { "tag": "Portion Control", "tag_color": "orange", "quote": "I've been tracking macros for two years and these fit perfectly. 100 clean calories, 10g protein, and I don't have to do any math.", "name": "- Mike T., Chicago" } },
+        { "type": "testimonial", "settings": { "tag": "Stress Relief", "tag_color": "yellow", "quote": "I'm a stress eater. Since I started keeping these at my desk, I reach for them instead of the vending machine and I feel calmer after.", "name": "- Priya K., New York" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

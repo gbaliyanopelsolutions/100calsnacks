@@ -1,0 +1,37 @@
+<section class="hc-ingr-quiz" {{ section.shopify_attributes }}>
+  <div class="quiz-inner">
+    <div class="quiz-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+    <h2 class="quiz-h">{{ section.settings.heading }}</h2>
+    <p class="quiz-sub">{{ section.settings.subheading | escape | newline_to_br }}</p>
+    {% if section.settings.link != blank %}
+      <a href="{{ section.settings.link }}" class="quiz-btn">{{ section.settings.label | escape }}</a>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-ingr-quiz { padding: 72px 80px; background: var(--teal); position: relative; overflow: hidden; text-align: center; }
+.hc-ingr-quiz::before { content: 'QUIZ'; position: absolute; left: 50%; top: 30%; transform: translate(-50%,-50%); font-family: var(--font-head); font-weight: 900; font-size: 280px; color: rgba(0,0,0,.1); pointer-events: none; white-space: nowrap; }
+.hc-ingr-quiz .quiz-inner { position: relative; z-index: 2; max-width: 640px; margin: 0 auto; }
+.hc-ingr-quiz .quiz-eyebrow { font-family: var(--font-head); font-weight: 700; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: rgba(0,0,0,.45); margin-bottom: 14px; }
+.hc-ingr-quiz .quiz-h { font-family: var(--font-head); font-weight: 900; font-size: 56px; line-height: .9; text-transform: uppercase; color: var(--black); margin-bottom: 16px; }
+.hc-ingr-quiz .quiz-sub { font-family: var(--font-body); font-size: 16px; color: rgba(0,0,0,.55); line-height: 1.6; margin-bottom: 32px; }
+.hc-ingr-quiz .quiz-btn { display: inline-block; font-family: var(--font-head); font-weight: 900; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; padding: 18px 44px; background: var(--black); color: var(--white); text-decoration: none; transition: all .25s; }
+.hc-ingr-quiz .quiz-btn:hover { background: #1a1a1a; }
+@media (max-width: 1024px) { .hc-ingr-quiz { padding: 72px 40px; } .hc-ingr-quiz .quiz-h { font-size: 48px; } }
+@media (max-width: 768px) { .hc-ingr-quiz { padding: 60px 20px; } .hc-ingr-quiz .quiz-h { font-size: 34px; } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Ingredients Quiz Strip",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Find Your Match" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Discover Your<br>Gut-Brain Type" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Now that you know what's inside - find out which formulation was built for your gut-brain pattern. 60 seconds. Personalized to you." },
+    { "type": "text", "id": "label", "label": "Button label", "default": "Take the Free Quiz →" },
+    { "type": "url", "id": "link", "label": "Button link" }
+  ],
+  "presets": [{ "name": "Ingredients Quiz Strip" }]
+}
+{% endschema %}

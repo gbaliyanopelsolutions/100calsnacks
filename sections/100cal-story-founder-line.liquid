@@ -1,0 +1,52 @@
+<section class="hc-story-founder-line" {{ section.shopify_attributes }}>
+  <div class="sfl-inner fade-up">
+    <div class="sfl-text">{{ section.settings.main_text }}</div>
+    <div class="sfl-sub">{{ section.settings.sub_label | escape }}</div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-story-founder-line {
+  background: var(--black);
+  padding: 64px 80px;
+  text-align: center;
+}
+.hc-story-founder-line .sfl-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.hc-story-founder-line .sfl-text {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 48px;
+  line-height: .95;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+.hc-story-founder-line .sfl-text em {
+  font-style: italic;
+  color: var(--teal);
+}
+.hc-story-founder-line .sfl-sub {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.3);
+}
+@media (max-width: 1024px) { .hc-story-founder-line { padding: 56px 40px; } .hc-story-founder-line .sfl-text { font-size: 38px; } }
+@media (max-width: 768px) { .hc-story-founder-line { padding: 48px 20px; } .hc-story-founder-line .sfl-text { font-size: 30px; } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Story Founder Line",
+  "settings": [
+    { "type": "html", "id": "main_text", "label": "Main text (HTML)", "default": "Built by a founder who lived the problem she solved." },
+    { "type": "text", "id": "sub_label", "label": "Sub label", "default": "Woman-Owned · Science-Backed · Keepin' Snacks 100®" }
+  ],
+  "presets": [{ "name": "Story Founder Line" }]
+}
+{% endschema %}

@@ -1,0 +1,168 @@
+<section class="hc-locations-hero" {{ section.shopify_attributes }}>
+  <div class="lh-inner">
+    <div class="fade-up">
+      <div class="lh-overline">{{ section.settings.eyebrow | escape }}</div>
+      <h1 class="lh-h1">{{ section.settings.heading }}</h1>
+      <p class="lh-sub">{{ section.settings.subheading | escape }}</p>
+    </div>
+    <div class="lh-right fade-up fade-up-2">
+      <div class="lh-region">
+        <div class="lh-region-label">{{ section.settings.region_label | escape }}</div>
+        <div class="lh-region-name">{{ section.settings.region_name }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-locations-hero {
+  background: var(--black);
+  padding: 100px 80px 80px;
+  position: relative;
+  overflow: hidden;
+  min-height: 60vh;
+  display: flex;
+  align-items: flex-end;
+}
+.hc-locations-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 70% at 80% 50%, rgba(102,204,204,.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hc-locations-hero::after {
+  content: 'SoCal';
+  position: absolute;
+  right: -20px;
+  bottom: -40px;
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 260px;
+  color: rgba(255,255,255,.025);
+  line-height: 1;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+.hc-locations-hero .lh-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+  position: relative;
+  z-index: 2;
+}
+.hc-locations-hero .lh-overline {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hc-locations-hero .lh-overline::before {
+  content: '';
+  width: 32px;
+  height: 2px;
+  background: var(--teal);
+  flex-shrink: 0;
+}
+.hc-locations-hero .lh-h1 {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 96px;
+  line-height: .85;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+.hc-locations-hero .lh-h1 em {
+  font-style: italic;
+  color: var(--teal);
+  display: block;
+}
+.hc-locations-hero .lh-sub {
+  font-family: var(--font-body);
+  font-size: 17px;
+  color: rgba(255,255,255,.6);
+  line-height: 1.75;
+  max-width: 440px;
+}
+.hc-locations-hero .lh-right { align-self: end; }
+.hc-locations-hero .lh-region {
+  padding: 28px 32px;
+  background: rgba(255,255,255,.04);
+  border-left: 3px solid var(--teal);
+}
+.hc-locations-hero .lh-region-label {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  margin-bottom: 6px;
+}
+.hc-locations-hero .lh-region-name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 28px;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1;
+}
+
+/* Page-wide fade-up */
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-up-2 { transition-delay: .12s; }
+.fade-up-3 { transition-delay: .24s; }
+
+@media (max-width: 1024px) {
+  .hc-locations-hero { padding: 80px 40px 60px; }
+  .hc-locations-hero .lh-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hc-locations-hero .lh-h1 { font-size: 72px; }
+}
+@media (max-width: 768px) {
+  .hc-locations-hero { padding: 60px 20px 48px; min-height: 50vh; }
+  .hc-locations-hero .lh-h1 { font-size: 56px; }
+  .hc-locations-hero .lh-sub { font-size: 15px; }
+}
+{% endstylesheet %}
+
+{% javascript %}
+(() => {
+  const boot = () => {
+    const els = Array.from(document.querySelectorAll('.fade-up'));
+    if (!els.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
+    els.forEach((el) => io.observe(el));
+  };
+  document.addEventListener('DOMContentLoaded', boot);
+  document.addEventListener('shopify:section:load', boot);
+  boot();
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Locations Hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Overline", "default": "In Store Near You" },
+    { "type": "html", "id": "heading", "label": "Heading (HTML)", "default": "Find Us<br>in the<br><em>Wild.</em>" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "We're proud to be on shelves at some of Southern California's finest grocery stores. Here's where you can find us — and how to bring us to your neighborhood." },
+    { "type": "text", "id": "region_label", "label": "Region label", "default": "Currently Available In" },
+    { "type": "html", "id": "region_name", "label": "Region name (HTML)", "default": "Southern<br>California" }
+  ],
+  "presets": [{ "name": "Locations Hero" }]
+}
+{% endschema %}

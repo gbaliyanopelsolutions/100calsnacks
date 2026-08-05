@@ -1,0 +1,89 @@
+
+<section class="hc-policy-hero" {{ section.shopify_attributes }}>
+  <div class="hcph-inner">
+    <div class="hcph-breadcrumb">
+      <a href="{{ section.settings.home_url | default: '/' | escape }}">{{ section.settings.home_label | escape }}</a>
+      <span>/</span>
+      <span class="hcph-breadcrumb-current">{{ section.settings.page_label | escape }}</span>
+    </div>
+    <h1 class="hcph-title">{{ section.settings.heading }}</h1>
+    <div class="hcph-meta">
+      <span>{{ section.settings.effective_date | escape }}</span>
+      {% if section.settings.updated_date != blank %}
+        <span class="hcph-meta-sep">·</span>
+        <span>{{ section.settings.updated_date | escape }}</span>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-policy-hero {
+  background: var(--black);
+  padding: 52px 80px 44px;
+  border-bottom: 3px solid var(--teal);
+}
+.hc-policy-hero .hcph-inner {
+  max-width: 860px;
+  margin: 0 auto;
+}
+.hc-policy-hero .hcph-breadcrumb {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.3);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hc-policy-hero .hcph-breadcrumb a {
+  color: rgba(255,255,255,.3);
+  text-decoration: none;
+  transition: color .2s;
+}
+.hc-policy-hero .hcph-breadcrumb a:hover { color: var(--teal); }
+.hc-policy-hero .hcph-breadcrumb span { color: rgba(255,255,255,.15); }
+.hc-policy-hero .hcph-breadcrumb-current { color: rgba(255,255,255,.5); }
+.hc-policy-hero .hcph-title {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 72px;
+  line-height: .88;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+.hc-policy-hero .hcph-title em { font-style: italic; color: var(--teal); }
+.hc-policy-hero .hcph-meta {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: rgba(255,255,255,.35);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.hc-policy-hero .hcph-meta-sep { color: rgba(255,255,255,.15); }
+@media (max-width: 768px) {
+  .hc-policy-hero { padding: 40px 24px 32px; }
+  .hc-policy-hero .hcph-title { font-size: 52px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Policy Hero",
+  "settings": [
+    { "type": "text", "id": "home_label", "label": "Home breadcrumb label", "default": "Home" },
+    { "type": "text", "id": "home_url", "label": "Home breadcrumb URL", "default": "/" },
+    { "type": "text", "id": "page_label", "label": "Current page breadcrumb", "default": "Privacy Policy" },
+    { "type": "html", "id": "heading", "label": "Page title", "default": "Privacy<br>Policy" },
+    { "type": "text", "id": "effective_date", "label": "Effective date", "default": "Effective: January 1, 2026" },
+    { "type": "text", "id": "updated_date", "label": "Last updated (optional)" }
+  ],
+  "presets": [{ "name": "Policy Hero" }]
+}
+{% endschema %}

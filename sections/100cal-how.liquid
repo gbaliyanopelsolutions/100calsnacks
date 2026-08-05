@@ -1,0 +1,77 @@
+<section class="how-section">
+  <div class="how-inner">
+    <div class="how-eyebrow">{{ section.settings.how_eyebrow | escape }}</div>
+    <h2 class="how-title">{{ section.settings.how_title | newline_to_br }}</h2>
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-card-num">{{ section.settings.step_1_number | escape }}</div>
+        <span class="how-card-icon">{{ section.settings.step_1_icon }}</span>
+        <div class="how-benefit">{{ section.settings.step_1_benefit }}</div>
+        <div class="how-detail">{{ section.settings.step_1_detail }}</div>
+      </div>
+      <div class="how-card">
+        <div class="how-card-num">{{ section.settings.step_2_number | escape }}</div>
+        <span class="how-card-icon">{{ section.settings.step_2_icon }}</span>
+        <div class="how-benefit">{{ section.settings.step_2_benefit }}</div>
+        <div class="how-detail">{{ section.settings.step_2_detail }}</div>
+      </div>
+      <div class="how-card">
+        <div class="how-card-num">{{ section.settings.step_3_number | escape }}</div>
+        <span class="how-card-icon">{{ section.settings.step_3_icon }}</span>
+        <div class="how-benefit">{{ section.settings.step_3_benefit }}</div>
+        <div class="how-detail">{{ section.settings.step_3_detail }}</div>
+      </div>
+      <div class="how-card">
+        <div class="how-card-num">{{ section.settings.step_4_number | escape }}</div>
+        <span class="how-card-icon">{{ section.settings.step_4_icon }}</span>
+        <div class="how-benefit">{{ section.settings.step_4_benefit }}</div>
+        <div class="how-detail">{{ section.settings.step_4_detail }}</div>
+      </div>
+    </div>
+    <div class="how-axis">
+      <div class="axis-node">
+        <div class="axis-label">{{ section.settings.axis_left_label }}</div>
+        <div class="axis-sub">{{ section.settings.axis_left_sub }}</div>
+      </div>
+      <div class="axis-bridge"><span class="axis-center">{{ section.settings.axis_center_text }}</span></div>
+      <div class="axis-node">
+        <div class="axis-label">{{ section.settings.axis_right_label }}</div>
+        <div class="axis-sub">{{ section.settings.axis_right_sub }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "100Cal Experience",
+  "settings": [
+    { "type": "text", "id": "how_eyebrow", "label": "Eyebrow", "default": "The Experience" },
+    { "type": "textarea", "id": "how_title", "label": "Title", "default": "What Happens\nAfter the First Bite" },
+    { "type": "text", "id": "step_1_number", "label": "Step 1 number", "default": "01 / Gut" },
+    { "type": "text", "id": "step_1_icon", "label": "Step 1 icon", "default": "🦠" },
+    { "type": "text", "id": "step_1_benefit", "label": "Step 1 benefit", "default": "Your microbiome is fed" },
+    { "type": "textarea", "id": "step_1_detail", "label": "Step 1 detail", "default": "Prebiotic fiber nourishes beneficial bacteria. Macros strengthen gut lining." },
+    { "type": "text", "id": "step_2_number", "label": "Step 2 number", "default": "02 / Brain" },
+    { "type": "text", "id": "step_2_icon", "label": "Step 2 icon", "default": "🧠" },
+    { "type": "text", "id": "step_2_benefit", "label": "Step 2 benefit", "default": "Your brain gets fast fuel" },
+    { "type": "textarea", "id": "step_2_detail", "label": "Step 2 detail", "default": "Signals focus without the crash. You feel sharp, not sluggish." },
+    { "type": "text", "id": "step_3_number", "label": "Step 3 number", "default": "03 / Stress" },
+    { "type": "text", "id": "step_3_icon", "label": "Step 3 icon", "default": "🌿" },
+    { "type": "text", "id": "step_3_benefit", "label": "Step 3 benefit", "default": "Your stress loop quiets down" },
+    { "type": "textarea", "id": "step_3_detail", "label": "Step 3 detail", "default": "Adaptogens help support balance, so your brain can think, not just react." },
+    { "type": "text", "id": "step_4_number", "label": "Step 4 number", "default": "04 / Satiety in 100" },
+    { "type": "text", "id": "step_4_icon", "label": "Step 4 icon", "default": "💯" },
+    { "type": "text", "id": "step_4_benefit", "label": "Step 4 benefit", "default": "You Stay Full Longer" },
+    { "type": "textarea", "id": "step_4_detail", "label": "Step 4 detail", "default": "Protein and fiber help curb cravings — your brain doesn't reach for more." },
+    { "type": "text", "id": "axis_left_label", "label": "Axis left label", "default": "Your Gut" },
+    { "type": "textarea", "id": "axis_left_sub", "label": "Axis left sub", "default": "Microbiome · Serotonin · Satiety" },
+    { "type": "text", "id": "axis_center_text", "label": "Axis center text", "default": "Gut-Brain Axis" },
+    { "type": "text", "id": "axis_right_label", "label": "Axis right label", "default": "Your Brain" },
+    { "type": "textarea", "id": "axis_right_sub", "label": "Axis right sub", "default": "Mood · Focus · Craving Control" }
+  ],
+  "presets": [
+    { "name": "Experience" }
+  ]
+}
+{% endschema %}

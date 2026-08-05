@@ -1,0 +1,169 @@
+<section class="hc-gb101-signs" id="signs" {{ section.shopify_attributes }}>
+  <div class="hcsi-inner">
+    <div class="hcsi-header fade-up">
+      <div class="hcsi-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="hcsi-h">{{ section.settings.heading }}</h2>
+      <p class="hcsi-sub">{{ section.settings.sub | escape }}</p>
+    </div>
+    <div class="hcsi-grid fade-up fade-up-2">
+      {% for block in section.blocks %}
+        {% if block.type == 'sign_card' %}
+          <div class="hcsi-card" {{ block.shopify_attributes }}>
+            <div class="hcsi-card-icon">{{ block.settings.icon | escape }}</div>
+            <div class="hcsi-card-title">{{ block.settings.title | escape }}</div>
+            <div class="hcsi-card-body">{{ block.settings.body | escape }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="hcsi-callout fade-up fade-up-3">
+      <div class="hcsi-callout-text">{{ section.settings.callout_text | escape }}</div>
+      <a href="{{ section.settings.callout_link | escape }}" class="hcsi-ghost-btn">{{ section.settings.callout_label | escape }}</a>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-gb101-signs {
+  --ink: #1A1A1A;
+  --ink-mid: #555;
+  --ink-light: #888;
+  padding: 100px 80px;
+  background: var(--platinum);
+}
+.hc-gb101-signs .hcsi-inner { max-width: 1200px; margin: 0 auto; }
+.hc-gb101-signs .hcsi-header { margin-bottom: 52px; }
+.hc-gb101-signs .hcsi-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-bottom: 16px;
+}
+.hc-gb101-signs .hcsi-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 64px;
+  line-height: .9;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 16px;
+}
+.hc-gb101-signs .hcsi-sub {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: rgba(15,18,19,.6);
+  max-width: 560px;
+  line-height: 1.7;
+}
+.hc-gb101-signs .hcsi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 40px;
+}
+.hc-gb101-signs .hcsi-card {
+  background: var(--white);
+  padding: 32px 28px;
+  border-top: 2px solid transparent;
+  transition: all .3s;
+  box-shadow: 0 1px 3px rgba(15,18,19,.06);
+}
+.hc-gb101-signs .hcsi-card:hover {
+  border-top-color: var(--teal);
+  background: rgba(102,204,204,.03);
+}
+.hc-gb101-signs .hcsi-card-icon { font-size: 28px; margin-bottom: 14px; }
+.hc-gb101-signs .hcsi-card-title {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 19px;
+  text-transform: uppercase;
+  color: var(--black);
+  letter-spacing: .5px;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+.hc-gb101-signs .hcsi-card-body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(15,18,19,.6);
+  line-height: 1.65;
+}
+.hc-gb101-signs .hcsi-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 28px 32px;
+  border: 1px solid rgba(15,18,19,.12);
+  background: rgba(15,18,19,.04);
+}
+.hc-gb101-signs .hcsi-callout-text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: rgba(15,18,19,.65);
+  line-height: 1.65;
+  max-width: 680px;
+}
+.hc-gb101-signs .hcsi-ghost-btn {
+  display: inline-block;
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 16px 40px;
+  background: transparent;
+  color: var(--black);
+  border: 2px solid rgba(15,18,19,.25);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all .25s;
+}
+.hc-gb101-signs .hcsi-ghost-btn:hover {
+  border-color: var(--black);
+  background: rgba(15,18,19,.05);
+}
+@media (max-width: 1024px) {
+  .hc-gb101-signs { padding: 72px 40px; }
+  .hc-gb101-signs .hcsi-grid { grid-template-columns: repeat(2, 1fr); }
+  .hc-gb101-signs .hcsi-h { font-size: 48px; }
+}
+@media (max-width: 768px) {
+  .hc-gb101-signs { padding: 56px 20px; }
+  .hc-gb101-signs .hcsi-grid { grid-template-columns: 1fr; }
+  .hc-gb101-signs .hcsi-h { font-size: 38px; }
+  .hc-gb101-signs .hcsi-callout { flex-direction: column; align-items: flex-start; gap: 20px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GB101 Signs",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Know the Signals" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Signs Your Gut-Brain Axis<br>Needs Support" },
+    { "type": "textarea", "id": "sub", "label": "Subtext", "default": "These aren't random bad days. Your body is sending signals that the gut-brain axis is out of balance." },
+    { "type": "text", "id": "callout_text", "label": "Callout text", "default": "Do any of these sound familiar? They're often signals your gut-brain axis needs support — and the right snacks can help restore balance." },
+    { "type": "text", "id": "callout_label", "label": "Callout button label", "default": "Find Your Pattern →" },
+    { "type": "text", "id": "callout_link", "label": "Callout button link", "default": "#archetypes" }
+  ],
+  "blocks": [
+    {
+      "type": "sign_card",
+      "name": "Sign card",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon (emoji)", "default": "⚡" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Afternoon Energy Crashes" },
+        { "type": "textarea", "id": "body", "label": "Body", "default": "A daily 2–4pm slump often means unstable blood sugar and an under-fuelled gut-brain axis." }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [{ "name": "GB101 Signs" }]
+}
+{% endschema %}

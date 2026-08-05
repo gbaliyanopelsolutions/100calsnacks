@@ -1,0 +1,75 @@
+
+<div class="hundred-cal">
+  <section class="hc-transparency">
+    <div class="hc-section-header">
+      <div class="hc-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="hc-title">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="hc-transparency__grid">
+      <div class="hc-trans-card">
+        <h3 class="hc-trans-card__title">{{ section.settings.in_title | escape }}</h3>
+        {% for block in section.blocks %}
+          {% if block.type == 'in' %}
+            <div class="hc-ing-row" {{ block.shopify_attributes }}>
+              <div class="hc-ing-badge">{{ block.settings.mark | escape }}</div>
+              <div>
+                <div class="hc-ing-name">{{ block.settings.name | escape }}</div>
+                <div class="hc-ing-why">{{ block.settings.why }}</div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="hc-trans-card hc-trans-card--dark">
+        <h3 class="hc-trans-card__title">{{ section.settings.out_title | escape }}</h3>
+        {% for block in section.blocks %}
+          {% if block.type == 'out' %}
+            <div class="hc-ing-row" {{ block.shopify_attributes }}>
+              <div class="hc-ing-badge">X</div>
+              <div>
+                <div class="hc-ing-name">{{ block.settings.name | escape }}</div>
+                <div class="hc-ing-why">{{ block.settings.why }}</div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal Transparency",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Because You Deserve to Know Exactly What You're Eating" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "What's In It.<br>What's Not." },
+    { "type": "text", "id": "in_title", "label": "In title", "default": "What's In It" },
+    { "type": "text", "id": "out_title", "label": "Out title", "default": "What's NOT In It" }
+  ],
+  "blocks": [
+    { "type": "in", "name": "Ingredient", "settings": [
+      { "type": "text", "id": "mark", "label": "Mark", "default": "+" },
+      { "type": "text", "id": "name", "label": "Name", "default": "Ashwagandha KSM-66" },
+      { "type": "textarea", "id": "why", "label": "Why", "default": "Clinically studied adaptogen that supports stress response, focus, and cravings." }
+    ] },
+    { "type": "out", "name": "Not included", "settings": [
+      { "type": "text", "id": "name", "label": "Name", "default": "Sugar Alcohols" },
+      { "type": "textarea", "id": "why", "label": "Why", "default": "Maltitol, erythritol, and xylitol can cause digestive discomfort. Gone." }
+    ] }
+  ],
+  "presets": [
+    {
+      "name": "100Cal Transparency",
+      "blocks": [
+        { "type": "in", "settings": { "name": "Ashwagandha KSM-66", "why": "Clinically studied adaptogen that supports stress response, focus, and cravings." } },
+        { "type": "in", "settings": { "name": "Chicory Root Fiber", "why": "Prebiotic fiber that feeds good gut bacteria and supports steady blood sugar." } },
+        { "type": "in", "settings": { "name": "Amla Berry Extract", "why": "Ayurvedic superfruit rich in antioxidant support." } },
+        { "type": "out", "settings": { "name": "Sugar Alcohols", "why": "Maltitol, erythritol, and xylitol can cause digestive discomfort. Gone." } },
+        { "type": "out", "settings": { "name": "Artificial Sweeteners", "why": "No sucralose or aspartame." } },
+        { "type": "out", "settings": { "name": "Added Sugars", "why": "Zero added sugars." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

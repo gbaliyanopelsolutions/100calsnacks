@@ -1,0 +1,245 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "collection-hero": {
+      "type": "100cal-collection-hero",
+      "blocks": {
+        "product_RxKkBH": {
+          "type": "product",
+          "settings": {
+            "product_name": "Chocolate Brownie",
+            "product_type": "Protein Bar",
+            "product_color": "choc",
+            "calories": "100 Cal",
+            "product_svg": "<svg width=\"72\" height=\"100\" viewbox=\"0 0 72 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"8\" y=\"10\" width=\"56\" height=\"80\" rx=\"6\" fill=\"#5C2D0E\"></rect></svg>"
+          }
+        },
+        "product_6CrjR3": {
+          "type": "product",
+          "settings": {
+            "product_name": "Chocolate Brownie",
+            "product_type": "Protein Bar",
+            "product_color": "pb",
+            "calories": "100 Cal",
+            "product_svg": "<svg width=\"72\" height=\"100\" viewbox=\"0 0 72 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"8\" y=\"10\" width=\"56\" height=\"80\" rx=\"6\" fill=\"#5C2D0E\"></rect></svg>"
+          }
+        },
+        "product_qRbi4y": {
+          "type": "product",
+          "settings": {
+            "product_name": "Chocolate Brownie",
+            "product_type": "Protein Bar",
+            "product_color": "bbq",
+            "calories": "100 Cal",
+            "product_svg": "<svg width=\"72\" height=\"100\" viewbox=\"0 0 72 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"8\" y=\"10\" width=\"56\" height=\"80\" rx=\"6\" fill=\"#5C2D0E\"></rect></svg>"
+          }
+        }
+      },
+      "block_order": [
+        "product_RxKkBH",
+        "product_6CrjR3",
+        "product_qRbi4y"
+      ],
+      "settings": {
+        "eyebrow": "All Products",
+        "heading": "Gut-Brain",
+        "highlight": "Balancing",
+        "heading_last": "Snacks",
+        "subheading": "Steady energy. Calmer cravings. Just 100 calories.",
+        "cta_primary_link": "#sampler",
+        "cta_primary_text": "Shop Sampler",
+        "cta_secondary_link": "#quiz",
+        "cta_secondary_text": "Take the Quiz"
+      }
+    },
+    "subscribe-banner": {
+      "type": "100cal-subscribe-banner",
+      "settings": {
+        "badge_text": "Save 10%",
+        "main_text": "Subscribe & Save",
+        "detail_text": "Your gut-brain snack delivered automatically. Skip or cancel anytime."
+      }
+    },
+    "featured-bundle": {
+      "type": "100cal-featured-bundle",
+      "blocks": {
+        "item_FW4Nz7": {
+          "type": "item",
+          "settings": {
+            "item_text": "🍫 Chocolate Brownie Protein Bar",
+            "icon": "🍫",
+            "label": "Choc Brownie",
+            "stat_number": "3",
+            "stat_label": "Flavors"
+          }
+        },
+        "item_yXVqKK": {
+          "type": "item",
+          "settings": {
+            "item_text": "🥜 Peanut Butter Protein Bar",
+            "icon": "🥜",
+            "label": "Choc Brownie",
+            "stat_number": "3",
+            "stat_label": "Flavors"
+          }
+        },
+        "item_9XpnNQ": {
+          "type": "item",
+          "settings": {
+            "item_text": "🌽 BBQ Protein Puffs",
+            "icon": "🌽",
+            "label": "Choc Brownie",
+            "stat_number": "3",
+            "stat_label": "Flavors"
+          }
+        }
+      },
+      "block_order": [
+        "item_FW4Nz7",
+        "item_yXVqKK",
+        "item_9XpnNQ"
+      ],
+      "settings": {
+        "badge_primary": "Most Popular",
+        "badge_secondary": "⭐ Best for First-Time Buyers",
+        "eyebrow": "Featured Bundle",
+        "heading": "Try All\nThree",
+        "description": "Our best way to start. Explore every flavor in one box — and find out what your gut and your cravings actually want.",
+        "price": "$28",
+        "original_price": "$30",
+        "savings_text": "Save 5%",
+        "cta_link": "#",
+        "cta_text": "Shop Sampler",
+        "subscription_note": "Or subscribe and save an extra 10%."
+      }
+    },
+    "product-grid": {
+      "type": "100cal-product-grid",
+      "blocks": {
+        "product-1": {
+          "type": "product",
+          "settings": {
+            "product": "chocolate-protein-bars",
+            "variant_id": "",
+            "title": "Chocolate Brownie",
+            "subtitle": "Protein Bar",
+            "icon": "BAR",
+            "badge": "Best Seller",
+            "badge_color": "orange",
+            "sub_badge": "Sub & Save 10%",
+            "benefits": "Steady Energy Without the Crash\nCalms Cravings Naturally\n100 Clean Calories",
+            "background": "linear-gradient(135deg,#1c1008,#0a0804)",
+            "macros": "100|Calories\n10g|Protein\n5g|Fiber\n0g|Sugar Alcohol",
+            "price": "$18.99",
+            "rating": "★★★★★ (96)",
+            "sub_note": "Subscribe for 10% off · Learn more",
+            "link": "shopify://collections/all"
+          }
+        },
+        "product-2": {
+          "type": "product",
+          "settings": {
+            "product": "peanut-butter-bar",
+            "variant_id": "",
+            "title": "Peanut Butter",
+            "subtitle": "Protein Bar",
+            "icon": "BAR",
+            "badge": "New",
+            "badge_color": "teal",
+            "sub_badge": "Sub & Save 10%",
+            "benefits": "Steady Energy Without the Crash\nCalms Cravings Naturally\n100 Clean Calories",
+            "background": "linear-gradient(135deg,#2a1a0a,#1a0f00)",
+            "macros": "100|Calories\n10g|Protein\n5g|Fiber\n0g|Sugar Alcohol",
+            "price": "$19.49",
+            "rating": "★★★★★ New",
+            "sub_note": "Subscribe for 10% off · Learn more",
+            "link": "shopify://collections/all"
+          }
+        },
+        "product-3": {
+          "type": "product",
+          "settings": {
+            "product": "protein-puffs-bbq",
+            "variant_id": "",
+            "title": "BBQ Protein Puffs",
+            "subtitle": "Savory Snack",
+            "icon": "BAR",
+            "badge": "Keto 2.0",
+            "badge_color": "yellow",
+            "sub_badge": "Sub & Save 10%",
+            "benefits": "Steady Energy Without the Crash\nCalms Cravings Naturally\n100 Clean Calories",
+            "background": "linear-gradient(135deg,#1a1200,#0f0a00)",
+            "macros": "100|Calories\n10g|Protein\n5g|Fiber\n0g|Sugar Alcohol",
+            "price": "$24.99",
+            "rating": "★★★★★ (58)",
+            "sub_note": "Subscribe for 10% off · Learn more",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "product-1",
+        "product-2",
+        "product-3"
+      ],
+      "settings": {
+        "eyebrow": "Shop Individual",
+        "heading": "The Gut-Brain\nSnack Lineup",
+        "add_label": "Add to Cart"
+      }
+    },
+    "bundle-cards": {
+      "type": "100cal-bundle-cards",
+      "settings": {
+        "eyebrow": "Save More",
+        "heading": "Build Your Bundle",
+        "subheading": "Stock up smart. Every bundle ships free."
+      }
+    },
+    "benefits-strip": {
+      "type": "100cal-benefits-strip",
+      "settings": {}
+    },
+    "reviews": {
+      "type": "100cal-collection-reviews",
+      "settings": {
+        "rating": "4.9",
+        "review_count": "from 1,200+ snackers",
+        "headline": "Real People. Real Results.",
+        "cta_link": "#",
+        "cta_text": "Read All 1,200+ Reviews →"
+      }
+    },
+    "quiz-cta": {
+      "type": "100cal-quiz-cta",
+      "settings": {
+        "eyebrow": "Not Sure Where to Start?",
+        "heading": "Find Your\nGut-Brain\nMatch",
+        "description": "Take the 60-second quiz and we'll tell you which snack is built for your body, your stress level, and your goals.",
+        "card_icon": "🧬",
+        "card_title": "The Gut-Brain Quiz",
+        "card_description": "60 seconds. No email required.\nGet your personal snack recommendation.",
+        "cta_link": "#",
+        "cta_text": "Take the Quiz"
+      }
+    }
+  },
+  "order": [
+    "collection-hero",
+    "subscribe-banner",
+    "featured-bundle",
+    "product-grid",
+    "bundle-cards",
+    "benefits-strip",
+    "reviews",
+    "quiz-cta"
+  ]
+}

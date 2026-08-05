@@ -1,0 +1,200 @@
+{{ '100cal-cart.css' | asset_url | stylesheet_tag }}
+
+<div class="hc-cart-overlay" id="hc-cart-overlay"></div>
+
+<div class="hc-cart-drawer" id="hc-cart-drawer" aria-hidden="true" role="dialog" aria-label="Shopping cart" aria-modal="true">
+
+  <!-- Header -->
+  <div class="hc-cart-header">
+    <div class="hc-cart-title">
+      Your Cart
+      <span class="hc-cart-count" id="hc-cart-count" data-hc-cart-count
+        style="{% if cart.item_count == 0 %}display:none{% endif %}">
+        {{ cart.item_count }} item{% if cart.item_count != 1 %}s{% endif %}
+      </span>
+    </div>
+    <button class="hc-cart-close" id="hc-cart-close" aria-label="Close cart">✕</button>
+  </div>
+
+  <!-- Free shipping bar -->
+  {%- assign hc_threshold = 2500 -%}
+  {%- assign hc_pct = cart.total_price | divided_by: 25 -%}
+  {%- if hc_pct > 100 -%}{%- assign hc_pct = 100 -%}{%- endif -%}
+  <div class="hc-shipping-bar">
+    <div class="hc-shipping-text">
+      <span id="hc-shipping-msg">
+        {%- if cart.total_price >= hc_threshold -%}
+          <strong style="color:var(--teal)">🎉 Free shipping unlocked!</strong>
+        {%- else -%}
+          {%- assign hc_remaining = hc_threshold | minus: cart.total_price -%}
+          You're <strong>{{ hc_remaining | money_without_trailing_zeros }}</strong> away from free shipping
+        {%- endif -%}
+      </span>
+      <span class="hc-shipping-unlock">🚚 Free at $25</span>
+    </div>
+    <div class="hc-shipping-track">
+      <div class="hc-shipping-fill" id="hc-shipping-fill" style="width:{{ hc_pct }}%"></div>
+      <div class="hc-shipping-tick{% if cart.total_price >= hc_threshold %} done{% endif %}" id="hc-shipping-tick"></div>
+    </div>
+  </div>
+
+  <!-- Scrollable body -->
+  <div class="hc-cart-body">
+
+    <!-- Cart items -->
+    <div class="hc-cart-items" id="hc-cart-items">
+      {%- if cart == empty -%}
+        <div class="hc-cart-empty">
+          <p>Your cart is empty.</p>
+          <a href="{{ routes.all_products_collection_url }}" class="btn-primary">Shop All Products</a>
+        </div>
+      {%- else -%}
+        {%- for item in cart.items -%}
+          <div class="hc-cart-item" data-key="{{ item.key }}">
+            <div class="hc-ci-img">
+              {%- if item.image -%}
+                <img src="{{ item.image | image_url: width: 128 }}" alt="{{ item.title | escape }}" loading="lazy" width="64" height="64">
+              {%- else -%}
+                <span class="hc-ci-icon">🍫</span>
+              {%- endif -%}
+            </div>
+            <div class="hc-ci-body">
+              <div class="hc-ci-top">
+                <div>
+                  <div class="hc-ci-name">{{ item.product.title | escape }}</div>
+                  {%- unless item.product.has_only_default_variant -%}
+                    <div class="hc-ci-variant">{{ item.variant.title | escape }}</div>
+                  {%- endunless -%}
+                  {%- if item.selling_plan_allocation -%}
+                    <div class="hc-ci-tag hc-ci-tag--sub">{{ item.selling_plan_allocation.selling_plan.name | escape }}</div>
+                  {%- endif -%}
+                  {%- if item.properties._preorder -%}
+                    <div class="hc-ci-tag hc-ci-tag--preorder">Pre-Order</div>
+                  {%- endif -%}
+                </div>
+                <button class="hc-ci-delete" data-key="{{ item.key }}" aria-label="Remove {{ item.product.title | escape }}">✕</button>
+              </div>
+              <div class="hc-ci-bottom">
+                <div class="hc-ci-qty">
+                  <button class="hc-ci-qty-btn" data-key="{{ item.key }}" data-qty="{{ item.quantity | minus: 1 }}">−</button>
+                  <div class="hc-ci-qty-num">{{ item.quantity }}</div>
+                  <button class="hc-ci-qty-btn" data-key="{{ item.key }}" data-qty="{{ item.quantity | plus: 1 }}">+</button>
+                </div>
+                <div class="hc-ci-price">
+                  {{ item.line_price | money }}
+                  {%- if item.original_line_price > item.line_price -%}
+                    <span class="hc-ci-price-orig">{{ item.original_line_price | money }}</span>
+                  {%- endif -%}
+                </div>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    {%- unless cart == empty -%}
+
+    <hr class="hc-cart-divider">
+
+    <!-- Upsell — products from cart_drawer_collection not already in cart -->
+    {%- if settings.cart_drawer_collection != blank -%}
+      {%- assign hc_upsell_col = collections[settings.cart_drawer_collection] -%}
+      {%- if hc_upsell_col != blank -%}
+        {%- assign hc_cart_pids = '' -%}
+        {%- for item in cart.items -%}
+          {%- assign hc_cart_pids = hc_cart_pids | append: item.product_id | append: ',' -%}
+        {%- endfor -%}
+        {%- assign hc_upsell_count = 0 -%}
+        {%- for p in hc_upsell_col.products limit: 6 -%}
+          {%- unless hc_cart_pids contains p.id -%}
+            {%- assign hc_upsell_count = hc_upsell_count | plus: 1 -%}
+          {%- endunless -%}
+        {%- endfor -%}
+        {%- if hc_upsell_count > 0 -%}
+          <div class="hc-rebuy-section" id="hc-rebuy-section">
+            <div class="hc-rebuy-header">
+              <div class="hc-rebuy-headline">Double <em>(or Triple)</em> Up.</div>
+            </div>
+            <div class="hc-rebuy-scroll">
+              {%- for p in hc_upsell_col.products limit: 6 -%}
+                {%- unless hc_cart_pids contains p.id -%}
+                  <div class="hc-rebuy-card" data-product-id="{{ p.id }}">
+                    <div class="hc-rebuy-img">
+                      {%- if p.featured_image -%}
+                        <img src="{{ p.featured_image | image_url: width: 200 }}" alt="{{ p.title | escape }}" loading="lazy" width="200" height="200">
+                      {%- else -%}
+                        <span style="font-size:38px">🍫</span>
+                      {%- endif -%}
+                    </div>
+                    <div class="hc-rebuy-body">
+                      <div class="hc-rebuy-why">Add to Your Order</div>
+                      <div class="hc-rebuy-name">{{ p.title | escape }}</div>
+                      <div class="hc-rebuy-price">{{ p.price | money }}</div>
+                      <button class="hc-rebuy-add" data-variant-id="{{ p.selected_or_first_available_variant.id }}">Add →</button>
+                    </div>
+                  </div>
+                {%- endunless -%}
+              {%- endfor -%}
+            </div>
+          </div>
+          <hr class="hc-cart-divider">
+        {%- endif -%}
+      {%- endif -%}
+    {%- endif -%}
+
+    <!-- Trust signals -->
+    <div class="hc-trust-line">
+      <div class="hc-trust-item"><span>🚚</span> Ships in 2–3 days</div>
+      <div class="hc-trust-item"><span>🌿</span> No Artificial Ingredients</div>
+      <div class="hc-trust-item"><span>🧠</span> Gut-Brain Formulated</div>
+    </div>
+
+    {%- endunless -%}
+  </div>
+
+  <!-- Footer — always visible -->
+  <div class="hc-cart-footer">
+    <div id="hc-cart-footer-filled" {% if cart == empty %}style="display:none"{% endif %}>
+      <div class="hc-subtotal-row">
+        <div class="hc-subtotal-label">Subtotal</div>
+        <div class="hc-subtotal-prices">
+          <div class="hc-subtotal-num" id="hc-subtotal">{{ cart.total_price | money }}</div>
+          {%- if cart.original_total_price > cart.total_price -%}
+            <div class="hc-subtotal-orig" id="hc-subtotal-orig">{{ cart.original_total_price | money }}</div>
+          {%- else -%}
+            <div class="hc-subtotal-orig" id="hc-subtotal-orig" style="display:none"></div>
+          {%- endif -%}
+        </div>
+      </div>
+      {%- if cart.original_total_price > cart.total_price -%}
+        <div class="hc-savings-line" id="hc-savings-line">
+          You're saving {{ cart.original_total_price | minus: cart.total_price | money }} 🎉
+        </div>
+      {%- else -%}
+        <div class="hc-savings-line" id="hc-savings-line" style="display:none"></div>
+      {%- endif -%}
+      <div id="hc-preorder-notice" class="hc-preorder-notice">
+        <span style="font-size:14px;flex-shrink:0;margin-top:1px">⚠️</span>
+        <div>
+          <div class="hc-preorder-title">Contains a Pre-Order Item</div>
+          <div class="hc-preorder-text">Your order will ship when all pre-order items are ready.</div>
+        </div>
+      </div>
+      <a href="/checkout" class="hc-checkout-btn">
+        <span>Checkout</span>
+        <span class="hc-checkout-arrow">→</span>
+      </a>
+      <button class="hc-continue-btn" id="hc-continue-btn">Continue Shopping</button>
+      <div class="hc-cart-guarantee">
+        <span>✦</span> Every Ingredient Has a Purpose · Keepin' Snacks 100®
+      </div>
+    </div>
+    <div id="hc-cart-footer-empty" {% if cart != empty %}style="display:none"{% endif %}>
+      <a href="{{ routes.all_products_collection_url }}" class="hc-checkout-btn">
+        <span>Shop All Products</span>
+        <span class="hc-checkout-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</div>

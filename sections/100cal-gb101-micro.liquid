@@ -1,0 +1,216 @@
+
+<section class="hc-gb101-micro" id="microbiome" {{ section.shopify_attributes }}>
+  <div class="hgbm-inner">
+
+    <!-- Left: stat grid -->
+    <div class="hgbm-visual fade-up">
+      {% assign stat_idx = 0 %}
+      {% for block in section.blocks %}
+        {% if block.type == 'micro_stat' %}
+          {% assign stat_idx = stat_idx | plus: 1 %}
+          <div class="hgbm-stat hgbm-stat--{{ stat_idx }}" {{ block.shopify_attributes }}>
+            <div class="hgbm-stat-num">{{ block.settings.num | escape }}</div>
+            <div class="hgbm-stat-label">{{ block.settings.label | escape }}</div>
+            <div class="hgbm-stat-sub">{{ block.settings.sub | escape }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Right: copy -->
+    <div class="fade-up fade-up-2">
+      <div class="hgbm-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="hgbm-h">{{ section.settings.heading | escape }}</h2>
+      <p class="hgbm-body-intro">{{ section.settings.body_intro | escape }}</p>
+      <p class="hgbm-list-subhead">{{ section.settings.list_subhead | escape }}</p>
+      <ul class="hgbm-list">
+        {% for block in section.blocks %}
+          {% if block.type == 'micro_point' %}
+            <li {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      <p class="hgbm-body">{{ section.settings.closing_body | escape }}</p>
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-gb101-micro {
+  padding: 100px 80px;
+  background: var(--black);
+  border-top: 4px solid var(--teal);
+  position: relative;
+  overflow: hidden;
+}
+.hc-gb101-micro::before {
+  content: 'MICROBIOME';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 160px;
+  color: rgba(255,255,255,.018);
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.hc-gb101-micro .hgbm-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.hc-gb101-micro .hgbm-visual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.hc-gb101-micro .hgbm-stat {
+  padding: 28px;
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(0,0,0,.25);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all .3s;
+}
+.hc-gb101-micro .hgbm-stat:hover { background: rgba(0,0,0,.35); border-color: rgba(102,204,204,.3); }
+.hc-gb101-micro .hgbm-stat--1 { border-top: 3px solid var(--teal); }
+.hc-gb101-micro .hgbm-stat--2 { border-top: 3px solid var(--orange); }
+.hc-gb101-micro .hgbm-stat--3 { border-top: 3px solid var(--yellow); }
+.hc-gb101-micro .hgbm-stat--4 { border-top: 3px solid rgba(102,204,204,.4); }
+.hc-gb101-micro .hgbm-stat-num {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 44px;
+  color: var(--white);
+  line-height: 1;
+}
+.hc-gb101-micro .hgbm-stat-label {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+}
+.hc-gb101-micro .hgbm-stat-sub {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: rgba(255,255,255,.45);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+.hc-gb101-micro .hgbm-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 16px;
+}
+.hc-gb101-micro .hgbm-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 56px;
+  line-height: .9;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+.hc-gb101-micro .hgbm-body-intro {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: rgba(255,255,255,.72);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+.hc-gb101-micro .hgbm-body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: rgba(255,255,255,.72);
+  line-height: 1.8;
+}
+.hc-gb101-micro .hgbm-list-subhead {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 12px;
+}
+.hc-gb101-micro .hgbm-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.hc-gb101-micro .hgbm-list li {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: rgba(255,255,255,.72);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  line-height: 1.55;
+}
+.hc-gb101-micro .hgbm-list li::before {
+  content: '\2192';
+  color: var(--teal);
+  font-weight: 700;
+  flex-shrink: 0;
+  font-family: var(--font-head);
+}
+@media (max-width: 1024px) {
+  .hc-gb101-micro { padding: 72px 40px; }
+  .hc-gb101-micro .hgbm-inner { grid-template-columns: 1fr; gap: 56px; }
+  .hc-gb101-micro .hgbm-h { font-size: 44px; }
+}
+@media (max-width: 768px) {
+  .hc-gb101-micro { padding: 56px 20px; }
+  .hc-gb101-micro .hgbm-h { font-size: 36px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GB101 Microbiome",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Microbiome" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Why the Microbiome Matters" },
+    { "type": "textarea", "id": "body_intro", "label": "Intro body", "default": "Your gut microbiome health depends on what you eat more than almost any other factor. Your gut is home to trillions of beneficial microbes — bacteria, viruses, and fungi — that act as a second command centre for your body. Foods that support the microbiome build diversity; ultra-processed foods deplete it." },
+    { "type": "text", "id": "list_subhead", "label": "List subheading", "default": "Your microbiome helps:" },
+    { "type": "textarea", "id": "closing_body", "label": "Closing body", "default": "Every snack is a vote for or against that balance." }
+  ],
+  "blocks": [
+    {
+      "type": "micro_stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "num", "label": "Number / value" },
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "sub", "label": "Subtext" }
+      ]
+    },
+    {
+      "type": "micro_point",
+      "name": "List point",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "GB101 Microbiome" }]
+}
+{% endschema %}

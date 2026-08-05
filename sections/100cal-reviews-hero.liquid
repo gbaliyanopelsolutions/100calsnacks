@@ -1,0 +1,177 @@
+<section class="hc-reviews-hero" {{ section.shopify_attributes }}>
+  <div class="rh-inner">
+    <div class="fade-up">
+      <div class="rh-overline">{{ section.settings.eyebrow | escape }}</div>
+      <h1 class="rh-h1">{{ section.settings.heading }}</h1>
+      <p class="rh-sub">{{ section.settings.subheading | escape }}</p>
+    </div>
+    <div class="rh-trust fade-up fade-up-2">
+      {% for block in section.blocks %}
+        {% if block.type == 'trust_stat' %}
+          <div class="rh-stat" {{ block.shopify_attributes }}>
+            <div class="rh-stat-num">{{ block.settings.value | escape }}</div>
+            <div class="rh-stat-label">{{ block.settings.label | escape }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-reviews-hero {
+  background: var(--black);
+  color: var(--white);
+  padding: 80px 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+.hc-reviews-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 80% 40%, rgba(102,204,204,.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hc-reviews-hero::after {
+  content: '"';
+  position: absolute;
+  right: 60px;
+  top: -20px;
+  font-family: Georgia, serif;
+  font-size: 400px;
+  color: rgba(255,255,255,.03);
+  line-height: 1;
+  pointer-events: none;
+}
+.hc-reviews-hero .rh-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.hc-reviews-hero .rh-overline {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hc-reviews-hero .rh-overline::before {
+  content: '';
+  width: 28px;
+  height: 2px;
+  background: var(--teal);
+  flex-shrink: 0;
+}
+.hc-reviews-hero .rh-h1 {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 80px;
+  line-height: .88;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+.hc-reviews-hero .rh-h1 em {
+  font-style: italic;
+  color: var(--teal);
+  display: block;
+}
+.hc-reviews-hero .rh-sub {
+  font-family: var(--font-body);
+  font-size: 17px;
+  color: rgba(255,255,255,.55);
+  line-height: 1.75;
+  max-width: 520px;
+  margin-bottom: 48px;
+}
+.hc-reviews-hero .rh-trust {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  background: rgba(255,255,255,.06);
+  margin-top: 48px;
+}
+.hc-reviews-hero .rh-stat {
+  background: rgba(255,255,255,.03);
+  padding: 24px 20px;
+  text-align: center;
+}
+.hc-reviews-hero .rh-stat-num {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 44px;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.hc-reviews-hero .rh-stat-label {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  line-height: 1.3;
+}
+
+/* Global fade-up for all reviews sections */
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-up-2 { transition-delay: .1s; }
+.fade-up-3 { transition-delay: .2s; }
+
+@media (max-width: 1024px) {
+  .hc-reviews-hero { padding: 60px 40px 0; }
+  .hc-reviews-hero .rh-h1 { font-size: 60px; }
+}
+@media (max-width: 768px) {
+  .hc-reviews-hero { padding: 50px 20px 0; }
+  .hc-reviews-hero .rh-h1 { font-size: 42px; }
+  .hc-reviews-hero .rh-sub { font-size: 15px; }
+}
+{% endstylesheet %}
+
+{% javascript %}
+(() => {
+  const boot = () => {
+    const els = Array.from(document.querySelectorAll('.fade-up'));
+    if (!els.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.06 });
+    els.forEach((el) => io.observe(el));
+  };
+  document.addEventListener('DOMContentLoaded', boot);
+  document.addEventListener('shopify:section:load', boot);
+  boot();
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Reviews Hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Verified Customers" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Real People. <em>Real Stories.</em>" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "These aren't cherry-picked testimonials. They're verified buyers — people who tried 100 Cal Snacks and came back to tell others what happened." }
+  ],
+  "blocks": [
+    {
+      "type": "trust_stat",
+      "name": "Trust stat",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "1,200+" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Verified Reviews on Amazon" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Reviews Hero" }]
+}
+{% endschema %}

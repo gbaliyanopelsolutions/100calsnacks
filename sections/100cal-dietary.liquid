@@ -1,0 +1,41 @@
+<section class="dietary-section">
+  <div class="dietary-inner">
+    <div class="dietary-left">
+      <div class="dietary-eyebrow">{{ section.settings.dietary_eyebrow | escape }}</div>
+      <h2 class="dietary-title">{{ section.settings.dietary_title | newline_to_br }}</h2>
+      <p class="dietary-sub">{{ section.settings.dietary_sub }}</p>
+    </div>
+    <div class="dietary-badges-block">
+      <div class="db-badge"><span class="db-check">✓</span><span class="db-label">{{ section.settings.badge_1 }}</span></div>
+      <div class="db-badge"><span class="db-check">✓</span><span class="db-label">{{ section.settings.badge_2 }}</span></div>
+      <div class="db-badge"><span class="db-check">✓</span><span class="db-label">{{ section.settings.badge_3 }}</span></div>
+      <div class="db-badge"><span class="db-check">✓</span><span class="db-label">{{ section.settings.badge_4 }}</span></div>
+      <div class="db-badge"><span class="db-check">✓</span><span class="db-label">{{ section.settings.badge_5 }}</span></div>
+      <div class="db-badge"><span class="db-check">✓</span><span class="db-label">{{ section.settings.badge_6 }}</span></div>
+      <div class="db-badge"><span class="db-check">✓</span><span class="db-label">{{ section.settings.badge_7 }}</span></div>
+      <div class="db-badge"><span class="db-check">✓</span><span class="db-label">{{ section.settings.badge_8 }}</span></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "100Cal Dietary Highlights",
+  "settings": [
+    { "type": "text", "id": "dietary_eyebrow", "label": "Eyebrow", "default": "A CLEAN LABEL" },
+    { "type": "textarea", "id": "dietary_title", "label": "Title", "default": "Nothing to\nHide." },
+    { "type": "textarea", "id": "dietary_sub", "label": "Subtitle", "default": "Real Ingredients. No Artificial Shortcuts." },
+    { "type": "text", "id": "badge_1", "label": "Badge 1", "default": "Gluten Free" },
+    { "type": "text", "id": "badge_2", "label": "Badge 2", "default": "Vegan" },
+    { "type": "text", "id": "badge_3", "label": "Badge 3", "default": "Non-GMO" },
+    { "type": "text", "id": "badge_4", "label": "Badge 4", "default": "Clean Keto" },
+    { "type": "text", "id": "badge_5", "label": "Badge 5", "default": "No Added Sugar" },
+    { "type": "text", "id": "badge_6", "label": "Badge 6", "default": "No Sugar Alcohols" },
+    { "type": "text", "id": "badge_7", "label": "Badge 7", "default": "No Artificial Sweeteners" },
+    { "type": "text", "id": "badge_8", "label": "Badge 8", "default": "No Artificial Colors or Flavors" }
+  ],
+  "presets": [
+    { "name": "Dietary Highlights" }
+  ]
+}
+{% endschema %}

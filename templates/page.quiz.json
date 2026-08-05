@@ -1,0 +1,260 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "quiz_app": {
+      "type": "100cal-quiz-app",
+      "blocks": {
+        "question_PetMAk": {
+          "type": "question",
+          "settings": {
+            "question_text": "When do you usually reach for a snack?",
+            "weight": "1",
+            "is_tiebreaker": false,
+            "answer_a_text": "Mid-afternoon when my energy starts dropping",
+            "answer_a_type": "E",
+            "answer_b_text": "During stressful days when I need something to reset",
+            "answer_b_type": "S",
+            "answer_c_text": "When cravings hit and I want something satisfying",
+            "answer_c_type": "C"
+          }
+        },
+        "question_MCyPEe": {
+          "type": "question",
+          "settings": {
+            "question_text": "What are you usually looking for in a snack?",
+            "weight": "1",
+            "is_tiebreaker": false,
+            "answer_a_text": "Something that keeps me focused and sharp",
+            "answer_a_type": "E",
+            "answer_b_text": "Something that helps me stay calm and balanced",
+            "answer_b_type": "S",
+            "answer_c_text": "Something satisfying that actually stops cravings",
+            "answer_c_type": "C"
+          }
+        },
+        "question_X6jCbt": {
+          "type": "question",
+          "settings": {
+            "question_text": "How do you typically feel between meals?",
+            "weight": "1",
+            "is_tiebreaker": false,
+            "answer_a_text": "My energy dips and I get brain fog",
+            "answer_a_type": "E",
+            "answer_b_text": "Stress makes me reach for food",
+            "answer_b_type": "S",
+            "answer_c_text": "I get strong cravings for something satisfying",
+            "answer_c_type": "C"
+          }
+        },
+        "question_izbC9N": {
+          "type": "question",
+          "settings": {
+            "question_text": "What kind of snack experience do you enjoy most?",
+            "weight": "1",
+            "is_tiebreaker": false,
+            "answer_a_text": "Rich and indulgent - dense and satisfying",
+            "answer_a_type": "E",
+            "answer_b_text": "Smooth and comforting - creamy and calming",
+            "answer_b_type": "S",
+            "answer_c_text": "Crunchy and savory - bold and high-impact",
+            "answer_c_type": "C"
+          }
+        },
+        "question_gJFCxP": {
+          "type": "question",
+          "settings": {
+            "question_text": "What matters most in a snack?",
+            "weight": "1",
+            "is_tiebreaker": false,
+            "answer_a_text": "Steady energy and mental focus",
+            "answer_a_type": "E",
+            "answer_b_text": "Balance and feeling calm after eating",
+            "answer_b_type": "S",
+            "answer_c_text": "Satisfaction without guilt or crash",
+            "answer_c_type": "C"
+          }
+        },
+        "question_pe8Nb6": {
+          "type": "question",
+          "settings": {
+            "question_text": "How would your friends describe your relationship with food?",
+            "weight": "1",
+            "is_tiebreaker": false,
+            "answer_a_text": "I eat for fuel - I want food that works as hard as I do",
+            "answer_a_type": "E",
+            "answer_b_text": "I eat to decompress - food helps me unwind",
+            "answer_b_type": "S",
+            "answer_c_text": "I eat for pleasure - I want something I actually crave",
+            "answer_c_type": "C"
+          }
+        },
+        "question_FnwVRh": {
+          "type": "question",
+          "settings": {
+            "question_text": "What would you most like a snack to help you with right now?",
+            "weight": "1",
+            "is_tiebreaker": false,
+            "answer_a_text": "Stay focused and productive",
+            "answer_a_type": "E",
+            "answer_b_text": "Stay calm and balanced",
+            "answer_b_type": "S",
+            "answer_c_text": "Stop cravings and feel satisfied",
+            "answer_c_type": "C"
+          }
+        },
+        "result_e": {
+          "type": "result_type",
+          "settings": {
+            "type_key": "E",
+            "icon": "🧠⚡",
+            "archetype_name": "The Focus Fueler",
+            "tagline": "Your brain runs best on steady fuel.",
+            "desc": "You perform best when snacks provide steady fuel without spikes or crashes. Balanced protein and fiber help keep your brain sharp and your energy stable throughout the day.",
+            "accent_color": "#C8956A",
+            "accent_rgb": "200,149,106",
+            "page_bg": "#1A0C05",
+            "hero_bg": "linear-gradient(135deg,#7A4530 0%,#3D1E0A 45%,#1A0C05 100%)",
+            "bg_word": "FOCUS",
+            "product_name": "Chocolate Brownie Bar",
+            "product_sub": "Gut-Brain Protein Bar",
+            "product_url": "shopify://products/chocolate-protein-bars",
+            "product_emoji": "🍫",
+            "product_bg": "linear-gradient(145deg,#7A4530,#3D1E0A)",
+            "macro_1_n": "100",
+            "macro_1_l": "Cal",
+            "macro_2_n": "5g",
+            "macro_2_l": "Protein",
+            "macro_3_n": "4g",
+            "macro_3_l": "Fiber",
+            "macro_4_n": "0g",
+            "macro_4_l": "Sugar",
+            "why_1": "Steady protein and fiber for sustained energy",
+            "why_2": "Supports focus and mental clarity",
+            "why_3": "Zero sugar crash — no mid-afternoon slump",
+            "snack_clock": "🕑",
+            "snack_when": "Mid-Afternoon Energy Dip",
+            "snack_time": "2:00 – 4:00 PM",
+            "snack_sub": "Your brain burns through glucose fastest between lunch and dinner. Energy softens, focus dips — this is your gut-brain signalling for fuel. One bar here keeps you sharp into the evening.",
+            "share_text": "My Gut-Brain Score is {score}. I'm a Focus Fueler. What's yours? Take the 60-second quiz: 100CalSnacks.com/quiz #GutBrainScore",
+            "shopify_product": "chocolate-protein-bars"
+          }
+        },
+        "result_s": {
+          "type": "result_type",
+          "settings": {
+            "type_key": "S",
+            "icon": "🌿✨",
+            "archetype_name": "The Calm Operator",
+            "tagline": "Your gut-brain system values balance.",
+            "desc": "Your body benefits from foods that help maintain balance during busy or stressful days. Snacks with protein, healthy fats, and adaptogens support steady energy and resilience.",
+            "accent_color": "#C49A6C",
+            "accent_rgb": "196,154,108",
+            "page_bg": "#1A0E04",
+            "hero_bg": "linear-gradient(135deg,#6B4020 0%,#3A1E08 45%,#1A0E04 100%)",
+            "bg_word": "CALM",
+            "product_name": "Peanut Butter Bar",
+            "product_sub": "Gut-Brain Protein Bar",
+            "product_url": "shopify://products/peanut-butter-bar",
+            "product_emoji": "🥜",
+            "product_bg": "linear-gradient(145deg,#6B4020,#3A1E08)",
+            "macro_1_n": "100",
+            "macro_1_l": "Cal",
+            "macro_2_n": "5g",
+            "macro_2_l": "Protein",
+            "macro_3_n": "4g",
+            "macro_3_l": "Fiber",
+            "macro_4_n": "0g",
+            "macro_4_l": "Sugar",
+            "why_1": "Balanced protein and healthy fats",
+            "why_2": "Adaptogenic support for stress resilience",
+            "why_3": "Satisfying texture that keeps you grounded",
+            "snack_clock": "🌿",
+            "snack_when": "Busy or Stressful Moments Between Meals",
+            "snack_time": "Before a meeting, deadline or demanding stretch",
+            "snack_sub": "On high-pressure days, cortisol rises and your gut-brain connection feels the strain. A grounding snack 20–30 minutes before your most demanding part of the day helps you stay even.",
+            "share_text": "My Gut-Brain Score is {score}. I'm a Calm Operator. What's yours? Take the 60-second quiz: 100CalSnacks.com/quiz #GutBrainScore",
+            "shopify_product": "peanut-butter-bar"
+          }
+        },
+        "result_c": {
+          "type": "result_type",
+          "settings": {
+            "type_key": "C",
+            "icon": "🔥💪",
+            "archetype_name": "The Craving Crusher",
+            "tagline": "You love snacks that actually satisfy.",
+            "desc": "When cravings hit, you need something satisfying that prevents mindless snacking and keeps you full and energized. Protein and fiber together hit the craving and trigger real fullness signals.",
+            "accent_color": "#F5A623",
+            "accent_rgb": "245,166,35",
+            "page_bg": "#1A0900",
+            "hero_bg": "linear-gradient(135deg,#5C2200 0%,#2E0E00 40%,#1A0900 100%)",
+            "bg_word": "CRUNCH",
+            "product_name": "BBQ Protein Puffs",
+            "product_sub": "Gut-Brain Protein Snack",
+            "product_url": "shopify://products/protein-puffs-bbq",
+            "product_emoji": "🌶️",
+            "product_bg": "linear-gradient(145deg,#5C2200,#2E0E00)",
+            "macro_1_n": "100",
+            "macro_1_l": "Cal",
+            "macro_2_n": "7g",
+            "macro_2_l": "Protein",
+            "macro_3_n": "3g",
+            "macro_3_l": "Fiber",
+            "macro_4_n": "0g",
+            "macro_4_l": "Sugar",
+            "why_1": "Crunchy and satisfying — hits cravings hard",
+            "why_2": "Protein + fiber to curb hunger signals",
+            "why_3": "Bold savory flavor, zero guilt",
+            "snack_clock": "🔥",
+            "snack_when": "Late Afternoon or Evening Cravings",
+            "snack_time": "4:00 – 7:00 PM",
+            "snack_sub": "The late afternoon and post-dinner window is when cravings hit hardest and willpower is lowest. Don't wait until you're ravenous — this is when one bag of puffs does the most work.",
+            "share_text": "My Gut-Brain Score is {score}. I'm a Craving Crusher. What's yours? Take the 60-second quiz: 100CalSnacks.com/quiz #GutBrainScore",
+            "shopify_product": "protein-puffs-bbq"
+          }
+        }
+      },
+      "block_order": [
+        "question_PetMAk",
+        "question_MCyPEe",
+        "question_X6jCbt",
+        "question_izbC9N",
+        "question_gJFCxP",
+        "question_pe8Nb6",
+        "question_FnwVRh",
+        "result_e",
+        "result_s",
+        "result_c"
+      ],
+      "settings": {
+        "entry_eyebrow": "60 Seconds · Free · No Email Required",
+        "entry_title": "What's Your<br>Gut-Brain<br><em>Type?</em>",
+        "entry_body": "Your gut and brain are constantly communicating. Take this quiz to discover your gut-brain score, your profile, and the snack built for your body.",
+        "entry_cta": "Find My Gut-Brain Type →",
+        "entry_types_label": "3 Possible Gut-Brain Types — Which one are you?",
+        "email_heading": "Get Your<br>Gut-Brain Guide",
+        "email_body": "Enter your email and we'll send you:",
+        "email_bullet_1": "Your personalised gut-brain profile",
+        "email_bullet_2": "Snack timing tips for your type",
+        "email_bullet_3": "Functional ingredient insights",
+        "email_bullet_4": "10% off your first order",
+        "email_placeholder": "your@email.com",
+        "email_cta": "Send It →",
+        "email_privacy": "No spam, ever. Unsubscribe anytime.",
+        "see_all_url": "/collections/all",
+        "see_all_label": "See All Products →"
+      }
+    }
+  },
+  "order": [
+    "quiz_app"
+  ]
+}

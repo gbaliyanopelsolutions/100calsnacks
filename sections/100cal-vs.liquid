@@ -1,0 +1,125 @@
+<section class="vs-section">
+  <div class="vs-inner">
+    <div class="vs-eyebrow">{{ section.settings.vs_eyebrow | escape }}</div>
+    <h2 class="vs-title">{{ section.settings.vs_title | newline_to_br }}</h2>
+    <p class="vs-subtitle">{{ section.settings.vs_subtitle }}</p>
+
+    <div class="vs-col-headers">
+      <div class="vs-ch"></div>
+      <div class="vs-ch ch-them">
+        <div>
+          <div class="vs-ch-label">{{ section.settings.them_label }}</div>
+          <div class="vs-ch-sub">{{ section.settings.them_sub }}</div>
+        </div>
+      </div>
+      <div class="vs-ch ch-us">
+        <span class="vs-crown">{{ section.settings.us_icon }}</span>
+        <div>
+          <div class="vs-ch-label">{{ section.settings.us_label }}</div>
+          <div class="vs-ch-sub">{{ section.settings.us_sub }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="vs-rows">
+      <div class="vs-row">
+        <div class="vs-cell vs-cell-feature"><span class="vs-feat-icon">{{ section.settings.row_1_icon }}</span> {{ section.settings.row_1_feature }}</div>
+        <div class="vs-cell vs-cell-them"><div class="vs-icon-them">{{ section.settings.row_1_them_icon }}</div></div>
+        <div class="vs-cell vs-cell-us"><div class="vs-icon-us">{{ section.settings.row_1_us_icon }}</div><div class="vs-icon-us-text">{{ section.settings.row_1_us_text }}</div></div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-cell vs-cell-feature"><span class="vs-feat-icon">{{ section.settings.row_2_icon }}</span> {{ section.settings.row_2_feature }}</div>
+        <div class="vs-cell vs-cell-them"><div class="vs-icon-them">{{ section.settings.row_2_them_icon }}</div></div>
+        <div class="vs-cell vs-cell-us"><div class="vs-icon-us">{{ section.settings.row_2_us_icon }}</div><div class="vs-icon-us-text">{{ section.settings.row_2_us_text }}</div></div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-cell vs-cell-feature"><span class="vs-feat-icon">{{ section.settings.row_3_icon }}</span> {{ section.settings.row_3_feature }}</div>
+        <div class="vs-cell vs-cell-them"><div class="vs-icon-them">{{ section.settings.row_3_them_icon }}</div></div>
+        <div class="vs-cell vs-cell-us"><div class="vs-icon-us">{{ section.settings.row_3_us_icon }}</div><div class="vs-icon-us-text">{{ section.settings.row_3_us_text }}</div></div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-cell vs-cell-feature"><span class="vs-feat-icon">{{ section.settings.row_4_icon }}</span> {{ section.settings.row_4_feature }}</div>
+        <div class="vs-cell vs-cell-them"><div class="vs-num-them">{{ section.settings.row_4_them_value }}</div><div class="vs-num-label">{{ section.settings.row_4_them_label }}</div></div>
+        <div class="vs-cell vs-cell-us"><div class="vs-num-us">{{ section.settings.row_4_us_value }}</div><div class="vs-num-label">{{ section.settings.row_4_us_label }}</div></div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-cell vs-cell-feature"><span class="vs-feat-icon">{{ section.settings.row_5_icon }}</span> {{ section.settings.row_5_feature }}</div>
+        <div class="vs-cell vs-cell-them"><div class="vs-num-them">{{ section.settings.row_5_them_value }}</div><div class="vs-num-label">{{ section.settings.row_5_them_label }}</div></div>
+        <div class="vs-cell vs-cell-us"><div class="vs-num-us">{{ section.settings.row_5_us_value }}</div><div class="vs-num-label">{{ section.settings.row_5_us_label }}</div></div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-cell vs-cell-feature"><span class="vs-feat-icon">{{ section.settings.row_6_icon }}</span> {{ section.settings.row_6_feature }}</div>
+        <div class="vs-cell vs-cell-them"><div class="vs-num-them">{{ section.settings.row_6_them_value }}</div><div class="vs-num-label">{{ section.settings.row_6_them_label }}</div></div>
+        <div class="vs-cell vs-cell-us"><div class="vs-num-us">{{ section.settings.row_6_us_value }}</div><div class="vs-num-label">{{ section.settings.row_6_us_label }}</div></div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-cell vs-cell-feature"><span class="vs-feat-icon">{{ section.settings.row_7_icon }}</span> {{ section.settings.row_7_feature }}</div>
+        <div class="vs-cell vs-cell-them"><div class="vs-icon-them">{{ section.settings.row_7_them_icon }}</div></div>
+        <div class="vs-cell vs-cell-us"><div class="vs-icon-us">{{ section.settings.row_7_us_icon }}</div><div class="vs-icon-us-text">{{ section.settings.row_7_us_text }}</div></div>
+      </div>
+    </div>
+
+    <div class="vs-bottom">
+      <div class="vs-bottom-statement">{{ section.settings.bottom_statement | newline_to_br }}</div>
+      <div class="vs-bottom-right">
+        <div class="vs-note">{{ section.settings.bottom_note }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "100Cal Comparison",
+  "settings": [
+    { "type": "text", "id": "vs_eyebrow", "label": "Eyebrow", "default": "The Honest Comparison" },
+    { "type": "textarea", "id": "vs_title", "label": "Title", "default": "Not Your Typical\nProtein Bar.\nThe First Snack Built\nfor the Gut-Brain Axis." },
+    { "type": "textarea", "id": "vs_subtitle", "label": "Subtitle", "default": "We put the numbers on the table. Every ingredient earns its place." },
+    { "type": "text", "id": "them_label", "label": "Average bar label", "default": "The Average Bar" },
+    { "type": "text", "id": "them_sub", "label": "Average bar subtitle", "default": "What most snack bars deliver" },
+    { "type": "text", "id": "us_icon", "label": "Our column icon", "default": "★" },
+    { "type": "text", "id": "us_label", "label": "Our column label", "default": "100 Cal Snacks" },
+    { "type": "text", "id": "us_sub", "label": "Our column subtitle", "default": "What we actually built" },
+    { "type": "text", "id": "row_1_icon", "label": "Row 1 icon", "default": "⚡" },
+    { "type": "textarea", "id": "row_1_feature", "label": "Row 1 feature", "default": "Gut-Brain Axis Design" },
+    { "type": "text", "id": "row_1_them_icon", "label": "Row 1 average icon", "default": "✕" },
+    { "type": "text", "id": "row_1_us_icon", "label": "Row 1 our icon", "default": "✓" },
+    { "type": "textarea", "id": "row_1_us_text", "label": "Row 1 our text", "default": "First in Category" },
+    { "type": "text", "id": "row_2_icon", "label": "Row 2 icon", "default": "🧠" },
+    { "type": "textarea", "id": "row_2_feature", "label": "Row 2 feature", "default": "Brain Adaptogens" },
+    { "type": "text", "id": "row_2_them_icon", "label": "Row 2 average icon", "default": "✕" },
+    { "type": "text", "id": "row_2_us_icon", "label": "Row 2 our icon", "default": "✓" },
+    { "type": "textarea", "id": "row_2_us_text", "label": "Row 2 our text", "default": "250mg KSM-66" },
+    { "type": "text", "id": "row_3_icon", "label": "Row 3 icon", "default": "🌿" },
+    { "type": "textarea", "id": "row_3_feature", "label": "Row 3 feature", "default": "Prebiotic Gut Fiber" },
+    { "type": "text", "id": "row_3_them_icon", "label": "Row 3 average icon", "default": "✕" },
+    { "type": "text", "id": "row_3_us_icon", "label": "Row 3 our icon", "default": "✓" },
+    { "type": "textarea", "id": "row_3_us_text", "label": "Row 3 our text", "default": "4g Chicory Root" },
+    { "type": "text", "id": "row_4_icon", "label": "Row 4 icon", "default": "🍬" },
+    { "type": "text", "id": "row_4_them_value", "label": "Row 4 average value", "default": "15g" },
+    { "type": "text", "id": "row_4_them_label", "label": "Row 4 average label", "default": "added sugar" },
+    { "type": "text", "id": "row_4_us_value", "label": "Row 4 our value", "default": "0g" },
+    { "type": "text", "id": "row_4_us_label", "label": "Row 4 our label", "default": "added sugar" },
+    { "type": "text", "id": "row_5_icon", "label": "Row 5 icon", "default": "😣" },
+    { "type": "text", "id": "row_5_them_value", "label": "Row 5 average value", "default": "10g" },
+    { "type": "text", "id": "row_5_them_label", "label": "Row 5 average label", "default": "bloat risk" },
+    { "type": "text", "id": "row_5_us_value", "label": "Row 5 our value", "default": "0g" },
+    { "type": "text", "id": "row_5_us_label", "label": "Row 5 our label", "default": "none, ever" },
+    { "type": "text", "id": "row_6_icon", "label": "Row 6 icon", "default": "🔥" },
+    { "type": "text", "id": "row_6_them_value", "label": "Row 6 average value", "default": "170" },
+    { "type": "text", "id": "row_6_them_label", "label": "Row 6 average label", "default": "cal per bar" },
+    { "type": "text", "id": "row_6_us_value", "label": "Row 6 our value", "default": "100" },
+    { "type": "text", "id": "row_6_us_label", "label": "Row 6 our label", "default": "cal per bar" },
+    { "type": "text", "id": "row_7_icon", "label": "Row 7 icon", "default": "💊" },
+    { "type": "textarea", "id": "row_7_feature", "label": "Row 7 feature", "default": "GLP-1 Friendly" },
+    { "type": "text", "id": "row_7_them_icon", "label": "Row 7 average icon", "default": "✕" },
+    { "type": "text", "id": "row_7_us_icon", "label": "Row 7 our icon", "default": "✓" },
+    { "type": "textarea", "id": "row_7_us_text", "label": "Row 7 our text", "default": "Naturally" },
+    { "type": "textarea", "id": "bottom_statement", "label": "Bottom statement", "default": "Precision nutrition\nin 100 calories.\nThat's the difference." },
+    { "type": "textarea", "id": "bottom_note", "label": "Bottom note", "default": "*Based on average protein bar snack on the market.\nSpecific brands vary. Always read your label." }
+  ],
+  "presets": [
+    { "name": "Comparison" }
+  ]
+}
+{% endschema %}

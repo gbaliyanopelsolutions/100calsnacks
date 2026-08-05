@@ -1,0 +1,158 @@
+<section class="hc-contact-faq" {{ section.shopify_attributes }}>
+  <div class="ccf-inner">
+    <div class="ccf-header fade-up">
+      <div class="ccf-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="ccf-h">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="ccf-grid fade-up fade-up-2">
+      {% for block in section.blocks %}
+        {% if block.type == 'faq_item' %}
+          <div class="ccf-item" {{ block.shopify_attributes }}>
+            <div class="ccf-q">
+              {{ block.settings.question | escape }}
+              <span class="ccf-toggle">+</span>
+            </div>
+            <div class="ccf-a">{{ block.settings.answer }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-contact-faq {
+  --ink: #1A1A1A;
+  --ink-mid: #555;
+  --ink-light: #888;
+  --neutral: #F4F3F0;
+  --platinum: #EAE9E5;
+  background: var(--white);
+  padding: 80px;
+  border-top: 1px solid var(--platinum);
+}
+.hc-contact-faq .ccf-inner { max-width: 1200px; margin: 0 auto; }
+.hc-contact-faq .ccf-header { margin-bottom: 48px; }
+.hc-contact-faq .ccf-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-bottom: 12px;
+}
+.hc-contact-faq .ccf-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 52px;
+  line-height: .9;
+  text-transform: uppercase;
+  color: var(--black);
+}
+.hc-contact-faq .ccf-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--platinum);
+}
+.hc-contact-faq .ccf-item {
+  background: var(--white);
+  padding: 32px 36px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.hc-contact-faq .ccf-item:hover { background: #F8F7F4; }
+.hc-contact-faq .ccf-q {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--black);
+  letter-spacing: .5px;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  line-height: 1.1;
+}
+.hc-contact-faq .ccf-toggle {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 22px;
+  color: var(--teal-dark);
+  flex-shrink: 0;
+  transition: transform .25s;
+  line-height: 1;
+}
+.hc-contact-faq .ccf-a {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink-mid);
+  line-height: 1.7;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s ease, padding-top .35s ease;
+}
+.hc-contact-faq .ccf-item.open .ccf-a {
+  max-height: 200px;
+  padding-top: 14px;
+}
+.hc-contact-faq .ccf-item.open .ccf-toggle { transform: rotate(45deg); }
+.hc-contact-faq .ccf-a a { color: var(--teal-dark); }
+@media (max-width: 1024px) {
+  .hc-contact-faq { padding: 60px 40px; }
+  .hc-contact-faq .ccf-grid { grid-template-columns: 1fr; }
+  .hc-contact-faq .ccf-h { font-size: 40px; }
+}
+@media (max-width: 768px) {
+  .hc-contact-faq { padding: 48px 20px; }
+  .hc-contact-faq .ccf-h { font-size: 34px; }
+  .hc-contact-faq .ccf-item { padding: 24px 20px; }
+}
+{% endstylesheet %}
+
+{% javascript %}
+(() => {
+  const initialize = (root) => {
+    if (root.dataset.faqInit === 'true') return;
+    root.dataset.faqInit = 'true';
+    root.addEventListener('click', (e) => {
+      const item = e.target.closest('.ccf-item');
+      if (!item || !root.contains(item)) return;
+      const isOpen = item.classList.contains('open');
+      root.querySelectorAll('.ccf-item.open').forEach((i) => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  };
+  const boot = () => {
+    document.querySelectorAll('.hc-contact-faq').forEach((root) => initialize(root));
+  };
+  document.addEventListener('DOMContentLoaded', boot);
+  document.addEventListener('shopify:section:load', boot);
+  boot();
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Contact FAQ",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Before You Write" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Quick Answers<br>to Common Questions" }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Where is my order?" },
+        { "type": "html", "id": "answer", "label": "Answer", "default": "Orders typically ship within 1-2 business days." }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [{ "name": "Contact FAQ" }]
+}
+{% endschema %}

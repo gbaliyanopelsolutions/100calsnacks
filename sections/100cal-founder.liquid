@@ -1,0 +1,31 @@
+
+<div class="hundred-cal">
+  <section class="hc-founder" id="{{ section.settings.anchor_id }}">
+    <div class="hc-founder__icon">{{ section.settings.mark | escape }}</div>
+    <div>
+      <div class="hc-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="hc-founder__quote">{{ section.settings.heading }}</h2>
+      <p class="hc-copy" style="margin-left:0;">{{ section.settings.copy }}</p>
+      <div style="font-family:var(--font-head);font-weight:900;font-size:13px;text-transform:uppercase;letter-spacing:2px;margin-top:16px;">{{ section.settings.attribution | escape }}</div>
+      <div style="font-size:12px;font-style:italic;color:var(--ink-light);margin-top:5px;">{{ section.settings.note | escape }}</div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "100Cal Founder",
+  "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID", "default": "founder" },
+    { "type": "text", "id": "mark", "label": "Mark", "default": "100" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "From The Founder" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "For the gut.<br>From the gut." },
+    { "type": "textarea", "id": "copy", "label": "Copy", "default": "After five surgeries and fifty pounds of stress weight, I couldn't find a snack that didn't make things worse. So I built one." },
+    { "type": "text", "id": "attribution", "label": "Attribution", "default": "- Tapasya Bali, Founder & CEO" },
+    { "type": "text", "id": "note", "label": "Note", "default": "Goldman Sachs 100 Most Intriguing Entrepreneurs" }
+  ],
+  "presets": [
+    { "name": "100Cal Founder" }
+  ]
+}
+{% endschema %}

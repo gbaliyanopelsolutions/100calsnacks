@@ -1,0 +1,212 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "ingr_hero": {
+      "type": "100cal-ingr-hero",
+      "settings": {
+        "eyebrow": "Ingredient Index",
+        "heading": "Every Ingredient<br>Has a Purpose.<br><em>Every Calorie<br>Earns Its Place.</em>",
+        "subheading": "Ingredients designed for the gut-brain axis - supporting gut health, stable energy, and real satiety. All within 100 calories.",
+        "micro": "✓ No sugar alcohols   ✓ No palm oil   ✓ No artificial anything",
+        "primary_label": "Explore Ingredients ↓",
+        "primary_link": "#library",
+        "secondary_label": "By Product →",
+        "secondary_link": "#product-maps", 
+        "mosaic_title": "Ingredient Families - Click to Explore"
+      },
+      "blocks": {
+        "mosaic_1": { "type": "mosaic_item", "settings": { "icon": "🦠", "label": "Prebiotic Fiber", "subtext": "Microbiome health & gut-brain signaling", "anchor": "#chicory" } },
+        "mosaic_2": { "type": "mosaic_item", "settings": { "icon": "💪", "label": "Protein Sources", "subtext": "Satiety hormones & stable energy", "anchor": "#protein" } },
+        "mosaic_3": { "type": "mosaic_item", "settings": { "icon": "🥑", "label": "Healthy Fats", "subtext": "Brain fuel & anti-inflammatory support", "anchor": "#almond-butter" } },
+        "mosaic_4": { "type": "mosaic_item", "settings": { "icon": "🌿", "label": "Adaptogens", "subtext": "Cortisol regulation & stress resilience", "anchor": "#ashwagandha" } },
+        "mosaic_5": { "type": "mosaic_item", "settings": { "icon": "🍇", "label": "Antioxidants", "subtext": "Cellular protection & gut lining integrity", "anchor": "#cocoa" } },
+        "mosaic_6": { "type": "mosaic_item", "settings": { "icon": "🍈", "label": "Natural Sweeteners", "subtext": "Zero glycemic impact - monk fruit & allulose", "anchor": "#monk-fruit" } }
+      },
+      "block_order": ["mosaic_1", "mosaic_2", "mosaic_3", "mosaic_4", "mosaic_5", "mosaic_6"]
+    },
+    "ingr_framework": {
+      "type": "100cal-ingr-framework",
+      "settings": {
+        "eyebrow": "How Our Ingredients Work Together",
+        "heading": "Four Building Blocks of<br>Gut-Brain Nutrition",
+        "subheading": "WHY IT WORKS: Every ingredient is selected for a specific role in supporting the gut-brain axis - working together to support energy, satiety, mood, and digestion."
+      },
+      "blocks": {
+        "framework_1": { "type": "framework_card", "settings": { "icon": "🦠", "title": "Prebiotic Fiber", "description": "Feeds beneficial gut bacteria that regulate digestion, produce neurotransmitters, and signal the brain through the gut-brain axis." } },
+        "framework_2": { "type": "framework_card", "settings": { "icon": "💪", "title": "Protein", "description": "Activates satiety hormones in the gut and brain simultaneously - slowing glucose absorption and keeping energy stable between meals." } },
+        "framework_3": { "type": "framework_card", "settings": { "icon": "🌿", "title": "Adaptogens", "description": "Help regulate cortisol - the stress hormone that disrupts gut-brain signaling and drives reactive cravings. Calmer cortisol, calmer cravings." } },
+        "framework_4": { "type": "framework_card", "settings": { "icon": "🍇", "title": "Antioxidants & Plant Compounds", "description": "Protect the gut lining and support brain circulation - reducing oxidative stress along the gut-brain communication pathway." } }
+      },
+      "block_order": ["framework_1", "framework_2", "framework_3", "framework_4"]
+    },
+    "ingr_dosing": {
+      "type": "100cal-ingr-dosing",
+      "settings": {
+        "eyebrow": "The Formulation Standard",
+        "heading": "Clinically Relevant<br>Levels in<br><em>100 Clean Calories.</em>",
+        "body": "Most functional snacks include trace amounts of 'functional' ingredients - enough for the label, not enough to make a difference. We formulate differently. Every active ingredient is included at levels aligned with clinical research - so your gut and brain can actually use them.",
+        "callout": "Every ingredient is chosen to earn its place. Functional nutrition without the caloric cost."
+      },
+      "blocks": {
+        "stat_1": { "type": "stat_card", "settings": { "value": "250mg", "label": "Adaptogens per 100 Calories", "subtext": "Within the range used in clinical studies on cortisol and stress response" } },
+        "stat_2": { "type": "stat_card", "settings": { "value": ">4g", "label": "Prebiotic fiber per 100 Calories", "subtext": "A meaningful daily contribution to microbiome-supportive fiber intake" } },
+        "stat_3": { "type": "stat_card", "settings": { "value": "100", "label": "Calories. That's it.", "subtext": "Functional nutrition without the caloric cost - every calorie earns its place" } }
+      },
+      "block_order": ["stat_1", "stat_2", "stat_3"]
+    },
+    "ingr_library": {
+      "type": "100cal-ingr-library",
+      "settings": {
+        "eyebrow": "Full Ingredient Index",
+        "heading": "The Ingredient Library",
+        "subheading": "Every ingredient across all products - organized by function. Click any card to see the science, the gut-brain benefit, and which products it appears in.",
+        "filter_all": "All Ingredients",
+        "filter_fiber": "Fiber Sources",
+        "filter_protein": "Protein",
+        "filter_fats": "Healthy Fats",
+        "filter_adaptogens": "Adaptogens",
+        "filter_antioxidants": "Antioxidants",
+        "filter_sweeteners": "Sweeteners",
+        "filter_other": "Other",
+        "group_fiber_icon": "🌱",
+        "group_fiber_name": "Fiber Sources",
+        "group_fiber_count": "2 Ingredients",
+        "group_protein_icon": "💪",
+        "group_protein_name": "Protein Sources",
+        "group_protein_count": "5 Ingredients",
+        "group_fats_icon": "🥑",
+        "group_fats_name": "Healthy Fats",
+        "group_fats_count": "6 Ingredients",
+        "group_adaptogens_icon": "🌿",
+        "group_adaptogens_name": "Adaptogens",
+        "group_adaptogens_count": "2 Ingredients",
+        "group_antioxidants_icon": "🍇",
+        "group_antioxidants_name": "Antioxidants & Plant Compounds",
+        "group_antioxidants_count": "5 Ingredients",
+        "group_sweeteners_icon": "🍈",
+        "group_sweeteners_name": "Natural Sweeteners",
+        "group_sweeteners_count": "2 Ingredients",
+        "group_other_icon": "⚗️",
+        "group_other_name": "Functional Extras",
+        "group_other_count": "2 Ingredients"
+      },
+      "blocks": {
+        "ingredient_1": { "type": "ingredient_card", "settings": { "group": "fiber", "icon": "🌿", "name": "Chicory Root Fiber", "tagline": "Natural prebiotic fiber - the gut's preferred fuel", "what_it_is": "Inulin-type prebiotic fiber derived from chicory root. One of the most studied prebiotic fibers in gut health research.", "why_it_matters": "Feeds beneficial gut bacteria — Bifidobacterium and Lactobacillus — that regulate digestion, reduce bloating, and support immune function.", "gut_brain_benefit": "Supports microbiome diversity and serotonin production — 95% of which is made in the gut. A healthier microbiome sends clearer signals to the brain.", "product_1": "Chocolate Brownie Bar", "product_2": "Peanut Butter Bar", "product_3": "BBQ Protein Puffs", "read_more_label": "Read More", "read_more_text": "Why Prebiotic Fiber Matters for Gut Health →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/prebiotic-fiber-gut-health", "open_new_tab": true } },
+        "ingredient_2": { "type": "ingredient_card", "settings": { "group": "fiber", "icon": "🌾", "name": "Tapioca Soluble Fiber", "tagline": "Gentle, gut-friendly fiber - easy to digest", "what_it_is": "A soluble dietary fiber derived from tapioca starch. Neutral taste, smooth texture — one of the most gut-comfortable fiber sources available.", "why_it_matters": "Supports healthy digestion without the bloating associated with some other fiber sources. Feeds beneficial gut bacteria while keeping net carbs low.", "gut_brain_benefit": "Gentle prebiotic action supports a diverse microbiome — the foundation of healthy gut-brain communication and stable mood.", "product_3": "BBQ Protein Puffs", "read_more_label": "Read More", "read_more_text": "Fiber Sources and Your Microbiome →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/fiber-and-microbiome", "open_new_tab": true } },
+        "ingredient_3": { "type": "ingredient_card", "settings": { "group": "protein", "icon": "🌿", "name": "Organic Pea Protein", "tagline": "Complete plant protein - high bioavailability", "what_it_is": "Protein isolate derived from yellow split peas. High in branched-chain amino acids (BCAAs), particularly arginine, which supports heart health.", "why_it_matters": "One of the most digestible plant proteins available. Supports muscle maintenance, satiety, and sustained energy without digestive discomfort.", "gut_brain_benefit": "Activates satiety hormones (GLP-1, PYY) in the gut that signal the brain to stop eating — reducing reactive snacking and cravings.", "product_1": "Chocolate Brownie Bar", "product_2": "Peanut Butter Bar", "read_more_label": "Read More", "read_more_text": "Protein and Satiety Hormones →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/protein-satiety-hormones", "open_new_tab": true } },
+        "ingredient_9": { "type": "ingredient_card", "settings": { "group": "protein", "icon": "🌾", "name": "Organic Brown Rice Protein", "tagline": "Complementary plant protein - smooth texture", "what_it_is": "Protein concentrate derived from whole grain brown rice. Paired with pea protein to create a complete amino acid profile comparable to animal protein.", "why_it_matters": "Together with pea protein, creates a full-spectrum amino acid profile. Easy to digest, hypoallergenic, and gentle on the gut.", "gut_brain_benefit": "Supports steady amino acid absorption — the building blocks for neurotransmitters including serotonin and dopamine.", "product_1": "Chocolate Brownie Bar", "product_2": "Peanut Butter Bar", "read_more_label": "Read More", "read_more_text": "Plant Protein and the Gut-Brain Axis →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/plant-protein-gut-brain", "open_new_tab": true } },
+        "ingredient_10": { "type": "ingredient_card", "settings": { "group": "protein", "icon": "🥛", "name": "Milk Protein Concentrate", "tagline": "High-quality complete protein - casein and whey", "what_it_is": "A concentrated dairy protein containing both casein and whey fractions — providing both fast-acting and slow-releasing protein.", "why_it_matters": "High biological value with a complete amino acid profile. The slow-digesting casein provides prolonged satiety after snacking.", "gut_brain_benefit": "Slow casein digestion extends satiety hormone signaling — keeping the gut-brain fullness loop active for longer after eating.", "product_3": "BBQ Protein Puffs", "read_more_label": "Read More", "read_more_text": "Protein and Satiety Hormones →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/protein-satiety-hormones", "open_new_tab": true } },
+        "ingredient_11": { "type": "ingredient_card", "settings": { "group": "protein", "icon": "🥜", "name": "Pea Protein Crisps", "tagline": "Texture + protein - satisfying crunch", "what_it_is": "Pea protein and rice starch formed into light, crunchy crisps. Adds texture and protein content simultaneously.", "why_it_matters": "Delivers satisfying crunch alongside functional protein — addressing both the sensory craving and the nutritional need at once.", "gut_brain_benefit": "Protein at snack time activates GLP-1 signaling — the satiety hormone that communicates directly with the brain's hunger centre.", "product_2": "Peanut Butter Bar", "read_more_label": "Read More", "read_more_text": "Protein and Satiety Hormones →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/protein-satiety-hormones", "open_new_tab": true } },
+        "ingredient_12": { "type": "ingredient_card", "settings": { "group": "protein", "icon": "🌾", "name": "Organic Almond Flour", "tagline": "Grain-free base - protein, fiber and healthy fat", "what_it_is": "Finely ground blanched almonds. A grain-free, gluten-free flour alternative that contributes protein, fiber, and monounsaturated fat.", "why_it_matters": "Replaces refined flour without the glycemic impact. Provides texture, structure, and nutritional density in every bite.", "gut_brain_benefit": "Low glycemic — avoids glucose spikes that disrupt gut-brain signaling and lead to energy crashes.", "product_1": "Chocolate Brownie Bar", "product_2": "Peanut Butter Bar", "read_more_label": "Read More", "read_more_text": "Almonds and Blood Sugar Stability →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/almonds-blood-sugar", "open_new_tab": true } },
+        "ingredient_4": { "type": "ingredient_card", "settings": { "group": "fats", "icon": "🌰", "name": "Organic Almond Butter", "tagline": "Rich in healthy fats, fiber, and plant protein", "what_it_is": "Whole roasted organic almonds ground into a smooth butter. A whole-food fat source with natural vitamin E, magnesium, and fiber.", "why_it_matters": "Monounsaturated fats support satiety and slow digestion — extending the feeling of fullness and preventing blood sugar spikes.", "gut_brain_benefit": "Healthy fats stabilize blood sugar and support brain signaling. Magnesium in almonds supports serotonin synthesis.", "product_1": "Chocolate Brownie Bar", "read_more_label": "Read More", "read_more_text": "Almonds and Blood Sugar Stability →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/almonds-blood-sugar", "open_new_tab": true } },
+        "ingredient_13": { "type": "ingredient_card", "settings": { "group": "fats", "icon": "🥜", "name": "Organic Peanut Butter", "tagline": "Whole-food fat and protein - deeply satisfying", "what_it_is": "Ground organic roasted peanuts. Rich in oleic acid, niacin, and resveratrol — a whole-food fat with a strong satiety effect.", "why_it_matters": "High in protein and fat — the combination that most effectively triggers both gut satiety hormones and brain fullness signals.", "gut_brain_benefit": "Resveratrol in peanuts supports gut microbiome diversity. Protein + fat together deliver the strongest satiety signal.", "product_2": "Peanut Butter Bar", "read_more_label": "Read More", "read_more_text": "Healthy Fats and the Gut-Brain Axis →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/healthy-fats-gut-brain", "open_new_tab": true } },
+        "ingredient_14": { "type": "ingredient_card", "settings": { "group": "fats", "icon": "🥥", "name": "Organic MCT Oil", "tagline": "Fast brain fuel - from organic coconut", "what_it_is": "Medium-chain triglycerides from organic coconut. Unlike long-chain fats, MCTs bypass normal fat digestion and convert rapidly to ketones.", "why_it_matters": "Provides immediate, clean energy without a glucose spike. Supports mental clarity and focus, particularly during low-carb periods.", "gut_brain_benefit": "Ketones from MCT oil are preferred brain fuel. Supports cognitive function and focus through the gut-brain axis without disrupting blood sugar.", "product_1": "Chocolate Brownie Bar", "product_2": "Peanut Butter Bar", "read_more_label": "Read More", "read_more_text": "MCTs and Brain Energy →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/mct-oil-brain-energy", "open_new_tab": true } },
+        "ingredient_15": { "type": "ingredient_card", "settings": { "group": "fats", "icon": "🌻", "name": "Organic Flaxseed Oil", "tagline": "Plant-based omega-3 - anti-inflammatory", "what_it_is": "Cold-pressed oil from organic flaxseeds. One of the richest plant sources of alpha-linolenic acid (ALA), an omega-3 fatty acid.", "why_it_matters": "Omega-3s reduce systemic inflammation — a key driver of gut dysbiosis and impaired gut-brain communication.", "gut_brain_benefit": "ALA supports brain cell membrane integrity and reduces neuroinflammation — protecting the brain end of the gut-brain axis.", "product_1": "Chocolate Brownie Bar", "product_2": "Peanut Butter Bar", "read_more_label": "Read More", "read_more_text": "Omega-3s and Neuroinflammation →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/omega3-neuroinflammation", "open_new_tab": true } },
+        "ingredient_16": { "type": "ingredient_card", "settings": { "group": "fats", "icon": "🌻", "name": "Organic High Oleic Sunflower Oil", "tagline": "Stable cooking fat - heart-healthy oleic acid", "what_it_is": "A high-stability sunflower oil variant with a very high oleic acid content (80%+). More heat-stable than regular sunflower oil with a clean, neutral flavor.", "why_it_matters": "Oleic acid (also found in olive oil) supports heart health, reduces inflammation, and provides a clean fat source without the instability of polyunsaturated oils.", "gut_brain_benefit": "Anti-inflammatory oleic acid supports gut microbiome diversity and reduces intestinal inflammation — protecting gut-brain communication pathways.", "product_3": "BBQ Protein Puffs", "read_more_label": "Read More", "read_more_text": "Healthy Fats and the Gut-Brain Axis →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/healthy-fats-gut-brain", "open_new_tab": true } },
+        "ingredient_17": { "type": "ingredient_card", "settings": { "group": "fats", "icon": "🌻", "name": "Organic Sunflower Lecithin", "tagline": "Natural emulsifier - clean label alternative", "what_it_is": "A phospholipid derived from sunflower seeds. Used as a natural emulsifier to blend fats and liquids smoothly — without soy lecithin.", "why_it_matters": "Choline-rich lecithin supports liver function and fat metabolism. The sunflower source avoids GMO soy concerns.", "gut_brain_benefit": "Choline is a precursor to acetylcholine — a neurotransmitter essential for memory and cognitive function. Supports the brain side of the gut-brain axis.", "product_1": "Chocolate Brownie Bar", "product_2": "Peanut Butter Bar", "read_more_label": "Read More", "read_more_text": "Choline and Brain Health →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/choline-brain-health", "open_new_tab": true } },
+        "ingredient_5": { "type": "ingredient_card", "settings": { "group": "adaptogens", "icon": "🌿", "name": "Organic Ashwagandha Extract", "tagline": "KSM-66® - clinically studied stress adaptogen", "what_it_is": "Organic root extract of Withania somnifera — a traditional Ayurvedic adaptogen used for centuries. Standardized to withanolide content for consistent potency.", "why_it_matters": "Clinically shown to reduce cortisol levels, support the HPA axis, and improve stress resilience. Reduces stress-driven food cravings.", "gut_brain_benefit": "Cortisol regulation is central to the gut-brain axis. When cortisol is balanced, stress-eating and reactive cravings quiet down — naturally.", "product_1": "Chocolate Brownie Bar", "product_3": "BBQ Protein Puffs", "read_more_label": "Read More", "read_more_text": "Ashwagandha and the Gut-Brain Axis →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/ashwagandha-gut-brain-axis", "open_new_tab": true } },
+        "ingredient_18": { "type": "ingredient_card", "settings": { "group": "adaptogens", "icon": "🍇", "name": "Organic Amla Fruit Powder", "tagline": "Ayurvedic adaptogen - stress, immunity and gut resilience", "what_it_is": "Dried powder of Phyllanthus emblica (Indian Gooseberry). A cornerstone of Ayurvedic medicine used for centuries as a rasayana — a rejuvenating adaptogen that supports resilience across multiple body systems.", "why_it_matters": "Amla helps the body adapt to physiological stress — supporting adrenal function, immune resilience, and metabolic balance. Its polyphenol density also makes it one of the most antioxidant-rich foods known.", "gut_brain_benefit": "Polyphenols act as prebiotics, feeding beneficial bacteria and supporting microbiome diversity. Adaptogenic properties help buffer the cortisol-craving loop through the gut-brain axis.", "product_2": "Peanut Butter Bar", "read_more_label": "Read More", "read_more_text": "Amla and the Microbiome →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/amla-microbiome", "open_new_tab": true } },
+        "ingredient_6": { "type": "ingredient_card", "settings": { "group": "antioxidants", "icon": "🍫", "name": "Organic Cocoa Powder", "tagline": "Flavanol-rich - mood and circulation support", "what_it_is": "Alkalized organic cocoa powder. Rich in flavanols — polyphenolic compounds with antioxidant, anti-inflammatory, and vasodilatory effects.", "why_it_matters": "Cocoa flavanols support blood flow, reduce oxidative stress, and have been linked to improved cognitive function and mood in clinical studies.", "gut_brain_benefit": "Flavanols support microbiome diversity and brain circulation — protecting both ends of the gut-brain axis simultaneously.", "product_1": "Chocolate Brownie Bar", "read_more_label": "Read More", "read_more_text": "Cocoa Flavanols and the Brain →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/cocoa-flavanols-brain", "open_new_tab": true } },
+        "ingredient_19": { "type": "ingredient_card", "settings": { "group": "antioxidants", "icon": "🍫", "name": "Organic Unsweetened Chocolate Chips", "tagline": "Real chocolate - no sugar, pure cacao", "what_it_is": "Chocolate chips made from organic cacao with no added sugar. Delivers the full chocolate flavor and antioxidant profile without glycemic impact.", "why_it_matters": "Provides a real chocolate experience — the texture, melt, and flavor — without sugar that would spike blood glucose and undermine the formula.", "gut_brain_benefit": "Cacao polyphenols support microbiome diversity. No added sugar means no glucose spike disrupting gut-brain signaling.", "product_1": "Chocolate Brownie Bar", "product_2": "Peanut Butter Bar", "read_more_label": "Read More", "read_more_text": "Cocoa Flavanols and the Brain →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/cocoa-flavanols-brain", "open_new_tab": true } },
+        "ingredient_20": { "type": "ingredient_card", "settings": { "group": "antioxidants", "icon": "🍇", "name": "Organic Amla Fruit Powder", "tagline": "Indian Gooseberry - potent polyphenol source", "what_it_is": "Dried powder of Phyllanthus emblica (Indian Gooseberry) — one of the most antioxidant-dense fruits in Ayurvedic medicine. Exceptionally high in vitamin C and polyphenols.", "why_it_matters": "Supports immune function, metabolic health, and gut integrity. High tannin content protects against oxidative damage in the gut lining.", "gut_brain_benefit": "Polyphenols from amla act as prebiotics — feeding beneficial bacteria and supporting microbiome diversity that influences brain health and mood.", "product_2": "Peanut Butter Bar", "read_more_label": "Read More", "read_more_text": "Amla and the Microbiome →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/amla-microbiome", "open_new_tab": true } },
+        "ingredient_21": { "type": "ingredient_card", "settings": { "group": "antioxidants", "icon": "🥬", "name": "Organic Kale Powder", "tagline": "Nutrient-dense green - vitamins K, C, and A", "what_it_is": "Dried and powdered organic kale. Concentrates the nutritional profile of kale — vitamins K, C, A, and B6, plus calcium, potassium, and antioxidant kaempferol.", "why_it_matters": "Adds a dense micronutrient profile to a savory snack — something most snacks in the category completely lack. Kaempferol has shown anti-inflammatory and neuroprotective effects.", "gut_brain_benefit": "Kaempferol supports gut microbiome diversity and has neuroprotective properties — protecting the integrity of gut-brain signaling pathways.", "product_3": "BBQ Protein Puffs", "read_more_label": "Read More", "read_more_text": "Green Vegetables and Gut Health →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/greens-gut-health", "open_new_tab": true } },
+        "ingredient_22": { "type": "ingredient_card", "settings": { "group": "antioxidants", "icon": "🌿", "name": "Organic Rosemary Extract", "tagline": "Natural preservative - antioxidant protection", "what_it_is": "Concentrated extract from organic rosemary leaves. Used as a natural antioxidant to preserve freshness — replacing synthetic preservatives like BHA and BHT.", "why_it_matters": "Protects the omega-3 fats in flaxseed and MCT oil from oxidation — keeping every ingredient performing as intended throughout shelf life.", "gut_brain_benefit": "Rosemary polyphenols (carnosic acid, rosmarinic acid) have anti-inflammatory effects in the gut and have shown neuroprotective properties in research.", "product_1": "Chocolate Brownie Bar", "product_2": "Peanut Butter Bar", "product_3": "BBQ Protein Puffs", "read_more_label": "Read More", "read_more_text": "Natural Preservatives vs Synthetic →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/natural-preservatives", "open_new_tab": true } },
+        "ingredient_7": { "type": "ingredient_card", "settings": { "group": "sweeteners", "icon": "🍈", "name": "Organic Monk Fruit Extract", "tagline": "Zero glycemic - 200× sweeter than sugar", "what_it_is": "Concentrated extract of Luo Han Guo (monk fruit). Sweetness comes from mogrosides — compounds that provide intense sweetness with zero calories and zero glycemic impact.", "why_it_matters": "Unlike sugar alcohols (erythritol, maltitol), monk fruit doesn't disrupt gut bacteria or cause digestive discomfort. It's the cleanest sweetener option available.", "gut_brain_benefit": "Zero glucose impact means no insulin spike and no disruption to gut-brain signaling. Sweetness without the consequences.", "product_1": "Chocolate Brownie Bar", "product_2": "Peanut Butter Bar", "product_3": "BBQ Protein Puffs", "read_more_label": "Read More", "read_more_text": "Natural Sweeteners vs Sugar Alcohols →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/natural-sweeteners-vs-sugar-alcohols", "open_new_tab": true } },
+        "ingredient_23": { "type": "ingredient_card", "settings": { "group": "sweeteners", "icon": "🌿", "name": "Allulose", "tagline": "Rare sugar - acts like sugar, metabolizes like fiber", "what_it_is": "A rare naturally-occurring monosaccharide found in small amounts in figs and raisins. Tastes and bakes like sugar but is mostly excreted without being metabolized.", "why_it_matters": "Provides the functional texture and caramelization of sugar in baking with approximately 0.4 kcal/g vs sugar's 4 kcal/g. Supports the fudgy brownie texture authentically.", "gut_brain_benefit": "Research suggests allulose may improve insulin sensitivity and has no negative effect on gut microbiota — unlike most sugar substitutes.", "product_1": "Chocolate Brownie Bar", "product_2": "Peanut Butter Bar", "read_more_label": "Read More", "read_more_text": "Natural Sweeteners vs Sugar Alcohols →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/natural-sweeteners-vs-sugar-alcohols", "open_new_tab": true } },
+        "ingredient_8": { "type": "ingredient_card", "settings": { "group": "other", "icon": "🧂", "name": "Himalayan Pink Salt", "tagline": "Mineral-rich salt - trace elements intact", "what_it_is": "Unrefined salt from ancient sea beds in Pakistan. Contains trace minerals including magnesium, potassium, and calcium — absent in refined table salt.", "why_it_matters": "Balances flavor naturally, enhances sweetness perception, and contributes trace minerals that support electrolyte balance.", "gut_brain_benefit": "Magnesium in Himalayan salt supports serotonin synthesis and GABA production — both key neurotransmitters in gut-brain signaling.", "product_1": "Chocolate Brownie Bar", "product_2": "Peanut Butter Bar", "product_3": "BBQ Protein Puffs", "read_more_label": "Read More", "read_more_text": "Minerals and Gut-Brain Health →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/minerals-gut-brain", "open_new_tab": true } },
+        "ingredient_24": { "type": "ingredient_card", "settings": { "group": "other", "icon": "🍫", "name": "Organic Cacao/Cocoa Butter", "tagline": "Pure cacao fat - smooth melt, no dairy", "what_it_is": "The natural fat extracted from cacao beans during chocolate production. Stable saturated fat with a clean, rich flavor and luxurious melt point.", "why_it_matters": "Creates authentic chocolate texture and mouthfeel without dairy. A stable, natural fat source that resists oxidation and contributes no sugar.", "gut_brain_benefit": "Stearic acid in cocoa butter is converted to oleic acid in the body — supporting anti-inflammatory pathways that protect gut-brain communication.", "product_1": "Chocolate Brownie Bar", "product_2": "Peanut Butter Bar", "read_more_label": "Read More", "read_more_text": "Cocoa Flavanols and the Brain →", "read_more_link": "https://100calsnacks.com/blogs/snack-sense/cocoa-flavanols-brain", "open_new_tab": true } }
+      },
+      "block_order": [
+        "ingredient_1", "ingredient_2",
+        "ingredient_3", "ingredient_9", "ingredient_10", "ingredient_11", "ingredient_12",
+        "ingredient_4", "ingredient_13", "ingredient_14", "ingredient_15", "ingredient_16", "ingredient_17",
+        "ingredient_5", "ingredient_18",
+        "ingredient_6", "ingredient_19", "ingredient_20", "ingredient_21", "ingredient_22",
+        "ingredient_7", "ingredient_23",
+        "ingredient_8", "ingredient_24"
+      ]
+    },
+    "ingr_sweetener": {
+      "type": "100cal-ingr-sweetener",
+      "settings": {
+        "eyebrow": "Clean Sweetener Philosophy",
+        "heading": "Why We Don't Use<br>Sugar Alcohols",
+        "body_1": "Many low-carb snacks rely on erythritol and maltitol to hit their sweetness targets. These compounds are common gut irritants that can disrupt your microbiome - the opposite of what we're building toward.",
+        "body_2": "We use monk fruit and allulose instead. Both provide sweetness without glycemic impact, without gut disruption, and without the bloating that sugar alcohols cause.",
+        "avoid_title": "What We Avoid",
+        "use_title": "What We Use"
+      },
+      "blocks": {
+        "avoid_1": { "type": "avoid_item", "settings": { "label": "Erythritol — common gut irritant" } },
+        "avoid_2": { "type": "avoid_item", "settings": { "label": "Maltitol — spikes blood sugar" } },
+        "avoid_3": { "type": "avoid_item", "settings": { "label": "Sorbitol — causes bloating" } },
+        "avoid_4": { "type": "avoid_item", "settings": { "label": "Sucralose — disrupts microbiome" } },
+        "avoid_5": { "type": "avoid_item", "settings": { "label": "Added cane sugar — glucose spike" } },
+        "use_1": { "type": "use_item", "settings": { "label": "Monk Fruit — zero glycemic impact" } },
+        "use_2": { "type": "use_item", "settings": { "label": "Allulose — metabolized like fiber" } },
+        "use_3": { "type": "use_item", "settings": { "label": "Natural flavors — from real sources" } },
+        "use_4": { "type": "use_item", "settings": { "label": "Cacao — unsweetened, antioxidant-rich" } },
+        "use_5": { "type": "use_item", "settings": { "label": "Himalayan salt — enhances sweetness naturally" } }
+      },
+      "block_order": ["avoid_1", "avoid_2", "avoid_3", "avoid_4", "avoid_5", "use_1", "use_2", "use_3", "use_4", "use_5"]
+    },
+    "ingr_action": {
+      "type": "100cal-ingr-action",
+      "settings": {
+        "eyebrow": "Ingredients designed for the gut-brain axis",
+        "heading": "See These Ingredients<br>in Action",
+        "subheading": "Explore the snacks that use these ingredients in real formulations."
+      },
+      "blocks": {
+        "action_1": { "type": "action_card", "settings": { "handle": "choc", "icon": "🍫", "pattern": "For Focus Fuelers", "name": "Chocolate Brownie Bar", "ingredients": "Key functional ingredients:\n• Almond Butter → healthy fats\n• Chicory Root Fiber → microbiome support\n• Pea + Rice Protein → satiety\n• Ashwagandha → stress support\n• Cocoa → antioxidants", "cta": "Shop Now", "link": "/collections/all" } },
+        "action_2": { "type": "action_card", "settings": { "handle": "pb", "icon": "🥜", "pattern": "For Calm Operators", "name": "Peanut Butter Bar", "ingredients": "Key functional ingredients:\n• Peanut Butter → protein + healthy fats\n• Chicory Root Fiber → prebiotic fiber\n• Amla → antioxidant support\n• Plant Protein → sustained energy", "cta": "Shop Now", "link": "/collections/all" } },
+        "action_3": { "type": "action_card", "settings": { "handle": "bbq", "icon": "🌶️", "pattern": "For Craving Crushers", "name": "BBQ Protein Puffs", "ingredients": "Key functional ingredients:\n• Casein-Rich Milk Protein → satiety\n• Tapioca Fiber → digestion\n• Kale Powder → micronutrients\n• Ashwagandha → stress support", "cta": "Shop Now", "link": "/collections/all" } }
+      },
+      "block_order": ["action_1", "action_2", "action_3"]
+    },
+    "ingr_quiz": {
+      "type": "100cal-ingr-quiz",
+      "settings": {
+        "eyebrow": "Find Your Match",
+        "heading": "Discover Your<br>Gut-Brain Type",
+        "subheading": "Now that you know what's inside - find out which formulation was built for your gut-brain pattern. 60 seconds. Personalized to you.",
+        "label": "Take the Free Quiz →",
+        "link": "/pages/quiz"
+      }
+    },
+    "ingr_blog": {
+      "type": "100cal-ingr-blog",
+      "settings": {
+        "eyebrow": "Go Deeper",
+        "heading": "Learn More About<br>Gut-Brain Nutrition"
+      },
+      "blocks": {
+        "blog_1": { "type": "blog_link", "settings": { "label": "What Is the Gut-Brain Axis?", "link": "https://100calsnacks.com/pages/why-100-cal-snacks-for-a-healthy-gut-microbiome", "open_new_tab": true } },
+        "blog_2": { "type": "blog_link", "settings": { "label": "Why Prebiotic Fiber Matters for Gut Health", "link": "https://100calsnacks.com/blogs/snack-sense/prebiotic-fiber-gut-health", "open_new_tab": true } },
+        "blog_3": { "type": "blog_link", "settings": { "label": "Adaptogens and Stress Eating", "link": "https://100calsnacks.com/blogs/snack-sense/ashwagandha-gut-brain-axis", "open_new_tab": true } },
+        "blog_4": { "type": "blog_link", "settings": { "label": "Protein and Satiety Hormones", "link": "https://100calsnacks.com/blogs/snack-sense/protein-satiety-hormones", "open_new_tab": true } },
+        "blog_5": { "type": "blog_link", "settings": { "label": "Natural Sweeteners vs Sugar Alcohols", "link": "https://100calsnacks.com/blogs/snack-sense/natural-sweeteners-vs-sugar-alcohols", "open_new_tab": true } },
+        "blog_6": { "type": "blog_link", "settings": { "label": "Amla and the Microbiome", "link": "https://100calsnacks.com/blogs/snack-sense/amla-microbiome", "open_new_tab": true } }
+      },
+      "block_order": ["blog_1", "blog_2", "blog_3", "blog_4", "blog_5", "blog_6"]
+    }
+  },
+  "order": [
+    "ingr_hero",
+    "ingr_framework",
+    "ingr_dosing",
+    "ingr_library",
+    "ingr_sweetener",
+    "ingr_action",
+    "ingr_quiz",
+    "ingr_blog"
+  ]
+}

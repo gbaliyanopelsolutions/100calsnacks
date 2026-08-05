@@ -1,0 +1,54 @@
+<section class="hc-contact-closing" {{ section.shopify_attributes }}>
+  <div class="ccc-inner fade-up">
+    <h2 class="ccc-h">{{ section.settings.heading }}</h2>
+    <p class="ccc-sub">{{ section.settings.subheading | escape }}</p>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-contact-closing {
+  background: var(--black);
+  padding: 64px 80px;
+  text-align: center;
+}
+.hc-contact-closing .ccc-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+.hc-contact-closing .ccc-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 52px;
+  line-height: .9;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+.hc-contact-closing .ccc-h em {
+  font-style: italic;
+  color: var(--teal);
+}
+.hc-contact-closing .ccc-sub {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: rgba(255,255,255,.5);
+  line-height: 1.7;
+  font-style: italic;
+}
+@media (max-width: 768px) {
+  .hc-contact-closing { padding: 48px 20px; }
+  .hc-contact-closing .ccc-h { font-size: 40px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Contact Closing",
+  "settings": [
+    { "type": "html", "id": "heading", "label": "Heading", "default": "This Is<br><em>Personal.</em>" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Every message we receive is a reminder of why this brand exists. We don't take that lightly." }
+  ],
+  "blocks": [],
+  "presets": [{ "name": "Contact Closing" }]
+}
+{% endschema %}

@@ -1,0 +1,858 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "100cal-hero",
+      "settings": {
+        "heading": "The<br><em>Overqualified</em><br>Snack.",
+        "subheading": "100 clean calories designed to support the gut-brain connection.",
+        "rating": "***** 4.9/5 - 1,200+ Reviews",
+        "primary_label": "Shop Now ->",
+        "primary_link": "shopify://collections/all",
+        "secondary_label": "See How It Works",
+        "secondary_link": "",
+        "background_number": "100",
+        "product_icon": "BAR",
+        "product_name": "Chocolate Brownie"
+      }
+    },
+    "trust": {
+      "type": "100cal-icon-strip",
+      "blocks": {
+        "trust_1": {
+          "type": "item",
+          "settings": {
+            "icon": "OK",
+            "label": "Clinically Studied Ingredients"
+          }
+        },
+        "trust_2": {
+          "type": "item",
+          "settings": {
+            "icon": "OK",
+            "label": "Adaptogen & Antioxidant Superfoods"
+          }
+        },
+        "trust_3": {
+          "type": "item",
+          "settings": {
+            "icon": "OK",
+            "label": "Clean Functional Nutrition"
+          }
+        }
+      },
+      "block_order": [
+        "trust_1",
+        "trust_2",
+        "trust_3"
+      ],
+      "settings": {
+        "style": "teal"
+      }
+    },
+    "value": {
+      "type": "100cal-icon-strip",
+      "blocks": {
+        "balance": {
+          "type": "item",
+          "settings": {
+            "icon": "",
+            "label": "Gut-Brain Balance"
+          }
+        },
+        "cravings": {
+          "type": "item",
+          "settings": {
+            "icon": "",
+            "label": "Calms Cravings"
+          }
+        },
+        "energy": {
+          "type": "item",
+          "settings": {
+            "icon": "",
+            "label": "Sustained Energy"
+          }
+        },
+        "calories": {
+          "type": "item",
+          "settings": {
+            "icon": "",
+            "label": "Just 100 Calories"
+          }
+        }
+      },
+      "block_order": [
+        "balance",
+        "cravings",
+        "energy",
+        "calories"
+      ],
+      "settings": {
+        "style": "light"
+      }
+    },
+    "products": {
+      "type": "100cal-product-grid",
+      "blocks": {
+        "product_1": {
+          "type": "product",
+          "settings": {
+            "product": "chocolate-protein-bars",
+            "title": "Chocolate Brownie",
+            "subtitle": "Protein Bar",
+            "icon": "BAR",
+            "badge": "Best Seller",
+            "badge_color": "orange",
+            "sub_badge": "Sub & Save 10%",
+            "benefits": "Steady Energy Without the Crash\nCalms Cravings Naturally\n100 Clean Calories",
+            "background": "linear-gradient(135deg,#222,#161616)",
+            "macros": "100|Calories\n5g|Protein\n4g|Prebiotic Fiber\n2g|Net Carbs\n0g|Added Sugar\n250mg|Ashwagandha",
+            "price": "$18.99",
+            "rating": "***** (96)",
+            "sub_note": "Subscribe for 10% off · Learn more",
+            "link": "shopify://collections/all"
+          }
+        },
+        "product_2": {
+          "type": "product",
+          "settings": {
+            "product": "peanut-butter-bar",
+            "title": "Peanut Butter",
+            "subtitle": "Protein Bar",
+            "icon": "BAR",
+            "badge": "New",
+            "badge_color": "teal",
+            "sub_badge": "Sub & Save 10%",
+            "benefits": "Steady Energy Without the Crash\nCalms Cravings Naturally\n100 Clean Calories",
+            "background": "linear-gradient(135deg,#2a1a0a,#1a0f00)",
+            "macros": "100|Calories\n5g|Protein\n4g|Prebiotic Fiber\n2g|Net Carbs\n0g|Added Sugar\n250mg|Ashwagandha",
+            "price": "$19.49",
+            "rating": "***** New",
+            "sub_note": "Subscribe for 10% off · Learn more",
+            "link": "shopify://collections/all"
+          }
+        },
+        "product_3": {
+          "type": "product",
+          "settings": {
+            "product": "protein-puffs-bbq",
+            "title": "BBQ Protein Puffs",
+            "subtitle": "Savory Snack",
+            "icon": "BAR",
+            "badge": "Keto 2.0",
+            "badge_color": "yellow",
+            "sub_badge": "Sub & Save 10%",
+            "benefits": "Steady Energy Without the Crash\nCalms Cravings Naturally\n100 Clean Calories",
+            "background": "linear-gradient(135deg,#1a1200,#0f0a00)",
+            "macros": "100|Calories\n5g|Protein\n4g|Prebiotic Fiber\n2g|Net Carbs\n0g|Added Sugar\n250mg|Ashwagandha",
+            "price": "$24.99",
+            "rating": "***** (58)",
+            "sub_note": "Subscribe for 10% off · Learn more",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "product_1",
+        "product_2",
+        "product_3"
+      ],
+      "settings": {
+        "eyebrow": "The Full Lineup",
+        "heading": "Shop 100Cal Snacks",
+        "add_label": "Add to Cart"
+      }
+    },
+    "clean": {
+      "type": "100cal-icon-strip",
+      "blocks": {
+        "clean_1": {
+          "type": "item",
+          "settings": {
+            "icon": "",
+            "label": "Non-GMO"
+          }
+        },
+        "clean_2": {
+          "type": "item",
+          "settings": {
+            "icon": "",
+            "label": "100% Natural"
+          }
+        },
+        "clean_3": {
+          "type": "item",
+          "settings": {
+            "icon": "",
+            "label": "Gluten-Free"
+          }
+        },
+        "clean_4": {
+          "type": "item",
+          "settings": {
+            "icon": "",
+            "label": "No Added Sugars"
+          }
+        },
+        "clean_5": {
+          "type": "item",
+          "settings": {
+            "icon": "",
+            "label": "No Sugar Alcohols"
+          }
+        }
+      },
+      "block_order": [
+        "clean_1",
+        "clean_2",
+        "clean_3",
+        "clean_4",
+        "clean_5"
+      ],
+      "settings": {
+        "style": "black"
+      }
+    },
+    "testimonials": {
+      "type": "100cal-testimonials",
+      "blocks": {
+        "testimonial_1": {
+          "type": "testimonial",
+          "settings": {
+            "tag": "Gut Health",
+            "tag_color": "teal",
+            "stars": "*****",
+            "quote": "I've struggled with bloating from every protein bar I've ever tried. These are the first ones that actually made my gut feel better, not worse.",
+            "name": "- Sarah M., Los Angeles"
+          }
+        },
+        "testimonial_2": {
+          "type": "testimonial",
+          "settings": {
+            "tag": "Portion Control",
+            "tag_color": "orange",
+            "stars": "*****",
+            "quote": "I've been tracking macros for two years and these fit perfectly. 100 clean calories, 10g protein, and I don't have to do any math.",
+            "name": "- Mike T., Chicago"
+          }
+        },
+        "testimonial_3": {
+          "type": "testimonial",
+          "settings": {
+            "tag": "Stress Relief",
+            "tag_color": "yellow",
+            "stars": "*****",
+            "quote": "I'm a stress eater. Since I started keeping these at my desk, I reach for them instead of the vending machine and I feel calmer after.",
+            "name": "- Priya K., New York"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_1",
+        "testimonial_2",
+        "testimonial_3"
+      ],
+      "settings": {
+        "anchor_id": "reviews",
+        "eyebrow": "Proof. Not Promises.",
+        "heading": "Real People.<br>Real Results.",
+        "hashtag": "#100CalPal",
+        "subcopy": "Share your story - Follow @100CalSnacks",
+        "cta_label": "Read All 1,200+ Reviews ->",
+        "cta_link": ""
+      }
+    },
+    "guts": {
+      "type": "100cal-guts",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "1,200+",
+            "label": "5-Star Reviews"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "0g",
+            "label": "Sugar Alcohols"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "number": "100",
+            "label": "Clean Calories"
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "number": "1",
+            "label": "Overqualified Formula"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ],
+      "settings": {
+        "eyebrow": "Your Brain is in Your Belly",
+        "heading": "Do You Have The Guts?",
+        "copy": "Health isn't a straight line. It's messy, frustrating, and it takes guts - the kind that keeps showing up.",
+        "primary_label": "Find My Snack ->",
+        "primary_link": "shopify://collections/all",
+        "secondary_label": "Read the Science",
+        "secondary_link": ""
+      }
+    },
+    "founder": {
+      "type": "100cal-founder",
+      "settings": {
+        "anchor_id": "founder",
+        "mark": "100",
+        "eyebrow": "From The Founder",
+        "heading": "For the gut.<br>From the gut.",
+        "copy": "After five surgeries and fifty pounds of stress weight, I couldn't find a snack that didn't make things worse. So I built one.",
+        "attribution": "- Tapasya Bali, Founder & CEO",
+        "note": "Goldman Sachs 100 Most Intriguing Entrepreneurs"
+      }
+    },
+    "video": {
+      "type": "100cal-video",
+      "settings": {
+        "eyebrow": "Watch The Formula",
+        "heading": "Product Video",
+        "copy": "See how our ingredients work together for gut-brain balance.",
+        "video_url": "",
+        "placeholder": "Product Video Placeholder"
+      }
+    },
+    "benefits": {
+      "type": "100cal-benefits",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "01",
+            "title": "Energy",
+            "result": "No Sugar Crash",
+            "copy": "Protein and adaptogens help deliver steady, crash-free energy instead.",
+            "tags": "Ashwagandha, Nut Butters, Pea Protein"
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "02",
+            "title": "Focus",
+            "result": "Clearer Thinking",
+            "copy": "When your microbiome is supported, your brain works better too.",
+            "tags": "MCT Oil, Amla Berry, Rosemary"
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "03",
+            "title": "Digestion",
+            "result": "Gut-Friendly Snacking",
+            "copy": "Prebiotic fiber feeds the microbiome and supports smoother digestion.",
+            "tags": "Chicory, Prebiotic Fiber, 0g Sugar Alcohols"
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "04",
+            "title": "Cravings",
+            "result": "Calm Stress Eating",
+            "copy": "Protein and fiber help steady hunger signals and prevent reactive snacking.",
+            "tags": "Low Net Carbs, High Protein, High Fiber"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4"
+      ],
+      "settings": {
+        "anchor_id": "how-it-works",
+        "eyebrow": "No Fillers. No Fluff. No Wasted Calories.",
+        "heading": "Every Calorie<br>Earns Its Place",
+        "subheading": "How It Works"
+      }
+    },
+    "gut_audience": {
+      "type": "100cal-audience",
+      "blocks": {
+        "gut_1": {
+          "type": "row",
+          "settings": {
+            "label": "Week 1-2",
+            "detail": "Less stress eating. Cortisol response starts to regulate."
+          }
+        },
+        "gut_2": {
+          "type": "row",
+          "settings": {
+            "label": "Week 2-3",
+            "detail": "Better digestion. Bloating subsides as microbiome shifts."
+          }
+        },
+        "gut_3": {
+          "type": "row",
+          "settings": {
+            "label": "Week 3-4",
+            "detail": "Clearer mood. Gut-brain serotonin pathway improving."
+          }
+        },
+        "gut_4": {
+          "type": "row",
+          "settings": {
+            "label": "Month 2+",
+            "detail": "Gut-brain axis rebalanced. Cravings manageable. Energy consistent."
+          }
+        }
+      },
+      "block_order": [
+        "gut_1",
+        "gut_2",
+        "gut_3",
+        "gut_4"
+      ],
+      "settings": {
+        "mode": "gut",
+        "anchor_id": "gut-health",
+        "eyebrow": "For the Gut Health Seeker",
+        "heading": "Your Gut &amp;<br>Brain Are in a<br>Toxic Relationship.",
+        "copy": "We know what it feels like when your gut is working against you: the bloating, the brain fog, and the 3pm crash. This isn't a willpower problem. It's a biology problem.",
+        "cta_label": "Take the Gut Brain Health Quiz ->",
+        "cta_link": "shopify://collections/all",
+        "tags": "Ashwagandha, Chicory Root Fiber, Amla, Prebiotic Fiber",
+        "card_title": "Your 30-Day Gut Reset"
+      }
+    },
+    "weight_audience": {
+      "type": "100cal-audience",
+      "blocks": {
+        "weight_macro_1": {
+          "type": "macro",
+          "settings": {
+            "value": "100",
+            "label": "Clean Calories"
+          }
+        },
+        "weight_macro_2": {
+          "type": "macro",
+          "settings": {
+            "value": "10g",
+            "label": "Protein"
+          }
+        },
+        "weight_macro_3": {
+          "type": "macro",
+          "settings": {
+            "value": "5g",
+            "label": "Fiber"
+          }
+        },
+        "weight_macro_4": {
+          "type": "macro",
+          "settings": {
+            "value": "0g",
+            "label": "Added Sugar"
+          }
+        },
+        "meal_1": {
+          "type": "row",
+          "settings": {
+            "label": "Breakfast - Eggs & Avocado Toast",
+            "detail": "400 cal"
+          }
+        },
+        "meal_2": {
+          "type": "row",
+          "settings": {
+            "label": "Mid-Morning - 100Cal Bar",
+            "detail": "100 cal"
+          }
+        },
+        "meal_3": {
+          "type": "row",
+          "settings": {
+            "label": "Lunch - Grilled Chicken Salad",
+            "detail": "450 cal"
+          }
+        },
+        "meal_4": {
+          "type": "row",
+          "settings": {
+            "label": "Afternoon - 100Cal Puffs",
+            "detail": "100 cal"
+          }
+        },
+        "meal_5": {
+          "type": "row",
+          "settings": {
+            "label": "Dinner - Salmon & Veggies",
+            "detail": "500 cal"
+          }
+        }
+      },
+      "block_order": [
+        "weight_macro_1",
+        "weight_macro_2",
+        "weight_macro_3",
+        "weight_macro_4",
+        "meal_1",
+        "meal_2",
+        "meal_3",
+        "meal_4",
+        "meal_5"
+      ],
+      "settings": {
+        "mode": "weight",
+        "anchor_id": "weight-loss",
+        "eyebrow": "For the Goal-Driven Snacker",
+        "heading": "100 Calories.<br>10g Protein.<br>Zero Math.",
+        "copy": "No more guessing. No more math at 3pm when your willpower is gone. Every 100Cal Snack is exactly what it says: built to fit your plan, not fight it.",
+        "cta_label": "Shop Best Sellers ->",
+        "cta_link": "shopify://collections/all",
+        "tags": "Ashwagandha, Chicory Root Fiber, Amla, Prebiotic Fiber",
+        "card_title": "Sample 1,400 Cal Day"
+      }
+    },
+    "science": {
+      "type": "100cal-science",
+      "blocks": {
+        "science_1": {
+          "type": "node",
+          "settings": {
+            "label": "Stress",
+            "sub": "Cortisol spikes"
+          }
+        },
+        "science_2": {
+          "type": "node",
+          "settings": {
+            "label": "Gut Damage",
+            "sub": "Microbiome disrupted"
+          }
+        },
+        "science_3": {
+          "type": "node",
+          "settings": {
+            "label": "Mood Drops",
+            "sub": "Serotonin depleted"
+          }
+        },
+        "science_4": {
+          "type": "node",
+          "settings": {
+            "label": "Cravings",
+            "sub": "Hunger signals surge"
+          }
+        }
+      },
+      "block_order": [
+        "science_1",
+        "science_2",
+        "science_3",
+        "science_4"
+      ],
+      "settings": {
+        "anchor_id": "science",
+        "eyebrow": "The Science Most Brands Won't Explain",
+        "heading": "The Gut-Brain<br>Connection",
+        "center_label": "Cycle",
+        "right_eyebrow": "Why This Cycle Matters",
+        "right_heading": "Your Gut Makes<br>90% of Your<br>Serotonin.",
+        "copy": "Most people blame themselves when they can't stop stress eating. They shouldn't. When your gut is damaged, your brain chemistry follows, and willpower can't fix biology.",
+        "solution_label": "Our Formula Breaks the Cycle",
+        "solution_tags": "Protein -> neurotransmitter support, Prebiotic fiber -> microbiome health, Adaptogens -> cortisol regulation, 100 Clean Calories -> built-in portion control"
+      }
+    },
+    "transparency": {
+      "type": "100cal-transparency",
+      "blocks": {
+        "in_1": {
+          "type": "in",
+          "settings": {
+            "mark": "+",
+            "name": "Ashwagandha KSM-66",
+            "why": "Clinically studied adaptogen that supports stress response, focus, and cravings."
+          }
+        },
+        "in_2": {
+          "type": "in",
+          "settings": {
+            "mark": "+",
+            "name": "Chicory Root Fiber",
+            "why": "Prebiotic fiber that feeds good gut bacteria and supports steady blood sugar."
+          }
+        },
+        "in_3": {
+          "type": "in",
+          "settings": {
+            "mark": "+",
+            "name": "Amla Berry Extract",
+            "why": "Ayurvedic superfruit rich in antioxidant support."
+          }
+        },
+        "out_1": {
+          "type": "out",
+          "settings": {
+            "name": "Sugar Alcohols",
+            "why": "Maltitol, erythritol, and xylitol can cause digestive discomfort. Gone."
+          }
+        },
+        "out_2": {
+          "type": "out",
+          "settings": {
+            "name": "Artificial Sweeteners",
+            "why": "No sucralose or aspartame."
+          }
+        },
+        "out_3": {
+          "type": "out",
+          "settings": {
+            "name": "Added Sugars",
+            "why": "Zero added sugars."
+          }
+        }
+      },
+      "block_order": [
+        "in_1",
+        "in_2",
+        "in_3",
+        "out_1",
+        "out_2",
+        "out_3"
+      ],
+      "settings": {
+        "eyebrow": "Because You Deserve to Know Exactly What You're Eating",
+        "heading": "What's In It.<br>What's Not.",
+        "in_title": "What's In It",
+        "out_title": "What's NOT In It"
+      }
+    },
+    "comparison": {
+      "type": "100cal-comparison",
+      "blocks": {
+        "compare_1": {
+          "type": "row",
+          "settings": {
+            "winner": true,
+            "snack": "100Cal Snack Bar",
+            "calories": "100",
+            "protein": "10g",
+            "fiber": "5g",
+            "added_sugar": "0g",
+            "net_carbs": "3g",
+            "sugar_alcohols": "0g",
+            "bad_added_sugar": false,
+            "bad_sugar_alcohols": false
+          }
+        },
+        "compare_2": {
+          "type": "row",
+          "settings": {
+            "winner": false,
+            "snack": "The Clean Keto Bar",
+            "calories": "200",
+            "protein": "20g",
+            "fiber": "14g",
+            "added_sugar": "1g",
+            "net_carbs": "6g",
+            "sugar_alcohols": "8g",
+            "bad_added_sugar": false,
+            "bad_sugar_alcohols": true
+          }
+        },
+        "compare_3": {
+          "type": "row",
+          "settings": {
+            "winner": false,
+            "snack": "The Natural Nuts &amp; Honey Bar",
+            "calories": "200",
+            "protein": "6g",
+            "fiber": "7g",
+            "added_sugar": "5g",
+            "net_carbs": "13g",
+            "sugar_alcohols": "0g",
+            "bad_added_sugar": true,
+            "bad_sugar_alcohols": false
+          }
+        }
+      },
+      "block_order": [
+        "compare_1",
+        "compare_2",
+        "compare_3"
+      ],
+      "settings": {
+        "eyebrow": "We Checked the Labels So You Don't Have To",
+        "heading": "The Honest<br>Comparison",
+        "copy": "Most snacks that call themselves healthy are hiding something. It's usually in the sugar alcohol column.",
+        "callout_title": "The Weight Loss Math",
+        "callout": "Swap your daily 250-calorie snack for a 100Cal Snack and save 150 calories per day."
+      }
+    },
+    "stores": {
+      "type": "100cal-stores",
+      "settings": {
+        "anchor_id": "stores",
+        "eyebrow": "Now Available In Stores",
+        "heading": "Find Us Near You",
+        "copy": "Find a store near you and pick up your favorite 100Cal Snacks.",
+        "primary_label": "Find a Store ->",
+        "primary_link": "",
+        "secondary_label": "Shop Online",
+        "secondary_link": "shopify://collections/all"
+      }
+    },
+    "faq": {
+      "type": "100cal-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "question",
+          "settings": {
+            "question": "What makes 100CalSnacks different from other protein bars?",
+            "answer": "Most protein bars stop at macros. 100CalSnacks is built around the gut-brain axis with protein, fiber, adaptogens, and clean 100-calorie portion control."
+          }
+        },
+        "faq_2": {
+          "type": "question",
+          "settings": {
+            "question": "Are 100CalSnacks good for weight loss?",
+            "answer": "They can support a calorie-conscious plan by making portion control simple: 100 calories, meaningful protein, fiber, and no added sugar."
+          }
+        },
+        "faq_3": {
+          "type": "question",
+          "settings": {
+            "question": "Can I eat these on GLP-1 medications?",
+            "answer": "They are designed for easy, nutrient-dense snacking, but always consult your healthcare provider for dietary advice specific to your medication and health needs."
+          }
+        },
+        "faq_4": {
+          "type": "question",
+          "settings": {
+            "question": "Are 100CalSnacks vegan and gluten-free?",
+            "answer": "The current homepage copy positions the products as plant-based, gluten-free, non-GMO, and free from sugar alcohols. Confirm certifications before publishing final claims."
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4"
+      ],
+      "settings": {
+        "anchor_id": "faq",
+        "eyebrow": "Got Questions?",
+        "heading": "Frequently Asked"
+      }
+    },
+    "newsletter": {
+      "type": "100cal-newsletter",
+      "settings": {
+        "heading": "Join The Gutsy-Brainy Club",
+        "copy": "Get early access to new launches and 10% off your first order. Trusted by 5,000+ snackers fixing their gut-brain connection.",
+        "placeholder": "Enter your email",
+        "button_label": "Sign Up",
+        "success_message": "Thanks for joining."
+      }
+    },
+    "footer": {
+      "type": "100cal-footer",
+      "blocks": {
+        "footer_1": {
+          "type": "menu",
+          "settings": {
+            "heading": "Shop",
+            "menu": "",
+            "fallback_links": "Chocolate Brownie Bar\nPeanut Butter Bar\nBBQ Protein Puffs\nSubscribe & Save\nBundles"
+          }
+        },
+        "footer_2": {
+          "type": "menu",
+          "settings": {
+            "heading": "Learn",
+            "menu": "",
+            "fallback_links": "Gut Brain Health 101\nOur Science\nIngredient Index\nGLP-1 Guide\nBlog"
+          }
+        },
+        "footer_3": {
+          "type": "menu",
+          "settings": {
+            "heading": "Community",
+            "menu": "",
+            "fallback_links": "#100CalPal\nInstagram\nTikTok\nAffiliate Program\nReviews"
+          }
+        },
+        "footer_4": {
+          "type": "menu",
+          "settings": {
+            "heading": "Support",
+            "menu": "",
+            "fallback_links": "Our Story\nFAQ\nShipping & Returns\nFind In Store\nContact"
+          }
+        }
+      },
+      "block_order": [
+        "footer_1",
+        "footer_2",
+        "footer_3",
+        "footer_4"
+      ],
+      "disabled": true,
+      "settings": {
+        "bio": "Built from the struggle. Engineered for the journey. 100 clean calories that support your gut, calm your brain, and prove that doing better doesn't mean settling.",
+        "story_label": "This is our founder's story ->",
+        "story_link": "",
+        "copyright": "Copyright 2026 100CalSnacks.com - All Rights Reserved",
+        "badge": "Woman-Owned Business",
+        "legal": "Privacy - Terms - Accessibility"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "trust",
+    "value",
+    "products",
+    "clean",
+    "testimonials",
+    "guts",
+    "founder",
+    "video",
+    "benefits",
+    "gut_audience",
+    "weight_audience",
+    "science",
+    "transparency",
+    "comparison",
+    "stores",
+    "faq",
+    "newsletter",
+    "footer"
+  ]
+}

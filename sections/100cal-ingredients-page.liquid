@@ -1,0 +1,960 @@
+
+<div class="hundred-cal hc-ingredients-page" data-100cal-ingredients-page {{ section.shopify_attributes }}>
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow hero-overline">{{ section.settings.hero_eyebrow | escape }}</div>
+        <h1 class="hero-h1">{{ section.settings.hero_heading }}</h1>
+        <p class="hero-sub">{{ section.settings.hero_subheading | escape | newline_to_br }}</p>
+        <div class="hero-micro">{{ section.settings.hero_micro | escape }}</div>
+        <div class="hero-ctas">
+          {% if section.settings.primary_link != blank %}
+            <a href="{{ section.settings.primary_link }}" class="pill-btn">{{ section.settings.primary_label | escape }}</a>
+          {% endif %}
+          {% if section.settings.secondary_link != blank %}
+            <a href="{{ section.settings.secondary_link }}" class="ghost-btn">{{ section.settings.secondary_label | escape }}</a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="hero-mosaic fade-up">
+        <div class="mosaic-label-top">{{ section.settings.mosaic_title | escape }}</div>
+        {% for block in section.blocks %}
+          {% if block.type == 'mosaic_item' %}
+            <a href="{{ block.settings.anchor | default: '#' }}" class="mosaic-cell" {{ block.shopify_attributes }}>
+              <div class="mosaic-icon">{{ block.settings.icon | escape }}</div>
+              <div class="mosaic-text">
+                <div class="mosaic-label">{{ block.settings.label | escape }}</div>
+                <div class="mosaic-sublabel">{{ block.settings.subtext | escape }}</div>
+              </div>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="framework-section">
+    <div class="framework-inner">
+      <div class="framework-header fade-up">
+        <div>
+          <div class="eyebrow" style="margin-bottom:14px">{{ section.settings.framework_eyebrow | escape }}</div>
+          <h2 class="framework-h">{{ section.settings.framework_heading }}</h2>
+        </div>
+        <p class="framework-sub">{{ section.settings.framework_subheading | escape | newline_to_br }}</p>
+      </div>
+      <div class="framework-grid fade-up fade-up-2">
+        {% for block in section.blocks %}
+          {% if block.type == 'framework_card' %}
+            <div class="framework-block" {{ block.shopify_attributes }}>
+              <div class="framework-icon">{{ block.settings.icon | escape }}</div>
+              <div class="framework-name">{{ block.settings.title | escape }}</div>
+              <div class="framework-desc">{{ block.settings.description | escape }}</div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="dosing-section">
+    <div class="dosing-inner">
+      <div class="dosing-left fade-up">
+        <div class="eyebrow" style="margin-bottom:14px">{{ section.settings.dosing_eyebrow | escape }}</div>
+        <h2 class="dosing-h">{{ section.settings.dosing_heading }}</h2>
+      </div>
+      <div class="dosing-right fade-up fade-up-2">
+        <p class="dosing-body">{{ section.settings.dosing_body | escape | newline_to_br }}</p>
+        <div class="dosing-stats">
+          {% for block in section.blocks %}
+            {% if block.type == 'stat_card' %}
+              <div class="dosing-stat" {{ block.shopify_attributes }}>
+                <div class="dosing-stat-num">{{ block.settings.value | escape }}</div>
+                <div class="dosing-stat-label">{{ block.settings.label | escape }}</div>
+                <div class="dosing-stat-sub">{{ block.settings.subtext | escape }}</div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="dosing-callout">{{ section.settings.dosing_callout | escape | newline_to_br }}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="library-section" id="library">
+    <div class="library-inner">
+      <div class="library-header fade-up">
+        <div class="eyebrow" style="margin-bottom:14px">{{ section.settings.library_eyebrow | escape }}</div>
+        <h2 class="library-h">{{ section.settings.library_heading }}</h2>
+        <p class="library-sub">{{ section.settings.library_subheading | escape | newline_to_br }}</p>
+      </div>
+
+      <div class="filter-tabs fade-up fade-up-2">
+        <button type="button" class="filter-tab active" data-filter-tab="all">{{ section.settings.filter_all | escape }}</button>
+        <button type="button" class="filter-tab" data-filter-tab="fiber">{{ section.settings.filter_fiber | escape }}</button>
+        <button type="button" class="filter-tab" data-filter-tab="protein">{{ section.settings.filter_protein | escape }}</button>
+        <button type="button" class="filter-tab" data-filter-tab="fats">{{ section.settings.filter_fats | escape }}</button>
+        <button type="button" class="filter-tab" data-filter-tab="adaptogens">{{ section.settings.filter_adaptogens | escape }}</button>
+        <button type="button" class="filter-tab" data-filter-tab="antioxidants">{{ section.settings.filter_antioxidants | escape }}</button>
+        <button type="button" class="filter-tab" data-filter-tab="sweeteners">{{ section.settings.filter_sweeteners | escape }}</button>
+        <button type="button" class="filter-tab" data-filter-tab="other">{{ section.settings.filter_other | escape }}</button>
+      </div>
+
+      {% assign groups = 'fiber|protein|fats|adaptogens|antioxidants|sweeteners|other' | split: '|' %}
+      {% for group in groups %}
+        <div class="ingr-group fade-up" data-group="{{ group }}" {% if group == 'fiber' %}id="chicory"{% elsif group == 'protein' %}id="protein"{% elsif group == 'fats' %}id="almond-butter"{% elsif group == 'adaptogens' %}id="ashwagandha"{% elsif group == 'antioxidants' %}id="cocoa"{% elsif group == 'sweeteners' %}id="monk-fruit"{% endif %}>
+          {% case group %}
+            {% when 'fiber' %}
+              <div class="group-header" style="border-left-color:var(--teal)">
+                <div class="group-icon">{{ section.settings.group_fiber_icon | escape }}</div>
+                <div class="group-name">{{ section.settings.group_fiber_name | escape }}</div>
+                <div class="group-count">{{ section.settings.group_fiber_count | escape }}</div>
+              </div>
+            {% when 'protein' %}
+              <div class="group-header" style="border-left-color:var(--orange)">
+                <div class="group-icon">{{ section.settings.group_protein_icon | escape }}</div>
+                <div class="group-name">{{ section.settings.group_protein_name | escape }}</div>
+                <div class="group-count">{{ section.settings.group_protein_count | escape }}</div>
+              </div>
+            {% when 'fats' %}
+              <div class="group-header" style="border-left-color:var(--yellow)">
+                <div class="group-icon">{{ section.settings.group_fats_icon | escape }}</div>
+                <div class="group-name">{{ section.settings.group_fats_name | escape }}</div>
+                <div class="group-count">{{ section.settings.group_fats_count | escape }}</div>
+              </div>
+            {% when 'adaptogens' %}
+              <div class="group-header" style="border-left-color:var(--teal-pastel)">
+                <div class="group-icon">{{ section.settings.group_adaptogens_icon | escape }}</div>
+                <div class="group-name">{{ section.settings.group_adaptogens_name | escape }}</div>
+                <div class="group-count">{{ section.settings.group_adaptogens_count | escape }}</div>
+              </div>
+            {% when 'antioxidants' %}
+              <div class="group-header" style="border-left-color:var(--grey-dark)">
+                <div class="group-icon">{{ section.settings.group_antioxidants_icon | escape }}</div>
+                <div class="group-name">{{ section.settings.group_antioxidants_name | escape }}</div>
+                <div class="group-count">{{ section.settings.group_antioxidants_count | escape }}</div>
+              </div>
+            {% when 'sweeteners' %}
+              <div class="group-header" style="border-left-color:var(--grey-warm)">
+                <div class="group-icon">{{ section.settings.group_sweeteners_icon | escape }}</div>
+                <div class="group-name">{{ section.settings.group_sweeteners_name | escape }}</div>
+                <div class="group-count">{{ section.settings.group_sweeteners_count | escape }}</div>
+              </div>
+            {% else %}
+              <div class="group-header">
+                <div class="group-icon">{{ section.settings.group_other_icon | escape }}</div>
+                <div class="group-name">{{ section.settings.group_other_name | escape }}</div>
+                <div class="group-count">{{ section.settings.group_other_count | escape }}</div>
+              </div>
+          {% endcase %}
+
+          <div class="ingr-cards">
+            {% for block in section.blocks %}
+              {% if block.type == 'ingredient_card' and block.settings.group == group %}
+                <div class="ingr-card" {{ block.shopify_attributes }}>
+                  <button type="button" class="ingr-card-toggle">+</button>
+                  <div class="ingr-card-header">
+                    <div class="ingr-card-icon">{{ block.settings.icon | escape }}</div>
+                    <div class="ingr-card-top">
+                      <div class="ingr-card-name">{{ block.settings.name | escape }}</div>
+                      <div class="ingr-card-tagline">{{ block.settings.tagline | escape }}</div>
+                    </div>
+                  </div>
+                  <div class="ingr-card-body">
+                    <div class="ingr-card-detail">
+                      <div class="ingr-detail-row">
+                        <div class="ingr-detail-label">What it is</div>
+                        <div class="ingr-detail-text">{{ block.settings.what_it_is | escape }}</div>
+                      </div>
+                      <div class="ingr-detail-row">
+                        <div class="ingr-detail-label">Why it matters</div>
+                        <div class="ingr-detail-text">{{ block.settings.why_it_matters | escape }}</div>
+                      </div>
+                      <div class="ingr-detail-row">
+                        <div class="ingr-detail-label">Gut-Brain Benefit</div>
+                        <div class="ingr-detail-text gut-brain">{{ block.settings.gut_brain_benefit | escape }}</div>
+                      </div>
+                      <div class="ingr-detail-row">
+                        <div class="ingr-detail-label">Appears In</div>
+                        <div class="ingr-products">
+                          {% if block.settings.product_1 != blank %}<span class="ingr-product-tag choc">{{ block.settings.product_1 | escape }}</span>{% endif %}
+                          {% if block.settings.product_2 != blank %}<span class="ingr-product-tag pb">{{ block.settings.product_2 | escape }}</span>{% endif %}
+                          {% if block.settings.product_3 != blank %}<span class="ingr-product-tag bbq">{{ block.settings.product_3 | escape }}</span>{% endif %}
+                        </div>
+                      </div>
+                      {% if block.settings.read_more_label != blank and block.settings.read_more_link != blank %}
+                        <div class="ingr-detail-row">
+                          <div class="ingr-read-more-label">{{ block.settings.read_more_label | escape }}</div>
+                          <a href="{{ block.settings.read_more_link }}" class="ingr-read-more" target="{% if block.settings.open_new_tab %}_blank{% else %}_self{% endif %}">{{ block.settings.read_more_text | escape }}</a>
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="sweet-section">
+    <div class="sweet-inner">
+      <div class="fade-up">
+        <div class="eyebrow" style="margin-bottom:14px">{{ section.settings.sweet_eyebrow | escape }}</div>
+        <h2 class="sweet-h">{{ section.settings.sweet_heading }}</h2>
+        <p class="sweet-body">{{ section.settings.sweet_body_1 | escape | newline_to_br }}</p>
+        <p class="sweet-body">{{ section.settings.sweet_body_2 | escape | newline_to_br }}</p>
+      </div>
+      <div class="fade-up fade-up-2">
+        <div class="sweet-vs">
+          <div class="sweet-col no">
+            <div class="sweet-col-label">{{ section.settings.sweet_avoid_title | escape }}</div>
+            {% for block in section.blocks %}
+              {% if block.type == 'sweetener_avoid_item' %}
+                <div class="sweet-item"><span class="si-mark">✗</span>{{ block.settings.label | escape }}</div>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <div class="sweet-col yes">
+            <div class="sweet-col-label">{{ section.settings.sweet_use_title | escape }}</div>
+            {% for block in section.blocks %}
+              {% if block.type == 'sweetener_use_item' %}
+                <div class="sweet-item"><span class="si-mark">✓</span>{{ block.settings.label | escape }}</div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="action-section">
+    <div class="action-inner">
+      <div class="action-header fade-up">
+        <div class="eyebrow" style="margin-bottom:14px">{{ section.settings.action_eyebrow | escape }}</div>
+        <h2 class="action-h">{{ section.settings.action_heading }}</h2>
+        <p class="action-sub">{{ section.settings.action_subheading | escape }}</p>
+      </div>
+      <div class="action-grid fade-up fade-up-2">
+        {% for block in section.blocks %}
+          {% if block.type == 'action_card' %}
+            <a href="{{ block.settings.link }}" class="action-card {{ block.settings.handle }}" {{ block.shopify_attributes }}>
+              <div class="action-card-top">
+                <div class="action-emoji">{{ block.settings.icon | escape }}</div>
+                <div>
+                  <div class="action-pattern">{{ block.settings.pattern | escape }}</div>
+                  <div class="action-name">{{ block.settings.name | escape }}</div>
+                </div>
+              </div>
+              <div class="action-ingredients">{{ block.settings.ingredients | escape | newline_to_br }}</div>
+              <div class="action-cta">{{ block.settings.cta | escape }} <span>→</span></div>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="quiz-strip">
+    <div class="quiz-strip-inner">
+      <div class="quiz-strip-eyebrow">{{ section.settings.quiz_eyebrow | escape }}</div>
+      <h2 class="quiz-strip-h">{{ section.settings.quiz_heading }}</h2>
+      <p class="quiz-strip-sub">{{ section.settings.quiz_subheading | escape | newline_to_br }}</p>
+      {% if section.settings.quiz_link != blank %}
+        <a href="{{ section.settings.quiz_link }}" class="quiz-strip-btn">{{ section.settings.quiz_label | escape }}</a>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="blog-section">
+    <div class="blog-inner">
+      <div class="fade-up">
+        <div class="eyebrow" style="margin-bottom:14px">{{ section.settings.blog_eyebrow | escape }}</div>
+        <h2 class="blog-h">{{ section.settings.blog_heading }}</h2>
+      </div>
+      <div class="blog-links fade-up fade-up-2">
+        {% for block in section.blocks %}
+          {% if block.type == 'blog_link' %}
+            <a href="{{ block.settings.link }}" class="blog-link" target="{% if block.settings.open_new_tab %}_blank{% else %}_self{% endif %}" {{ block.shopify_attributes }}>
+              <span class="blog-link-text">{{ block.settings.label | escape }}</span>
+              <span class="blog-link-arrow">→</span>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</div>
+
+{% stylesheet %}
+  .hc-ingredients-page {
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  .hc-ingredients-page a {
+    color: inherit;
+  }
+
+  .hc-ingredients-page .hero,
+  .hc-ingredients-page .framework-section,
+  .hc-ingredients-page .dosing-section,
+  .hc-ingredients-page .library-section,
+  .hc-ingredients-page .sweet-section,
+  .hc-ingredients-page .action-section,
+  .hc-ingredients-page .blog-section,
+  .hc-ingredients-page .quiz-strip {
+    border-top: none;
+  }
+
+  .hc-ingredients-page .hero,
+  .hc-ingredients-page .framework-section,
+  .hc-ingredients-page .dosing-section,
+  .hc-ingredients-page .library-section,
+  .hc-ingredients-page .sweet-section,
+  .hc-ingredients-page .action-section,
+  .hc-ingredients-page .blog-section,
+  .hc-ingredients-page .quiz-strip {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+
+  .hc-ingredients-page .hero,
+  .hc-ingredients-page .framework-section,
+  .hc-ingredients-page .dosing-section,
+  .hc-ingredients-page .library-section,
+  .hc-ingredients-page .sweet-section,
+  .hc-ingredients-page .action-section,
+  .hc-ingredients-page .blog-section,
+  .hc-ingredients-page .quiz-strip,
+  .hc-ingredients-page footer {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .hc-ingredients-page .hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 80px 80px 80px 56px;
+  }
+
+  .hc-ingredients-page .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 70% at 70% 50%, rgba(102, 204, 204, .04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hc-ingredients-page .hero-inner {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hc-ingredients-page .hero-overline {
+    margin-bottom: 20px;
+  }
+
+  .hc-ingredients-page .hero-h1 {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 80px;
+    line-height: .88;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 28px;
+  }
+
+  .hc-ingredients-page .hero-h1 em {
+    font-style: italic;
+    color: var(--teal);
+    display: block;
+  }
+
+  .hc-ingredients-page .hero-sub {
+    font-family: var(--font-body);
+    font-size: 17px;
+    color: rgba(255,255,255,.55);
+    line-height: 1.75;
+    margin-bottom: 32px;
+    max-width: 460px;
+  }
+
+  .hc-ingredients-page .hero-micro {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.25);
+    margin-bottom: 36px;
+  }
+
+  .hc-ingredients-page .hero-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .hc-ingredients-page .hero-mosaic {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .hc-ingredients-page .mosaic-label-top {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.25);
+    margin-bottom: 10px;
+  }
+
+  .hc-ingredients-page .mosaic-cell {
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.06);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    transition: all .3s;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+  }
+
+  .hc-ingredients-page .mosaic-cell:nth-child(2) { border-left-color: var(--teal); }
+  .hc-ingredients-page .mosaic-cell:nth-child(3) { border-left-color: var(--orange); }
+  .hc-ingredients-page .mosaic-cell:nth-child(4) { border-left-color: var(--yellow); }
+  .hc-ingredients-page .mosaic-cell:nth-child(5) { border-left-color: var(--teal-pastel); }
+  .hc-ingredients-page .mosaic-cell:nth-child(6) { border-left-color: var(--grey-dark); }
+  .hc-ingredients-page .mosaic-cell:nth-child(7) { border-left-color: var(--grey-warm); }
+
+  .hc-ingredients-page .mosaic-cell:hover {
+    background: rgba(255,255,255,.05);
+    border-color: rgba(255,255,255,.12);
+  }
+
+  .hc-ingredients-page .mosaic-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    width: 32px;
+    text-align: center;
+  }
+
+  .hc-ingredients-page .mosaic-label {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 15px;
+    text-transform: uppercase;
+    color: var(--white);
+    letter-spacing: .5px;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+
+  .hc-ingredients-page .mosaic-sublabel {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: rgba(255,255,255,.35);
+    line-height: 1.3;
+  }
+
+  .hc-ingredients-page .framework-section { background: #EAE9E5; }
+  .hc-ingredients-page .framework-inner { max-width: 1200px; margin: 0 auto; }
+  .hc-ingredients-page .framework-header { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; margin-bottom: 48px; }
+  .hc-ingredients-page .framework-h { font-family: var(--font-head); font-weight: 900; font-size: 52px; line-height: .9; text-transform: uppercase; color: var(--black); }
+  .hc-ingredients-page .framework-sub { font-family: var(--font-body); font-size: 15px; color: rgba(15,18,19,.6); line-height: 1.7; }
+  .hc-ingredients-page .framework-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .hc-ingredients-page .framework-block { background: #FFFFFF; padding: 32px 24px; border-top: 3px solid transparent; box-shadow: 0 1px 3px rgba(15,18,19,.06); }
+  .hc-ingredients-page .framework-block:nth-child(1) { border-top-color: var(--teal); }
+  .hc-ingredients-page .framework-block:nth-child(2) { border-top-color: var(--orange); }
+  .hc-ingredients-page .framework-block:nth-child(3) { border-top-color: var(--yellow); }
+  .hc-ingredients-page .framework-block:nth-child(4) { border-top-color: var(--grey-dark); }
+  .hc-ingredients-page .framework-icon { font-size: 32px; margin-bottom: 14px; }
+  .hc-ingredients-page .framework-name { font-family: var(--font-head); font-weight: 900; font-size: 20px; text-transform: uppercase; color: var(--black); letter-spacing: .5px; margin-bottom: 8px; }
+  .hc-ingredients-page .framework-desc { font-family: var(--font-body); font-size: 14px; color: rgba(15,18,19,.55); line-height: 1.6; }
+
+  .hc-ingredients-page .dosing-section { background: #C2EBEB; }
+  .hc-ingredients-page .dosing-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start; }
+  .hc-ingredients-page .dosing-h { font-family: var(--font-head); font-weight: 900; font-size: 64px; line-height: .88; text-transform: uppercase; color: var(--black); }
+  .hc-ingredients-page .dosing-h em { font-style: italic; color: #3A9999; display: block; }
+  .hc-ingredients-page .dosing-body { font-family: var(--font-body); font-size: 16px; color: rgba(15,18,19,.65); line-height: 1.75; margin-bottom: 20px; }
+  .hc-ingredients-page .dosing-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin: 32px 0; }
+  .hc-ingredients-page .dosing-stat { background: #0F1213; padding: 24px 20px; }
+  .hc-ingredients-page .dosing-stat-num { font-family: var(--font-head); font-weight: 900; font-size: 44px; color: var(--teal); line-height: 1; margin-bottom: 6px; }
+  .hc-ingredients-page .dosing-stat-label { font-family: var(--font-head); font-weight: 700; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--white); margin-bottom: 8px; }
+  .hc-ingredients-page .dosing-stat-sub { font-family: var(--font-body); font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.5; }
+  .hc-ingredients-page .dosing-callout { border-left: 3px solid #3A9999; padding: 18px 22px; background: rgba(15,18,19,.05); font-family: var(--font-body); font-size: 15px; color: rgba(15,18,19,.65); line-height: 1.7; font-style: italic; }
+
+  .hc-ingredients-page .library-section { background: #111617; border-top: 1px solid rgba(255,255,255,.06); }
+  .hc-ingredients-page .library-inner { max-width: 1200px; margin: 0 auto; }
+  .hc-ingredients-page .library-header { margin-bottom: 56px; }
+  .hc-ingredients-page .library-h { font-family: var(--font-head); font-weight: 900; font-size: 64px; line-height: .88; text-transform: uppercase; color: var(--white); margin-bottom: 16px; }
+  .hc-ingredients-page .library-sub { font-family: var(--font-body); font-size: 16px; color: rgba(255,255,255,.5); max-width: 600px; line-height: 1.7; }
+  .hc-ingredients-page .filter-tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 48px; }
+  .hc-ingredients-page .filter-tab { font-family: var(--font-head); font-weight: 700; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 9px 18px; background: transparent; border: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.35); cursor: pointer; transition: all .2s; }
+  .hc-ingredients-page .filter-tab:hover { border-color: rgba(255,255,255,.3); color: rgba(255,255,255,.7); }
+  .hc-ingredients-page .filter-tab.active { background: var(--teal); border-color: var(--teal); color: var(--black); }
+  .hc-ingredients-page .ingr-group { margin-bottom: 80px; }
+  .hc-ingredients-page .ingr-group:last-child { margin-bottom: 0; }
+  .hc-ingredients-page .group-header { display: flex; align-items: center; gap: 20px; padding: 24px 32px; background: #EAE9E5; border-left: 6px solid var(--teal); margin-bottom: 2px; }
+  .hc-ingredients-page .group-icon { font-size: 28px; line-height: 1; flex-shrink: 0; }
+  .hc-ingredients-page .group-name { font-family: var(--font-head); font-weight: 900; font-size: 36px; text-transform: uppercase; color: var(--black); letter-spacing: .5px; line-height: 1; }
+  .hc-ingredients-page .group-count { font-family: var(--font-head); font-weight: 700; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(15,18,19,.4); margin-left: auto; padding: 5px 14px; border: 1px solid rgba(15,18,19,.15); white-space: nowrap; }
+  .hc-ingredients-page .ingr-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(255,255,255,.06); }
+  .hc-ingredients-page .ingr-card { background: #111617; padding: 0; transition: all .25s; cursor: pointer; position: relative; }
+  .hc-ingredients-page .ingr-card:hover { background: #111; }
+  .hc-ingredients-page .ingr-card.expanded { background: #0E1414; }
+  .hc-ingredients-page .ingr-card-header { padding: 24px 24px 20px; display: flex; align-items: flex-start; gap: 14px; border-left: 3px solid transparent; transition: border-color .2s; }
+  .hc-ingredients-page .ingr-card:hover .ingr-card-header,
+  .hc-ingredients-page .ingr-card.expanded .ingr-card-header { border-left-color: var(--teal); }
+  .hc-ingredients-page .ingr-card-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+  .hc-ingredients-page .ingr-card-name { font-family: var(--font-head); font-weight: 900; font-size: 18px; text-transform: uppercase; color: var(--white); letter-spacing: .5px; line-height: 1; margin-bottom: 4px; }
+  .hc-ingredients-page .ingr-card-tagline { font-family: var(--font-body); font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.4; }
+  .hc-ingredients-page .ingr-card-toggle { position: absolute; top: 24px; right: 20px; width: 24px; height: 24px; border: 1px solid rgba(255,255,255,.12); display: flex; align-items: center; justify-content: center; font-size: 14px; color: rgba(255,255,255,.3); transition: all .2s; background: none; cursor: pointer; flex-shrink: 0; }
+  .hc-ingredients-page .ingr-card.expanded .ingr-card-toggle { background: var(--teal); border-color: var(--teal); color: var(--black); transform: rotate(45deg); }
+  .hc-ingredients-page .ingr-card-body { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+  .hc-ingredients-page .ingr-card.expanded .ingr-card-body { max-height: 500px; }
+  .hc-ingredients-page .ingr-card-detail { padding: 0 24px 24px 61px; display: flex; flex-direction: column; gap: 12px; }
+  .hc-ingredients-page .ingr-detail-row { display: flex; flex-direction: column; gap: 4px; }
+  .hc-ingredients-page .ingr-detail-label { font-family: var(--font-head); font-weight: 700; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,.25); }
+  .hc-ingredients-page .ingr-detail-text { font-family: var(--font-body); font-size: 14px; color: rgba(255,255,255,.65); line-height: 1.6; }
+  .hc-ingredients-page .ingr-detail-text.gut-brain { color: var(--teal); }
+  .hc-ingredients-page .ingr-products { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .hc-ingredients-page .ingr-product-tag { font-family: var(--font-head); font-weight: 700; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.4); }
+  .hc-ingredients-page .ingr-product-tag.choc { border-color: rgba(102,204,204,.35); color: var(--teal); }
+  .hc-ingredients-page .ingr-product-tag.pb { border-color: rgba(233,173,60,.35); color: var(--yellow); }
+  .hc-ingredients-page .ingr-product-tag.bbq { border-color: rgba(230,100,67,.35); color: var(--orange); }
+  .hc-ingredients-page .ingr-read-more-label { font-family: var(--font-head); font-weight: 700; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.3); margin-top: 16px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .hc-ingredients-page .ingr-read-more-label::before,
+  .hc-ingredients-page .ingr-read-more-label::after { content: ""; flex: 1; height: 1px; background: rgba(255,255,255,.06); }
+  .hc-ingredients-page .ingr-read-more { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-head); font-weight: 700; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal); text-decoration: none; border-bottom: 1px solid rgba(102,204,204,.3); padding-bottom: 2px; transition: all .2s; }
+
+  .hc-ingredients-page .sweet-section { background: #EAE9E5; }
+  .hc-ingredients-page .sweet-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .hc-ingredients-page .sweet-h { font-family: var(--font-head); font-weight: 900; font-size: 52px; line-height: .9; text-transform: uppercase; color: var(--black); margin-bottom: 20px; }
+  .hc-ingredients-page .sweet-body { font-family: var(--font-body); font-size: 15px; color: rgba(15,18,19,.6); line-height: 1.75; margin-bottom: 24px; }
+  .hc-ingredients-page .sweet-vs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .hc-ingredients-page .sweet-col { background: #FFFFFF; padding: 28px 24px; box-shadow: 0 1px 3px rgba(15,18,19,.06); }
+  .hc-ingredients-page .sweet-col-label { font-family: var(--font-head); font-weight: 900; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid transparent; }
+  .hc-ingredients-page .sweet-col.no .sweet-col-label { color: rgba(15,18,19,.4); border-color: rgba(15,18,19,.12); }
+  .hc-ingredients-page .sweet-col.yes .sweet-col-label { color: var(--teal); border-color: var(--teal); }
+  .hc-ingredients-page .sweet-item { font-family: var(--font-body); font-size: 14px; color: rgba(15,18,19,.55); padding: 7px 0; border-bottom: 1px solid rgba(15,18,19,.06); display: flex; align-items: center; gap: 8px; }
+  .hc-ingredients-page .sweet-item:last-child { border-bottom: none; }
+  .hc-ingredients-page .sweet-item .si-mark { font-size: 12px; flex-shrink: 0; }
+  .hc-ingredients-page .sweet-col.no .si-mark { color: rgba(15,18,19,.25); }
+  .hc-ingredients-page .sweet-col.yes .si-mark { color: var(--teal); }
+
+  .hc-ingredients-page .action-section { background: #161B1B; }
+  .hc-ingredients-page .action-inner { max-width: 1200px; margin: 0 auto; }
+  .hc-ingredients-page .action-header { margin-bottom: 40px; }
+  .hc-ingredients-page .action-h { font-family: var(--font-head); font-weight: 900; font-size: 56px; line-height: .9; text-transform: uppercase; color: var(--white); margin-bottom: 12px; }
+  .hc-ingredients-page .action-sub { font-family: var(--font-body); font-size: 16px; color: rgba(255,255,255,.5); line-height: 1.65; max-width: 520px; }
+  .hc-ingredients-page .action-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+  .hc-ingredients-page .action-card { background: #FFFFFF; padding: 0; display: flex; flex-direction: column; text-decoration: none; border-top: 4px solid transparent; transition: all .3s; box-shadow: 0 1px 4px rgba(15,18,19,.08); }
+  .hc-ingredients-page .action-card.choc { border-top-color: var(--teal); }
+  .hc-ingredients-page .action-card.pb { border-top-color: var(--yellow); }
+  .hc-ingredients-page .action-card.bbq { border-top-color: var(--orange); }
+  .hc-ingredients-page .action-card:hover { background: #F8F6F3; }
+  .hc-ingredients-page .action-card-top { padding: 28px 28px 16px; display: flex; align-items: center; gap: 16px; }
+  .hc-ingredients-page .action-emoji { font-size: 36px; flex-shrink: 0; }
+  .hc-ingredients-page .action-pattern { font-family: var(--font-head); font-weight: 700; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 4px; }
+  .hc-ingredients-page .action-card.choc .action-pattern { color: var(--teal-dark); }
+  .hc-ingredients-page .action-card.pb .action-pattern { color: var(--yellow); }
+  .hc-ingredients-page .action-card.bbq .action-pattern { color: var(--orange); }
+  .hc-ingredients-page .action-name { font-family: var(--font-head); font-weight: 900; font-size: 22px; text-transform: uppercase; color: var(--black); letter-spacing: .5px; line-height: 1; }
+  .hc-ingredients-page .action-ingredients { font-family: var(--font-body); font-size: 13px; color: rgba(15,18,19,.45); line-height: 1.6; padding: 0 28px 24px; flex: 1; }
+  .hc-ingredients-page .action-cta { margin-top: auto; padding: 16px 28px; font-family: var(--font-head); font-weight: 900; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--black); background: var(--teal); display: flex; align-items: center; justify-content: space-between; transition: all .3s; }
+  .hc-ingredients-page .action-card:hover .action-cta { background: var(--teal-dark); color: var(--white); }
+
+  .hc-ingredients-page .quiz-strip { padding: 72px 80px; background: var(--teal); position: relative; overflow: hidden; text-align: center; }
+  .hc-ingredients-page .quiz-strip::before { content: 'QUIZ'; position: absolute; left: 50%; top: 30%; transform: translate(-50%, -50%); font-family: var(--font-head); font-weight: 900; font-size: 280px; color: rgba(0,0,0,.1); pointer-events: none; white-space: nowrap; }
+  .hc-ingredients-page .quiz-strip-inner { position: relative; z-index: 2; max-width: 640px; margin: 0 auto; }
+  .hc-ingredients-page .quiz-strip-eyebrow { font-family: var(--font-head); font-weight: 700; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: rgba(0,0,0,.45); margin-bottom: 14px; }
+  .hc-ingredients-page .quiz-strip-h { font-family: var(--font-head); font-weight: 900; font-size: 56px; line-height: .9; text-transform: uppercase; color: var(--black); margin-bottom: 16px; }
+  .hc-ingredients-page .quiz-strip-sub { font-family: var(--font-body); font-size: 16px; color: rgba(0,0,0,.55); line-height: 1.6; margin-bottom: 32px; }
+  .hc-ingredients-page .quiz-strip-btn { display: inline-block; font-family: var(--font-head); font-weight: 900; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; padding: 18px 44px; background: var(--black); color: var(--white); text-decoration: none; transition: all .25s; }
+  .hc-ingredients-page .quiz-strip-btn:hover { background: #1a1a1a; }
+
+  .hc-ingredients-page .blog-section { background: #EAE9E5; }
+  .hc-ingredients-page .blog-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start; }
+  .hc-ingredients-page .blog-h { font-family: var(--font-head); font-weight: 900; font-size: 44px; line-height: .9; text-transform: uppercase; color: var(--black); }
+  .hc-ingredients-page .blog-links { display: flex; flex-direction: column; gap: 4px; }
+  .hc-ingredients-page .blog-link { padding: 18px 24px; background: #FFFFFF; display: flex; align-items: center; justify-content: space-between; text-decoration: none; transition: all .2s; border-left: 3px solid transparent; box-shadow: 0 1px 2px rgba(15,18,19,.05); }
+  .hc-ingredients-page .blog-link:hover { background: #F0FAFA; border-left-color: var(--teal-dark); }
+  .hc-ingredients-page .blog-link-text { font-family: var(--font-head); font-weight: 700; font-size: 15px; text-transform: uppercase; color: rgba(15,18,19,.7); letter-spacing: .5px; }
+  .hc-ingredients-page .blog-link:hover .blog-link-text { color: var(--black); }
+  .hc-ingredients-page .blog-link-arrow { font-family: var(--font-head); font-weight: 700; font-size: 13px; color: rgba(15,18,19,.3); }
+  .hc-ingredients-page .blog-link:hover .blog-link-arrow { color: var(--teal-dark); }
+
+  .hc-ingredients-page .fade-up { opacity: 0; transform: translateY(24px); transition: opacity .65s ease, transform .65s ease; }
+  .hc-ingredients-page .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .hc-ingredients-page .fade-up-2 { transition-delay: .12s; }
+  .hc-ingredients-page .fade-up-3 { transition-delay: .24s; }
+  .hc-ingredients-page .fade-up-4 { transition-delay: .36s; }
+
+  @media (max-width: 1024px) {
+    .hc-ingredients-page .hero,
+    .hc-ingredients-page .framework-section,
+    .hc-ingredients-page .dosing-section,
+    .hc-ingredients-page .library-section,
+    .hc-ingredients-page .sweet-section,
+    .hc-ingredients-page .action-section,
+    .hc-ingredients-page .blog-section,
+    .hc-ingredients-page .quiz-strip {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+
+    .hc-ingredients-page .hero-inner,
+    .hc-ingredients-page .framework-header,
+    .hc-ingredients-page .dosing-inner,
+    .hc-ingredients-page .sweet-inner,
+    .hc-ingredients-page .blog-inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .hc-ingredients-page .framework-grid,
+    .hc-ingredients-page .ingr-cards,
+    .hc-ingredients-page .action-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hc-ingredients-page .dosing-stats {
+      grid-template-columns: 1fr;
+    }
+
+    .hc-ingredients-page .hero-h1 {
+      font-size: 60px;
+    }
+
+    .hc-ingredients-page .library-h,
+    .hc-ingredients-page .action-h,
+    .hc-ingredients-page .quiz-strip-h {
+      font-size: 48px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hc-ingredients-page .hero,
+    .hc-ingredients-page .framework-section,
+    .hc-ingredients-page .dosing-section,
+    .hc-ingredients-page .library-section,
+    .hc-ingredients-page .sweet-section,
+    .hc-ingredients-page .action-section,
+    .hc-ingredients-page .blog-section,
+    .hc-ingredients-page .quiz-strip {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .hc-ingredients-page .hero { padding-top: 60px; padding-bottom: 60px; }
+    .hc-ingredients-page .hero-h1 { font-size: 42px; }
+    .hc-ingredients-page .hero-sub { font-size: 15px; }
+    .hc-ingredients-page .framework-h,
+    .hc-ingredients-page .dosing-h,
+    .hc-ingredients-page .library-h,
+    .hc-ingredients-page .sweet-h,
+    .hc-ingredients-page .action-h,
+    .hc-ingredients-page .quiz-strip-h,
+    .hc-ingredients-page .blog-h { font-size: 34px; }
+    .hc-ingredients-page .group-name { font-size: 28px; }
+  }
+
+  .hc-ingredients-page .pill-btn:hover { background: var(--teal-dark); color: var(--white); }
+  .hc-ingredients-page .ghost-btn { color: var(--white); border-color: rgba(255,255,255,.2); }
+  .hc-ingredients-page .ghost-btn:hover { border-color: var(--white); }
+{% endstylesheet %}
+
+{% javascript %}
+  (() => {
+    const initialize = (root) => {
+      if (!root || root.dataset.ingredientsInitialized === 'true') return;
+      root.dataset.ingredientsInitialized = 'true';
+
+      const filterTabs = Array.from(root.querySelectorAll('[data-filter-tab]'));
+      const groups = Array.from(root.querySelectorAll('[data-group]'));
+
+      const setFilter = (group) => {
+        filterTabs.forEach((tab) => tab.classList.toggle('active', tab.dataset.filterTab === group));
+        groups.forEach((item) => {
+          item.style.display = group === 'all' || item.dataset.group === group ? '' : 'none';
+        });
+      };
+
+      root.addEventListener('click', (event) => {
+        const tab = event.target.closest('[data-filter-tab]');
+        if (tab && root.contains(tab)) {
+          setFilter(tab.dataset.filterTab);
+          return;
+        }
+
+        const cardToggle = event.target.closest('.ingr-card-toggle');
+        if (cardToggle && root.contains(cardToggle)) {
+          const card = cardToggle.closest('.ingr-card');
+          if (!card) return;
+          const cards = card.closest('.ingr-cards').querySelectorAll('.ingr-card');
+          const wasOpen = card.classList.contains('expanded');
+          cards.forEach((item) => item.classList.remove('expanded'));
+          if (!wasOpen) card.classList.add('expanded');
+          return;
+        }
+
+        const card = event.target.closest('.ingr-card');
+        if (card && root.contains(card) && !event.target.closest('.ingr-card-toggle')) {
+          const cards = card.closest('.ingr-cards').querySelectorAll('.ingr-card');
+          const wasOpen = card.classList.contains('expanded');
+          cards.forEach((item) => item.classList.remove('expanded'));
+          if (!wasOpen) card.classList.add('expanded');
+        }
+      });
+
+      const fadeEls = Array.from(root.querySelectorAll('.fade-up'));
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+      fadeEls.forEach((el) => observer.observe(el));
+      setFilter('all');
+    };
+
+    const boot = () => {
+      document.querySelectorAll('[data-100cal-ingredients-page]').forEach((root) => initialize(root));
+    };
+
+    document.addEventListener('DOMContentLoaded', boot);
+    document.addEventListener('shopify:section:load', boot);
+    boot();
+  })();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "100Cal Ingredients Page",
+  "settings": [
+    { "type": "text", "id": "hero_eyebrow", "label": "Hero eyebrow", "default": "Ingredient Index" },
+    { "type": "html", "id": "hero_heading", "label": "Hero heading", "default": "Every Ingredient<br>Has a Purpose.<br><em>Every Calorie<br>Earns Its Place.</em>" },
+    { "type": "textarea", "id": "hero_subheading", "label": "Hero subheading", "default": "Ingredients designed for the gut-brain axis - supporting gut health, stable energy, and real satiety. All within 100 calories." },
+    { "type": "text", "id": "hero_micro", "label": "Hero micro copy", "default": "✓ No sugar alcohols   ✓ No palm oil   ✓ No artificial anything" },
+    { "type": "text", "id": "primary_label", "label": "Primary CTA label", "default": "Explore Ingredients ↓" },
+    { "type": "text", "id": "primary_link", "label": "Primary CTA link", "default": "#library" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary CTA label", "default": "By Product →" },
+    { "type": "text", "id": "secondary_link", "label": "Secondary CTA link", "default": "#product-maps" },
+    { "type": "text", "id": "mosaic_title", "label": "Mosaic title", "default": "Ingredient Families - Click to Explore" },
+    { "type": "text", "id": "framework_eyebrow", "label": "Framework eyebrow", "default": "How Our Ingredients Work Together" },
+    { "type": "html", "id": "framework_heading", "label": "Framework heading", "default": "Four Building Blocks of<br>Gut-Brain Nutrition" },
+    { "type": "textarea", "id": "framework_subheading", "label": "Framework subheading", "default": "WHY IT WORKS: Every ingredient is selected for a specific role in supporting the gut-brain axis - working together to support energy, satiety, mood, and digestion." },
+    { "type": "text", "id": "dosing_eyebrow", "label": "Dosing eyebrow", "default": "The Formulation Standard" },
+    { "type": "html", "id": "dosing_heading", "label": "Dosing heading", "default": "Clinically Relevant<br>Levels in<br><em>100 Clean Calories.</em>" },
+    { "type": "textarea", "id": "dosing_body", "label": "Dosing body", "default": "Most functional snacks include trace amounts of 'functional' ingredients - enough for the label, not enough to make a difference. We formulate differently. Every active ingredient is included at levels aligned with clinical research - so your gut and brain can actually use them." },
+    { "type": "textarea", "id": "dosing_callout", "label": "Dosing callout", "default": "Every ingredient is chosen to earn its place. Functional nutrition without the caloric cost." },
+    { "type": "text", "id": "library_eyebrow", "label": "Library eyebrow", "default": "Full Ingredient Index" },
+    { "type": "text", "id": "library_heading", "label": "Library heading", "default": "The Ingredient Library" },
+    { "type": "textarea", "id": "library_subheading", "label": "Library subheading", "default": "Every ingredient across all products - organized by function. Click any card to see the science, the gut-brain benefit, and which products it appears in." },
+    { "type": "text", "id": "filter_all", "label": "Filter: All", "default": "All Ingredients" },
+    { "type": "text", "id": "filter_fiber", "label": "Filter: Fiber", "default": "Fiber Sources" },
+    { "type": "text", "id": "filter_protein", "label": "Filter: Protein", "default": "Protein" },
+    { "type": "text", "id": "filter_fats", "label": "Filter: Fats", "default": "Healthy Fats" },
+    { "type": "text", "id": "filter_adaptogens", "label": "Filter: Adaptogens", "default": "Adaptogens" },
+    { "type": "text", "id": "filter_antioxidants", "label": "Filter: Antioxidants", "default": "Antioxidants" },
+    { "type": "text", "id": "filter_sweeteners", "label": "Filter: Sweeteners", "default": "Sweeteners" },
+    { "type": "text", "id": "filter_other", "label": "Filter: Other", "default": "Other" },
+    { "type": "text", "id": "group_fiber_icon", "label": "Fiber icon", "default": "🌱" },
+    { "type": "text", "id": "group_fiber_name", "label": "Fiber name", "default": "Fiber Sources" },
+    { "type": "text", "id": "group_fiber_count", "label": "Fiber count", "default": "2 Ingredients" },
+    { "type": "text", "id": "group_protein_icon", "label": "Protein icon", "default": "💪" },
+    { "type": "text", "id": "group_protein_name", "label": "Protein name", "default": "Protein Sources" },
+    { "type": "text", "id": "group_protein_count", "label": "Protein count", "default": "5 Ingredients" },
+    { "type": "text", "id": "group_fats_icon", "label": "Fats icon", "default": "🥑" },
+    { "type": "text", "id": "group_fats_name", "label": "Fats name", "default": "Healthy Fats" },
+    { "type": "text", "id": "group_fats_count", "label": "Fats count", "default": "6 Ingredients" },
+    { "type": "text", "id": "group_adaptogens_icon", "label": "Adaptogens icon", "default": "🌿" },
+    { "type": "text", "id": "group_adaptogens_name", "label": "Adaptogens name", "default": "Adaptogens" },
+    { "type": "text", "id": "group_adaptogens_count", "label": "Adaptogens count", "default": "2 Ingredients" },
+    { "type": "text", "id": "group_antioxidants_icon", "label": "Antioxidants icon", "default": "🍇" },
+    { "type": "text", "id": "group_antioxidants_name", "label": "Antioxidants name", "default": "Antioxidants & Plant Compounds" },
+    { "type": "text", "id": "group_antioxidants_count", "label": "Antioxidants count", "default": "5 Ingredients" },
+    { "type": "text", "id": "group_sweeteners_icon", "label": "Sweeteners icon", "default": "🍈" },
+    { "type": "text", "id": "group_sweeteners_name", "label": "Sweeteners name", "default": "Natural Sweeteners" },
+    { "type": "text", "id": "group_sweeteners_count", "label": "Sweeteners count", "default": "2 Ingredients" },
+    { "type": "text", "id": "group_other_icon", "label": "Other icon", "default": "⚗️" },
+    { "type": "text", "id": "group_other_name", "label": "Other name", "default": "Functional Extras" },
+    { "type": "text", "id": "group_other_count", "label": "Other count", "default": "2 Ingredients" },
+    { "type": "text", "id": "sweet_eyebrow", "label": "Sweetener eyebrow", "default": "Clean Sweetener Philosophy" },
+    { "type": "text", "id": "sweet_heading", "label": "Sweetener heading", "default": "Why We Don't Use<br>Sugar Alcohols" },
+    { "type": "textarea", "id": "sweet_body_1", "label": "Sweetener body 1", "default": "Many low-carb snacks rely on erythritol and maltitol to hit their sweetness targets. These compounds are common gut irritants that can disrupt your microbiome - the opposite of what we're building toward." },
+    { "type": "textarea", "id": "sweet_body_2", "label": "Sweetener body 2", "default": "We use monk fruit and allulose instead. Both provide sweetness without glycemic impact, without gut disruption, and without the bloating that sugar alcohols cause." },
+    { "type": "text", "id": "sweet_avoid_title", "label": "Sweetener avoid title", "default": "What We Avoid" },
+    { "type": "text", "id": "sweet_use_title", "label": "Sweetener use title", "default": "What We Use" },
+    { "type": "text", "id": "action_eyebrow", "label": "Action eyebrow", "default": "Ingredients designed for the gut-brain axis" },
+    { "type": "html", "id": "action_heading", "label": "Action heading", "default": "See These Ingredients<br>in Action" },
+    { "type": "textarea", "id": "action_subheading", "label": "Action subheading", "default": "Explore the snacks that use these ingredients in real formulations." },
+    { "type": "text", "id": "quiz_eyebrow", "label": "Quiz eyebrow", "default": "Find Your Match" },
+    { "type": "html", "id": "quiz_heading", "label": "Quiz heading", "default": "Discover Your<br>Gut-Brain Type" },
+    { "type": "textarea", "id": "quiz_subheading", "label": "Quiz subheading", "default": "Now that you know what's inside - find out which formulation was built for your gut-brain pattern. 60 seconds. Personalized to you." },
+    { "type": "text", "id": "quiz_label", "label": "Quiz button label", "default": "Take the Free Quiz →" },
+    { "type": "url", "id": "quiz_link", "label": "Quiz button link" },
+    { "type": "text", "id": "blog_eyebrow", "label": "Blog eyebrow", "default": "Go Deeper" },
+    { "type": "html", "id": "blog_heading", "label": "Blog heading", "default": "Learn More About<br>Gut-Brain Nutrition" }
+  ],
+  "blocks": [
+    {
+      "type": "mosaic_item",
+      "name": "Hero mosaic item",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "🦠" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Prebiotic Fiber" },
+        { "type": "text", "id": "subtext", "label": "Subtext", "default": "Microbiome health & gut-brain signaling" },
+        { "type": "text", "id": "anchor", "label": "Anchor or link", "default": "#chicory" }
+      ]
+    },
+    {
+      "type": "framework_card",
+      "name": "Framework card",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon", "default": "🦠" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Prebiotic Fiber" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Feeds beneficial gut bacteria that regulate digestion, produce neurotransmitters, and signal the brain through the gut-brain axis." }
+      ]
+    },
+    {
+      "type": "stat_card",
+      "name": "Stat card",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "250mg" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Adaptogens per 100 Calories" },
+        { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Within the range used in clinical studies on cortisol and stress response" }
+      ]
+    },
+    {
+      "type": "ingredient_card",
+      "name": "Ingredient card",
+      "settings": [
+        { "type": "select", "id": "group", "label": "Group", "default": "fiber", "options": [
+          { "value": "fiber", "label": "Fiber Sources" },
+          { "value": "protein", "label": "Protein" },
+          { "value": "fats", "label": "Healthy Fats" },
+          { "value": "adaptogens", "label": "Adaptogens" },
+          { "value": "antioxidants", "label": "Antioxidants" },
+          { "value": "sweeteners", "label": "Sweeteners" },
+          { "value": "other", "label": "Other" }
+        ] },
+        { "type": "text", "id": "icon", "label": "Icon", "default": "🌿" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Chicory Root Fiber" },
+        { "type": "text", "id": "tagline", "label": "Tagline", "default": "Natural prebiotic fiber - the gut's preferred fuel" },
+        { "type": "textarea", "id": "what_it_is", "label": "What it is", "default": "Inulin-type prebiotic fiber derived from chicory root." },
+        { "type": "textarea", "id": "why_it_matters", "label": "Why it matters", "default": "Feeds beneficial gut bacteria and supports digestion." },
+        { "type": "textarea", "id": "gut_brain_benefit", "label": "Gut-Brain benefit", "default": "Supports microbiome diversity and clearer gut-brain signaling." },
+        { "type": "text", "id": "product_1", "label": "Product tag 1", "default": "Chocolate Brownie Bar" },
+        { "type": "text", "id": "product_2", "label": "Product tag 2", "default": "Peanut Butter Bar" },
+        { "type": "text", "id": "product_3", "label": "Product tag 3", "default": "BBQ Protein Puffs" },
+        { "type": "text", "id": "read_more_label", "label": "Read more label", "default": "Read More" },
+        { "type": "text", "id": "read_more_link", "label": "Read more link" },
+        { "type": "text", "id": "read_more_text", "label": "Read more text", "default": "Why Prebiotic Fiber Matters for Gut Health →" },
+        { "type": "checkbox", "id": "open_new_tab", "label": "Open in new tab", "default": true }
+      ]
+    },
+    {
+      "type": "sweetener_avoid_item",
+      "name": "Avoid sweetener item",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Erythritol — common gut irritant" }
+      ]
+    },
+    {
+      "type": "sweetener_use_item",
+      "name": "Use sweetener item",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Monk Fruit — zero glycemic impact" }
+      ]
+    },
+    {
+      "type": "action_card",
+      "name": "Action card",
+      "settings": [
+        { "type": "text", "id": "handle", "label": "Handle class", "default": "choc" },
+        { "type": "text", "id": "icon", "label": "Icon", "default": "🍫" },
+        { "type": "text", "id": "pattern", "label": "Pattern label", "default": "For Focus Fuelers" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Chocolate Brownie Bar" },
+        { "type": "textarea", "id": "ingredients", "label": "Ingredients", "default": "Key functional ingredients:\n• Almond Butter\n• Chicory Root Fiber\n• Pea + Rice Protein\n• Ashwagandha\n• Cocoa" },
+        { "type": "text", "id": "cta", "label": "CTA", "default": "Shop Now" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    },
+    {
+      "type": "blog_link",
+      "name": "Blog link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "What Is the Gut-Brain Axis?" },
+        { "type": "text", "id": "link", "label": "Link" },
+        { "type": "checkbox", "id": "open_new_tab", "label": "Open in new tab", "default": true }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "100Cal Ingredients Page",
+      "blocks": [
+        { "type": "mosaic_item" },
+        { "type": "mosaic_item", "settings": { "icon": "💪", "label": "Protein Sources", "subtext": "Satiety hormones & stable energy", "anchor": "#protein" } },
+        { "type": "mosaic_item", "settings": { "icon": "🥑", "label": "Healthy Fats", "subtext": "Brain fuel & anti-inflammatory support", "anchor": "#almond-butter" } },
+        { "type": "mosaic_item", "settings": { "icon": "🌿", "label": "Adaptogens", "subtext": "Cortisol regulation & stress resilience", "anchor": "#ashwagandha" } },
+        { "type": "mosaic_item", "settings": { "icon": "🍇", "label": "Antioxidants", "subtext": "Cellular protection & gut lining integrity", "anchor": "#cocoa" } },
+        { "type": "mosaic_item", "settings": { "icon": "🍈", "label": "Natural Sweeteners", "subtext": "Zero glycemic impact", "anchor": "#monk-fruit" } },
+        { "type": "framework_card" },
+        { "type": "framework_card", "settings": { "icon": "💪", "title": "Protein", "description": "Activates satiety hormones in the gut and brain simultaneously." } },
+        { "type": "framework_card", "settings": { "icon": "🌿", "title": "Adaptogens", "description": "Help regulate cortisol and reduce stress-driven cravings." } },
+        { "type": "framework_card", "settings": { "icon": "🍇", "title": "Antioxidants & Plant Compounds", "description": "Protect the gut lining and support brain circulation." } },
+        { "type": "stat_card" },
+        { "type": "stat_card", "settings": { "value": ">4g", "label": "Prebiotic fiber per 100 Calories", "subtext": "A meaningful daily contribution to microbiome-supportive fiber intake" } },
+        { "type": "stat_card", "settings": { "value": "100", "label": "Calories. That's it.", "subtext": "Functional nutrition without the caloric cost" } },
+        { "type": "ingredient_card" },
+        { "type": "ingredient_card", "settings": { "group": "fiber", "icon": "🌾", "name": "Tapioca Soluble Fiber", "tagline": "Gentle, gut-friendly fiber - easy to digest", "what_it_is": "A soluble dietary fiber derived from tapioca starch.", "why_it_matters": "Supports healthy digestion without the bloating associated with some other fiber sources.", "gut_brain_benefit": "Gentle prebiotic action supports a diverse microbiome.", "product_1": "BBQ Protein Puffs", "read_more_text": "Fiber Sources and Your Microbiome →" } },
+        { "type": "ingredient_card", "settings": { "group": "protein", "icon": "🌿", "name": "Organic Pea Protein", "tagline": "Complete plant protein - high bioavailability", "what_it_is": "Protein isolate derived from yellow split peas.", "why_it_matters": "Supports muscle maintenance, satiety, and sustained energy.", "gut_brain_benefit": "Activates satiety hormones that signal the brain to stop eating.", "product_1": "Chocolate Brownie Bar", "product_2": "Peanut Butter Bar", "read_more_text": "Protein and Satiety Hormones →" } },
+        { "type": "ingredient_card", "settings": { "group": "fats", "icon": "🌰", "name": "Organic Almond Butter", "tagline": "Rich in healthy fats, fiber, and plant protein", "what_it_is": "Whole roasted organic almonds ground into a smooth butter.", "why_it_matters": "Monounsaturated fats support satiety and slow digestion.", "gut_brain_benefit": "Magnesium in almonds supports serotonin synthesis.", "product_1": "Chocolate Brownie Bar", "read_more_text": "Almonds and Blood Sugar Stability →" } },
+        { "type": "ingredient_card", "settings": { "group": "adaptogens", "icon": "🌿", "name": "Organic Ashwagandha Extract", "tagline": "KSM-66® - clinically studied stress adaptogen", "what_it_is": "Organic root extract of Withania somnifera.", "why_it_matters": "Clinically shown to reduce cortisol levels and support stress resilience.", "gut_brain_benefit": "Cortisol regulation is central to the gut-brain axis.", "product_1": "Chocolate Brownie Bar", "product_2": "BBQ Protein Puffs", "read_more_text": "Ashwagandha and the Gut-Brain Axis →" } },
+        { "type": "ingredient_card", "settings": { "group": "antioxidants", "icon": "🍫", "name": "Organic Cocoa Powder", "tagline": "Flavanol-rich - mood and circulation support", "what_it_is": "Alkalized organic cocoa powder rich in flavanols.", "why_it_matters": "Supports blood flow, reduces oxidative stress, and improves mood.", "gut_brain_benefit": "Flavanols support microbiome diversity and brain circulation.", "product_1": "Chocolate Brownie Bar", "read_more_text": "Cocoa Flavanols and the Brain →" } },
+        { "type": "ingredient_card", "settings": { "group": "sweeteners", "icon": "🍈", "name": "Organic Monk Fruit Extract", "tagline": "Zero glycemic - 200× sweeter than sugar", "what_it_is": "Concentrated extract of Luo Han Guo.", "why_it_matters": "Doesn't disrupt gut bacteria or cause digestive discomfort.", "gut_brain_benefit": "Zero glucose impact means no insulin spike or gut-brain disruption.", "product_1": "Chocolate Brownie Bar", "product_2": "Peanut Butter Bar", "product_3": "BBQ Protein Puffs", "read_more_text": "Natural Sweeteners vs Sugar Alcohols →" } },
+        { "type": "ingredient_card", "settings": { "group": "other", "icon": "🧂", "name": "Himalayan Pink Salt", "tagline": "Mineral-rich salt - trace elements intact", "what_it_is": "Unrefined salt from ancient sea beds in Pakistan.", "why_it_matters": "Balances flavor naturally and contributes trace minerals.", "gut_brain_benefit": "Magnesium supports serotonin synthesis and GABA production.", "product_1": "Chocolate Brownie Bar", "product_2": "Peanut Butter Bar", "product_3": "BBQ Protein Puffs", "read_more_text": "Minerals and Gut-Brain Health →" } },
+        { "type": "sweetener_avoid_item" },
+        { "type": "sweetener_avoid_item", "settings": { "label": "Maltitol — spikes blood sugar" } },
+        { "type": "sweetener_avoid_item", "settings": { "label": "Sorbitol — causes bloating" } },
+        { "type": "sweetener_avoid_item", "settings": { "label": "Sucralose — disrupts microbiome" } },
+        { "type": "sweetener_avoid_item", "settings": { "label": "Added cane sugar — glucose spike" } },
+        { "type": "sweetener_use_item" },
+        { "type": "sweetener_use_item", "settings": { "label": "Allulose — metabolized like fiber" } },
+        { "type": "sweetener_use_item", "settings": { "label": "Natural flavors — from real sources" } },
+        { "type": "sweetener_use_item", "settings": { "label": "Cacao — unsweetened, antioxidant-rich" } },
+        { "type": "sweetener_use_item", "settings": { "label": "Himalayan salt — enhances sweetness naturally" } },
+        { "type": "action_card" },
+        { "type": "action_card", "settings": { "handle": "pb", "icon": "🥜", "pattern": "For Calm Operators", "name": "Peanut Butter Bar", "ingredients": "• Peanut Butter → protein + healthy fats\n• Chicory Root Fiber → prebiotic fiber\n• Amla → antioxidant support\n• Plant Protein → sustained energy", "link": "/collections/all" } },
+        { "type": "action_card", "settings": { "handle": "bbq", "icon": "🌶️", "pattern": "For Craving Crushers", "name": "BBQ Protein Puffs", "ingredients": "• Casein-Rich Milk Protein → satiety\n• Tapioca Fiber → digestion\n• Kale Powder → micronutrients\n• Ashwagandha → stress support", "link": "/collections/all" } },
+        { "type": "blog_link" },
+        { "type": "blog_link", "settings": { "label": "Why Prebiotic Fiber Matters for Gut Health", "link": "https://100calsnacks.com/blogs/snack-sense/prebiotic-fiber-gut-health" } },
+        { "type": "blog_link", "settings": { "label": "Adaptogens and Stress Eating", "link": "https://100calsnacks.com/blogs/snack-sense/ashwagandha-gut-brain-axis" } },
+        { "type": "blog_link", "settings": { "label": "Protein and Satiety Hormones", "link": "https://100calsnacks.com/blogs/snack-sense/protein-satiety-hormones" } },
+        { "type": "blog_link", "settings": { "label": "Natural Sweeteners vs Sugar Alcohols", "link": "https://100calsnacks.com/blogs/snack-sense/natural-sweeteners-vs-sugar-alcohols" } },
+        { "type": "blog_link", "settings": { "label": "Amla and the Microbiome", "link": "https://100calsnacks.com/blogs/snack-sense/amla-microbiome" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

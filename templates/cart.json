@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "cart-page": {
+      "type": "100cal-cart-page",
+      "settings": {}
+    }
+  },
+  "order": ["cart-page"]
+}

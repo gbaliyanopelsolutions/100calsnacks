@@ -1,0 +1,250 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "contact_hero": {
+      "type": "100cal-contact-hero",
+      "blocks": {
+        "promise_1": {
+          "type": "promise_item",
+          "settings": {
+            "icon": "💬",
+            "label": "Real Responses",
+            "sub": "Every message is read and replied to by a real person on the team"
+          }
+        },
+        "promise_2": {
+          "type": "promise_item",
+          "settings": {
+            "icon": "⚡",
+            "label": "Within 24 Hours",
+            "sub": "Monday through Friday — we don't leave you hanging"
+          }
+        },
+        "promise_3": {
+          "type": "promise_item",
+          "settings": {
+            "icon": "🤝",
+            "label": "No Scripts",
+            "sub": "We'll actually read what you wrote and respond to it — not paste a template"
+          }
+        }
+      },
+      "block_order": [
+        "promise_1",
+        "promise_2",
+        "promise_3"
+      ],
+      "settings": {
+        "eyebrow": "Get in Touch",
+        "heading": "We're<br>Right<br><em>Here.</em>",
+        "subheading": "A real person will read your message. Not a bot, not a ticket system — a person who actually cares about getting back to you."
+      }
+    },
+    "contact_main": {
+      "type": "100cal-contact-main",
+      "blocks": {
+        "reason_my_order": {
+          "type": "reason_tab",
+          "settings": {
+            "label": "My Order",
+            "helper_text": "Have your order number? Add it here so we can help faster."
+          }
+        },
+        "reason_product_q": {
+          "type": "reason_tab",
+          "settings": {
+            "label": "Product Question",
+            "helper_text": ""
+          }
+        },
+        "reason_my_story": {
+          "type": "reason_tab",
+          "settings": {
+            "label": "My Story",
+            "helper_text": ""
+          }
+        },
+        "reason_wholesale": {
+          "type": "reason_tab",
+          "settings": {
+            "label": "Wholesale / Press",
+            "helper_text": "Tell us your store, outlet, or audience so we can point you to the right person."
+          }
+        },
+        "reason_other": {
+          "type": "reason_tab",
+          "settings": {
+            "label": "Something Else",
+            "helper_text": ""
+          }
+        },
+        "hours_weekday": {
+          "type": "hours_row",
+          "settings": {
+            "day": "Monday — Friday",
+            "time": "9am – 6pm PT"
+          }
+        },
+        "hours_saturday": {
+          "type": "hours_row",
+          "settings": {
+            "day": "Saturday",
+            "time": "10am – 2pm PT"
+          }
+        },
+        "hours_sunday": {
+          "type": "hours_row",
+          "settings": {
+            "day": "Sunday",
+            "time": "Back Monday ☀️"
+          }
+        },
+        "social_instagram": {
+          "type": "social_link",
+          "settings": {
+            "name": "Instagram",
+            "handle": "@100CalSnacks",
+            "url": "https://www.instagram.com/100CalSnacks"
+          }
+        },
+        "social_tiktok": {
+          "type": "social_link",
+          "settings": {
+            "name": "TikTok",
+            "handle": "@100calsnacks",
+            "url": "https://tiktok.com/@100calsnacks.com"
+          }
+        },
+        "social_facebook": {
+          "type": "social_link",
+          "settings": {
+            "name": "Facebook",
+            "handle": "100CalSnacks",
+            "url": "https://www.facebook.com/100CalSnacks"
+          }
+        }
+      },
+      "block_order": [
+        "reason_my_order",
+        "reason_product_q",
+        "reason_my_story",
+        "reason_wholesale",
+        "reason_other",
+        "hours_weekday",
+        "hours_saturday",
+        "hours_sunday",
+        "social_instagram",
+        "social_tiktok",
+        "social_facebook"
+      ],
+      "settings": {
+        "form_heading": "Send Us<br>a <em>Message</em>",
+        "form_sub": "Questions, feedback, your story, a problem with your order — anything. We want to hear it.",
+        "reason_label": "What's on your mind?",
+        "label_first": "First Name",
+        "placeholder_first": "Your first name",
+        "label_last": "Last Name",
+        "placeholder_last": "Your last name",
+        "label_email": "Email Address",
+        "placeholder_email": "you@email.com",
+        "label_phone": "Phone Number (optional)",
+        "placeholder_phone": "+1 (555) 000-0000",
+        "label_message": "Your Message",
+        "placeholder_message": "Tell us what's going on — the more detail the better, and the faster we can help.",
+        "submit_label": "Send Message →",
+        "privacy_text": "We'll never share your information. Reply comes directly from our team.",
+        "success_icon": "💚",
+        "success_heading": "Got It — Thank You.",
+        "success_body": "Thanks — a real person on our team will be with you soon.<br><br>In the meantime — if it's urgent, email us directly at <strong><a href=\"mailto:hi@100CalSnacks.com\">hi@100CalSnacks.com</a></strong>",
+        "email_eyebrow": "Direct Line",
+        "email_heading": "Prefer Email?<br>We've Got You.",
+        "email_body": "Drop us a line any time. We check this constantly and reply thoughtfully — with a real answer to what you actually wrote.",
+        "email_address": "hi@100CalSnacks.com",
+        "hours_heading": "When We're Around",
+        "hours_sub": "Here's when you can expect to hear from us.",
+        "social_heading": "Find Us Out There",
+        "social_sub": "DMs are open. We actually reply to those too."
+      }
+    },
+    "contact_faq": {
+      "type": "100cal-contact-faq",
+      "blocks": {
+        "faq_order": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Where is my order?",
+            "answer": "Orders typically ship within 1–2 business days. You'll get a tracking email as soon as yours is on its way. If it's been more than 3 days and you haven't heard anything, email us at <a href=\"mailto:hi@100CalSnacks.com\">hi@100CalSnacks.com</a> and we'll sort it out immediately."
+          }
+        },
+        "faq_cancel": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I change or cancel my order?",
+            "answer": "If your order hasn't shipped yet, absolutely — reach out right away and we'll take care of it. Once it's shipped we can't redirect it, but we'll work with you on a solution."
+          }
+        },
+        "faq_damaged": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Something arrived damaged — now what?",
+            "answer": "We're sorry and we'll make it right, no questions asked. Email a photo to <a href=\"mailto:hi@100CalSnacks.com\">hi@100CalSnacks.com</a> and we'll send a replacement or issue a refund — your choice."
+          }
+        },
+        "faq_subscription": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do subscriptions work?",
+            "answer": "You can pause, skip, or cancel any time from your account — no hoops to jump through, no penalty. If you ever get stuck, just email us and we'll handle it in minutes."
+          }
+        },
+        "faq_wholesale": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are you available for wholesale or retail?",
+            "answer": "Yes — we'd love to talk. Select Wholesale / Press in the contact form above and tell us about your store or platform. We'll get back to you within one business day."
+          }
+        },
+        "faq_story": {
+          "type": "faq_item",
+          "settings": {
+            "question": "I just want to share my story.",
+            "answer": "Please do. Genuinely — this brand was built from a personal story and hearing yours means everything. Select My Story in the form and write whatever you want to share. We read all of them."
+          }
+        }
+      },
+      "block_order": [
+        "faq_order",
+        "faq_cancel",
+        "faq_damaged",
+        "faq_subscription",
+        "faq_wholesale",
+        "faq_story"
+      ],
+      "settings": {
+        "eyebrow": "Before You Write",
+        "heading": "Quick Answers<br>to Common Questions"
+      }
+    },
+    "contact_closing": {
+      "type": "100cal-contact-closing",
+      "settings": {
+        "heading": "This Is<br><em>Personal.</em>",
+        "subheading": "Every message we receive is a reminder of why this brand exists. We don't take that lightly."
+      }
+    }
+  },
+  "order": [
+    "contact_hero",
+    "contact_main",
+    "contact_faq",
+    "contact_closing"
+  ]
+}

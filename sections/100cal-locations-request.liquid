@@ -1,0 +1,284 @@
+<section class="hc-locations-request" id="request" {{ section.shopify_attributes }}>
+  <div class="llr-inner">
+
+    <div class="llr-left fade-up">
+      <div class="llr-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="llr-h">{{ section.settings.heading }}</h2>
+      <div class="llr-body">{{ section.settings.body }}</div>
+      <div class="llr-steps">
+        {% for block in section.blocks %}
+          {% if block.type == 'step' %}
+            <div class="llr-step" {{ block.shopify_attributes }}>
+              <div class="llr-step-num">{{ block.settings.num | escape }}</div>
+              <div>
+                <div class="llr-step-title">{{ block.settings.title | escape }}</div>
+                <div class="llr-step-sub">{{ block.settings.sub | escape }}</div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="llr-form fade-up fade-up-2">
+      {% form 'contact' %}
+        {% if form.posted_successfully? %}
+          <div class="llr-success">
+            <div class="llr-success-icon">🙌</div>
+            <div class="llr-success-h">You're Amazing.</div>
+            <p class="llr-success-body">We've got your request and we'll reach out to the store. This is exactly how new shelf space happens — thank you for helping us grow.</p>
+          </div>
+        {% else %}
+          {% if form.errors %}
+            <div class="llr-errors">{{ form.errors | default_errors }}</div>
+          {% endif %}
+          <h3 class="llr-form-title">{{ section.settings.form_title }}</h3>
+          <p class="llr-form-sub">{{ section.settings.form_sub | escape }}</p>
+          <div class="llr-field">
+            <label for="llr-name">Your Name</label>
+            <input type="text" id="llr-name" name="contact[name]" placeholder="Your name" value="{{ form.name }}">
+          </div>
+          <div class="llr-field">
+            <label for="llr-email">Your Email *</label>
+            <input type="email" id="llr-email" name="contact[email]" placeholder="you@email.com" value="{{ form.email }}" required>
+          </div>
+          <div class="llr-field">
+            <label for="llr-store">Store Name *</label>
+            <input type="text" id="llr-store" name="contact[store]" placeholder="e.g. Erewhon, Whole Foods, Sprouts..." required>
+          </div>
+          <div class="llr-field">
+            <label for="llr-location">Store Location / City</label>
+            <input type="text" id="llr-location" name="contact[location]" placeholder="City, State">
+          </div>
+          <div class="llr-field">
+            <label for="llr-body">Anything Else?</label>
+            <textarea id="llr-body" name="contact[body]" placeholder="Have you spoken to the store already? Any other context helps."></textarea>
+          </div>
+          <button type="submit" class="llr-submit">{{ section.settings.form_submit_label | escape }}</button>
+          <p class="llr-privacy">{{ section.settings.form_privacy | escape }}</p>
+        {% endif %}
+      {% endform %}
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-locations-request {
+  --ink: #1A1A1A;
+  --ink-mid: #555;
+  --ink-light: #888;
+  --neutral: #F4F3F0;
+  background: var(--white);
+  padding: 80px;
+  border-top: 1px solid #EAE9E5;
+}
+.hc-locations-request .llr-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.hc-locations-request .llr-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-bottom: 12px;
+}
+.hc-locations-request .llr-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 56px;
+  line-height: .88;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 16px;
+}
+.hc-locations-request .llr-h em { font-style: italic; color: var(--teal-dark); }
+.hc-locations-request .llr-body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 32px;
+}
+.hc-locations-request .llr-body p { margin-bottom: 16px; }
+.hc-locations-request .llr-body p:last-child { margin-bottom: 0; }
+.hc-locations-request .llr-steps { display: flex; flex-direction: column; gap: 2px; }
+.hc-locations-request .llr-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px 24px;
+  background: #F4F3F0;
+}
+.hc-locations-request .llr-step-num {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 32px;
+  color: var(--teal-dark);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 36px;
+}
+.hc-locations-request .llr-step-title {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: var(--black);
+  letter-spacing: .5px;
+  margin-bottom: 3px;
+}
+.hc-locations-request .llr-step-sub {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: #555;
+  line-height: 1.55;
+}
+/* Form */
+.hc-locations-request .llr-form {
+  background: #EAE9E5;
+  padding: 44px 40px;
+}
+.hc-locations-request .llr-form-title {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 28px;
+  text-transform: uppercase;
+  color: var(--black);
+  line-height: .95;
+  margin-bottom: 6px;
+}
+.hc-locations-request .llr-form-title em { font-style: italic; color: var(--teal-dark); }
+.hc-locations-request .llr-form-sub {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+.hc-locations-request .llr-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.hc-locations-request .llr-field label {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #888;
+}
+.hc-locations-request .llr-field input,
+.hc-locations-request .llr-field textarea {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--white);
+  border: 1.5px solid transparent;
+  padding: 13px 16px;
+  outline: none;
+  transition: border-color .2s;
+  appearance: none;
+  border-radius: 0;
+  width: 100%;
+}
+.hc-locations-request .llr-field input:focus,
+.hc-locations-request .llr-field textarea:focus { border-color: var(--teal-dark); }
+.hc-locations-request .llr-field input::placeholder,
+.hc-locations-request .llr-field textarea::placeholder { color: rgba(15,18,19,.3); }
+.hc-locations-request .llr-field textarea { min-height: 90px; resize: vertical; }
+.hc-locations-request .llr-submit {
+  width: 100%;
+  padding: 16px;
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+  transition: background .2s;
+  margin-top: 6px;
+}
+.hc-locations-request .llr-submit:hover { background: var(--teal-dark); }
+.hc-locations-request .llr-privacy {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: rgba(15,18,19,.35);
+  margin-top: 10px;
+  text-align: center;
+  line-height: 1.5;
+}
+.hc-locations-request .llr-errors {
+  background: rgba(230, 100, 67, .1);
+  border-left: 3px solid var(--orange);
+  padding: 14px 18px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+.hc-locations-request .llr-success {
+  text-align: center;
+  padding: 60px 24px;
+}
+.hc-locations-request .llr-success-icon { font-size: 40px; margin-bottom: 12px; }
+.hc-locations-request .llr-success-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 28px;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 8px;
+}
+.hc-locations-request .llr-success-body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: #555;
+  line-height: 1.65;
+}
+@media (max-width: 1024px) {
+  .hc-locations-request { padding: 60px 40px; }
+  .hc-locations-request .llr-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hc-locations-request .llr-h { font-size: 44px; }
+}
+@media (max-width: 768px) {
+  .hc-locations-request { padding: 48px 20px; }
+  .hc-locations-request .llr-form { padding: 32px 24px; }
+  .hc-locations-request .llr-h { font-size: 36px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Locations Request Store",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Help Us Grow" },
+    { "type": "html", "id": "heading", "label": "Heading (HTML)", "default": "Don't See Us<br>Near You?<br><em>Ask.</em>" },
+    { "type": "html", "id": "body", "label": "Body text (HTML)", "default": "<p>When multiple customers ask for the same product, stores pay attention. It's one of the most powerful ways a small brand earns new shelf space.</p><p>If you want 100CalSnacks at your local grocery store, health food shop, or gym — tell them. And let us know too. When enough people ask, stores listen.</p>" },
+    { "type": "html", "id": "form_title", "label": "Form title (HTML)", "default": "Request a<br><em>Store</em>" },
+    { "type": "text", "id": "form_sub", "label": "Form subtitle", "default": "Tell us where you want to find us. We'll take it from there." },
+    { "type": "text", "id": "form_submit_label", "label": "Submit button label", "default": "Submit Request →" },
+    { "type": "text", "id": "form_privacy", "label": "Privacy note", "default": "We'll follow up with you directly and reach out to the store on your behalf." }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "How-it-works step",
+      "settings": [
+        { "type": "text", "id": "num", "label": "Step number", "default": "1" },
+        { "type": "text", "id": "title", "label": "Step title", "default": "Tell your store" },
+        { "type": "text", "id": "sub", "label": "Step description", "default": "Ask the store manager or buyer to stock 100CalSnacks. Mention the gut-brain health angle — that resonates." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Locations Request Store" }]
+}
+{% endschema %}

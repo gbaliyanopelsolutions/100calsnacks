@@ -1,0 +1,87 @@
+
+<section class="hc-ingr-action" {{ section.shopify_attributes }}>
+  <div class="action-inner">
+    <div class="action-header fade-up">
+      <div class="eyebrow" style="margin-bottom:14px">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="action-h">{{ section.settings.heading }}</h2>
+      <p class="action-sub">{{ section.settings.subheading | escape }}</p>
+    </div>
+    <div class="action-grid fade-up fade-up-2">
+      {% for block in section.blocks %}
+        {% if block.type == 'action_card' %}
+          <a href="{{ block.settings.link }}" class="action-card {{ block.settings.handle }}" {{ block.shopify_attributes }}>
+            <div class="action-card-top">
+              <div class="action-emoji">{{ block.settings.icon | escape }}</div>
+              <div>
+                <div class="action-pattern">{{ block.settings.pattern | escape }}</div>
+                <div class="action-name">{{ block.settings.name | escape }}</div>
+              </div>
+            </div>
+            <div class="action-ingredients">{{ block.settings.ingredients | escape | newline_to_br }}</div>
+            <div class="action-cta">{{ block.settings.cta | escape }} <span>→</span></div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-ingr-action { background: #161B1B; color: var(--white); padding: 80px; }
+.hc-ingr-action .action-inner { max-width: 1200px; margin: 0 auto; }
+.hc-ingr-action .action-header { margin-bottom: 40px; }
+.hc-ingr-action .action-h { font-family: var(--font-head); font-weight: 900; font-size: 56px; line-height: .9; text-transform: uppercase; color: var(--white); margin-bottom: 12px; }
+.hc-ingr-action .action-sub { font-family: var(--font-body); font-size: 16px; color: rgba(255,255,255,.5); line-height: 1.65; max-width: 520px; }
+.hc-ingr-action .action-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+.hc-ingr-action .action-card { background: #FFFFFF; padding: 0; display: flex; flex-direction: column; text-decoration: none; border-top: 4px solid transparent; transition: all .3s; box-shadow: 0 1px 4px rgba(15,18,19,.08); }
+.hc-ingr-action .action-card.choc { border-top-color: var(--teal); }
+.hc-ingr-action .action-card.pb { border-top-color: var(--yellow); }
+.hc-ingr-action .action-card.bbq { border-top-color: var(--orange); }
+.hc-ingr-action .action-card:hover { background: #F8F6F3; }
+.hc-ingr-action .action-card-top { padding: 28px 28px 16px; display: flex; align-items: center; gap: 16px; }
+.hc-ingr-action .action-emoji { font-size: 36px; flex-shrink: 0; }
+.hc-ingr-action .action-pattern { font-family: var(--font-head); font-weight: 700; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 4px; }
+.hc-ingr-action .action-card.choc .action-pattern { color: var(--teal-dark); }
+.hc-ingr-action .action-card.pb .action-pattern { color: var(--yellow); }
+.hc-ingr-action .action-card.bbq .action-pattern { color: var(--orange); }
+.hc-ingr-action .action-name { font-family: var(--font-head); font-weight: 900; font-size: 22px; text-transform: uppercase; color: var(--black); letter-spacing: .5px; line-height: 1; }
+.hc-ingr-action .action-ingredients { font-family: var(--font-body); font-size: 13px; color: rgba(15,18,19,.45); line-height: 1.6; padding: 0 28px 24px; flex: 1; }
+.hc-ingr-action .action-cta { margin-top: auto; padding: 16px 28px; font-family: var(--font-head); font-weight: 900; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--black); background: var(--teal); display: flex; align-items: center; justify-content: space-between; transition: all .3s; }
+.hc-ingr-action .action-card:hover .action-cta { background: var(--teal-dark); color: var(--white); }
+@media (max-width: 1024px) {
+  .hc-ingr-action { padding: 80px 40px; }
+  .hc-ingr-action .action-grid { grid-template-columns: 1fr; }
+  .hc-ingr-action .action-h { font-size: 48px; }
+}
+@media (max-width: 768px) {
+  .hc-ingr-action { padding: 60px 20px; }
+  .hc-ingr-action .action-h { font-size: 34px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Ingredients Action Cards",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Ingredients designed for the gut-brain axis" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "See These Ingredients<br>in Action" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Explore the snacks that use these ingredients in real formulations." }
+  ],
+  "blocks": [
+    {
+      "type": "action_card",
+      "name": "Action card",
+      "settings": [
+        { "type": "text", "id": "handle", "label": "Color class (choc/pb/bbq)", "default": "choc" },
+        { "type": "text", "id": "icon", "label": "Icon", "default": "🍫" },
+        { "type": "text", "id": "pattern", "label": "Pattern label", "default": "For Focus Fuelers" },
+        { "type": "text", "id": "name", "label": "Product name", "default": "Chocolate Brownie Bar" },
+        { "type": "textarea", "id": "ingredients", "label": "Key ingredients", "default": "Key functional ingredients:\n• Almond Butter\n• Chicory Root Fiber\n• Pea + Rice Protein\n• Ashwagandha\n• Cocoa" },
+        { "type": "text", "id": "cta", "label": "CTA label", "default": "Shop Now" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Ingredients Action Cards" }]
+}
+{% endschema %}

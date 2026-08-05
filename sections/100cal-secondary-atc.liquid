@@ -1,0 +1,22 @@
+<section class="secondary-atc">
+  <div class="satc-inner">
+    <div>
+      <div class="satc-title">Ready to Feed<br>Your Gut-Brain Axis?</div>
+      <div class="satc-sub">{{ product.title }} · 12-count box · Free shipping on $25+</div>
+    </div>
+    <div class="satc-right">
+      <div class="satc-price">{{ product.selected_or_first_available_variant.price | money }}<span class="satc-subtext">/ subscribe</span></div>
+      <button type="button" class="satc-btn" data-variant-id="{{ product.selected_or_first_available_variant.id }}">Add to Cart →</button>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "100Cal Secondary ATC",
+  "settings": [],
+  "presets": [
+    { "name": "Secondary Add to Cart" }
+  ]
+}
+{% endschema %}

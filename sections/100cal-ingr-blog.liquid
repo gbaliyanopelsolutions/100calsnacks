@@ -1,0 +1,63 @@
+
+<section class="hc-ingr-blog" {{ section.shopify_attributes }}>
+  <div class="blog-inner">
+    <div class="fade-up">
+      <div class="eyebrow" style="margin-bottom:14px">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="blog-h">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="blog-links fade-up fade-up-2">
+      {% for block in section.blocks %}
+        {% if block.type == 'blog_link' %}
+          <a href="{{ block.settings.link }}" class="blog-link" target="{% if block.settings.open_new_tab %}_blank{% else %}_self{% endif %}" {{ block.shopify_attributes }}>
+            <span class="blog-link-text">{{ block.settings.label | escape }}</span>
+            <span class="blog-link-arrow">→</span>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-ingr-blog { background: #EAE9E5; padding: 80px; }
+.hc-ingr-blog .blog-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start; }
+.hc-ingr-blog .blog-h { font-family: var(--font-head); font-weight: 900; font-size: 44px; line-height: .9; text-transform: uppercase; color: var(--black); }
+.hc-ingr-blog .blog-links { display: flex; flex-direction: column; gap: 4px; }
+.hc-ingr-blog .blog-link { padding: 18px 24px; background: #FFFFFF; display: flex; align-items: center; justify-content: space-between; text-decoration: none; transition: all .2s; border-left: 3px solid transparent; box-shadow: 0 1px 2px rgba(15,18,19,.05); }
+.hc-ingr-blog .blog-link:hover { background: #F0FAFA; border-left-color: var(--teal-dark); }
+.hc-ingr-blog .blog-link-text { font-family: var(--font-head); font-weight: 700; font-size: 15px; text-transform: uppercase; color: rgba(15,18,19,.7); letter-spacing: .5px; }
+.hc-ingr-blog .blog-link:hover .blog-link-text { color: var(--black); }
+.hc-ingr-blog .blog-link-arrow { font-family: var(--font-head); font-weight: 700; font-size: 13px; color: rgba(15,18,19,.3); }
+.hc-ingr-blog .blog-link:hover .blog-link-arrow { color: var(--teal-dark); }
+@media (max-width: 1024px) {
+  .hc-ingr-blog { padding: 80px 40px; }
+  .hc-ingr-blog .blog-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hc-ingr-blog .blog-h { font-size: 36px; }
+}
+@media (max-width: 768px) {
+  .hc-ingr-blog { padding: 60px 20px; }
+  .hc-ingr-blog .blog-h { font-size: 34px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Ingredients Blog Links",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Go Deeper" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Learn More About<br>Gut-Brain Nutrition" }
+  ],
+  "blocks": [
+    {
+      "type": "blog_link",
+      "name": "Blog link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "What Is the Gut-Brain Axis?" },
+        { "type": "text", "id": "link", "label": "Link" },
+        { "type": "checkbox", "id": "open_new_tab", "label": "Open in new tab", "default": true }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Ingredients Blog Links" }]
+}
+{% endschema %}

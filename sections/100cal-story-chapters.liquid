@@ -1,0 +1,145 @@
+<section class="hc-story-chapters" {{ section.shopify_attributes }}>
+  <div class="sc-wrap">
+    {% for block in section.blocks %}
+      {% if block.type == 'chapter' %}
+        <div class="chapter fade-up" {{ block.shopify_attributes }}>
+          <div class="chapter-left">
+            <div class="chapter-num">{{ block.settings.chapter_num | escape }}</div>
+            <div class="chapter-eyebrow">{{ block.settings.eyebrow | escape }}</div>
+          </div>
+          <div class="chapter-right">
+            <h2 class="chapter-h">{{ block.settings.heading }}</h2>
+            {% if block.settings.body_before != blank %}
+              <div class="chapter-body">{{ block.settings.body_before }}</div>
+            {% endif %}
+            {% if block.settings.pull_quote != blank %}
+              <div class="pull-quote">
+                <div class="pull-quote-text">{{ block.settings.pull_quote }}</div>
+              </div>
+            {% endif %}
+            {% if block.settings.body_after != blank %}
+              <div class="chapter-body">{{ block.settings.body_after }}</div>
+            {% endif %}
+          </div>
+        </div>
+        {% unless forloop.last %}
+          <div class="chapter-divider"><div class="chapter-divider-line"></div></div>
+        {% endunless %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-story-chapters {
+  background: var(--white);
+}
+.hc-story-chapters .sc-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.hc-story-chapters .chapter {
+  padding: 100px 80px 60px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  align-items: start;
+  gap: 80px;
+}
+.hc-story-chapters .chapter-left { position: sticky; top: 100px; }
+.hc-story-chapters .chapter-num {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 120px;
+  color: #EAE9E5;
+  line-height: 1;
+  margin-bottom: -20px;
+}
+.hc-story-chapters .chapter-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-bottom: 16px;
+}
+.hc-story-chapters .chapter-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 56px;
+  line-height: .9;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 28px;
+}
+.hc-story-chapters .chapter-h em {
+  font-style: italic;
+  color: var(--teal-dark);
+}
+.hc-story-chapters .chapter-body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  color: #555;
+  line-height: 1.85;
+}
+.hc-story-chapters .chapter-body p { margin-bottom: 20px; }
+.hc-story-chapters .chapter-body p:last-child { margin-bottom: 0; }
+.hc-story-chapters .pull-quote {
+  border-left: 4px solid var(--teal);
+  padding: 24px 32px;
+  background: #EAE9E5;
+  margin: 40px 0;
+}
+.hc-story-chapters .pull-quote-text {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--black);
+}
+.hc-story-chapters .pull-quote-text em {
+  font-style: italic;
+  color: var(--teal-dark);
+}
+.hc-story-chapters .chapter-divider { padding: 0 80px; }
+.hc-story-chapters .chapter-divider-line {
+  height: 1px;
+  background: #EAE9E5;
+}
+@media (max-width: 1024px) {
+  .hc-story-chapters .chapter { grid-template-columns: 1fr; gap: 20px; padding: 80px 40px 48px; }
+  .hc-story-chapters .chapter-left { position: static; }
+  .hc-story-chapters .chapter-num { font-size: 80px; }
+  .hc-story-chapters .chapter-h { font-size: 44px; }
+  .hc-story-chapters .chapter-divider { padding: 0 40px; }
+}
+@media (max-width: 768px) {
+  .hc-story-chapters .chapter { padding: 60px 20px 36px; }
+  .hc-story-chapters .chapter-h { font-size: 36px; }
+  .hc-story-chapters .pull-quote-text { font-size: 26px; }
+  .hc-story-chapters .chapter-divider { padding: 0 20px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Story Chapters",
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "chapter",
+      "name": "Chapter",
+      "settings": [
+        { "type": "text", "id": "chapter_num", "label": "Chapter number", "default": "01" },
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow label", "default": "Where It Started" },
+        { "type": "html", "id": "heading", "label": "Heading (HTML)", "default": "I Didn't Start This<br>Because I Had It<br><em>Figured Out.</em>" },
+        { "type": "html", "id": "body_before", "label": "Body before pull quote (HTML)", "default": "<p>I started it because I was struggling — a well-dressed, overachieving, stress-eating mess, but struggling nonetheless.</p><p>For years I had the absolute pleasure of dealing with gut issues, anxiety, weight gain, and the kind of inflammation that makes you feel like your body is working against you. I was building a career, running a company, trying to keep it all together — and quietly falling apart on the inside.</p><p>Then came the surgeries. Five of them. And 50 extra pounds that showed up uninvited and refused to leave.</p>" },
+        { "type": "html", "id": "pull_quote", "label": "Pull quote (HTML, leave blank to hide)", "default": "Setbacks don't break you.<br><em>They shape you.</em>" },
+        { "type": "html", "id": "body_after", "label": "Body after pull quote (HTML)", "default": "<p>I got the message. It was time for a change — not a dramatic reinvention, just a quiet, honest decision to start treating my body like it mattered.</p>" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Story Chapters" }]
+}
+{% endschema %}

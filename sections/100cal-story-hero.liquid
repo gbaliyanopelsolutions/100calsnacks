@@ -1,0 +1,155 @@
+<section class="hc-story-hero" {{ section.shopify_attributes }}>
+  <div class="sh-inner">
+    <div class="fade-up">
+      <div class="sh-overline">{{ section.settings.eyebrow | escape }}</div>
+      <h1 class="sh-h1">{{ section.settings.heading }}</h1>
+      <p class="sh-sub">{{ section.settings.subheading | escape }}</p>
+      <div class="sh-sig">
+        <div class="sh-sig-dot"></div>
+        <div>
+          <div class="sh-sig-name">{{ section.settings.sig_name | escape }}</div>
+          <div class="sh-sig-title">{{ section.settings.sig_title | escape }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-story-hero {
+  background: var(--black);
+  min-height: 88vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hc-story-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 30% 60%, rgba(102,204,204,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hc-story-hero .sh-inner {
+  max-width: 900px;
+  position: relative;
+  z-index: 2;
+}
+.hc-story-hero .sh-overline {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.hc-story-hero .sh-overline::before {
+  content: '';
+  width: 40px;
+  height: 2px;
+  background: var(--teal);
+  flex-shrink: 0;
+}
+.hc-story-hero .sh-h1 {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 112px;
+  line-height: .83;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 36px;
+}
+.hc-story-hero .sh-h1 em {
+  font-style: italic;
+  color: var(--teal);
+  display: block;
+}
+.hc-story-hero .sh-sub {
+  font-family: var(--font-body);
+  font-size: 20px;
+  color: rgba(255,255,255,.65);
+  line-height: 1.7;
+  max-width: 580px;
+  margin-bottom: 48px;
+}
+.hc-story-hero .sh-sig {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,.1);
+}
+.hc-story-hero .sh-sig-dot {
+  width: 3px;
+  height: 40px;
+  background: var(--teal);
+  flex-shrink: 0;
+}
+.hc-story-hero .sh-sig-name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 22px;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1;
+}
+.hc-story-hero .sh-sig-title {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(255,255,255,.45);
+  margin-top: 4px;
+}
+
+/* Page-wide fade-up (Story page) */
+.fade-up { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-up-2 { transition-delay: .15s; }
+.fade-up-3 { transition-delay: .3s; }
+.fade-up-4 { transition-delay: .45s; }
+
+@media (max-width: 1024px) {
+  .hc-story-hero { padding: 60px 40px; min-height: 75vh; }
+  .hc-story-hero .sh-h1 { font-size: 80px; }
+}
+@media (max-width: 768px) {
+  .hc-story-hero { padding: 50px 20px; min-height: 70vh; }
+  .hc-story-hero .sh-h1 { font-size: 56px; }
+  .hc-story-hero .sh-sub { font-size: 17px; }
+}
+{% endstylesheet %}
+
+{% javascript %}
+(() => {
+  const boot = () => {
+    const els = Array.from(document.querySelectorAll('.fade-up'));
+    if (!els.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    els.forEach((el) => io.observe(el));
+  };
+  document.addEventListener('DOMContentLoaded', boot);
+  document.addEventListener('shopify:section:load', boot);
+  boot();
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Story Hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The 100Cal Story" },
+    { "type": "html", "id": "heading", "label": "Heading (HTML)", "default": "Born from<br>the Hard<br><em>Stuff.</em>" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "This brand didn't come from a boardroom or a business plan. It came from 5 surgeries, 50 extra pounds, a broken gut, and the kind of stubbornness that refuses to stay down." },
+    { "type": "text", "id": "sig_name", "label": "Founder name", "default": "Tapasya Bali" },
+    { "type": "text", "id": "sig_title", "label": "Founder title", "default": "Founder & CEO, 100CalSnacks" }
+  ],
+  "presets": [{ "name": "Story Hero" }]
+}
+{% endschema %}

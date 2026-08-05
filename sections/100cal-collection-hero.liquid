@@ -1,0 +1,401 @@
+
+<section class="col-hero" {{ section.shopify_attributes }}>
+  <div class="col-hero-left">
+    <div class="col-hero-eyebrow">{{ section.settings.eyebrow }}</div>
+    <h1 class="col-hero-h1">
+      {{ section.settings.heading }}
+      {% if section.settings.highlight != blank %}
+        <br><em>{{ section.settings.highlight }}</em>
+      {% endif %}
+      {% if section.settings.heading_last != blank %}
+        <br>{{ section.settings.heading_last }}
+      {% endif %}
+    </h1>
+    <p class="col-hero-sub">{{ section.settings.subheading }}</p>
+    <div class="col-hero-ctas">
+      {% if section.settings.cta_primary_link != blank %}
+        <a href="{{ section.settings.cta_primary_link }}" class="btn-primary" style="padding:18px 36px;font-size:16px">
+          {{ section.settings.cta_primary_text }}
+        </a>
+      {% endif %}
+      {% if section.settings.cta_secondary_link != blank %}
+        <a href="{{ section.settings.cta_secondary_link }}" style="font-family:var(--font-head);font-weight:700;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;padding:16px 28px;border:2px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);text-decoration:none;display:inline-block;transition:all .2s">
+          {{ section.settings.cta_secondary_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+  
+  <div class="col-hero-right">
+    <div class="mini-product-stack">
+      {% for block in section.blocks %}
+        <div class="mini-prod" {{ block.shopify_attributes }}>
+          <div class="mini-prod-visual mini-prod-visual-{{ block.settings.product_color }}">
+            <span class="mini-prod-cal-stamp">{{ block.settings.calories }}</span>
+            {{ block.settings.product_svg }}
+          </div>
+          <div class="mini-prod-footer">
+            <div class="mini-prod-name">{{ block.settings.product_name }}</div>
+            <div class="mini-prod-type">{{ block.settings.product_type }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .col-hero {
+    background: var(--black);
+    padding: 52px 80px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .col-hero::before {
+    content: 'SHOP';
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 320px;
+    text-transform: uppercase;
+    color: rgba(102, 204, 204, 0.03);
+    line-height: 1;
+    pointer-events: none;
+    letter-spacing: -10px;
+  }
+
+  .col-hero-left {
+    position: relative;
+    z-index: 2;
+  }
+
+  .col-hero-eyebrow {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 16px;
+  }
+
+  .col-hero-h1 {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 64px;
+    line-height: 0.92;
+    color: var(--white);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .col-hero-h1 em {
+    font-style: italic;
+    color: var(--teal);
+  }
+
+  .col-hero-sub {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 440px;
+    margin-bottom: 32px;
+  }
+
+  .col-hero-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .col-hero-right {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mini-product-stack {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+  }
+
+  .mini-prod {
+    flex: 1;
+    border: 1px solid rgba(102, 204, 204, 0.2);
+    padding: 0;
+    text-align: center;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .mini-prod:hover {
+    transform: translateY(-8px);
+    border-color: rgba(102, 204, 204, 0.5);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .mini-prod:nth-child(2) {
+    transform: translateY(-16px);
+  }
+
+  .mini-prod:nth-child(2):hover {
+    transform: translateY(-24px);
+  }
+
+  .mini-prod-visual {
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mini-prod-visual-choc {
+    background: linear-gradient(160deg, #3d1c08 0%, #1a0a04 100%);
+  }
+
+  .mini-prod-visual-pb {
+    background: linear-gradient(160deg, #3d2a0a 0%, #1f1204 100%);
+  }
+
+  .mini-prod-visual-bbq {
+    background: linear-gradient(160deg, #3d1a08 0%, #1a0a00 100%);
+  }
+
+  .mini-prod-visual svg {
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.5));
+  }
+
+  .mini-prod-visual::before {
+    content: '';
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    filter: blur(24px);
+    opacity: 0.35;
+    z-index: 1;
+  }
+
+  .mini-prod-visual-choc::before {
+    background: #e66443;
+  }
+
+  .mini-prod-visual-pb::before {
+    background: #e9ad3c;
+  }
+
+  .mini-prod-visual-bbq::before {
+    background: #e66443;
+  }
+
+  .mini-prod-cal-stamp {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--teal);
+    color: var(--black);
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    z-index: 3;
+  }
+
+  .mini-prod-footer {
+    background: rgba(255, 255, 255, 0.04);
+    border-top: 1px solid rgba(102, 204, 204, 0.12);
+    padding: 14px 16px;
+  }
+
+  .mini-prod-name {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--white);
+    letter-spacing: 1px;
+    line-height: 1.2;
+    margin-bottom: 3px;
+  }
+
+  .mini-prod-type {
+    font-family: var(--font-body);
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  @media (max-width: 1024px) {
+    .col-hero {
+      padding: 48px;
+      gap: 40px;
+    }
+
+    .col-hero-h1 {
+      font-size: 52px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .col-hero {
+      grid-template-columns: 1fr;
+      padding: 48px 24px;
+      gap: 36px;
+    }
+
+    .col-hero::before {
+      display: none;
+    }
+
+    .col-hero-h1 {
+      font-size: 44px;
+    }
+
+    .col-hero-right {
+      order: -1;
+    }
+
+    .mini-product-stack {
+      gap: 8px;
+    }
+
+    .mini-prod-visual {
+      height: 120px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Collection Hero",
+  "class": "section-collection-hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "All Products"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "Gut-Brain"
+    },
+    {
+      "type": "text",
+      "id": "highlight",
+      "label": "Highlighted Word (italicized)",
+      "default": "Balancing"
+    },
+    {
+      "type": "text",
+      "id": "heading_last",
+      "label": "Heading Last Line",
+      "default": "Snacks"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Steady energy. Calmer cravings. Just 100 calories."
+    },
+    {
+      "type": "url",
+      "id": "cta_primary_link",
+      "label": "Primary CTA Link"
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_text",
+      "label": "Primary CTA Text",
+      "default": "Shop Sampler"
+    },
+    {
+      "type": "url",
+      "id": "cta_secondary_link",
+      "label": "Secondary CTA Link"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_text",
+      "label": "Secondary CTA Text",
+      "default": "Take the Quiz"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product Preview",
+      "settings": [
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product Name",
+          "default": "Chocolate Brownie"
+        },
+        {
+          "type": "text",
+          "id": "product_type",
+          "label": "Product Type",
+          "default": "Protein Bar"
+        },
+        {
+          "type": "select",
+          "id": "product_color",
+          "label": "Product Color Theme",
+          "options": [
+            {"value": "choc", "label": "Chocolate"},
+            {"value": "pb", "label": "Peanut Butter"},
+            {"value": "bbq", "label": "BBQ"}
+          ],
+          "default": "choc"
+        },
+        {
+          "type": "text",
+          "id": "calories",
+          "label": "Calories",
+          "default": "100 Cal"
+        },
+        {
+          "type": "html",
+          "id": "product_svg",
+          "label": "Product SVG",
+          "default": "<svg width=\"72\" height=\"100\" viewBox=\"0 0 72 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"8\" y=\"10\" width=\"56\" height=\"80\" rx=\"6\" fill=\"#5C2D0E\"/></svg>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Hero",
+      "blocks": [
+        {"type": "product", "settings": {"product_name": "Chocolate Brownie", "product_type": "Protein Bar", "product_color": "choc"}},
+        {"type": "product", "settings": {"product_name": "Peanut Butter", "product_type": "Protein Bar", "product_color": "pb"}},
+        {"type": "product", "settings": {"product_name": "BBQ Protein Puffs", "product_type": "Savory Snack", "product_color": "bbq"}}
+      ]
+    }
+  ]
+}
+{% endschema %}

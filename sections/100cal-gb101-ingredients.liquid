@@ -1,0 +1,227 @@
+
+<section class="hc-gb101-ingr" id="ingredients" {{ section.shopify_attributes }}>
+  <div class="hcin-inner">
+
+    <div class="hcin-header fade-up">
+      <div class="hcin-eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      <h2 class="hcin-h">{{ section.settings.heading }}</h2>
+    </div>
+
+    <div class="hcin-grid fade-up fade-up-2">
+      {% for block in section.blocks %}
+        {% if block.type == 'ingr_card' %}
+          <div class="hcin-card" {{ block.shopify_attributes }}>
+            <div class="hcin-card-icon">{{ block.settings.icon | escape }}</div>
+            <div class="hcin-card-name">{{ block.settings.name | escape }}</div>
+            <div class="hcin-card-benefit">{{ block.settings.benefit | escape }}</div>
+            <div class="hcin-card-desc">{{ block.settings.desc | escape }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="hcin-callout fade-up fade-up-3">
+      {% for block in section.blocks %}
+        {% if block.type == 'ingr_callout' %}
+          <div class="hcin-callout-cell" {{ block.shopify_attributes }}>
+            <div class="hcin-check">{{ block.settings.check_icon | escape }}</div>
+            <div>
+              <div class="hcin-callout-title">{{ block.settings.title | escape }}</div>
+              <div class="hcin-callout-body">{{ block.settings.body | escape }}</div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="hcin-cta-strip fade-up fade-up-4">
+      <div>
+        <div class="hcin-cta-eyebrow">{{ section.settings.cta_eyebrow | escape }}</div>
+        <p class="hcin-cta-sub">{{ section.settings.cta_sub | escape }}</p>
+      </div>
+      <a href="{{ section.settings.cta_url | escape }}" class="pill-btn hcin-cta-btn">{{ section.settings.cta_text | escape }}</a>
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+.hc-gb101-ingr {
+  padding: 100px 80px;
+  background: #EAE9E5;
+}
+.hc-gb101-ingr .hcin-inner { max-width: 1200px; margin: 0 auto; }
+.hc-gb101-ingr .hcin-header { margin-bottom: 56px; }
+.hc-gb101-ingr .hcin-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-bottom: 16px;
+}
+.hc-gb101-ingr .hcin-h {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 64px;
+  line-height: .9;
+  text-transform: uppercase;
+  color: var(--black);
+}
+.hc-gb101-ingr .hcin-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.hc-gb101-ingr .hcin-card {
+  padding: 32px;
+  border: 1px solid rgba(15,18,19,.08);
+  background: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  transition: all .3s;
+  box-shadow: 0 1px 3px rgba(15,18,19,.06);
+}
+.hc-gb101-ingr .hcin-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--teal);
+}
+.hc-gb101-ingr .hcin-card:hover { border-color: var(--teal-dark); background: #F0FAFA; }
+.hc-gb101-ingr .hcin-card-icon { font-size: 28px; margin-bottom: 14px; }
+.hc-gb101-ingr .hcin-card-name {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: var(--black);
+  letter-spacing: .5px;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+.hc-gb101-ingr .hcin-card-benefit {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  margin-bottom: 10px;
+}
+.hc-gb101-ingr .hcin-card-desc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(15,18,19,.6);
+  line-height: 1.6;
+}
+/* Callout row */
+.hc-gb101-ingr .hcin-callout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 48px;
+}
+.hc-gb101-ingr .hcin-callout-cell {
+  background: #FFFFFF;
+  padding: 28px 32px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  box-shadow: 0 1px 3px rgba(15,18,19,.06);
+}
+.hc-gb101-ingr .hcin-check { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.hc-gb101-ingr .hcin-callout-title {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: var(--black);
+  letter-spacing: .5px;
+  margin-bottom: 4px;
+}
+.hc-gb101-ingr .hcin-callout-body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(15,18,19,.6);
+  line-height: 1.6;
+}
+/* CTA strip */
+.hc-gb101-ingr .hcin-cta-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 28px 32px;
+  border: 1px solid rgba(15,18,19,.12);
+  background: var(--black);
+}
+.hc-gb101-ingr .hcin-cta-eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 8px;
+}
+.hc-gb101-ingr .hcin-cta-sub {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: rgba(255,255,255,.65);
+  line-height: 1.6;
+  max-width: 520px;
+}
+.hc-gb101-ingr .hcin-cta-btn { white-space: nowrap; flex-shrink: 0; }
+@media (max-width: 1024px) {
+  .hc-gb101-ingr { padding: 72px 40px; }
+  .hc-gb101-ingr .hcin-grid { grid-template-columns: repeat(2, 1fr); }
+  .hc-gb101-ingr .hcin-h { font-size: 48px; }
+}
+@media (max-width: 768px) {
+  .hc-gb101-ingr { padding: 56px 20px; }
+  .hc-gb101-ingr .hcin-grid { grid-template-columns: 1fr; }
+  .hc-gb101-ingr .hcin-callout { grid-template-columns: 1fr; }
+  .hc-gb101-ingr .hcin-h { font-size: 38px; }
+  .hc-gb101-ingr .hcin-cta-strip { flex-direction: column; align-items: flex-start; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GB101 Ingredients",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Functional Ingredients for Gut-Brain Balance" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Ingredients That Support Gut-Brain Balance" },
+    { "type": "text", "id": "cta_eyebrow", "label": "CTA strip eyebrow", "default": "Nothing Hidden" },
+    { "type": "textarea", "id": "cta_sub", "label": "CTA strip subtext", "default": "Every ingredient has a purpose. Thoughtfully chosen to support gut-brain balance - nothing unnecessary." },
+    { "type": "text", "id": "cta_text", "label": "CTA button text", "default": "See Full Ingredient Breakdown →" },
+    { "type": "text", "id": "cta_url", "label": "CTA button URL", "default": "/products/chocolate-brownie-bar" }
+  ],
+  "blocks": [
+    {
+      "type": "ingr_card",
+      "name": "Ingredient card",
+      "settings": [
+        { "type": "text", "id": "icon",    "label": "Icon (emoji)" },
+        { "type": "text", "id": "name",    "label": "Name" },
+        { "type": "text", "id": "benefit", "label": "Benefit tags" },
+        { "type": "textarea", "id": "desc", "label": "Description" }
+      ]
+    },
+    {
+      "type": "ingr_callout",
+      "name": "Callout cell",
+      "settings": [
+        { "type": "text", "id": "check_icon", "label": "Check icon", "default": "✓" },
+        { "type": "text", "id": "title",      "label": "Title" },
+        { "type": "textarea", "id": "body",   "label": "Body" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "GB101 Ingredients" }]
+}
+{% endschema %}

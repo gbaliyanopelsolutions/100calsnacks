@@ -1,0 +1,73 @@
+<section class="reviews-section" id="reviews">
+  <div class="rev-inner">
+    <div class="rev-header">
+      <div style="display:flex;align-items:center;gap:24px">
+        <div class="rev-big-num">{{ section.settings.review_score }}</div>
+        <div>
+          <span class="rev-stars">{{ section.settings.review_stars }}</span>
+          <div class="rev-count">{{ section.settings.review_count_text }}</div>
+          <div class="rev-headline">{{ section.settings.review_headline }}</div>
+        </div>
+      </div>
+      <a href="#reviews" class="rev-cta-link">{{ section.settings.review_cta }}</a>
+    </div>
+    <div class="rev-grid">
+      <div class="rev-card">
+        <span class="r-tag r-tag-gut">{{ section.settings.review_1_tag }}</span>
+        <div class="r-stars">{{ section.settings.review_1_stars }}</div>
+        <p class="r-quote">{{ section.settings.review_1_quote }}</p>
+        <div class="r-name">{{ section.settings.review_1_name }}</div>
+        <div class="r-product">{{ section.settings.review_1_product }}</div>
+      </div>
+      <div class="rev-card">
+        <span class="r-tag r-tag-crav">{{ section.settings.review_2_tag }}</span>
+        <div class="r-stars">{{ section.settings.review_2_stars }}</div>
+        <p class="r-quote">{{ section.settings.review_2_quote }}</p>
+        <div class="r-name">{{ section.settings.review_2_name }}</div>
+        <div class="r-product">{{ section.settings.review_2_product }}</div>
+      </div>
+      <div class="rev-card">
+        <span class="r-tag r-tag-energy">{{ section.settings.review_3_tag }}</span>
+        <div class="r-stars">{{ section.settings.review_3_stars }}</div>
+        <p class="r-quote">{{ section.settings.review_3_quote }}</p>
+        <div class="r-name">{{ section.settings.review_3_name }}</div>
+        <div class="r-product">{{ section.settings.review_3_product }}</div>
+      </div>
+    </div>
+    <div class="rev-footer">
+      <a href="#reviews" class="rev-footer-link">{{ section.settings.review_footer_cta }}</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "100Cal Reviews",
+  "settings": [
+    { "type": "text", "id": "review_score", "label": "Review score", "default": "4.9" },
+    { "type": "text", "id": "review_stars", "label": "Review stars", "default": "★★★★★" },
+    { "type": "text", "id": "review_count_text", "label": "Review count text", "default": "Based on 312 reviews" },
+    { "type": "text", "id": "review_headline", "label": "Review headline", "default": "Real People. Real Results." },
+    { "type": "text", "id": "review_cta", "label": "Review CTA", "default": "Read All Reviews →" },
+    { "type": "text", "id": "review_1_tag", "label": "Review 1 tag", "default": "Gut Health" },
+    { "type": "text", "id": "review_1_stars", "label": "Review 1 stars", "default": "★★★★★" },
+    { "type": "textarea", "id": "review_1_quote", "label": "Review 1 quote", "default": "\"I've struggled with bloating from every protein bar I've ever tried. These are the first ones that actually made my gut feel better, not worse. I'm obsessed.\"" },
+    { "type": "text", "id": "review_1_name", "label": "Review 1 name", "default": "Sarah M. · Los Angeles" },
+    { "type": "text", "id": "review_1_product", "label": "Review 1 product", "default": "Verified Purchase · {{ product.title }}" },
+    { "type": "text", "id": "review_2_tag", "label": "Review 2 tag", "default": "Craving Control" },
+    { "type": "text", "id": "review_2_stars", "label": "Review 2 stars", "default": "★★★★★" },
+    { "type": "textarea", "id": "review_2_quote", "label": "Review 2 quote", "default": "\"I was stress eating every afternoon. Two weeks in with these and I genuinely don't reach for the vending machine anymore. The ashwagandha is not a gimmick.\"" },
+    { "type": "text", "id": "review_2_name", "label": "Review 2 name", "default": "Priya K. · New York" },
+    { "type": "text", "id": "review_2_product", "label": "Review 2 product", "default": "Verified Purchase · Subscribe & Save" },
+    { "type": "text", "id": "review_3_tag", "label": "Review 3 tag", "default": "Macro-Friendly" },
+    { "type": "text", "id": "review_3_stars", "label": "Review 3 stars", "default": "★★★★★" },
+    { "type": "textarea", "id": "review_3_quote", "label": "Review 3 quote", "default": "\"100 clean calories, tastes like dessert. I stopped buying protein bars from anyone else. The texture alone is worth it — it actually chews like a real brownie.\"" },
+    { "type": "text", "id": "review_3_name", "label": "Review 3 name", "default": "Mike T. · Chicago" },
+    { "type": "text", "id": "review_3_product", "label": "Review 3 product", "default": "Verified Purchase · {{ product.title }}" },
+    { "type": "text", "id": "review_footer_cta", "label": "Review footer CTA", "default": "Read All 312 Reviews →" }
+  ],
+  "presets": [
+    { "name": "Reviews" }
+  ]
+}
+{% endschema %}
