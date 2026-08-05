@@ -208,6 +208,8 @@
 .hc-topbar span {
   color: var(--teal);
   margin: 0 12px;
+  top: 3px;
+  position: relative;
 }
 
 .hc-nav {

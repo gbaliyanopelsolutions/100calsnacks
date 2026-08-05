@@ -78,8 +78,14 @@
       badge.style.display = count > 0 ? '' : 'none';
     }
     document.querySelectorAll('.hcnv-cart-btn, .hcnv-mob-cart').forEach(function (el) {
-      var base = el.dataset.baseLabel || 'Cart';
-      el.textContent = count > 0 ? base + ' (' + count + ')' : base;
+      var bubble = el.querySelector('.hcnv-cart-count');
+      if (bubble) {
+        bubble.textContent = count;
+        bubble.hidden = count === 0;
+      } else {
+        var base = el.dataset.baseLabel || 'Cart';
+        el.textContent = count > 0 ? base + ' (' + count + ')' : base;
+      }
     });
   }
 
@@ -439,6 +445,7 @@
   // ── Init ────────────────────────────────────────────────────────────────────
   function init() {
     document.querySelectorAll('.hcnv-cart-btn, .hcnv-mob-cart').forEach(function (el) {
+      if (el.querySelector('.hcnv-cart-count')) return;
       if (!el.dataset.baseLabel) {
         el.dataset.baseLabel = el.textContent.trim().replace(/\s*\(\d+\)\s*$/, '');
       }

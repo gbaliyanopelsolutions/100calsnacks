@@ -98,8 +98,9 @@
         <button class="hcnv-icon-btn hcnv-search-btn" aria-label="Search" aria-expanded="false" aria-controls="hcnv-search-panel">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </button>
-        <a class="hcnv-cart-btn" href="{{ routes.cart_url }}">
-          {{ section.settings.cta_label | escape }}{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}
+        <a class="hcnv-cart-btn" href="{{ routes.cart_url }}" aria-label="{{ section.settings.cta_label | escape }}">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h2.5l2.4 11.2a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.55L21 7H5.2"/></svg>
+          <span class="hcnv-cart-count"{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
         </a>
       </div>
 
@@ -122,8 +123,9 @@
         <button class="hcnv-icon-btn hcnv-search-btn hcnv-mob-search-btn" aria-label="Search" aria-expanded="false" aria-controls="hcnv-search-panel">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </button>
-        <a class="hcnv-mob-cart" href="{{ routes.cart_url }}">
-          {{ section.settings.cta_label | escape }}{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}
+        <a class="hcnv-mob-cart" href="{{ routes.cart_url }}" aria-label="{{ section.settings.cta_label | escape }}">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h2.5l2.4 11.2a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.55L21 7H5.2"/></svg>
+          <span class="hcnv-cart-count"{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
         </a>
         <button class="hcnv-mob-ham" aria-label="Open menu">
           <span></span><span></span><span></span>
@@ -294,7 +296,7 @@
 .hcnv-link.active::after { transform: scaleX(1); }
 
 .hcnv-chevron {
-  font-size: 9px;
+  font-size: 16px;
   transition: transform .25s;
   display: inline-block;
   color: var(--ink-light);
@@ -322,21 +324,41 @@
 }
 .hcnv-icon-btn:hover { color: var(--teal-dark); }
 .hcnv-cart-btn {
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  padding: 10px 22px;
-  background: var(--teal);
-  color: var(--black);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--ink);
+  background: transparent;
   text-decoration: none;
-  transition: background .2s;
+  transition: color .2s;
   border: none;
   cursor: pointer;
-  white-space: nowrap;
 }
-.hcnv-cart-btn:hover { background: var(--teal-dark); color: var(--white); }
+.hcnv-cart-btn:hover { color: var(--teal-dark); }
+.hcnv-cart-count {
+  position: absolute;
+  top: 1px;
+  right: 0;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--orange);
+  color: var(--white);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0;
+}
+.hcnv-cart-count[hidden] { display: none; }
 
 /* =====================================================
    MEGA MENU
@@ -607,16 +629,15 @@
 .hcnv-mob-brand em { color: var(--orange); font-style: normal; }
 .hcnv-mob-right { display: flex; align-items: center; gap: 12px; }
 .hcnv-mob-cart {
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  padding: 8px 16px;
-  background: var(--teal);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
   color: var(--black);
+  background: transparent;
   text-decoration: none;
-  white-space: nowrap;
 }
 .hcnv-mob-ham {
   width: 36px;
