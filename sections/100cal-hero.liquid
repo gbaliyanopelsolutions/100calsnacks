@@ -1,36 +1,108 @@
+{% comment %}
+  100Cal Hero
+  ---------------------------------------------------------------------------
+  Pills render from section blocks. If the section is rendered statically
+  ({% section 'hundred-cal-hero' %}) or was added to a JSON template by hand,
+  section.blocks will be empty and no blocks can be added in the editor.
+  The "Fallback pills" setting covers that case with a comma-separated list.
+{% endcomment %}
+
+{%- liquid
+  assign pill_count = 0
+  for block in section.blocks
+    if block.type == 'pill'
+      assign pill_count = pill_count | plus: 1
+    endif
+  endfor
+-%}
 
 <div class="hundred-cal">
-  <section class="hc-hero">
+  <section class="hc-hero" id="hc-hero-{{ section.id }}">
     <div class="hc-hero__left">
-      <h1 class="hc-hero__heading">{{ section.settings.heading }}</h1>
-      <p class="hc-hero__sub">{{ section.settings.subheading }}</p>
-      <div class="hc-pill-row">
-        {% for block in section.blocks %}
-          {% if block.type == 'pill' %}
-            <span class="hc-pill" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</span>
-          {% endif %}
-        {% endfor %}
-      </div>
-      {% if section.settings.rating != blank %}
+      {%- if section.settings.heading != blank -%}
+        <h1 class="hc-hero__heading">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="hc-hero__sub">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+
+      {%- if pill_count > 0 -%}
+        <div class="hc-pill-row">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'pill' and block.settings.label != blank -%}
+              <span class="hc-pill" {{ block.shopify_attributes }}>
+                {{- block.settings.label | escape -}}
+              </span>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- elsif section.settings.fallback_pills != blank -%}
+        <div class="hc-pill-row">
+          {%- assign fallback_pills = section.settings.fallback_pills | split: ',' -%}
+          {%- for label in fallback_pills -%}
+            {%- assign clean_label = label | strip -%}
+            {%- if clean_label != blank -%}
+              <span class="hc-pill">{{ clean_label | escape }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.rating != blank -%}
         <p class="hc-hero__rating">{{ section.settings.rating | escape }}</p>
-      {% endif %}
-      <div class="hc-cta-row">
-        <a href="{{ section.settings.primary_link }}" class="hc-btn hc-btn--primary">{{ section.settings.primary_label }}</a>
-        {% if section.settings.secondary_label != blank %}
-          <a href="{{ section.settings.secondary_link | default: '#how-it-works' }}" class="hc-btn hc-btn--white-outline">{{ section.settings.secondary_label }}</a>
-        {% endif %}
-      </div>
+      {%- endif -%}
+
+      {%- if section.settings.primary_label != blank or section.settings.secondary_label != blank -%}
+        <div class="hc-cta-row">
+          {%- if section.settings.primary_label != blank -%}
+            <a
+              href="{{ section.settings.primary_link | default: '/collections/all' }}"
+              class="hc-btn hc-btn--primary"
+            >
+              {{- section.settings.primary_label | escape -}}
+            </a>
+          {%- endif -%}
+
+          {%- if section.settings.secondary_label != blank -%}
+            <a
+              href="{{ section.settings.secondary_link | default: '#how-it-works' }}"
+              class="hc-btn hc-btn--white-outline"
+            >
+              {{- section.settings.secondary_label | escape -}}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
     </div>
 
     <div class="hc-hero__right">
-      <div class="hc-hero__num">{{ section.settings.background_number | escape }}</div>
+      {%- if section.settings.background_number != blank -%}
+        <div class="hc-hero__num" aria-hidden="true">
+          {{- section.settings.background_number | escape -}}
+        </div>
+      {%- endif -%}
+
       <div class="hc-product-visual">
-        {% if section.settings.product_image != blank %}
-          {{ section.settings.product_image | image_url: width: 720 | image_tag: loading: 'eager', alt: section.settings.product_name }}
-        {% else %}
-          <div class="hc-product-visual__icon">{{ section.settings.product_icon | escape }}</div>
-          <div class="hc-product-visual__name">{{ section.settings.product_name | escape }}</div>
-        {% endif %}
+        {%- if section.settings.product_image != blank -%}
+          {{
+            section.settings.product_image
+            | image_url: width: 720
+            | image_tag:
+              loading: 'eager',
+              fetchpriority: 'high',
+              widths: '300, 480, 720',
+              sizes: '(max-width: 720px) 70vw, 300px',
+              alt: section.settings.product_name | escape
+          }}
+        {%- else -%}
+          {%- if section.settings.product_icon != blank -%}
+            <div class="hc-product-visual__icon">{{ section.settings.product_icon | escape }}</div>
+          {%- endif -%}
+          {%- if section.settings.product_name != blank -%}
+            <div class="hc-product-visual__name">{{ section.settings.product_name | escape }}</div>
+          {%- endif -%}
+        {%- endif -%}
       </div>
     </div>
   </section>
@@ -39,25 +111,115 @@
 {% schema %}
 {
   "name": "100Cal Hero",
+  "tag": "section",
+  "class": "hc-hero-section",
+  "max_blocks": 6,
   "settings": [
-    { "type": "html", "id": "heading", "label": "Heading", "default": "The<br><em>Overqualified</em><br>Snack." },
-    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "100 clean calories designed to support the gut-brain connection." },
-    { "type": "text", "id": "rating", "label": "Rating line", "default": "***** 4.9/5 - 1,200+ Reviews" },
-    { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Shop Now ->" },
-    { "type": "url", "id": "primary_link", "label": "Primary button link", "default": "/collections/all" },
-    { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "See How It Works" },
-    { "type": "url", "id": "secondary_link", "label": "Secondary button link" },
-    { "type": "text", "id": "background_number", "label": "Background number", "default": "100" },
-    { "type": "image_picker", "id": "product_image", "label": "Product image" },
-    { "type": "text", "id": "product_icon", "label": "Fallback product mark", "default": "BAR" },
-    { "type": "text", "id": "product_name", "label": "Product name", "default": "Chocolate Brownie" }
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Supports <br> and <em>. <em> renders in teal.",
+      "default": "The<br><em>Overqualified</em><br>Snack."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "100 clean calories designed to support the gut-brain connection."
+    },
+    {
+      "type": "header",
+      "content": "Pills"
+    },
+    {
+      "type": "paragraph",
+      "content": "Add pills as blocks below. If no blocks are available (static section or hand-edited JSON template), the list below is used instead."
+    },
+    {
+      "type": "text",
+      "id": "fallback_pills",
+      "label": "Fallback pills",
+      "info": "Comma separated. Only used when there are no pill blocks.",
+      "default": "Protein, Fiber, Adaptogens"
+    },
+    {
+      "type": "header",
+      "content": "Social proof"
+    },
+    {
+      "type": "text",
+      "id": "rating",
+      "label": "Rating line",
+      "default": "★ 4.9/5 · 1,200+ Reviews"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button label",
+      "default": "Shop Now →"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary button link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button label",
+      "default": "See How It Works →"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Product visual"
+    },
+    {
+      "type": "text",
+      "id": "background_number",
+      "label": "Background number",
+      "default": "100"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product image"
+    },
+    {
+      "type": "text",
+      "id": "product_icon",
+      "label": "Fallback product mark",
+      "info": "Shown only when no product image is set.",
+      "default": "BAR"
+    },
+    {
+      "type": "text",
+      "id": "product_name",
+      "label": "Product name",
+      "default": "Chocolate Brownie"
+    }
   ],
   "blocks": [
     {
       "type": "pill",
       "name": "Pill",
       "settings": [
-        { "type": "text", "id": "label", "label": "Label", "default": "Protein" }
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Protein"
+        }
       ]
     }
   ],
