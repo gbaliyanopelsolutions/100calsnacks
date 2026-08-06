@@ -31,21 +31,21 @@
         "trust_1": {
           "type": "item",
           "settings": {
-            "icon": "OK",
+            "icon": "",
             "label": "Clinically Studied Ingredients"
           }
         },
         "trust_2": {
           "type": "item",
           "settings": {
-            "icon": "OK",
+            "icon": "",
             "label": "Adaptogen & Antioxidant Superfoods"
           }
         },
         "trust_3": {
           "type": "item",
           "settings": {
-            "icon": "OK",
+            "icon": "",
             "label": "Clean Functional Nutrition"
           }
         }
