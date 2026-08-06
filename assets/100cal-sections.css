@@ -478,7 +478,7 @@
   align-items: center;
   color: inherit;
   display: flex;
-  flex: 1;
+  /* flex: 1; */
   font-family: var(--font-head);
   font-size: 13px;
   font-weight: 700;
