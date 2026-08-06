@@ -7,10 +7,15 @@
   var _debounce  = null;
   var _poll      = null;   // waits for the app block to catch up after a variant change
   var _retry     = null;   // waits for the app block to render at all
+  var _retries   = 0;      // give up (and un-hide the app block) after enough misses
   var _unsub     = null;   // theme pubsub unsubscriber
+  var _built     = false;  // overlay is on screen and wired to the live block
+  var _liveNode  = null;   // the exact block node the overlay is wired to
   var _liveSig   = '';     // live block's fingerprint at build time — detects self-updates
   var _builtSig  = '';     // fingerprint of the prices actually on screen
   var _state     = null;   // { mode: 'ot' | 'sub', freq: <index> } — survives rebuilds
+
+  var MAX_RETRIES = 40;    // ~10s at 250ms
 
   function esc(s) {
     return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -25,16 +30,60 @@
     return (root || document).querySelector(APP_SEL);
   }
 
+  // The subscriptions app re-renders its block on variant change, replacing the
+  // node we styled — so hiding it inline doesn't stick. A stylesheet rule keyed
+  // off <html> covers whatever node is on the page at the time.
+  // (visibility:hidden rather than display:none keeps it in the layout/DOM so
+  //  app-block.js can still respond to events and update the selling_plan input)
+  function installHideRule() {
+    if (document.getElementById('hc-sub-hide')) return;
+    var st = document.createElement('style');
+    st.id = 'hc-sub-hide';
+    st.textContent = 'html.hc-sub-active ' + APP_SEL + '{'
+      + 'position:absolute!important;visibility:hidden!important;'
+      + 'width:1px!important;height:1px!important;overflow:hidden!important;'
+      + 'pointer-events:none!important;}';
+    document.head.appendChild(st);
+  }
+
+  // Kept on across rebuilds so the app's own UI never flashes between them;
+  // only dropped if we give up on rendering the overlay entirely.
+  function hideAppBlock(on) {
+    if (on) installHideRule();
+    document.documentElement.classList.toggle('hc-sub-active', !!on);
+  }
+
+  // First money amount in a string, e.g. "Deliver every week, 10% off $40.40 USD".
+  // Requires a currency symbol so the "10" in "10% off" can't be mistaken for one.
+  function firstAmount(text) {
+    var m = String(text || '').match(/[A-Z]{0,3}\s?[$€£¥₹]\s?\d[\d.,]*/);
+    return m ? cleanPrice(m[0]).trim() : '';
+  }
+
+  // Price the radio is advertising: the data attribute if the app stamped one,
+  // otherwise whatever price its own label is showing.
+  function radioPrice(radio, attr) {
+    var v = cleanPrice(radio.getAttribute(attr) || '');
+    if (v) return v;
+    if (attr !== 'data-variant-price') return '';
+    var lbl = radio.closest('label');
+    return lbl ? firstAmount(lbl.textContent) : '';
+  }
+
   // Fingerprint of every price the app block is advertising. Lets us tell a real
-  // variant price change from the DOM churn our own rebuild causes.
+  // variant price change from the DOM churn our own rebuild causes. The label
+  // text counts too — the app is free to repaint the prices it shows without
+  // touching the data attributes, and that still has to trigger a rebuild.
   function priceSig(source) {
     if (!source) return '';
     return Array.prototype.map.call(source.querySelectorAll('input[data-radio-type]'), function (r) {
+      var lbl = r.closest('label');
       return [
         r.getAttribute('data-radio-type'),
         r.getAttribute('data-selling-plan-id') || '',
         r.getAttribute('data-variant-price') || '',
-        r.getAttribute('data-variant-compare-at-price') || ''
+        r.getAttribute('data-variant-compare-at-price') || '',
+        lbl ? lbl.textContent.replace(/\s+/g, ' ').trim() : ''
       ].join(':');
     }).join('|');
   }
@@ -46,15 +95,15 @@
     if (!source) return out;
 
     var ot = source.querySelector('input[data-radio-type="one_time_purchase"]');
-    out.oneTime = cleanPrice(ot ? ot.getAttribute('data-variant-price') : '');
+    out.oneTime = ot ? radioPrice(ot, 'data-variant-price') : '';
 
     Array.prototype.forEach.call(source.querySelectorAll('input[data-radio-type="selling_plan"]'), function (r) {
       var lbl    = r.closest('label');
       var nameEl = lbl ? lbl.querySelector('.title_and_price_wrapper > span') : null;
       out.plans[r.getAttribute('data-selling-plan-id') || ''] = {
         name:  nameEl ? nameEl.textContent.trim() : '',
-        price: cleanPrice(r.getAttribute('data-variant-price') || ''),
-        orig:  cleanPrice(r.getAttribute('data-variant-compare-at-price') || '')
+        price: radioPrice(r, 'data-variant-price'),
+        orig:  radioPrice(r, 'data-variant-compare-at-price')
       };
     });
 
@@ -70,14 +119,15 @@
     if (_mo) { _mo.disconnect(); _mo = null; }
     clearTimeout(_debounce);
     document.querySelectorAll('.hc-sub-ui').forEach(function (el) { el.remove(); });
-    var s = appBlock();
-    if (s) delete s.dataset.hcBuild;
+    _built    = false;
+    _liveNode = null;
+    _retries  = 0;
   }
 
   // `priceSource` overrides where prices are read from; defaults to the live block.
   function buildSubToggle(priceSource) {
     var section = appBlock();
-    if (!section || section.dataset.hcBuild) return;
+    if (!section || _built) return;
 
     // ── Find live app inputs (these are the ones the app's JS listens to) ──
     var radioOT    = section.querySelector('input[data-radio-type="one_time_purchase"]');
@@ -85,7 +135,8 @@
 
     // App hasn't rendered yet — retry
     if (!radioOT && !planRadios.length) return;
-    section.dataset.hcBuild = '1';
+    _built    = true;
+    _liveNode = section;
 
     var priced = readPrices(priceSource || section);
     var otPrice   = priced.oneTime;
@@ -101,8 +152,8 @@
         var nameEl = lbl ? lbl.querySelector('.title_and_price_wrapper > span') : null;
         p = {
           name:  nameEl ? nameEl.textContent.trim() : '',
-          price: cleanPrice(r.getAttribute('data-variant-price') || ''),
-          orig:  cleanPrice(r.getAttribute('data-variant-compare-at-price') || '')
+          price: radioPrice(r, 'data-variant-price'),
+          orig:  radioPrice(r, 'data-variant-compare-at-price')
         };
       }
       return { id: id, radio: r, name: p.name, price: p.price, orig: p.orig };
@@ -158,11 +209,9 @@
       + freqHtml
     + '</div>';
 
-    // Insert before the app's section; hide that section in place
-    // (visibility:hidden keeps it in the layout/DOM so app-block.js
-    //  can still respond to events and update the selling_plan input)
+    // Insert before the app's section and hide the app's own UI
     section.insertAdjacentHTML('beforebegin', html);
-    section.style.cssText = 'position:absolute;visibility:hidden;width:1px;height:1px;overflow:hidden;';
+    hideAppBlock(true);
 
     // ── Wire DOM references ────────────────────────────────────────
     var ptOT     = document.getElementById('hc-pt-ot');
@@ -245,20 +294,28 @@
     _liveSig  = priceSig(section);
     _builtSig = priceSig(priceSource || section);
 
-    // Rebuild when the app restamps itself. It updates the data-variant-price
-    // attributes in place on variant change, so attributes must be observed —
-    // childList alone never fires.
+    // Rebuild when the app updates. Two shapes to catch: it restamps the
+    // data-variant-price attributes in place (so attributes must be observed —
+    // childList alone never fires), or it swaps the whole block for a freshly
+    // rendered one. The latter is why we watch an ancestor rather than the
+    // block itself: an observer bound to a replaced node just goes silent, which
+    // left the overlay showing the previous variant's prices while the app's own
+    // markup — no longer carrying our inline hide — reappeared underneath it.
     if (_mo) _mo.disconnect();
     _mo = new MutationObserver(function () {
       clearTimeout(_debounce);
       _debounce = setTimeout(function () {
         var s = appBlock();
-        if (!s || priceSig(s) === _liveSig) return;
+        if (!s) return;
+        // Node identity matters even when the prices match: the overlay wires
+        // its clicks to the live radios, and a stale node's radios are detached
+        // from the DOM, so the app would never see the selling plan change.
+        if (s === _liveNode && priceSig(s) === _liveSig) return;
         teardown();
         tryBuild();
       }, 150);
     });
-    _mo.observe(section, {
+    _mo.observe(section.closest('product-info') || section.parentNode || document.body, {
       childList: true,
       subtree: true,
       attributes: true,
@@ -272,9 +329,16 @@
     var section = appBlock();
     if (!section) return;
     buildSubToggle(priceSource);
-    if (!section.dataset.hcBuild) {
-      _retry = setTimeout(function () { tryBuild(priceSource); }, 250);
+    if (_built) { _retries = 0; return; }
+
+    if (++_retries > MAX_RETRIES) {
+      // Never managed to read the app's radios — show the app's own UI rather
+      // than leaving the shopper with no subscription options at all.
+      _retries = 0;
+      hideAppBlock(false);
+      return;
     }
+    _retry = setTimeout(function () { tryBuild(priceSource); }, 250);
   }
 
   // On variant change the theme swaps the price/media but leaves the app block
@@ -294,17 +358,18 @@
       return;
     }
 
-    // No usable fetched markup — wait for the live block to restamp itself.
+    // No usable fetched markup — wait for the live block to restamp itself or
+    // be replaced by a freshly rendered one.
     var waited = 0;
     (function wait() {
       var s = appBlock();
-      if (s && priceSig(s) !== _liveSig) {
+      if (s && (s !== _liveNode || priceSig(s) !== _liveSig)) {
         teardown();
         tryBuild();
         return;
       }
       waited += 150;
-      if (waited < 2500) _poll = setTimeout(wait, 150);
+      if (waited < 6000) _poll = setTimeout(wait, 150);
     })();
   }
 
