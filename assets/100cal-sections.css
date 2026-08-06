@@ -320,7 +320,7 @@
 .hc-cta-row .hc-btn-gray{
       color: rgba(255, 255, 255, .5);
       &:hover{
-        background: var(--teal)
+        background: var(--teal);
         color: var(--black);
       }
 }
