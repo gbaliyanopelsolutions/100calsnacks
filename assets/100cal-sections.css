@@ -694,6 +694,14 @@
   font-size: 12px;
 }
 
+/* Junip injects its stars into this span after the card has painted */
+.hc-product-card__rating .junip-product-summary,
+.pdp-stars-row .junip-product-summary {
+  align-items: center;
+  display: inline-flex;
+  line-height: 1;
+}
+
 .hc-add-btn {
   background: var(--black);
   border: 0;
