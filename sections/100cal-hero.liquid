@@ -58,7 +58,7 @@
           {%- if section.settings.primary_label != blank -%}
             <a
               href="{{ section.settings.primary_link | default: '/collections/all' }}"
-              class="hc-btn hc-btn--primary"
+              class="full_width hc-btn hc-btn--primary"
             >
               {{- section.settings.primary_label | escape -}}
             </a>
@@ -67,7 +67,7 @@
           {%- if section.settings.secondary_label != blank -%}
             <a
               href="{{ section.settings.secondary_link | default: '#how-it-works' }}"
-              class="hc-btn hc-btn--white-outline"
+              class="full_width hc-btn hc-btn--white-outline"
             >
               {{- section.settings.secondary_label | escape -}}
             </a>

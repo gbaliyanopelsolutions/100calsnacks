@@ -314,6 +314,9 @@
   min-height: 88vh;
   overflow: hidden;
 }
+.full_width{
+  width:100%;
+}
 
 .hc-hero__left {
   display: flex;
