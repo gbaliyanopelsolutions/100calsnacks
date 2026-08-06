@@ -317,7 +317,7 @@
 .full_width{
   width:100%;
 }
-.hc-btn-gray{
+.hc-cta-row .hc-btn-gray{
       color: rgba(255, 255, 255, .5);
 }
 
