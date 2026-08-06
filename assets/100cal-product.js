@@ -3,17 +3,23 @@
 
   var APP_SEL = '.shopify_subscriptions_app_block';
 
-  var _mo        = null;   // watches the app block for self-updates
-  var _debounce  = null;
-  var _poll      = null;   // waits for the app block to catch up after a variant change
-  var _retry     = null;   // waits for the app block to render at all
-  var _retries   = 0;      // give up (and un-hide the app block) after enough misses
+  // Prices come from Shopify's own product JSON rather than from the
+  // subscriptions app block. The block re-renders itself on its own schedule
+  // (and swaps its DOM node when it does), so anything scraped from it goes
+  // stale the moment a shopper changes variant. The JSON has every variant's
+  // one-time price and selling plan allocations up front, so a variant change
+  // is a synchronous re-render with no waiting and nothing to poll for.
+  var _product   = null;   // /products/<handle>.js payload
+  var _loading   = false;
+  var _sample    = '';     // a formatted price to copy the shop's money format from
+  var _state     = { mode: 'ot', planId: '' };
+  var _planIds   = '';     // plan ids currently in the frequency dropdown
   var _unsub     = null;   // theme pubsub unsubscriber
-  var _built     = false;  // overlay is on screen and wired to the live block
-  var _liveNode  = null;   // the exact block node the overlay is wired to
-  var _liveSig   = '';     // live block's fingerprint at build time — detects self-updates
-  var _builtSig  = '';     // fingerprint of the prices actually on screen
-  var _state     = null;   // { mode: 'ot' | 'sub', freq: <index> } — survives rebuilds
+  var _mo        = null;   // watches the app block re-rendering itself
+  var _debounce  = null;
+  var _retry     = null;
+  var _retries   = 0;
+  var _built     = false;
 
   var MAX_RETRIES = 40;    // ~10s at 250ms
 
@@ -30,11 +36,30 @@
     return (root || document).querySelector(APP_SEL);
   }
 
-  // The subscriptions app re-renders its block on variant change, replacing the
-  // node we styled — so hiding it inline doesn't stick. A stylesheet rule keyed
-  // off <html> covers whatever node is on the page at the time.
-  // (visibility:hidden rather than display:none keeps it in the layout/DOM so
-  //  app-block.js can still respond to events and update the selling_plan input)
+  function productInfo() {
+    return document.querySelector('product-info');
+  }
+
+  function productForm() {
+    return document.querySelector('product-form form')
+      || document.querySelector('form[action*="/cart/add"]');
+  }
+
+  function currentVariantId() {
+    var form = productForm();
+    var input = form && form.querySelector('input[name="id"]');
+    return input ? String(input.value || '') : '';
+  }
+
+  function fire(el, type) {
+    el.dispatchEvent(new Event(type, { bubbles: true }));
+  }
+
+  // ── Hiding the app's own UI ──────────────────────────────────────
+  // The app replaces its block node when it re-renders, so an inline style
+  // doesn't stick. A stylesheet rule keyed off <html> covers whichever node is
+  // on the page. visibility:hidden rather than display:none keeps the block in
+  // the DOM so the app's own JS keeps working.
   function installHideRule() {
     if (document.getElementById('hc-sub-hide')) return;
     var st = document.createElement('style');
@@ -46,143 +71,210 @@
     document.head.appendChild(st);
   }
 
-  // Kept on across rebuilds so the app's own UI never flashes between them;
-  // only dropped if we give up on rendering the overlay entirely.
   function hideAppBlock(on) {
     if (on) installHideRule();
     document.documentElement.classList.toggle('hc-sub-active', !!on);
   }
 
-  // First money amount in a string, e.g. "Deliver every week, 10% off $40.40 USD".
-  // Requires a currency symbol so the "10" in "10% off" can't be mistaken for one.
-  function firstAmount(text) {
-    var m = String(text || '').match(/[A-Z]{0,3}\s?[$€£¥₹]\s?\d[\d.,]*/);
-    return m ? cleanPrice(m[0]).trim() : '';
+  // ── Money ────────────────────────────────────────────────────────
+  // Copy whatever format the shop already renders instead of guessing at
+  // currency symbols and separators.
+  function moneySample() {
+    if (_sample) return _sample;
+
+    var candidates = [];
+    var s = appBlock();
+    var r = s && s.querySelector('input[data-variant-price]');
+    if (r) candidates.push(r.getAttribute('data-variant-price'));
+    var pi = productInfo();
+    var pe = pi && (pi.querySelector('.price-item') || pi.querySelector('.buy-box-price'));
+    if (pe) candidates.push(pe.textContent);
+
+    for (var i = 0; i < candidates.length; i++) {
+      var m = cleanPrice(candidates[i]).match(/[^\d\s]*\s?\d[\d.,]*/);
+      if (m) { _sample = m[0]; return _sample; }
+    }
+    return '$0.00';
   }
 
-  // Price the radio is advertising: the data attribute if the app stamped one,
-  // otherwise whatever price its own label is showing.
-  function radioPrice(radio, attr) {
-    var v = cleanPrice(radio.getAttribute(attr) || '');
-    if (v) return v;
-    if (attr !== 'data-variant-price') return '';
-    var lbl = radio.closest('label');
-    return lbl ? firstAmount(lbl.textContent) : '';
+  function money(cents) {
+    var amount = (Number(cents) || 0) / 100;
+    var m = String(moneySample()).match(/^([^\d]*)([\d.,]+)(.*)$/);
+    if (!m) return '$' + amount.toFixed(2);
+
+    var num     = m[2];
+    var decSep  = /[.,]\d{2}$/.test(num) ? num.charAt(num.length - 3) : '.';
+    var thouSep = decSep === ',' ? '.' : ',';
+    var parts   = amount.toFixed(2).split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thouSep);
+
+    return cleanPrice(m[1] + parts.join(decSep) + m[3]);
   }
 
-  // Fingerprint of every price the app block is advertising. Lets us tell a real
-  // variant price change from the DOM churn our own rebuild causes. The label
-  // text counts too — the app is free to repaint the prices it shows without
-  // touching the data attributes, and that still has to trigger a rebuild.
-  function priceSig(source) {
-    if (!source) return '';
-    return Array.prototype.map.call(source.querySelectorAll('input[data-radio-type]'), function (r) {
-      var lbl = r.closest('label');
-      return [
-        r.getAttribute('data-radio-type'),
-        r.getAttribute('data-selling-plan-id') || '',
-        r.getAttribute('data-variant-price') || '',
-        r.getAttribute('data-variant-compare-at-price') || '',
-        lbl ? lbl.textContent.replace(/\s+/g, ' ').trim() : ''
-      ].join(':');
-    }).join('|');
+  // ── Price data ───────────────────────────────────────────────────
+  function loadProduct() {
+    if (_product || _loading) return;
+    var pi = productInfo();
+    var url = pi && pi.dataset.url;
+    if (!url || typeof fetch !== 'function') return;
+
+    _loading = true;
+    fetch(url.split('?')[0] + '.js', { headers: { Accept: 'application/json' } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        _loading = false;
+        if (!data || !data.variants) return;
+        _product = data;
+        refresh();
+      })
+      .catch(function () { _loading = false; });
   }
 
-  // Prices are read from `source`, which may be freshly fetched section HTML
-  // rather than the live block — the app doesn't always restamp itself.
-  function readPrices(source) {
-    var out = { oneTime: '', plans: {}, badge: 'Save' };
-    if (!source) return out;
+  function planName(id) {
+    var groups = (_product && _product.selling_plan_groups) || [];
+    for (var g = 0; g < groups.length; g++) {
+      var plans = groups[g].selling_plans || [];
+      for (var p = 0; p < plans.length; p++) {
+        if (String(plans[p].id) === String(id)) return plans[p].name || '';
+      }
+    }
+    return '';
+  }
 
-    var ot = source.querySelector('input[data-radio-type="one_time_purchase"]');
-    out.oneTime = ot ? radioPrice(ot, 'data-variant-price') : '';
+  function pctOff(price, base) {
+    if (!base || price >= base) return 0;
+    return Math.round((1 - price / base) * 100);
+  }
 
-    Array.prototype.forEach.call(source.querySelectorAll('input[data-radio-type="selling_plan"]'), function (r) {
-      var lbl    = r.closest('label');
-      var nameEl = lbl ? lbl.querySelector('.title_and_price_wrapper > span') : null;
-      out.plans[r.getAttribute('data-selling-plan-id') || ''] = {
-        name:  nameEl ? nameEl.textContent.trim() : '',
-        price: radioPrice(r, 'data-variant-price'),
-        orig:  radioPrice(r, 'data-variant-compare-at-price')
-      };
+  // Prices for the variant currently in the form, straight from the JSON.
+  function jsonPrices() {
+    if (!_product) return null;
+
+    var id = currentVariantId();
+    var variant = null;
+    for (var i = 0; i < _product.variants.length; i++) {
+      if (String(_product.variants[i].id) === id) { variant = _product.variants[i]; break; }
+    }
+    if (!variant) return null;
+
+    var out  = { oneTime: money(variant.price), plans: [], badge: '' };
+    var best = 0;
+
+    (variant.selling_plan_allocations || []).forEach(function (a) {
+      var pct  = pctOff(a.price, variant.price);
+      var name = planName(a.selling_plan_id);
+      if (pct > best) best = pct;
+      if (pct > 0 && name.indexOf('%') === -1) name += ', ' + pct + '% off';
+      out.plans.push({
+        id:    String(a.selling_plan_id),
+        name:  name,
+        price: money(a.price),
+        orig:  a.price < variant.price ? money(variant.price) : ''
+      });
     });
 
-    // e.g. "Subscribe for 10% off" → badge: "10% off"
-    var gnEl = source.querySelector('.group_name');
-    var pctM = gnEl ? gnEl.textContent.match(/(\d+%\s*off)/i) : null;
-    if (pctM) out.badge = pctM[1];
-
+    out.badge = best > 0 ? best + '% off' : 'Save';
     return out;
   }
 
-  function teardown() {
-    if (_mo) { _mo.disconnect(); _mo = null; }
-    clearTimeout(_debounce);
-    document.querySelectorAll('.hc-sub-ui').forEach(function (el) { el.remove(); });
-    _built    = false;
-    _liveNode = null;
-    _retries  = 0;
+  // Fallback while the JSON is still in flight (or if it never arrives):
+  // read whatever the app block is currently advertising.
+  function scrapePrices() {
+    var section = appBlock();
+    if (!section) return null;
+
+    var out = { oneTime: '', plans: [], badge: 'Save' };
+
+    var ot = section.querySelector('input[data-radio-type="one_time_purchase"]');
+    out.oneTime = cleanPrice(ot ? ot.getAttribute('data-variant-price') : '');
+
+    Array.prototype.forEach.call(section.querySelectorAll('input[data-radio-type="selling_plan"]'), function (r) {
+      var lbl    = r.closest('label');
+      var nameEl = lbl ? lbl.querySelector('.title_and_price_wrapper > span') : null;
+      out.plans.push({
+        id:    String(r.getAttribute('data-selling-plan-id') || ''),
+        name:  nameEl ? nameEl.textContent.trim() : '',
+        price: cleanPrice(r.getAttribute('data-variant-price') || ''),
+        orig:  cleanPrice(r.getAttribute('data-variant-compare-at-price') || '')
+      });
+    });
+
+    // e.g. "Subscribe for 10% off" → badge: "10% off"
+    var gnEl = section.querySelector('.group_name');
+    var pctM = gnEl ? gnEl.textContent.match(/(\d+%\s*off)/i) : null;
+    if (pctM) out.badge = pctM[1];
+
+    return (out.oneTime || out.plans.length) ? out : null;
   }
 
-  // `priceSource` overrides where prices are read from; defaults to the live block.
-  function buildSubToggle(priceSource) {
+  function currentData() {
+    return jsonPrices() || scrapePrices();
+  }
+
+  // ── Cart wiring ──────────────────────────────────────────────────
+  // The selling plan is put on the form ourselves rather than left to the app.
+  // The app only stamps its hidden input in response to its own radios, and
+  // after it re-renders those radios are new nodes — a subscription selection
+  // made before that would silently add as a one-time purchase.
+  function setSellingPlan(id) {
+    var form = productForm();
+    if (!form) return;
+
+    var inputs = Array.prototype.slice.call(form.querySelectorAll('[name="selling_plan"]'));
+    if (!inputs.length) {
+      if (!id) return;
+      var made = document.createElement('input');
+      made.type = 'hidden';
+      made.name = 'selling_plan';
+      made.className = 'hc-selling-plan';
+      form.appendChild(made);
+      inputs = [made];
+    }
+
+    inputs.forEach(function (i) {
+      i.value = id || '';
+      // Disabled inputs are left out of FormData, so a one-time purchase can't
+      // carry an empty selling_plan into /cart/add.
+      i.disabled = !id;
+    });
+  }
+
+  // Keep the app's own radios in step, looking them up live — the node they
+  // live in may have been replaced since the shopper last clicked.
+  function syncAppRadios() {
+    var section = appBlock();
+    if (!section) return;
+
+    var target = _state.mode === 'sub' && _state.planId
+      ? section.querySelector('input[data-radio-type="selling_plan"][data-selling-plan-id="' + _state.planId + '"]')
+      : section.querySelector('input[data-radio-type="one_time_purchase"]');
+    if (!target) return;
+
+    target.checked = true;
+    fire(target, 'input');
+    fire(target, 'change');
+  }
+
+  function applySelection() {
+    syncAppRadios();
+    // After the app's handlers have run, so ours is the value that sticks.
+    setSellingPlan(_state.mode === 'sub' ? _state.planId : '');
+    setTimeout(function () {
+      setSellingPlan(_state.mode === 'sub' ? _state.planId : '');
+    }, 100);
+  }
+
+  // ── Overlay ──────────────────────────────────────────────────────
+  function priceBlock(price, orig, id) {
+    var s = '<div class="pt-price"' + (id ? ' id="' + id + '"' : '') + '>' + esc(price || '');
+    if (orig) s += '<span class="pt-price-orig">' + esc(orig) + '</span>';
+    return s + '</div>';
+  }
+
+  function build(data) {
     var section = appBlock();
     if (!section || _built) return;
 
-    // ── Find live app inputs (these are the ones the app's JS listens to) ──
-    var radioOT    = section.querySelector('input[data-radio-type="one_time_purchase"]');
-    var planRadios = Array.prototype.slice.call(section.querySelectorAll('input[data-radio-type="selling_plan"]'));
-
-    // App hasn't rendered yet — retry
-    if (!radioOT && !planRadios.length) return;
-    _built    = true;
-    _liveNode = section;
-
-    var priced = readPrices(priceSource || section);
-    var otPrice   = priced.oneTime;
-    var badgeText = priced.badge;
-
-    // ── Selling plans: live radio for wiring, price from the price source ──
-    var plans = planRadios.map(function (r) {
-      var id  = r.getAttribute('data-selling-plan-id') || '';
-      var p   = priced.plans[id];
-      if (!p) {
-        // Price source didn't list this plan — fall back to the live radio.
-        var lbl    = r.closest('label');
-        var nameEl = lbl ? lbl.querySelector('.title_and_price_wrapper > span') : null;
-        p = {
-          name:  nameEl ? nameEl.textContent.trim() : '',
-          price: radioPrice(r, 'data-variant-price'),
-          orig:  radioPrice(r, 'data-variant-compare-at-price')
-        };
-      }
-      return { id: id, radio: r, name: p.name, price: p.price, orig: p.orig };
-    });
-
-    var p0 = plans[0] || {};
-
-    // ── Frequency dropdown ─────────────────────────────────────────
-    var freqHtml = '';
-    if (plans.length) {
-      freqHtml = '<div class="hc-sf-wrap" id="hc-sf-wrap" style="display:none">'
-        + '<div class="hc-sf-label">Delivery Frequency</div>'
-        + '<select class="hc-sf-select" id="hc-sf-select">';
-      plans.forEach(function (p) {
-        freqHtml += '<option value="' + esc(p.id) + '">' + esc(p.name) + '</option>';
-      });
-      freqHtml += '</select></div>';
-    }
-
-    // ── Price block helper ─────────────────────────────────────────
-    function priceBlock(price, orig, id) {
-      if (!price) return '';
-      var s = '<div class="pt-price"' + (id ? ' id="' + id + '"' : '') + '>'
-        + esc(price);
-      if (orig) s += '<span class="pt-price-orig">' + esc(orig) + '</span>';
-      return s + '</div>';
-    }
-
-    // ── Build .purchase-toggle HTML ────────────────────────────────
     var html = '<div class="hc-sub-ui">'
       + '<div class="purchase-toggle">'
 
@@ -191,7 +283,7 @@
           + ' role="radio" aria-checked="true" tabindex="0">'
           + '<div class="pt-radio checked"></div>'
           + '<span class="pt-label">One-time purchase</span>'
-          + priceBlock(otPrice, '', 'hc-ot-price')
+          + priceBlock('', '', 'hc-ot-price')
         + '</div>'
 
         // Row 2: subscribe
@@ -201,77 +293,31 @@
           + '<span class="pt-label">Subscribe &amp; Save'
             + '<span class="pt-sub-label">Auto-renews, skip or cancel anytime</span>'
           + '</span>'
-          + '<span class="pt-badge hc-sub-badge">' + esc(badgeText) + '</span>'
-          + priceBlock(p0.price, p0.orig, 'hc-sub-price')
+          + '<span class="pt-badge hc-sub-badge"></span>'
+          + priceBlock('', '', 'hc-sub-price')
         + '</div>'
 
       + '</div>'
-      + freqHtml
+      + '<div class="hc-sf-wrap" id="hc-sf-wrap" style="display:none">'
+        + '<div class="hc-sf-label">Delivery Frequency</div>'
+        + '<select class="hc-sf-select" id="hc-sf-select"></select>'
+      + '</div>'
     + '</div>';
 
-    // Insert before the app's section and hide the app's own UI
     section.insertAdjacentHTML('beforebegin', html);
     hideAppBlock(true);
+    _built = true;
 
-    // ── Wire DOM references ────────────────────────────────────────
     var ptOT     = document.getElementById('hc-pt-ot');
     var ptSub    = document.getElementById('hc-pt-sub');
-    var sfWrap   = document.getElementById('hc-sf-wrap');
     var sfSelect = document.getElementById('hc-sf-select');
-    var subPrEl  = document.getElementById('hc-sub-price');
 
-    function fire(el, type) {
-      el.dispatchEvent(new Event(type, { bubbles: true }));
-    }
-
-    function activatePlan(idx) {
-      var p = plans[idx];
-      if (!p) return;
-      // Tell the app's JS which plan the user chose
-      p.radio.checked = true;
-      fire(p.radio, 'input');
-      fire(p.radio, 'change');
-      // Update displayed price
-      if (subPrEl) {
-        subPrEl.innerHTML = esc(p.price)
-          + (p.orig ? '<span class="pt-price-orig">' + esc(p.orig) + '</span>' : '');
-      }
-    }
-
-    function pickOT() {
-      ptOT.classList.add('selected');    ptOT.setAttribute('aria-checked', 'true');
-      ptSub.classList.remove('selected'); ptSub.setAttribute('aria-checked', 'false');
-      ptOT.querySelector('.pt-radio').classList.add('checked');
-      ptSub.querySelector('.pt-radio').classList.remove('checked');
-      if (sfWrap) sfWrap.style.display = 'none';
-      _state = { mode: 'ot', freq: sfSelect ? sfSelect.selectedIndex : 0 };
-      // Tell app's JS: one-time selected → it clears selling_plan
-      if (radioOT) { radioOT.checked = true; fire(radioOT, 'input'); fire(radioOT, 'change'); }
-    }
-
-    function pickSub(idx) {
-      ptSub.classList.add('selected');    ptSub.setAttribute('aria-checked', 'true');
-      ptOT.classList.remove('selected');  ptOT.setAttribute('aria-checked', 'false');
-      ptSub.querySelector('.pt-radio').classList.add('checked');
-      ptOT.querySelector('.pt-radio').classList.remove('checked');
-      if (sfWrap) sfWrap.style.display = '';
-      _state = { mode: 'sub', freq: idx || 0 };
-      activatePlan(idx || 0);
-    }
-
-    ptOT.addEventListener('click', pickOT);
-    ptSub.addEventListener('click', function () {
-      pickSub(sfSelect ? sfSelect.selectedIndex : 0);
-    });
-
-    if (sfSelect) {
-      sfSelect.addEventListener('change', function () {
-        pickSub(sfSelect.selectedIndex);
-      });
-    }
+    ptOT.addEventListener('click', function () { pick('ot'); });
+    ptSub.addEventListener('click', function () { pick('sub', sfSelect.value); });
+    sfSelect.addEventListener('change', function () { pick('sub', sfSelect.value); });
 
     // Keyboard navigation
-    [ptOT, ptSub].forEach(function (el, i) {
+    [ptOT, ptSub].forEach(function (el) {
       el.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
         if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); ptSub.focus(); }
@@ -279,40 +325,94 @@
       });
     });
 
-    // Re-apply whatever the shopper had selected before the rebuild, and keep the
-    // app's own radios in sync either way so selling_plan can't go stale.
-    if (_state && _state.mode === 'sub' && plans.length) {
-      if (sfSelect) sfSelect.selectedIndex = Math.min(_state.freq || 0, plans.length - 1);
-      pickSub(sfSelect ? sfSelect.selectedIndex : 0);
-    } else {
-      pickOT();
+    applyPrices(data);
+    observe();
+  }
+
+  function pick(mode, planId) {
+    _state.mode = mode;
+    if (mode === 'sub' && planId) _state.planId = String(planId);
+    applyPrices(currentData());
+    applySelection();
+  }
+
+  // Updates the overlay in place. Rebuilding it on every variant change is what
+  // made the shopper's selection and the app's radios drift apart.
+  function applyPrices(data) {
+    if (!_built || !data) return;
+
+    var ptOT     = document.getElementById('hc-pt-ot');
+    var ptSub    = document.getElementById('hc-pt-sub');
+    var sfWrap   = document.getElementById('hc-sf-wrap');
+    var sfSelect = document.getElementById('hc-sf-select');
+    var otPrice  = document.getElementById('hc-ot-price');
+    var subPrice = document.getElementById('hc-sub-price');
+    var badge    = document.querySelector('.hc-sub-badge');
+    if (!ptOT || !ptSub) return;
+
+    var plans = data.plans || [];
+
+    // Frequency options — only rebuilt when the plans themselves change, so the
+    // dropdown keeps its selection across variant changes.
+    var ids = plans.map(function (p) { return p.id; }).join(',');
+    if (ids !== _planIds) {
+      _planIds = ids;
+      sfSelect.innerHTML = plans.map(function (p) {
+        return '<option value="' + esc(p.id) + '">' + esc(p.name) + '</option>';
+      }).join('');
     }
 
-    // Track both: the live block's state (so the observer can ignore mutations
-    // that change no price) and what is actually rendered on screen (so a later
-    // variant change is compared against what the shopper is looking at).
-    _liveSig  = priceSig(section);
-    _builtSig = priceSig(priceSource || section);
+    // Keep the shopper's plan if the new variant still offers it
+    var plan = null;
+    for (var i = 0; i < plans.length; i++) {
+      if (plans[i].id === _state.planId) { plan = plans[i]; break; }
+    }
+    if (!plan) plan = plans[0] || null;
+    _state.planId = plan ? plan.id : '';
+    if (plan) sfSelect.value = plan.id;
 
-    // Rebuild when the app updates. Two shapes to catch: it restamps the
-    // data-variant-price attributes in place (so attributes must be observed —
-    // childList alone never fires), or it swaps the whole block for a freshly
-    // rendered one. The latter is why we watch an ancestor rather than the
-    // block itself: an observer bound to a replaced node just goes silent, which
-    // left the overlay showing the previous variant's prices while the app's own
-    // markup — no longer carrying our inline hide — reappeared underneath it.
+    if (!plans.length) _state.mode = 'ot';
+
+    otPrice.innerHTML = esc(data.oneTime || '');
+    if (plan) {
+      subPrice.innerHTML = esc(plan.price)
+        + (plan.orig ? '<span class="pt-price-orig">' + esc(plan.orig) + '</span>' : '');
+    } else {
+      subPrice.innerHTML = '';
+    }
+    if (badge) badge.textContent = data.badge || 'Save';
+
+    var isSub = _state.mode === 'sub';
+    ptSub.style.display = plans.length ? '' : 'none';
+    ptOT.classList.toggle('selected', !isSub);
+    ptSub.classList.toggle('selected', isSub);
+    ptOT.setAttribute('aria-checked', String(!isSub));
+    ptSub.setAttribute('aria-checked', String(isSub));
+    ptOT.querySelector('.pt-radio').classList.toggle('checked', !isSub);
+    ptSub.querySelector('.pt-radio').classList.toggle('checked', isSub);
+    sfWrap.style.display = isSub && plans.length ? '' : 'none';
+  }
+
+  function refresh() {
+    var data = currentData();
+    if (!data) return;
+    if (!_built) { build(data); } else { applyPrices(data); }
+    applySelection();
+  }
+
+  // The app re-rendering its block gives us new radios to check, and the block
+  // may be a brand new node — so watch an ancestor, not the block itself.
+  function observe() {
     if (_mo) _mo.disconnect();
+    var section = appBlock();
+    if (!section) return;
+
     _mo = new MutationObserver(function () {
       clearTimeout(_debounce);
       _debounce = setTimeout(function () {
-        var s = appBlock();
-        if (!s) return;
-        // Node identity matters even when the prices match: the overlay wires
-        // its clicks to the live radios, and a stale node's radios are detached
-        // from the DOM, so the app would never see the selling plan change.
-        if (s === _liveNode && priceSig(s) === _liveSig) return;
-        teardown();
-        tryBuild();
+        hideAppBlock(true);
+        applySelection();
+        if (!_product) applyPrices(currentData());   // scrape fallback only
       }, 150);
     });
     _mo.observe(section.closest('product-info') || section.parentNode || document.body, {
@@ -323,80 +423,57 @@
     });
   }
 
-  // Retry until the app renders its radio inputs
-  function tryBuild(priceSource) {
+  // Retry until the app block is on the page and we have something to price
+  function tryBuild() {
     clearTimeout(_retry);
-    var section = appBlock();
-    if (!section) return;
-    buildSubToggle(priceSource);
+    if (_built) { _retries = 0; return; }
+
+    var data = currentData();
+    if (data) { build(data); }
     if (_built) { _retries = 0; return; }
 
     if (++_retries > MAX_RETRIES) {
-      // Never managed to read the app's radios — show the app's own UI rather
-      // than leaving the shopper with no subscription options at all.
+      // Never managed to read the app's options — leave the app's own UI on
+      // screen rather than showing the shopper no subscription options at all.
       _retries = 0;
       hideAppBlock(false);
       return;
     }
-    _retry = setTimeout(function () { tryBuild(priceSource); }, 250);
-  }
-
-  // On variant change the theme swaps the price/media but leaves the app block
-  // alone, so the overlay keeps showing the old variant's prices. Rebuild it.
-  //
-  // `html` is the freshly fetched section markup from product-info.js. Its app
-  // block is server-rendered for the new variant, which is authoritative — we
-  // don't have to wait for (or trust) the app to restamp the live one.
-  function onVariantChange(html) {
-    clearTimeout(_poll);
-    if (!appBlock()) return;
-
-    var fresh = html ? appBlock(html) : null;
-    if (fresh && priceSig(fresh) !== _builtSig) {
-      teardown();
-      tryBuild(fresh);
-      return;
-    }
-
-    // No usable fetched markup — wait for the live block to restamp itself or
-    // be replaced by a freshly rendered one.
-    var waited = 0;
-    (function wait() {
-      var s = appBlock();
-      if (s && (s !== _liveNode || priceSig(s) !== _liveSig)) {
-        teardown();
-        tryBuild();
-        return;
-      }
-      waited += 150;
-      if (waited < 6000) _poll = setTimeout(wait, 150);
-    })();
+    _retry = setTimeout(tryBuild, 250);
   }
 
   function init() {
-    // Clean up from any previous section reload
-    clearTimeout(_poll);
     clearTimeout(_retry);
-    teardown();
-    _liveSig  = '';
-    _builtSig = '';
+    if (_mo) { _mo.disconnect(); _mo = null; }
+    document.querySelectorAll('.hc-sub-ui').forEach(function (el) { el.remove(); });
+    _built   = false;
+    _retries = 0;
+    _planIds = '';
+    _sample  = '';
 
     if (_unsub) { _unsub(); _unsub = null; }
     if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
-      _unsub = subscribe(PUB_SUB_EVENTS.variantChange, function (event) {
-        onVariantChange(event && event.data && event.data.html);
-      });
+      _unsub = subscribe(PUB_SUB_EVENTS.variantChange, function () { refresh(); });
     }
 
+    loadProduct();
     setTimeout(tryBuild, 100);
   }
 
   // Fallback for variant changes that don't come through the theme's pubsub
-  // (and for the app block node being replaced wholesale).
   document.addEventListener('change', function (e) {
     var t = e.target;
-    if (t && t.name === 'id' && t.closest('form[action*="/cart/add"]')) onVariantChange(null);
+    if (t && t.name === 'id' && t.closest('form[action*="/cart/add"]')) refresh();
   });
+
+  // Last word before the theme serialises the form. Document-level capture runs
+  // ahead of product-form's own submit handler, so whatever the app did to the
+  // selling_plan input in between doesn't decide what lands in the cart.
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (!_built || !form || form !== productForm()) return;
+    setSellingPlan(_state.mode === 'sub' ? _state.planId : '');
+  }, true);
 
   document.addEventListener('DOMContentLoaded', init);
   document.addEventListener('shopify:section:load', init);
