@@ -489,6 +489,7 @@
   text-align: center;
   text-transform: uppercase;
   white-space: nowrap;
+  gap:5px;
 }
 
 .hc-strip--black .hc-strip__item {
