@@ -65,28 +65,28 @@
         "balance": {
           "type": "item",
           "settings": {
-            "icon": "",
+            "icon": "🧠",
             "label": "Gut-Brain Balance"
           }
         },
         "cravings": {
           "type": "item",
           "settings": {
-            "icon": "",
+            "icon": "⚡",
             "label": "Calms Cravings"
           }
         },
         "energy": {
           "type": "item",
           "settings": {
-            "icon": "",
+            "icon": "🔥",
             "label": "Sustained Energy"
           }
         },
         "calories": {
           "type": "item",
           "settings": {
-            "icon": "",
+            "icon": "✅",
             "label": "Just 100 Calories"
           }
         }
