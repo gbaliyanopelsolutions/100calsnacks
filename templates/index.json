@@ -14,8 +14,9 @@
       "settings": {
         "heading": "The<br><em>Overqualified</em><br>Snack.",
         "subheading": "100 clean calories designed to support the gut-brain connection.",
+        "fallback_pills": "Protein, Fiber, Adaptogens",
         "rating": "***** 4.9/5 - 1,200+ Reviews",
-        "primary_label": "Shop Now ->",
+        "primary_label": "Shop Now →",
         "primary_link": "shopify://collections/all",
         "secondary_label": "See How It Works",
         "secondary_link": "",
@@ -107,6 +108,7 @@
           "type": "product",
           "settings": {
             "product": "chocolate-protein-bars",
+            "variant_id": "",
             "title": "Chocolate Brownie",
             "subtitle": "Protein Bar",
             "icon": "BAR",
@@ -126,6 +128,7 @@
           "type": "product",
           "settings": {
             "product": "peanut-butter-bar",
+            "variant_id": "",
             "title": "Peanut Butter",
             "subtitle": "Protein Bar",
             "icon": "BAR",
@@ -145,6 +148,7 @@
           "type": "product",
           "settings": {
             "product": "protein-puffs-bbq",
+            "variant_id": "",
             "title": "BBQ Protein Puffs",
             "subtitle": "Savory Snack",
             "icon": "BAR",
