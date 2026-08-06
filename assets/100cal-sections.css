@@ -317,6 +317,9 @@
 .full_width{
   width:100%;
 }
+.hc-btn-gray{
+      color: rgba(255, 255, 255, .5);
+}
 
 .hc-hero__left {
   display: flex;
