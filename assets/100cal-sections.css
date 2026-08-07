@@ -1367,6 +1367,16 @@
   margin-bottom: 14px;
   text-transform: uppercase;
 }
+.hc-mini-new{
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border: 1px solid rgba(102, 204, 204, .35);
+    color: var(--teal);
+}
 
 .hc-transparency__grid {
   background: var(--black);
