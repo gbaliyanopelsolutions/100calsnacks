@@ -611,7 +611,7 @@
         "right_heading": "Your Gut Makes<br>90% of Your<br>Serotonin.",
         "copy": "Most people blame themselves when they can't stop stress eating. They shouldn't. When your gut is damaged, your brain chemistry follows, and willpower can't fix biology.",
         "solution_label": "Our Formula Breaks the Cycle",
-        "solution_tags": "Protein →  neurotransmitter support, Prebiotic fiber  →  microbiome health, Adaptogens  →  cortisol regulation, 100 Clean Calories -> built-in portion control"
+        "solution_tags": "Protein →  neurotransmitter support, Prebiotic fiber  →  microbiome health, Adaptogens  →  cortisol regulation, 100 Clean Calories  →  built-in portion control"
       }
     },
     "transparency": {
@@ -620,7 +620,7 @@
         "in_1": {
           "type": "in",
           "settings": {
-            "mark": "+",
+            "mark": "🌿",
             "name": "Ashwagandha KSM-66",
             "why": "Clinically studied adaptogen that supports stress response, focus, and cravings."
           }
