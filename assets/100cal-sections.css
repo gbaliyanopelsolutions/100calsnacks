@@ -1097,6 +1097,12 @@
   gap: 16px; 
   padding: 12px 0;
 }
+.hc-timeline__txt{
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: rgba(0, 0, 0, .7);
+    line-height: 1.5;
+}
 
 
 .hc-timeline__row:last-child,
