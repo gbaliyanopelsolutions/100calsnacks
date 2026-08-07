@@ -1078,14 +1078,22 @@
 }
     
 
-.hc-timeline__title,
-.hc-meal-plan__title {
+.hc-timeline__title {
   font-family: var(--font-head);
   font-size: 13px;
   font-weight: 900;
   letter-spacing: 2px;
   margin-bottom: 18px;
   text-transform: uppercase;
+}
+.hc-meal-plan__title {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 14px;
 }
 
 .hc-meal-plan__row {
