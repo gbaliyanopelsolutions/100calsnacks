@@ -1108,7 +1108,7 @@
     color: rgba(255, 255, 255, .55);
 }
 .hc-timeline__row {
-  border-bottom: 1px solid rgba(0,0,0,.15);
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
   display: flex;
   gap: 16px; 
   padding: 12px 0;
