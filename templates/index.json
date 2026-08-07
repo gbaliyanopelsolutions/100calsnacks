@@ -220,6 +220,13 @@
             "icon": "🥑",
             "label": "Clean Keto"
           }
+        },
+        "item_rUChKB": {
+          "type": "item",
+          "settings": {
+            "icon": "🔥",
+            "label": "Inflammation Reducing"
+          }
         }
       },
       "block_order": [
@@ -228,7 +235,8 @@
         "clean_3",
         "clean_4",
         "clean_5",
-        "item_em79Jz"
+        "item_em79Jz",
+        "item_rUChKB"
       ],
       "settings": {
         "style": "black"
