@@ -1170,6 +1170,9 @@
   &.hc-macro-cell__num_100{
         color: var(--teal-dark);
   }
+  &.hc-macro-cell__num_5g{
+        color: var(--orange);
+  }
 }
 
 .hc-macro-cell__label {
