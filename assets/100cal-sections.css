@@ -194,6 +194,9 @@
   line-height: 1.7;
   margin: 14px auto 0;
   max-width: 620px;
+  &.hc-copy_full{
+    max-width: 800px;
+  }
 }
 
 .hc-topbar {
