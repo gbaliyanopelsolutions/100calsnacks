@@ -1251,10 +1251,11 @@
 }
 
 .hc-cycle {
-  aspect-ratio: 1;
-  margin: 0 auto;
-  max-width: 440px;
-  position: relative;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 440px;
+    margin: 0 auto;
 }
 
 .hc-cycle__ring {
