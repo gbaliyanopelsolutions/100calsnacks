@@ -47,7 +47,7 @@
             {% if block.type == 'row' %}
               <div class="hc-timeline__row" {{ block.shopify_attributes }}>
                 <span class="hc-timeline__label">{{ block.settings.label | escape }}</span>
-                <span>{{ block.settings.detail | escape }}</span>
+                <span class="hc-timeline__txt">{{ block.settings.detail | escape }}</span>
               </div>
             {% endif %}
           {% endfor %}
