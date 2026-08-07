@@ -1104,6 +1104,20 @@
     line-height: 1.5;
 }
 
+.timeline_bottom{
+
+}
+.tml_heading{
+      font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: var(--black);
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
 
 .hc-timeline__row:last-child,
 .hc-meal-plan__row:last-child {
