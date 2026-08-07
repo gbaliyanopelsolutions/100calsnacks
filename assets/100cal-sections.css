@@ -1067,12 +1067,16 @@
   color: var(--white);
 }
 
-.hc-timeline,
-.hc-meal-plan {
+.hc-timeline {
   background: rgba(0,0,0,.08);
   border: 1px solid rgba(0,0,0,.2);
   padding: 32px;
 }
+.hc-meal-plan {
+    background: var(--black);
+    padding: 22px;
+}
+    
 
 .hc-timeline__title,
 .hc-meal-plan__title {
