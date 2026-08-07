@@ -13,7 +13,7 @@
         {% elsif section.settings.video != blank %}
           {{ section.settings.video | video_tag: controls: true, image_size: '1200x' }}
         {% else %}
-          <div class="hc-video__placeholder"><span class="hc-play">></span>{{ section.settings.placeholder | escape }}</div>
+          <div class="hc-video__placeholder"><span class="hc-play">▶</span>{{ section.settings.placeholder | escape }}</div>
         {% endif %}
       </div>
     </div>
