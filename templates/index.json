@@ -210,8 +210,15 @@
         "clean_5": {
           "type": "item",
           "settings": {
-            "icon": "",
+            "icon": "⛔",
             "label": "No Sugar Alcohols"
+          }
+        },
+        "item_em79Jz": {
+          "type": "item",
+          "settings": {
+            "icon": "🥑",
+            "label": "Clean Keto"
           }
         }
       },
@@ -220,7 +227,8 @@
         "clean_2",
         "clean_3",
         "clean_4",
-        "clean_5"
+        "clean_5",
+        "item_em79Jz"
       ],
       "settings": {
         "style": "black"
