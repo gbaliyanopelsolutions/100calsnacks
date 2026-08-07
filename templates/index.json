@@ -646,7 +646,15 @@
           "settings": {
             "mark": "💪",
             "name": "Proprietary Pea Protein",
-            "why": "Ayurvedic superfruit rich in antioxidant support."
+            "why": "Clean, complete plant protein for satiety and muscle support — without the digestive discomfort of whey."
+          }
+        },
+        "in_nVWG3X": {
+          "type": "in",
+          "settings": {
+            "mark": "🔬",
+            "name": "Prebiotic Fiber Blend",
+            "why": "Clean, complete plant protein for satiety and muscle support — without the digestive discomfort of whey."
           }
         },
         "out_1": {
@@ -676,6 +684,7 @@
         "in_2",
         "in_3",
         "in_JjmAnz",
+        "in_nVWG3X",
         "out_1",
         "out_2",
         "out_3"
