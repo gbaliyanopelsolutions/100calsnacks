@@ -7,7 +7,7 @@
           {% for block in section.blocks %}
             {% if block.type == 'macro' %}
               <div class="hc-macro-cell" {{ block.shopify_attributes }}>
-                <div class="hc-macro-cell__num_{{ block.settings.value | heandle }} hc-macro-cell__num">{{ block.settings.value | escape }}</div>
+                <div class="hc-macro-cell__num_{{ block.settings.value | handle }} hc-macro-cell__num">{{ block.settings.value | escape }}</div>
                 <div class="hc-macro-cell__label">{{ block.settings.label | escape }}</div>
               </div>
             {% endif %}
