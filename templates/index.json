@@ -465,7 +465,10 @@
         "cta_label": "Take the Gut Brain Health Quiz →",
         "cta_link": "shopify://pages/gut-brain-quiz",
         "tags": "Ashwagandha, Chicory Root Fiber, Amla, Prebiotic Fiber",
-        "card_title": "Your 30-Day Gut Reset"
+        "card_title": "Your 30-Day Gut Reset",
+        "text": "The first snack designed to balance the Gut-Brain Axis in 100 Clean Calories",
+        "btn_txt": "Shop Now →",
+        "btn_url": "shopify://collections/all"
       }
     },
     "weight_audience": {
@@ -555,7 +558,10 @@
         "cta_label": "Shop Best Sellers ->",
         "cta_link": "shopify://collections/all",
         "tags": "Ashwagandha, Chicory Root Fiber, Amla, Prebiotic Fiber",
-        "card_title": "Sample 1,400 Cal Day"
+        "card_title": "Sample 1,400 Cal Day",
+        "text": "",
+        "btn_txt": "Take the Gut Brain Health Quiz ->",
+        "btn_url": "shopify://collections/all"
       }
     },
     "science": {
