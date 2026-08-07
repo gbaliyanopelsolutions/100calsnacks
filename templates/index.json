@@ -367,7 +367,7 @@
         "benefit_1": {
           "type": "benefit",
           "settings": {
-            "icon": "01",
+            "icon": "⚡",
             "title": "Energy",
             "result": "No Sugar Crash",
             "copy": "Protein and adaptogens help deliver steady, crash-free energy instead.",
@@ -377,7 +377,7 @@
         "benefit_2": {
           "type": "benefit",
           "settings": {
-            "icon": "02",
+            "icon": "🧠",
             "title": "Focus",
             "result": "Clearer Thinking",
             "copy": "When your microbiome is supported, your brain works better too.",
