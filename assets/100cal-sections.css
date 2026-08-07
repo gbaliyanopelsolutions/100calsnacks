@@ -334,8 +334,8 @@
     text-transform: uppercase;
     transition: all .2s ease;
     &:hover{
-      color: #ffffff80;
-      background-color: transparent;
+      color: #ffffff80 !important;
+      background-color: transparent !important;
     }
 }
 .hc-cta-row .hc-btn-gray{
