@@ -1084,7 +1084,6 @@
   text-transform: uppercase;
 }
 
-.hc-timeline__row,
 .hc-meal-plan__row {
   border-bottom: 1px solid rgba(0,0,0,.15);
   display: flex;
@@ -1092,6 +1091,13 @@
   justify-content: space-between;
   padding: 12px 0;
 }
+.hc-timeline__row {
+  border-bottom: 1px solid rgba(0,0,0,.15);
+  display: flex;
+  gap: 16px; 
+  padding: 12px 0;
+}
+
 
 .hc-timeline__row:last-child,
 .hc-meal-plan__row:last-child {
