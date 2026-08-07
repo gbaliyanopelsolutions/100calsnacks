@@ -387,7 +387,7 @@
         "benefit_3": {
           "type": "benefit",
           "settings": {
-            "icon": "03",
+            "icon": "🌱",
             "title": "Digestion",
             "result": "Gut-Friendly Snacking",
             "copy": "Prebiotic fiber feeds the microbiome and supports smoother digestion.",
@@ -397,7 +397,7 @@
         "benefit_4": {
           "type": "benefit",
           "settings": {
-            "icon": "04",
+            "icon": "🛡️",
             "title": "Cravings",
             "result": "Calm Stress Eating",
             "copy": "Protein and fiber help steady hunger signals and prevent reactive snacking.",
