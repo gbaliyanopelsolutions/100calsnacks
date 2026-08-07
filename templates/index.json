@@ -628,7 +628,7 @@
         "in_2": {
           "type": "in",
           "settings": {
-            "mark": "+",
+            "mark": "🌾",
             "name": "Chicory Root Fiber",
             "why": "Prebiotic fiber that feeds good gut bacteria and supports steady blood sugar."
           }
@@ -636,8 +636,16 @@
         "in_3": {
           "type": "in",
           "settings": {
-            "mark": "+",
+            "mark": "🫐",
             "name": "Amla Berry Extract",
+            "why": "Ayurvedic superfruit rich in antioxidant support."
+          }
+        },
+        "in_JjmAnz": {
+          "type": "in",
+          "settings": {
+            "mark": "💪",
+            "name": "Proprietary Pea Protein",
             "why": "Ayurvedic superfruit rich in antioxidant support."
           }
         },
@@ -667,6 +675,7 @@
         "in_1",
         "in_2",
         "in_3",
+        "in_JjmAnz",
         "out_1",
         "out_2",
         "out_3"
