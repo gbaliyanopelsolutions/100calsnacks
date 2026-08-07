@@ -189,21 +189,21 @@
         "clean_2": {
           "type": "item",
           "settings": {
-            "icon": "",
+            "icon": "✅",
             "label": "100% Natural"
           }
         },
         "clean_3": {
           "type": "item",
           "settings": {
-            "icon": "",
+            "icon": "🌾",
             "label": "Gluten-Free"
           }
         },
         "clean_4": {
           "type": "item",
           "settings": {
-            "icon": "",
+            "icon": "🚫",
             "label": "No Added Sugars"
           }
         },
