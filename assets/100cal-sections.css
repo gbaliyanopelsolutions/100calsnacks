@@ -981,6 +981,11 @@
 .hc-benefit-card {
   padding: 36px 28px;
 }
+.hc-benefit-card_hover{
+  &:hover{
+    background: var(--neutral-light);
+  }
+}
 
 .hc-benefit-card__icon {
   color: var(--teal-dark);
