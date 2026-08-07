@@ -24,7 +24,7 @@
           <div class="hc-solution__label">{{ section.settings.solution_label | escape }}</div>
           <div class="hc-mini-tags">
             {% assign tags = section.settings.solution_tags | split: ',' %}
-            {% for tag in tags %}<span class="hc-mini-tag">{{ tag | strip }}</span>{% endfor %}
+            {% for tag in tags %}<span class="hc-mini-new">{{ tag | strip }}</span>{% endfor %}
           </div>
         </div>
       </div>
