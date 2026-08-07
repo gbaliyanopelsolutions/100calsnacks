@@ -34,7 +34,7 @@
       {% if section.settings.mode == 'gut' %}
         <div class="hc-mini-tags" style="margin-top:24px;">
           {% assign tags = section.settings.tags | split: ',' %}
-          {% for tag in tags %}<span class="hc-mini-tag">{{ tag | strip }}</span>{% endfor %}
+          {% for tag in tags %}<span class="hc-mini-tag_new">{{ tag | strip }}</span>{% endfor %}
         </div>
       {% endif %}
     </div>
