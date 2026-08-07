@@ -19,7 +19,7 @@
       <div style="text-align:center;margin-top:60px;">
         <div style="font-family:var(--font-head);font-weight:900;font-size:28px;color:var(--teal);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;">{{ section.settings.hashtag | escape }}</div>
         <p style="color:rgba(255,255,255,.38);margin:0 0 28px;">{{ section.settings.subcopy | escape }}</p>
-        <a href="{{ section.settings.cta_link | default: '/pages/reviews' }}" class="hc-btn hc-btn--white-outline">{{ section.settings.cta_label }}</a>
+        <a href="{{ section.settings.cta_link | default: '/pages/reviews' }}" class="hc-btn btn--white_all hc-btn--white-outline">{{ section.settings.cta_label }}</a>
       </div>
     {% endif %}
   </section>
