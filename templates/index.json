@@ -512,7 +512,7 @@
         "meal_2": {
           "type": "row",
           "settings": {
-            "label": "Mid-Morning - 100Cal Bar",
+            "label": "Mid-Morning - 100Cal Bar  ★",
             "detail": "100 cal"
           }
         },
@@ -526,7 +526,7 @@
         "meal_4": {
           "type": "row",
           "settings": {
-            "label": "Afternoon - 100Cal Puffs",
+            "label": "Afternoon - 100Cal Puffs ★",
             "detail": "100 cal"
           }
         },
