@@ -1,7 +1,7 @@
 
 <div class="hundred-cal">
   <div class="hc-strip hc-strip--{{ section.settings.style }}">
-    <div class="hc-strip__inner">
+    <div class="hc-strip__inner hc-strip__inner_full">
       {% for block in section.blocks %}
         <div class="hc-strip__item" {{ block.shopify_attributes }}>
           {% if block.settings.icon != blank %}<span>{{ block.settings.icon | escape }}</span>{% endif %}
