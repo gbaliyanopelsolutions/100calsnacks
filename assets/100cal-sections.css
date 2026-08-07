@@ -472,7 +472,14 @@
   justify-content: center;
   margin: 0 auto;
   max-width: 1440px;
+  &.hc-strip__inner_full{
+    max-width:100%;
+    .hc-strip__item {
+      flex: 1;
+    }
+  }
 }
+
 
 .hc-strip__item {
   align-items: center;
