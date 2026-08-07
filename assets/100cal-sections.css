@@ -1128,7 +1128,9 @@
     border: 1px solid var(--teal-dark);
     color: var(--teal-dark);
 }
-
+.hc-eyebrow_audence{
+      color: var(--black) !important;
+}
 
 .hc-timeline__row:last-child,
 .hc-meal-plan__row:last-child {
