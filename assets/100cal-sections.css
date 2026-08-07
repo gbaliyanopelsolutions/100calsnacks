@@ -320,6 +320,20 @@
 .full_width{
   width:100%;
 }
+.btn_only{
+    border: 0;
+    cursor: pointer;
+    display: inline-block;
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    line-height: 1;
+    padding: 0;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all .2s ease;
+}
 .hc-cta-row .hc-btn-gray{
       color: rgba(255, 255, 255, .5);
       &:hover{
