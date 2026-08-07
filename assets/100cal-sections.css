@@ -1118,8 +1118,15 @@
     margin-bottom: 20px;
     letter-spacing: 1px;
 }
-.tml_box{
-
+.hc-mini-tag_new{
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border: 1px solid var(--teal-dark);
+    color: var(--teal-dark);
 }
 
 
