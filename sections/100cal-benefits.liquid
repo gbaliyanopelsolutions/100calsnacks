@@ -8,7 +8,7 @@
     </div>
     <div class="hc-card-grid hc-card-grid--4">
       {% for block in section.blocks %}
-        <article class="hc-benefit-card" {{ block.shopify_attributes }}>
+        <article class="hc-benefit-card hc-benefit-card_hover" {{ block.shopify_attributes }}>
           <div class="hc-benefit-card__icon">{{ block.settings.icon | escape }}</div>
           <h3 class="hc-benefit-card__title">{{ block.settings.title | escape }}</h3>
           <div class="hc-benefit-card__result">{{ block.settings.result | escape }}</div>
