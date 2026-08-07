@@ -1097,11 +1097,15 @@
 }
 
 .hc-meal-plan__row {
-  border-bottom: 1px solid rgba(0,0,0,.15);
-  display: flex;
-  gap: 16px;
-  justify-content: space-between;
-  padding: 12px 0;
+  
+
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: rgba(255, 255, 255, .55);
 }
 .hc-timeline__row {
   border-bottom: 1px solid rgba(0,0,0,.15);
