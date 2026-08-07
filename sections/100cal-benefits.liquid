@@ -4,7 +4,7 @@
     <div class="hc-section-header">
       <div class="hc-eyebrow">{{ section.settings.eyebrow | escape }}</div>
       <h2 class="hc-title">{{ section.settings.heading }}</h2>
-      {% if section.settings.subheading != blank %}<p class="hc-copy">{{ section.settings.subheading }}</p>{% endif %}
+      {% if section.settings.subheading != blank %}<h3 class="hc-title_subtext">{{ section.settings.subheading }}</h3>{% endif %}
     </div>
     <div class="hc-card-grid hc-card-grid--4">
       {% for block in section.blocks %}
