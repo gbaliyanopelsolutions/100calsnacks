@@ -333,6 +333,10 @@
     text-decoration: none;
     text-transform: uppercase;
     transition: all .2s ease;
+    &:hover{
+      color: #ffffff80;
+      background-color: transparent;
+    }
 }
 .hc-cta-row .hc-btn-gray{
       color: rgba(255, 255, 255, .5);
