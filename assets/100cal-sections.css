@@ -476,6 +476,7 @@
     max-width:100%;
     .hc-strip__item {
       flex: 1;
+      border-left: 1px solid rgba(102, 204, 204, .18);
     }
   }
 }
