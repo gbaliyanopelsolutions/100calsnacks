@@ -1105,6 +1105,7 @@
 }
 
 .timeline_bottom{
+  margin-top:25px;
   text-align:center;
 }
 .tml_heading{
@@ -1118,7 +1119,7 @@
     letter-spacing: 1px;
 }
 .tml_box{
-  
+
 }
 
 
