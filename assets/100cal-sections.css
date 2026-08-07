@@ -1095,18 +1095,18 @@
     color: var(--orange);
     margin-bottom: 14px;
 }
-
-.hc-meal-plan__row {
-  
-
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, .08);
-    font-family: var(--font-body);
-    font-size: 13px;
-    color: rgba(255, 255, 255, .55);
+.hc-meal-plan{
+  .hc-meal-plan__row { 
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: rgba(255, 255, 255, .55);
+  }
 }
+
 .hc-timeline__row {
   border-bottom: 1px solid rgba(255, 255, 255, .08);
   display: flex;
