@@ -54,10 +54,14 @@
         </div>
 
         <div class="timeline_bottom">
+           {% if section.settings.text != blank %}
             <div class="tml_heading">{{ section.settings.text }}</div>
+           {% endif %}
+            {% if section.settings.btn_txt != blank %}
              <div class="tml_box">
               <a href="{{ section.settings.btn_url }}"> {{ section.settings.btn_txt }}</a>
             </div>
+          {% endif %}
         </div>
 
 
