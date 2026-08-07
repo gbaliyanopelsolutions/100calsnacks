@@ -58,6 +58,9 @@
 .hundred-cal a {
   color: inherit;
 }
+.hc-testimonials .btn--white_all{
+  color:#fff;
+}
 
 .hc-btn {
   border: 0;
