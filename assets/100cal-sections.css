@@ -1167,6 +1167,9 @@
   font-size: 48px;
   font-weight: 900;
   line-height: 1;
+  &.hc-macro-cell__num{
+        color: var(--teal-dark);
+  }
 }
 
 .hc-macro-cell__label {
