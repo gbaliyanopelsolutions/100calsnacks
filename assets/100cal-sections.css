@@ -198,6 +198,15 @@
     max-width: 800px;
   }
 }
+.hc-title_subtext{
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 40px;
+    text-transform: uppercase;
+    color: var(--black);
+    line-height: 1;
+    margin-bottom: 12px;
+}
 
 .hc-topbar {
   background: var(--black);
