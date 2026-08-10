@@ -688,8 +688,15 @@
         "out_FqPNtz": {
           "type": "out",
           "settings": {
-            "name": "Preservatives",
+            "name": "Gluten",
             "why": "Certified gluten-free. No cross-contamination risk."
+          }
+        },
+        "out_iK7HD4": {
+          "type": "out",
+          "settings": {
+            "name": "Empty Calories",
+            "why": "Every one of our 100 calories earns its place. No filler, no fluff."
           }
         }
       },
@@ -703,7 +710,8 @@
         "out_2",
         "out_3",
         "out_BNgJNn",
-        "out_FqPNtz"
+        "out_FqPNtz",
+        "out_iK7HD4"
       ],
       "settings": {
         "eyebrow": "Because You Deserve to Know Exactly What You're Eating",
