@@ -3596,3 +3596,22 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
+
+
+.hcng_flx{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  .hcng_item{
+    .hcng_tag{
+          font-family: var(--font-head);
+          font-weight: 700;
+          font-size: 9px;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          padding: 3px 8px;
+          background: var(--teal-light);
+          color: var(--teal-dark);
+    }
+  }
+}
