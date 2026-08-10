@@ -572,6 +572,11 @@
 .hc-comparison{
   padding: 30px 80px;
 }
+.hc-callout{
+  .hc-callout__title span{
+    color:#fff;
+  }
+}
 .hc-products {
   background: var(--neutral-light);
 }
