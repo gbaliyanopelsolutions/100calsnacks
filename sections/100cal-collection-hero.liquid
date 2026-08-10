@@ -1,4 +1,3 @@
-
 <section class="col-hero" {{ section.shopify_attributes }}>
   <div class="col-hero-left">
     <div class="col-hero-eyebrow">{{ section.settings.eyebrow }}</div>
@@ -25,7 +24,7 @@
       {% endif %}
     </div>
   </div>
-  
+
   <div class="col-hero-right">
     <div class="mini-product-stack">
       {% for block in section.blocks %}
@@ -33,6 +32,11 @@
           <div class="mini-prod-visual mini-prod-visual-{{ block.settings.product_color }}">
             <span class="mini-prod-cal-stamp">{{ block.settings.calories }}</span>
             {{ block.settings.product_svg }}
+            {% if block.settings.hover_text != blank %}
+              <div class="mini-prod-hover">
+                <span>{{ block.settings.hover_text }}</span>
+              </div>
+            {% endif %}
           </div>
           <div class="mini-prod-footer">
             <div class="mini-prod-name">{{ block.settings.product_name }}</div>
@@ -208,6 +212,44 @@
     background: #e66443;
   }
 
+  /* ---- Hover text overlay ---- */
+  .mini-prod-hover {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    text-align: center;
+    background: rgba(8, 8, 8, 0.82);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .mini-prod-hover span {
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--teal);
+    transform: translateY(6px);
+    transition: transform 0.3s ease;
+  }
+
+  .mini-prod:hover .mini-prod-hover,
+  .mini-prod:focus-within .mini-prod-hover {
+    opacity: 1;
+  }
+
+  .mini-prod:hover .mini-prod-hover span,
+  .mini-prod:focus-within .mini-prod-hover span {
+    transform: translateY(0);
+  }
+
   .mini-prod-cal-stamp {
     position: absolute;
     top: 10px;
@@ -220,7 +262,7 @@
     letter-spacing: 1.5px;
     text-transform: uppercase;
     padding: 3px 8px;
-    z-index: 3;
+    z-index: 5;
   }
 
   .mini-prod-footer {
@@ -244,6 +286,14 @@
     font-family: var(--font-body);
     font-size: 11px;
     color: rgba(255, 255, 255, 0.35);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mini-prod,
+    .mini-prod-hover,
+    .mini-prod-hover span {
+      transition: none;
+    }
   }
 
   @media (max-width: 1024px) {
@@ -282,6 +332,13 @@
 
     .mini-prod-visual {
       height: 120px;
+    }
+  }
+
+  /* Touch devices have no hover state — don't hide content behind one */
+  @media (hover: none) {
+    .mini-prod-hover {
+      display: none;
     }
   }
 {% endstylesheet %}
@@ -362,6 +419,13 @@
           "default": "Protein Bar"
         },
         {
+          "type": "text",
+          "id": "hover_text",
+          "label": "Hover Text",
+          "info": "Appears over the product image on hover. Leave blank to disable.",
+          "default": "Shop Now"
+        },
+        {
           "type": "select",
           "id": "product_color",
           "label": "Product Color Theme",
@@ -391,9 +455,9 @@
     {
       "name": "Collection Hero",
       "blocks": [
-        {"type": "product", "settings": {"product_name": "Chocolate Brownie", "product_type": "Protein Bar", "product_color": "choc"}},
-        {"type": "product", "settings": {"product_name": "Peanut Butter", "product_type": "Protein Bar", "product_color": "pb"}},
-        {"type": "product", "settings": {"product_name": "BBQ Protein Puffs", "product_type": "Savory Snack", "product_color": "bbq"}}
+        {"type": "product", "settings": {"product_name": "Chocolate Brownie", "product_type": "Protein Bar", "product_color": "choc", "hover_text": "Shop Now"}},
+        {"type": "product", "settings": {"product_name": "Peanut Butter", "product_type": "Protein Bar", "product_color": "pb", "hover_text": "Shop Now"}},
+        {"type": "product", "settings": {"product_name": "BBQ Protein Puffs", "product_type": "Savory Snack", "product_color": "bbq", "hover_text": "Shop Now"}}
       ]
     }
   ]
