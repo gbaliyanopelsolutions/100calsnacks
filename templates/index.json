@@ -753,6 +753,7 @@
           "settings": {
             "winner": true,
             "snack": "🏆 100Cal Snack Bar",
+            "snack_note": "",
             "calories": "100",
             "protein": "10g",
             "fiber": "5g",
@@ -768,6 +769,7 @@
           "settings": {
             "winner": false,
             "snack": "The Clean Keto Bar",
+            "snack_note": "You know the one. Everyone's on it.",
             "calories": "200",
             "protein": "20g",
             "fiber": "14g",
@@ -783,6 +785,7 @@
           "settings": {
             "winner": false,
             "snack": "The Natural Nuts &amp; Honey Bar",
+            "snack_note": "",
             "calories": "200",
             "protein": "6g",
             "fiber": "7g",
