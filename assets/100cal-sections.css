@@ -2659,6 +2659,13 @@ details[open] > .full-ing-body{display:block}
         transform: rotate(180deg);
   }
 }
+.newsletter-title{
+    font-family: var(--font-head);
+    font-weight: 900;
+    font-size: 48px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
 .faq-q.open .faq-chevron{transform:rotate(180deg);color:var(--black)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
 .faq-a.open{max-height:400px;padding:0 28px 24px}
