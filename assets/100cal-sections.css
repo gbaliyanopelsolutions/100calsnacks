@@ -2639,15 +2639,12 @@ details[open] > .full-ing-body{display:block}
     transform: rotate(0deg);
 }
 .faq_item{
-      width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    padding: 0;
+    width: 100%; 
+    position:relative;
+    padding-right:20px;
+    &:before{
+      content: '▾'
+    }
 }
 
 .faq-q.open .faq-chevron{transform:rotate(180deg);color:var(--black)}
