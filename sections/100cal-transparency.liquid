@@ -15,6 +15,17 @@
               <div>
                 <div class="hc-ing-name">{{ block.settings.name | escape }}</div>
                 <div class="hc-ing-why">{{ block.settings.why }}</div>
+
+                <div class="hcng_flx">
+                  {% for i in (1..5) %}
+                    {% assign tag = 'tag_' | append: i %}
+                    {% assign tag = block.settings[tag] %}
+                    {% if tag != blank %}
+                      <div class="hcng_item"><span class="hcng_tag">{{ tag }}</span></div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+                
               </div>
             </div>
           {% endif %}
@@ -30,15 +41,7 @@
                 <div class="hc-ing-name">{{ block.settings.name | escape }}</div>
                 <div class="hc-ing-why">{{ block.settings.why }}</div>
 
-                <div class="hcng_flx">
-                  {% for i in (1..5) %}
-                    {% assign tag = 'tag_' | append: i %}
-                    {% assign tag = block.settings[tag] %}
-                    {% if tag != blank %}
-                      <div class="hcng_item"><span class="hcng_tag">{{ tag }}</span></div>
-                    {% endif %}
-                  {% endfor %}
-                </div>
+                
 
               </div>
             </div>
