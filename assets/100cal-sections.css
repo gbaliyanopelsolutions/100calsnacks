@@ -2638,6 +2638,17 @@ details[open] > .full-ing-body{display:block}
     transition: transform 0.25s;
     transform: rotate(0deg);
 }
+.faq_item{
+      width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: 0;
+}
 
 .faq-q.open .faq-chevron{transform:rotate(180deg);color:var(--black)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
