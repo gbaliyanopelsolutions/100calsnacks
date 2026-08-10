@@ -1578,6 +1578,7 @@
 .hc-faq details {
   border-bottom: 1px solid var(--neutral-light);
   padding: 28px 0;
+  position:relative;
 }
 
 .hc-faq summary {
