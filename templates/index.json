@@ -768,7 +768,7 @@
           "type": "row",
           "settings": {
             "winner": false,
-            "snack": "The Clean Keto Bar",
+            "snack": "The \"Clean Keto\" Bar",
             "snack_note": "You know the one. Everyone's on it.",
             "calories": "200",
             "protein": "20g",
@@ -784,7 +784,7 @@
           "type": "row",
           "settings": {
             "winner": false,
-            "snack": "The Natural Nuts &amp; Honey Bar",
+            "snack": "The \"Natural Nuts &amp; Honey\" Bar",
             "snack_note": "",
             "calories": "200",
             "protein": "6g",
