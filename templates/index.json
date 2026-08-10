@@ -622,7 +622,12 @@
           "settings": {
             "mark": "🌿",
             "name": "Ashwagandha KSM-66",
-            "why": "Clinically studied adaptogen that lowers cortisol, reduces stress-driven cravings, and supports focus, while strengthening the gut lining."
+            "why": "Clinically studied adaptogen that lowers cortisol, reduces stress-driven cravings, and supports focus, while strengthening the gut lining.",
+            "tag_1": "Gut",
+            "tag_2": "Gut",
+            "tag_3": "",
+            "tag_4": "",
+            "tag_5": ""
           }
         },
         "in_2": {
@@ -630,7 +635,12 @@
           "settings": {
             "mark": "🌾",
             "name": "Chicory Root Fiber",
-            "why": "Prebiotic fiber that feeds good gut bacteria, improves digestion, and supports steady blood sugar."
+            "why": "Prebiotic fiber that feeds good gut bacteria, improves digestion, and supports steady blood sugar.",
+            "tag_1": "",
+            "tag_2": "",
+            "tag_3": "",
+            "tag_4": "",
+            "tag_5": ""
           }
         },
         "in_3": {
@@ -638,7 +648,12 @@
           "settings": {
             "mark": "🫐",
             "name": "Amla Berry Extract",
-            "why": "Ayurvedic superfruit rich in Vitamin C. Anti-inflammatory, gut-lining protective, antioxidant powerhouse."
+            "why": "Ayurvedic superfruit rich in Vitamin C. Anti-inflammatory, gut-lining protective, antioxidant powerhouse.",
+            "tag_1": "",
+            "tag_2": "",
+            "tag_3": "",
+            "tag_4": "",
+            "tag_5": ""
           }
         },
         "in_JjmAnz": {
@@ -646,7 +661,12 @@
           "settings": {
             "mark": "💪",
             "name": "Proprietary Pea Protein",
-            "why": "Clean, complete plant protein for satiety and muscle support — without the digestive discomfort of whey."
+            "why": "Clean, complete plant protein for satiety and muscle support — without the digestive discomfort of whey.",
+            "tag_1": "",
+            "tag_2": "",
+            "tag_3": "",
+            "tag_4": "",
+            "tag_5": ""
           }
         },
         "in_nVWG3X": {
@@ -654,7 +674,12 @@
           "settings": {
             "mark": "🔬",
             "name": "Prebiotic Fiber Blend",
-            "why": "Feeds your microbiome, slows sugar absorption, and keeps you full without a spike-and-crash."
+            "why": "Feeds your microbiome, slows sugar absorption, and keeps you full without a spike-and-crash.",
+            "tag_1": "",
+            "tag_2": "",
+            "tag_3": "",
+            "tag_4": "",
+            "tag_5": ""
           }
         },
         "out_1": {
