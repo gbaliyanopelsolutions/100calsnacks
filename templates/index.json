@@ -661,7 +661,7 @@
           "type": "out",
           "settings": {
             "name": "Sugar Alcohols",
-            "why": "Maltitol, erythritol, and xylitol can cause digestive discomfort. Gone."
+            "why": "Maltitol, erythritol, xylitol — they bloat your gut and disrupt your microbiome. Gone."
           }
         },
         "out_2": {
@@ -693,7 +693,7 @@
         "eyebrow": "Because You Deserve to Know Exactly What You're Eating",
         "heading": "What's In It.<br>What's Not.",
         "in_title": "What's In It ✓",
-        "out_title": "What's NOT In It"
+        "out_title": "What's NOT In It ✕"
       }
     },
     "comparison": {
