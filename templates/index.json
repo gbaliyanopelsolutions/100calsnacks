@@ -625,7 +625,7 @@
             "why": "Clinically studied adaptogen that lowers cortisol, reduces stress-driven cravings, and supports focus, while strengthening the gut lining.",
             "tag_1": "Gut",
             "tag_2": "Brain",
-            "tag_3": "",
+            "tag_3": "Cravings",
             "tag_4": "",
             "tag_5": ""
           }
@@ -636,8 +636,8 @@
             "mark": "🌾",
             "name": "Chicory Root Fiber",
             "why": "Prebiotic fiber that feeds good gut bacteria, improves digestion, and supports steady blood sugar.",
-            "tag_1": "Protein",
-            "tag_2": "Satiety",
+            "tag_1": "Gut",
+            "tag_2": "Digestion",
             "tag_3": "",
             "tag_4": "",
             "tag_5": ""
@@ -649,8 +649,8 @@
             "mark": "🫐",
             "name": "Amla Berry Extract",
             "why": "Ayurvedic superfruit rich in Vitamin C. Anti-inflammatory, gut-lining protective, antioxidant powerhouse.",
-            "tag_1": "",
-            "tag_2": "",
+            "tag_1": "Gut",
+            "tag_2": "Immunity",
             "tag_3": "",
             "tag_4": "",
             "tag_5": ""
