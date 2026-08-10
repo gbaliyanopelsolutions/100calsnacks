@@ -1431,6 +1431,10 @@
   justify-content: center;
   width: 44px;
 }
+.hc-trans-card--dark .hc-ing-badge{
+  height: 30px;
+  width:30px;
+}
 
 .hc-ing-name {
   font-family: var(--font-head);
