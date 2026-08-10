@@ -2643,7 +2643,13 @@ details[open] > .full-ing-body{display:block}
     position:relative;
     padding-right:20px;
     &:before{
-      content: '▾'
+      content: '▾';
+      font-size: 20px;
+      color: var(--teal-dark);
+      flex-shrink: 0;
+      margin-left: 16px;
+      transition: transform 0.25s;
+      transform: rotate(0deg);
     }
 }
 
