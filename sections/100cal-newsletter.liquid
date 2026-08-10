@@ -2,7 +2,7 @@
 <div class="hundred-cal">
   <section class="hc-newsletter">
     <div class="hc-newsletter__inner">
-      <h2 class="hc-title">{{ section.settings.heading }}</h2>
+      <h2 class="newsletter-title">{{ section.settings.heading }}</h2>
       <p class="hc-copy">{{ section.settings.copy }}</p>
       {% form 'customer', class: 'hc-newsletter__form' %}
         <input type="hidden" name="contact[tags]" value="newsletter">
