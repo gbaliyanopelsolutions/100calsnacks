@@ -913,7 +913,7 @@
       "type": "100cal-newsletter",
       "settings": {
         "heading": "Join The Gutsy-Brainy Club",
-        "copy": "Get early access to new launches and 10% off your first order. Trusted by 5,000+ snackers fixing their gut-brain connection.",
+        "copy": "Get early access to new launches and 10% off your first order.<br>Trusted by 5,000+ snackers fixing their gut-brain connection.",
         "placeholder": "Enter your email",
         "button_label": "Sign Up",
         "success_message": "Thanks for joining."
