@@ -56,7 +56,7 @@
         "subheading": "Steady energy. Calmer cravings. Just 100 calories.",
         "cta_primary_link": "#sampler",
         "cta_primary_text": "Shop Sampler",
-        "cta_secondary_link": "#quiz",
+        "cta_secondary_link": "shopify://pages/gut-brain-quiz",
         "cta_secondary_text": "Take the Quiz"
       }
     },
