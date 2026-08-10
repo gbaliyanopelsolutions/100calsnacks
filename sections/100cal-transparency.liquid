@@ -25,7 +25,7 @@
         {% for block in section.blocks %}
           {% if block.type == 'out' %}
             <div class="hc-ing-row" {{ block.shopify_attributes }}>
-              <div class="hc-ing-badge">X</div>
+              <div class="hc-ing-badge">✕</div>
               <div>
                 <div class="hc-ing-name">{{ block.settings.name | escape }}</div>
                 <div class="hc-ing-why">{{ block.settings.why }}</div>
