@@ -1,3 +1,5 @@
+{%- assign mark_good = '<span class="hc-mark hc-mark--good" aria-hidden="true">✓</span>' -%}
+{%- assign mark_bad = '<span class="hc-mark hc-mark--bad" aria-hidden="true">✕</span>' -%}
 
 <div class="hundred-cal">
   <section class="hc-comparison">
@@ -15,14 +17,26 @@
         </thead>
         <tbody>
           {% for block in section.blocks %}
-            <tr {{ block.shopify_attributes }}>
-              <td>{{ block.settings.snack }}</td>
+            <tr class="{% if block.settings.winner %}hc-row--winner{% endif %}" {{ block.shopify_attributes }}>
+              <td class="hc-snack">
+                <span class="hc-snack__name">{{ block.settings.snack }}</span>
+                {% if block.settings.snack_note != blank %}
+                  <span class="hc-snack__note">{{ block.settings.snack_note | escape }}</span>
+                {% endif %}
+              </td>
               <td class="{% if block.settings.winner %}hc-green{% endif %}">{{ block.settings.calories | escape }}</td>
               <td class="{% if block.settings.winner %}hc-green{% endif %}">{{ block.settings.protein | escape }}</td>
               <td class="{% if block.settings.winner %}hc-green{% endif %}">{{ block.settings.fiber | escape }}</td>
-              <td class="{% if block.settings.bad_added_sugar %}hc-red{% elsif block.settings.winner %}hc-green{% endif %}">{{ block.settings.added_sugar | escape }}</td>
+              <td class="{% if block.settings.bad_added_sugar %}hc-red{% elsif block.settings.winner %}hc-green{% endif %}">
+                {{- block.settings.added_sugar | escape -}}
+                {%- if block.settings.bad_added_sugar -%}{{ mark_bad }}{%- endif -%}
+              </td>
               <td class="{% if block.settings.winner %}hc-green{% endif %}">{{ block.settings.net_carbs | escape }}</td>
-              <td class="{% if block.settings.bad_sugar_alcohols %}hc-red{% elsif block.settings.winner %}hc-green{% endif %}">{{ block.settings.sugar_alcohols | escape }}</td>
+              <td class="{% if block.settings.bad_sugar_alcohols %}hc-red{% elsif block.settings.winner %}hc-green{% endif %}">
+                {{- block.settings.sugar_alcohols | escape -}}
+                {%- if block.settings.bad_sugar_alcohols -%}{{ mark_bad }}
+                {%- elsif block.settings.winner -%}{{ mark_good }}{%- endif -%}
+              </td>
             </tr>
           {% endfor %}
         </tbody>
@@ -37,6 +51,47 @@
   </section>
 </div>
 
+{% style %}
+  .hc-compare-table .hc-snack {
+    line-height: 1.25;
+  }
+  .hc-snack__name {
+    display: block;
+    font-family: var(--font-head);
+    font-weight: 800;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+  }
+  .hc-snack__note {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    opacity: .6;
+  }
+  .hc-row--winner .hc-snack__note { opacity: .75; }
+
+  .hc-mark {
+    margin-left: 6px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .hc-mark--bad { color: #e01b1b; }
+  .hc-mark--good { color: inherit; }
+
+  .hc-compare-table .hc-red {
+    color: #e01b1b;
+    font-weight: 700;
+  }
+
+  @media (max-width: 749px) {
+    .hc-snack__note { font-size: 11px; }
+  }
+{% endstyle %}
+
 {% schema %}
 {
   "name": "100Cal Comparison",
@@ -50,15 +105,16 @@
   "blocks": [
     { "type": "row", "name": "Comparison row", "settings": [
       { "type": "checkbox", "id": "winner", "label": "Highlight as winner", "default": false },
-      { "type": "html", "id": "snack", "label": "Snack", "default": "100Cal Snack Bar" },
+      { "type": "html", "id": "snack", "label": "Snack name", "default": "100Cal Snack Bar" },
+      { "type": "text", "id": "snack_note", "label": "Snack subheading", "info": "Small italic line under the snack name. Leave blank to hide." },
       { "type": "text", "id": "calories", "label": "Calories", "default": "100" },
       { "type": "text", "id": "protein", "label": "Protein", "default": "10g" },
       { "type": "text", "id": "fiber", "label": "Fiber", "default": "5g" },
       { "type": "text", "id": "added_sugar", "label": "Added sugar", "default": "0g" },
       { "type": "text", "id": "net_carbs", "label": "Net carbs", "default": "3g" },
       { "type": "text", "id": "sugar_alcohols", "label": "Sugar alcohols", "default": "0g" },
-      { "type": "checkbox", "id": "bad_added_sugar", "label": "Mark added sugar red", "default": false },
-      { "type": "checkbox", "id": "bad_sugar_alcohols", "label": "Mark sugar alcohols red", "default": false }
+      { "type": "checkbox", "id": "bad_added_sugar", "label": "Mark added sugar red with ✕", "default": false },
+      { "type": "checkbox", "id": "bad_sugar_alcohols", "label": "Mark sugar alcohols red with ✕", "default": false }
     ] }
   ],
   "presets": [
@@ -66,8 +122,10 @@
       "name": "100Cal Comparison",
       "blocks": [
         { "type": "row", "settings": { "winner": true, "snack": "100Cal Snack Bar" } },
-        { "type": "row", "settings": { "snack": "The Clean Keto Bar", "calories": "200", "protein": "20g", "fiber": "14g", "added_sugar": "1g", "net_carbs": "6g", "sugar_alcohols": "8g", "bad_sugar_alcohols": true } },
-        { "type": "row", "settings": { "snack": "The Natural Nuts & Honey Bar", "calories": "200", "protein": "6g", "fiber": "7g", "added_sugar": "5g", "net_carbs": "13g", "sugar_alcohols": "0g", "bad_added_sugar": true } }
+        { "type": "row", "settings": { "snack": "The \"Clean Keto\" Bar", "snack_note": "You know the one. Everyone's on it.", "calories": "200", "protein": "20g", "fiber": "14g", "added_sugar": "1g", "net_carbs": "6g", "sugar_alcohols": "8g", "bad_sugar_alcohols": true } },
+        { "type": "row", "settings": { "snack": "The \"Natural Nuts & Honey\" Bar", "snack_note": "Wholesome branding. Less wholesome sugar.", "calories": "200", "protein": "6g", "fiber": "7g", "added_sugar": "5g", "net_carbs": "13g", "sugar_alcohols": "0g", "bad_added_sugar": true } },
+        { "type": "row", "settings": { "snack": "The \"Real Ingredients\" Bar", "snack_note": "Three egg whites and a date. Also 13g sugar.", "calories": "210", "protein": "12g", "fiber": "5g", "added_sugar": "13g", "net_carbs": "23g", "sugar_alcohols": "0g", "bad_added_sugar": true } },
+        { "type": "row", "settings": { "snack": "The Airport Granola Bar", "snack_note": "Gate B12. You were desperate. We understand.", "calories": "250", "protein": "4g", "fiber": "2g", "added_sugar": "12g", "net_carbs": "30g", "sugar_alcohols": "0g", "bad_added_sugar": true } }
       ]
     }
   ]
