@@ -3,7 +3,7 @@
   <section class="hc-newsletter">
     <div class="hc-newsletter__inner">
       <h2 class="newsletter-title">{{ section.settings.heading }}</h2>
-      <p class="hc-copy">{{ section.settings.copy }}</p>
+      <p class="newsletter-sub">{{ section.settings.copy }}</p>
       {% form 'customer', class: 'hc-newsletter__form' %}
         <input type="hidden" name="contact[tags]" value="newsletter">
         <input type="email" name="contact[email]" value="{{ form.email }}" placeholder="{{ section.settings.placeholder }}" autocorrect="off" autocapitalize="off" autocomplete="email" required>
