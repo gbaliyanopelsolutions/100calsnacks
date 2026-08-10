@@ -681,8 +681,15 @@
         "out_BNgJNn": {
           "type": "out",
           "settings": {
-            "name": "Added Sugars",
+            "name": "Preservatives",
             "why": "No synthetic preservatives. Clean label, full stop."
+          }
+        },
+        "out_FqPNtz": {
+          "type": "out",
+          "settings": {
+            "name": "Preservatives",
+            "why": "Certified gluten-free. No cross-contamination risk."
           }
         }
       },
@@ -695,7 +702,8 @@
         "out_1",
         "out_2",
         "out_3",
-        "out_BNgJNn"
+        "out_BNgJNn",
+        "out_FqPNtz"
       ],
       "settings": {
         "eyebrow": "Because You Deserve to Know Exactly What You're Eating",
