@@ -573,7 +573,7 @@
   padding: 30px 80px;
 }
 .hc-callout{
-  .hc-callout__title span{
+  .hc-callout_description span{
     color:#fff;
   }
 }

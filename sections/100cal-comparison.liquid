@@ -45,7 +45,7 @@
     {% if section.settings.callout != blank %}
       <div class="hc-callout">
         <div style="font-family:var(--font-head);font-size:36px;font-weight:900;">🧮</div>
-        <div><div class="hc-callout__title">{{ section.settings.callout_title | escape }}</div>{{ section.settings.callout }}</div>
+        <div class="hc-callout_description"><div class="hc-callout__title">{{ section.settings.callout_title | escape }}</div>{{ section.settings.callout }}</div>
       </div>
     {% endif %}
   </section>
