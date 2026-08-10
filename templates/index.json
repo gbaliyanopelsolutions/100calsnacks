@@ -887,13 +887,21 @@
             "question": "Are 100CalSnacks vegan and gluten-free?",
             "answer": "KSM-66® is the most clinically studied form of Ashwagandha — a root adaptogen that's been shown in peer-reviewed trials to reduce cortisol levels, improve stress resilience, and support cognitive function. Stress is one of the biggest drivers of gut dysfunction and emotional eating. By including a therapeutic dose in every snack, we target the root cause of cravings rather than just masking them with sweetness. It's functional food, not fairy dust."
           }
+        },
+        "question_6t4CH6": {
+          "type": "question",
+          "settings": {
+            "question": "How does gut health affect stress and cravings?",
+            "answer": "Your gut produces roughly 90% of your body's serotonin — the neurotransmitter most associated with mood, calm, and satiety. When the gut microbiome is disrupted (by stress, poor diet, or inflammation), serotonin production drops, cortisol rises, and cravings intensify. This is the gut-brain axis at work. 100CalSnacks are formulated with prebiotic fiber to feed beneficial gut bacteria, adaptogens to lower cortisol, and anti-inflammatory ingredients to break that cycle — one snack at a time."
+          }
         }
       },
       "block_order": [
         "faq_1",
         "faq_2",
         "faq_3",
-        "faq_4"
+        "faq_4",
+        "question_6t4CH6"
       ],
       "settings": {
         "anchor_id": "faq",
