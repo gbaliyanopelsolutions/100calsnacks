@@ -8,10 +8,10 @@
     <div class="hc-faq__inner">
       {% for block in section.blocks %}
         <details itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" {{ block.shopify_attributes }}>
-          <div class="faq_item">
+          
             <summary itemprop="name">{{ block.settings.question | escape }}</summary>
             <span class="faq-chevron">▾</span>
-          </div>
+           
           <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
             <p itemprop="text">{{ block.settings.answer }}</p>
           </div>
