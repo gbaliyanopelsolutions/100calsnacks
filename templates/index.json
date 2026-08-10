@@ -668,14 +668,21 @@
           "type": "out",
           "settings": {
             "name": "Artificial Sweeteners",
-            "why": "No sucralose or aspartame."
+            "why": "Sucralose and aspartame alter gut bacteria. Not here."
           }
         },
         "out_3": {
           "type": "out",
           "settings": {
             "name": "Added Sugars",
-            "why": "Zero added sugars."
+            "why": "Zero added sugars. Sweetness from whole food sources only."
+          }
+        },
+        "out_BNgJNn": {
+          "type": "out",
+          "settings": {
+            "name": "Added Sugars",
+            "why": "No synthetic preservatives. Clean label, full stop."
           }
         }
       },
@@ -687,7 +694,8 @@
         "in_nVWG3X",
         "out_1",
         "out_2",
-        "out_3"
+        "out_3",
+        "out_BNgJNn"
       ],
       "settings": {
         "eyebrow": "Because You Deserve to Know Exactly What You're Eating",
