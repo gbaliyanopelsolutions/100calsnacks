@@ -785,7 +785,39 @@
           "settings": {
             "winner": false,
             "snack": "The \"Natural Nuts &amp; Honey\" Bar",
-            "snack_note": "",
+            "snack_note": "Wholesome branding. Less wholesome sugar.",
+            "calories": "200",
+            "protein": "6g",
+            "fiber": "7g",
+            "added_sugar": "5g",
+            "net_carbs": "13g",
+            "sugar_alcohols": "0g",
+            "bad_added_sugar": true,
+            "bad_sugar_alcohols": false
+          }
+        },
+        "row_KPE3yX": {
+          "type": "row",
+          "settings": {
+            "winner": false,
+            "snack": "The \"Real Ingredients\" Bar",
+            "snack_note": "Three egg whites and a date. Also 13g sugar.",
+            "calories": "200",
+            "protein": "6g",
+            "fiber": "7g",
+            "added_sugar": "5g",
+            "net_carbs": "13g",
+            "sugar_alcohols": "0g",
+            "bad_added_sugar": true,
+            "bad_sugar_alcohols": false
+          }
+        },
+        "row_nGnCD3": {
+          "type": "row",
+          "settings": {
+            "winner": false,
+            "snack": "The \"Real Ingredients\" Bar",
+            "snack_note": "Three egg whites and a date. Also 13g sugar.",
             "calories": "200",
             "protein": "6g",
             "fiber": "7g",
@@ -800,7 +832,9 @@
       "block_order": [
         "compare_1",
         "compare_2",
-        "compare_3"
+        "compare_3",
+        "row_KPE3yX",
+        "row_nGnCD3"
       ],
       "settings": {
         "eyebrow": "We Checked the Labels So You Don't Have To",
