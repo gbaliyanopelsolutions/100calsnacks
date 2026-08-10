@@ -2666,6 +2666,13 @@ details[open] > .full-ing-body{display:block}
     text-transform: uppercase;
     margin-bottom: 16px;
 }
+.newsletter-sub{
+    font-family: var(--font-body);
+    font-size: 18px;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.65);
+    margin-bottom: 36px;
+}
 .faq-q.open .faq-chevron{transform:rotate(180deg);color:var(--black)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
 .faq-a.open{max-height:400px;padding:0 28px 24px}
