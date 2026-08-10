@@ -17,6 +17,7 @@
           "settings": {
             "product_name": "Chocolate Brownie",
             "product_type": "Protein Bar",
+            "hover_text": "Shop Now",
             "product_color": "choc",
             "calories": "100 Cal",
             "product_svg": "<svg width=\"72\" height=\"100\" viewbox=\"0 0 72 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"8\" y=\"10\" width=\"56\" height=\"80\" rx=\"6\" fill=\"#5C2D0E\"></rect></svg>"
@@ -27,6 +28,7 @@
           "settings": {
             "product_name": "Peanut Butter",
             "product_type": "Protein Bar",
+            "hover_text": "Shop Now",
             "product_color": "pb",
             "calories": "100 Cal",
             "product_svg": "<svg width=\"72\" height=\"100\" viewbox=\"0 0 72 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"8\" y=\"10\" width=\"56\" height=\"80\" rx=\"6\" fill=\"#5C2D0E\"></rect></svg>"
@@ -37,6 +39,7 @@
           "settings": {
             "product_name": "BBQ Protein Puffs",
             "product_type": "Savory Snack",
+            "hover_text": "BROWNIE",
             "product_color": "bbq",
             "calories": "100 Cal",
             "product_svg": "<svg width=\"72\" height=\"100\" viewbox=\"0 0 72 100\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"8\" y=\"10\" width=\"56\" height=\"80\" rx=\"6\" fill=\"#5C2D0E\"></rect></svg>"
