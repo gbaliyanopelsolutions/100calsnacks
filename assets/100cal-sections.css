@@ -2629,7 +2629,16 @@ details[open] > .full-ing-body{display:block}
 .faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;padding:22px 28px;font-family:var(--font-head);font-weight:900;font-size:16px;letter-spacing:.5px;text-transform:uppercase;color:var(--black);background:none;border:none;cursor:pointer;text-align:left;transition:background .2s;gap:16px}
 .faq-q:hover{background:var(--neutral-light)}
 .faq-q.open{background:var(--teal)}
-.faq-chevron{font-size:18px;flex-shrink:0;transition:transform .3s;color:var(--ink-light)}
+.faq-chevron{
+  font-size:18px;flex-shrink:0;transition:transform .3s;color:var(--ink-light);
+      font-size: 20px;
+    color: var(--teal-dark);
+    flex-shrink: 0;
+    margin-left: 16px;
+    transition: transform 0.25s;
+    transform: rotate(0deg);
+}
+
 .faq-q.open .faq-chevron{transform:rotate(180deg);color:var(--black)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
 .faq-a.open{max-height:400px;padding:0 28px 24px}
