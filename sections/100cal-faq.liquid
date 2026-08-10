@@ -9,8 +9,8 @@
       {% for block in section.blocks %}
         <details itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" {{ block.shopify_attributes }}>
           
-            <summary itemprop="name">{{ block.settings.question | escape }}</summary>
-            <span class="faq-chevron">▾</span>
+            <summary class="faq_item" itemprop="name">{{ block.settings.question | escape }}</summary>
+           
            
           <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
             <p itemprop="text">{{ block.settings.answer }}</p>
