@@ -851,7 +851,7 @@
         "eyebrow": "Now Available In Stores",
         "heading": "Find Us Near You",
         "copy": "Find a store near you and pick up your favorite 100Cal Snacks.",
-        "primary_label": "Find a Store ->",
+        "primary_label": "Find a Store →",
         "primary_link": "",
         "secondary_label": "Shop Online",
         "secondary_link": "shopify://collections/all"
@@ -864,14 +864,14 @@
           "type": "question",
           "settings": {
             "question": "What makes 100CalSnacks different from other protein bars?",
-            "answer": "Most protein bars stop at macros. 100CalSnacks is built around the gut-brain axis with protein, fiber, adaptogens, and clean 100-calorie portion control."
+            "answer": "Most protein bars stop at macros. 100CalSnacks is built around the gut-brain axis — the direct communication highway between your digestive system and your brain. Every bar contains clinically-studied adaptogens like Ashwagandha KSM-66® and prebiotic fiber that work together to reduce cortisol, ease bloating, and calm stress-driven cravings. Exactly 100 clean calories. No sugar alcohols. No compromise."
           }
         },
         "faq_2": {
           "type": "question",
           "settings": {
             "question": "Are 100CalSnacks good for weight loss?",
-            "answer": "They can support a calorie-conscious plan by making portion control simple: 100 calories, meaningful protein, fiber, and no added sugar."
+            "answer": "Yes — and not just because of the calorie count. At exactly 100 calories with 10g of protein and 5g of fiber per serving, they're designed to satisfy hunger and curb cravings without blowing your budget. Swapping a typical 250-calorie snack for a 100CalSnack saves 150 calories a day — that's roughly 1 lb of fat loss per month from one simple swap. They're also compatible with clean keto, GLP-1 medication protocols, and most macro-tracking approaches."
           }
         },
         "faq_3": {
