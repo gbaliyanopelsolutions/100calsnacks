@@ -676,7 +676,7 @@
             "name": "Prebiotic Fiber Blend",
             "why": "Feeds your microbiome, slows sugar absorption, and keeps you full without a spike-and-crash.",
             "tag_1": "Gut",
-            "tag_2": "",
+            "tag_2": "Energy",
             "tag_3": "",
             "tag_4": "",
             "tag_5": ""
@@ -752,7 +752,7 @@
           "type": "row",
           "settings": {
             "winner": true,
-            "snack": "100Cal Snack Bar",
+            "snack": "🏆 100Cal Snack Bar",
             "calories": "100",
             "protein": "10g",
             "fiber": "5g",
