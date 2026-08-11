@@ -1676,7 +1676,7 @@
   text-transform: uppercase;
 }
 .align-left{
-  text-align:left;
+  text-align:left !important;
 }
 
 .hc-footer__links {
