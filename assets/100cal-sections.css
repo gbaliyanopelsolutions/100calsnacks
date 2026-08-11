@@ -1675,6 +1675,9 @@
   margin-bottom: 10px;
   text-transform: uppercase;
 }
+.align-left{
+  text-align:left;
+}
 
 .hc-footer__links {
   display: flex;
