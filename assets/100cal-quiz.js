@@ -184,57 +184,130 @@
    * ---------------------------------------------------------
    */
 
-  function openContactModal() {
-    var modal = document.getElementById(
-      'hcqa-contact-modal'
-    );
+ function openContactModal() {
+  var modal = document.getElementById('hcqa-contact-modal');
+  var form = document.getElementById('hcqa-contact-form');
+  var feedback = document.getElementById('hcqa-contact-feedback');
 
-    var form = document.getElementById(
-      'hcqa-contact-form'
-    );
+  if (!modal) return;
 
-    var feedback = document.getElementById(
-      'hcqa-contact-feedback'
-    );
-
-    if (!modal) {
-      return;
-    }
-
-    /*
-     * Reset form every time popup opens
-     */
-    if (form) {
-      form.reset();
-    }
-
-    if (feedback) {
-      feedback.textContent = '';
-      feedback.className =
-        'hcqa-contact-feedback';
-    }
-
-    modal.classList.add('active');
-
-    modal.setAttribute(
-      'aria-hidden',
-      'false'
-    );
-
-    /*
-     * Focus first field
-     */
-    setTimeout(function () {
-      var firstInput =
-        document.getElementById(
-          'hcqa-contact-name'
-        );
-
-      if (firstInput) {
-        firstInput.focus();
-      }
-    }, 100);
+  if (form) {
+    form.reset();
   }
+
+  if (feedback) {
+    feedback.textContent = '';
+    feedback.className = 'hcqa-contact-feedback';
+  }
+
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden', 'false');
+
+  document.body.classList.add('hcqa-contact-open');
+
+  setTimeout(function () {
+    var firstInput = document.getElementById('hcqa-contact-name');
+
+    if (firstInput) {
+      firstInput.focus();
+    }
+  }, 100);
+}
+
+
+function closeContactModal() {
+  var modal = document.getElementById('hcqa-contact-modal');
+
+  if (!modal) return;
+
+  modal.classList.remove('active');
+  modal.setAttribute('aria-hidden', 'true');
+
+  document.body.classList.remove('hcqa-contact-open');
+}
+
+
+function submitContactForm() {
+  var form = document.getElementById('hcqa-contact-form');
+  var submitBtn = document.getElementById('hcqa-contact-submit');
+  var feedback = document.getElementById('hcqa-contact-feedback');
+
+  if (!form || !submitBtn || !feedback) return;
+
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
+  var formData = new FormData(form);
+
+  submitBtn.disabled = true;
+  submitBtn.classList.add('loading');
+  submitBtn.textContent = 'Submitting...';
+
+  feedback.textContent = '';
+  feedback.className = 'hcqa-contact-feedback';
+
+  /*
+   * Shopify native contact form.
+   * Do NOT send Accept: application/json.
+   */
+  var action = form.getAttribute('action') || '/contact';
+
+  /*
+   * Remove #contact_form from action.
+   */
+  action = action.split('#')[0];
+
+  fetch(action, {
+    method: 'POST',
+    body: formData,
+    credentials: 'same-origin',
+    redirect: 'follow'
+  })
+    .then(function (response) {
+
+      if (!response.ok) {
+        throw new Error(
+          'Contact form submission failed: HTTP ' +
+          response.status
+        );
+      }
+
+      return response.text();
+    })
+    .then(function () {
+
+      /*
+       * Contact form submitted successfully.
+       * Only now open the quiz.
+       */
+      closeContactModal();
+
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('loading');
+      submitBtn.textContent = 'Start Quiz →';
+
+      startQuiz();
+    })
+    .catch(function (error) {
+
+      console.error(
+        'HCQA Contact Form Error:',
+        error
+      );
+
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('loading');
+      submitBtn.textContent = 'Start Quiz →';
+
+      feedback.className =
+        'hcqa-contact-feedback error';
+
+      feedback.textContent =
+        'Something went wrong. Please try again.';
+    });
+}
 
 
   function closeContactModal() {
