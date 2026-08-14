@@ -23,11 +23,25 @@
     assign jm_has_reviews = true
   endif
 
-  # The "read all" links expand the grid in place. They stay anchors so the
-  # .rev-cta-link / .rev-footer-link styling still applies, and they fall back
-  # to the section's own anchor so a click without JS is a harmless no-op
-  # rather than a broken navigation. Setting cta_link opts out and navigates.
+  # The "read more" links expand the grid in place, three reviews at a time.
+  # They stay anchors so the .rev-cta-link / .rev-footer-link styling still
+  # applies, and they fall back to the section's own anchor so a click without
+  # JS is a harmless no-op rather than a broken navigation. Setting cta_link
+  # opts out and navigates.
   assign jm_cta_link = section.settings.cta_link | default: '#reviews'
+
+  # Three reviews fill the grid on load, so a product with no more than that
+  # has nothing to expand into and the links are left out rather than rendered
+  # and then hidden by the script once it has looked. A count of zero means
+  # Judge.me has not synced the metafield, not that there are no reviews — the
+  # script still asks the endpoint, so the links stay for it to hide.
+  assign jm_can_expand = true
+  if jm_has_reviews and jm_count <= 3
+    assign jm_can_expand = false
+  endif
+  if section.settings.cta_link != blank
+    assign jm_can_expand = true
+  endif
 -%}
 
 <section class="reviews-section" id="reviews">
@@ -41,7 +55,9 @@
           <div class="rev-headline">{{ section.settings.review_headline }}</div>
         </div>
       </div>
-      <a href="{{ jm_cta_link }}" class="rev-cta-link"{% if section.settings.cta_link == blank %} data-judgeme-more{% endif %}>{{ section.settings.review_cta }}</a>
+      {%- if jm_can_expand -%}
+        <a href="{{ jm_cta_link }}" class="rev-cta-link"{% if section.settings.cta_link == blank %} data-judgeme-more{% endif %}>{{ section.settings.review_cta }}</a>
+      {%- endif -%}
     </div>
     <div
       class="rev-grid"
@@ -74,9 +90,11 @@
         <div class="r-product">{{ section.settings.review_3_product }}</div>
       </div>
     </div>
-    <div class="rev-footer">
-      <a href="{{ jm_cta_link }}" class="rev-footer-link"{% if section.settings.cta_link == blank %} data-judgeme-more{% endif %}>{{ section.settings.review_footer_cta | replace: '[count]', jm_count }}</a>
-    </div>
+    {%- if jm_can_expand -%}
+      <div class="rev-footer">
+        <a href="{{ jm_cta_link }}" class="rev-footer-link"{% if section.settings.cta_link == blank %} data-judgeme-more{% endif %}>{{ section.settings.review_footer_cta | replace: '[count]', jm_count }}</a>
+      </div>
+    {%- endif -%}
   </div>
 </section>
 
@@ -96,7 +114,7 @@
   "name": "100Cal Reviews",
   "settings": [
     { "type": "paragraph", "content": "Score, stars and review count come from Judge.me automatically. Use [count] in the text fields below to print the live review count. The three review cards are replaced with real Judge.me reviews when the product has them — the copy saved here is the fallback shown until then." },
-    { "type": "url", "id": "cta_link", "label": "\"Read all reviews\" link", "info": "Leave empty — the Read All links then load the next three reviews into this section without leaving the page. Set a URL only if you want them to navigate away instead." },
+    { "type": "url", "id": "cta_link", "label": "\"Read more\" link", "info": "Leave empty — the Read More links then load the next three reviews into this section without leaving the page, and disappear once every review is shown. Set a URL only if you want them to navigate away instead." },
     { "type": "range", "id": "min_rating", "label": "Minimum star rating to feature", "min": 1, "max": 5, "step": 1, "default": 4 },
     { "type": "text", "id": "verified_label", "label": "Verified buyer label", "default": "Verified Purchase" },
     { "type": "text", "id": "review_score", "label": "Review score (fallback)", "default": "4.9" },
@@ -119,7 +137,7 @@
     { "type": "textarea", "id": "review_3_quote", "label": "Review 3 quote (fallback)", "default": "\"100 clean calories, tastes like dessert. I stopped buying protein bars from anyone else. The texture alone is worth it — it actually chews like a real brownie.\"" },
     { "type": "text", "id": "review_3_name", "label": "Review 3 name (fallback)", "default": "Mike T. · Chicago" },
     { "type": "text", "id": "review_3_product", "label": "Review 3 product (fallback)", "default": "Verified Purchase" },
-    { "type": "text", "id": "review_footer_cta", "label": "Review footer CTA", "default": "Read All [count] Reviews →" }
+    { "type": "text", "id": "review_footer_cta", "label": "Review footer CTA", "default": "Read More →" }
   ],
   "presets": [
     { "name": "Reviews" }

@@ -1,6 +1,6 @@
 /**
  * Fills the 100Cal reviews grid with real Judge.me reviews, and expands it in
- * place when the "read all" links are clicked.
+ * place — three at a time — when the "read more" links are clicked.
  *
  * Judge.me exposes aggregate rating and review count to Liquid, but never the
  * individual reviews — those only exist inside its own widget. The section
@@ -252,7 +252,6 @@
    */
   function fetchUntilFilled(state, attempts) {
     if (state.pool.length >= BATCH || state.noMorePages || attempts >= 5) {
-      state.loading = false;
       return Promise.resolve();
     }
 
@@ -261,7 +260,6 @@
     return fromEndpoint(state, state.page).then(function (reviews) {
       if (!reviews.length) {
         state.noMorePages = true;
-        state.loading = false;
         return;
       }
       addToPool(state, reviews);
@@ -269,26 +267,41 @@
     });
   }
 
-  /** Tops the pool up before it runs dry. */
+  /**
+   * Tops the pool up before it runs dry. A caller that arrives mid-fetch is
+   * handed the fetch already in flight rather than a resolved promise, so a
+   * click can wait for it instead of concluding there is nothing to append.
+   */
   function ensurePool(state) {
-    if (state.pool.length >= BATCH || state.noMorePages || state.loading) {
-      return Promise.resolve();
-    }
+    if (state.pool.length >= BATCH || state.noMorePages) return Promise.resolve();
+    if (state.loading) return state.inflight || Promise.resolve();
+
     state.loading = true;
-    return fetchUntilFilled(state, 0);
+    state.inflight = fetchUntilFilled(state, 0).then(function () {
+      state.loading = false;
+      state.inflight = null;
+    });
+
+    return state.inflight;
   }
 
   function onTrigger(state, event) {
     event.preventDefault();
 
-    // Deliberately not gated on state.loading — a top-up may be in flight while
-    // the pool still holds a full row, and swallowing the click would read as a
-    // dead button.
-    appendBatch(state);
+    // With a row already pooled the next three land on the click itself;
+    // otherwise the click waits on the top-up rather than reading as a dead
+    // button. Either way the pool is refilled behind it for the click after
+    // this one, and the triggers go once there is nothing left to append.
+    var ready = state.pool.length ? Promise.resolve() : ensurePool(state);
 
-    ensurePool(state).then(function () {
-      if (isExhausted(state)) setTriggersVisible(state, false);
-    });
+    ready
+      .then(function () {
+        appendBatch(state);
+        return ensurePool(state);
+      })
+      .then(function () {
+        if (isExhausted(state)) setTriggersVisible(state, false);
+      });
 
     if (isExhausted(state)) setTriggersVisible(state, false);
   }
@@ -306,6 +319,7 @@
       // never re-requests a page whose reviews are on screen.
       page: 0,
       loading: false,
+      inflight: null,
       noMorePages: false,
       shop: grid.getAttribute('data-shop-domain'),
       productId: grid.getAttribute('data-product-id'),
