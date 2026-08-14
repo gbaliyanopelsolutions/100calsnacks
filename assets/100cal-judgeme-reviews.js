@@ -1,5 +1,6 @@
 /**
- * Fills the 100Cal reviews grid with real Judge.me reviews.
+ * Fills the 100Cal reviews grid with real Judge.me reviews, and expands it in
+ * place when the "read all" links are clicked.
  *
  * Judge.me exposes aggregate rating and review count to Liquid, but never the
  * individual reviews — those only exist inside its own widget. The section
@@ -11,8 +12,10 @@
  *   1. the review_widget_data metafield, already inlined in the page
  *   2. Judge.me's widget endpoint, the same one its own preloader calls
  *
- * Only the text nodes are touched. No classes, styles or elements are added or
- * removed, so nothing here can move the design.
+ * Extra cards are cloned from the three the section already rendered, so an
+ * appended review carries the same classes and the same tag rhythm as an
+ * authored one. Only text nodes are ever written. No classes or styles are
+ * added or removed, so nothing here can move the design.
  */
 (function () {
   'use strict';
@@ -20,7 +23,9 @@
   var WIDGET_ENDPOINT = 'https://judge.me/reviews/reviews_for_widget';
   var PER_PAGE = 20;
 
-  /** Text a card falls back to when Judge.me has no equivalent field. */
+  /** The grid is three columns wide, so grow it a full row at a time. */
+  var BATCH = 3;
+
   function textOf(node) {
     return node ? (node.textContent || '').replace(/\s+/g, ' ').trim() : '';
   }
@@ -72,8 +77,7 @@
     if (!payload || depth > 4) return [];
 
     if (Array.isArray(payload)) {
-      var mapped = payload.map(normalise).filter(Boolean);
-      return mapped.length ? mapped : [];
+      return payload.map(normalise).filter(Boolean);
     }
 
     if (typeof payload !== 'object') return [];
@@ -136,19 +140,17 @@
     }
   }
 
-  function fromEndpoint(grid) {
-    var shop = grid.getAttribute('data-shop-domain');
-    var productId = grid.getAttribute('data-product-id');
-    if (!shop || !productId) return Promise.resolve([]);
+  function fromEndpoint(state, page) {
+    if (!state.shop || !state.productId) return Promise.resolve([]);
 
     var url =
       WIDGET_ENDPOINT +
-      '?url=' + encodeURIComponent(shop) +
-      '&shop_domain=' + encodeURIComponent(shop) +
+      '?url=' + encodeURIComponent(state.shop) +
+      '&shop_domain=' + encodeURIComponent(state.shop) +
       '&platform=shopify' +
-      '&page=1' +
+      '&page=' + page +
       '&per_page=' + PER_PAGE +
-      '&product_id=' + encodeURIComponent(productId);
+      '&product_id=' + encodeURIComponent(state.productId);
 
     return fetch(url, { credentials: 'omit' })
       .then(function (response) {
@@ -172,48 +174,196 @@
       });
   }
 
-  function fill(grid, reviews) {
-    var minRating = Number(grid.getAttribute('data-min-rating')) || 0;
-    var productTitle = grid.getAttribute('data-product-title') || '';
-    var verifiedLabel = grid.getAttribute('data-verified-label') || '';
-    var cards = grid.querySelectorAll('[data-judgeme-card]');
+  /** Writes one review into a card, leaving its tag and classes untouched. */
+  function paint(state, card, review) {
+    var stars = card.querySelector('.r-stars');
+    var quote = card.querySelector('.r-quote');
+    var name = card.querySelector('.r-name');
+    var product = card.querySelector('.r-product');
 
-    var usable = reviews.filter(function (review) {
-      return review.rating >= minRating && review.body;
+    if (stars) stars.textContent = starString(review.rating);
+    if (quote) quote.textContent = '“' + review.body + '”';
+    if (name && review.name) name.textContent = review.name;
+    if (product) {
+      product.textContent = review.verified && state.verifiedLabel
+        ? state.verifiedLabel + ' · ' + state.productTitle
+        : state.productTitle;
+    }
+  }
+
+  function take(state, count) {
+    var out = [];
+    while (out.length < count && state.pool.length) {
+      var review = state.pool.shift();
+      if (review.rating >= state.minRating && review.body) out.push(review);
+    }
+    return out;
+  }
+
+  /** True once the pool is empty and Judge.me has no further pages to give. */
+  function isExhausted(state) {
+    return !state.pool.length && state.noMorePages;
+  }
+
+  function setTriggersVisible(state, visible) {
+    for (var i = 0; i < state.triggers.length; i++) {
+      var trigger = state.triggers[i];
+      // The footer is a bordered rule wrapping its link, so an orphaned border
+      // would be left behind if only the link were hidden.
+      var target = trigger.closest('.rev-footer') || trigger;
+      target.style.display = visible ? '' : 'none';
+    }
+  }
+
+  function appendBatch(state) {
+    var reviews = take(state, BATCH);
+    if (!reviews.length) return;
+
+    for (var i = 0; i < reviews.length; i++) {
+      // Cloning cycles through the three authored cards so appended rows keep
+      // the same tag colours in the same order.
+      var source = state.templates[state.rendered % state.templates.length];
+      var card = source.cloneNode(true);
+      card.removeAttribute('data-judgeme-card');
+      paint(state, card, reviews[i]);
+      state.grid.appendChild(card);
+      state.rendered += 1;
+    }
+  }
+
+  /**
+   * The metafield and page one of the endpoint describe the same reviews, so
+   * pages are merged by identity rather than appended blindly.
+   */
+  function addToPool(state, reviews) {
+    for (var i = 0; i < reviews.length; i++) {
+      var review = reviews[i];
+      var key = review.name + '|' + review.body.slice(0, 120);
+      if (state.seen[key]) continue;
+      state.seen[key] = true;
+      state.pool.push(review);
+    }
+  }
+
+  /**
+   * Walks forward through pages until there is a full row to show. A page can
+   * contribute nothing once the min-rating filter and de-duplication have run,
+   * so one fetch is not enough to conclude Judge.me is out of reviews.
+   */
+  function fetchUntilFilled(state, attempts) {
+    if (state.pool.length >= BATCH || state.noMorePages || attempts >= 5) {
+      state.loading = false;
+      return Promise.resolve();
+    }
+
+    state.page += 1;
+
+    return fromEndpoint(state, state.page).then(function (reviews) {
+      if (!reviews.length) {
+        state.noMorePages = true;
+        state.loading = false;
+        return;
+      }
+      addToPool(state, reviews);
+      return fetchUntilFilled(state, attempts + 1);
+    });
+  }
+
+  /** Tops the pool up before it runs dry. */
+  function ensurePool(state) {
+    if (state.pool.length >= BATCH || state.noMorePages || state.loading) {
+      return Promise.resolve();
+    }
+    state.loading = true;
+    return fetchUntilFilled(state, 0);
+  }
+
+  function onTrigger(state, event) {
+    event.preventDefault();
+
+    // Deliberately not gated on state.loading — a top-up may be in flight while
+    // the pool still holds a full row, and swallowing the click would read as a
+    // dead button.
+    appendBatch(state);
+
+    ensurePool(state).then(function () {
+      if (isExhausted(state)) setTriggersVisible(state, false);
     });
 
-    for (var i = 0; i < cards.length && i < usable.length; i++) {
-      var review = usable[i];
-      var card = cards[i];
+    if (isExhausted(state)) setTriggersVisible(state, false);
+  }
 
-      var stars = card.querySelector('.r-stars');
-      var quote = card.querySelector('.r-quote');
-      var name = card.querySelector('.r-name');
-      var product = card.querySelector('.r-product');
+  function build(grid) {
+    var cards = Array.prototype.slice.call(grid.querySelectorAll('[data-judgeme-card]'));
 
-      if (stars) stars.textContent = starString(review.rating);
-      if (quote) quote.textContent = '“' + review.body + '”';
-      if (name && review.name) name.textContent = review.name;
-      if (product) {
-        product.textContent = review.verified && verifiedLabel
-          ? verifiedLabel + ' · ' + productTitle
-          : productTitle;
-      }
+    return {
+      grid: grid,
+      templates: cards,
+      rendered: 0,
+      pool: [],
+      seen: {},
+      // Set by start() to the last page already accounted for, so topping up
+      // never re-requests a page whose reviews are on screen.
+      page: 0,
+      loading: false,
+      noMorePages: false,
+      shop: grid.getAttribute('data-shop-domain'),
+      productId: grid.getAttribute('data-product-id'),
+      productTitle: grid.getAttribute('data-product-title') || '',
+      verifiedLabel: grid.getAttribute('data-verified-label') || '',
+      minRating: Number(grid.getAttribute('data-min-rating')) || 0,
+      // A merchant-set link opts out of expanding and navigates instead, so
+      // only the links Liquid marked as expanders are wired up here.
+      triggers: Array.prototype.slice.call(document.querySelectorAll('[data-judgeme-more]'))
+    };
+  }
+
+  function start(state, reviews, fromPage) {
+    // Seeding from the metafield leaves page zero unfetched, so the first
+    // top-up still asks for page one and de-duplicates what it already has.
+    state.page = fromPage;
+    addToPool(state, reviews);
+
+    var initial = take(state, state.templates.length);
+    for (var i = 0; i < initial.length; i++) {
+      paint(state, state.templates[i], initial[i]);
     }
+
+    // Cards with no review to show keep their authored copy, so the tag cycle
+    // resumes from the full row on screen rather than the number replaced.
+    state.rendered = state.templates.length;
+
+    for (var j = 0; j < state.triggers.length; j++) {
+      state.triggers[j].addEventListener('click', onTrigger.bind(null, state));
+    }
+
+    ensurePool(state).then(function () {
+      if (isExhausted(state)) setTriggersVisible(state, false);
+    });
   }
 
   function init() {
     var grid = document.querySelector('[data-judgeme-reviews]');
-    if (!grid) return;
+    if (!grid || grid.dataset.judgemeReady === 'true') return;
+    grid.dataset.judgemeReady = 'true';
+
+    var state = build(grid);
+    if (!state.templates.length) return;
 
     var inline = fromMetafield();
     if (inline.length) {
-      fill(grid, inline);
+      start(state, inline, 0);
       return;
     }
 
-    fromEndpoint(grid).then(function (reviews) {
-      if (reviews.length) fill(grid, reviews);
+    fromEndpoint(state, 1).then(function (reviews) {
+      if (reviews.length) {
+        start(state, reviews, 1);
+      } else {
+        // Nothing to expand into, so the links would do nothing if clicked.
+        state.noMorePages = true;
+        setTriggersVisible(state, false);
+      }
     });
   }
 
