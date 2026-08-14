@@ -1,0 +1,30 @@
+{%- comment -%}
+  Judge.me star string.
+
+  Renders the same ★/☆ characters the hand-written markup used, so the calling
+  element's existing type styles carry over untouched. Judge.me's own star
+  markup is deliberately not used — it ships its own classes and stylesheet,
+  which would override the section's typography.
+
+  Accepts:
+  - rating {Number} average rating on a 0-5 scale
+
+  Usage:
+  {% render 'judgeme-stars', rating: 4.4 %}
+{%- endcomment -%}
+
+{%- liquid
+  assign jm_filled = rating | times: 1.0 | plus: 0.5 | floor
+  if jm_filled > 5
+    assign jm_filled = 5
+  elsif jm_filled < 0
+    assign jm_filled = 0
+  endif
+  assign jm_empty = 5 | minus: jm_filled
+-%}
+{%- if jm_filled > 0 -%}
+  {%- for i in (1..jm_filled) -%}★{%- endfor -%}
+{%- endif -%}
+{%- if jm_empty > 0 -%}
+  {%- for i in (1..jm_empty) -%}☆{%- endfor -%}
+{%- endif -%}
