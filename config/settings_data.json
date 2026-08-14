@@ -145,7 +145,7 @@
     "blocks": {
       "16017602894386113438": {
         "type": "shopify://apps/junip/blocks/junip-store-key/dc14f5a8-ed15-41b1-ad08-cfba23f9789b",
-        "disabled": false,
+        "disabled": true,
         "settings": {
           "enablePreviewMode": true
         }

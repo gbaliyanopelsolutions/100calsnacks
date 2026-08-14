@@ -1,0 +1,34 @@
+{%- comment -%}
+  Judge.me rating thumb for the product page: stars, score, and a review count
+  that jumps down to the reviews section.
+
+  Renders into the theme's own .pdp-stars / .pdp-rating-num / .pdp-rev-count
+  rules, which already describe this row — .pdp-rev-count is styled underlined
+  with cursor:pointer, so it was always meant to be the link it now is.
+  Judge.me's own badge markup is not used because it carries its own stylesheet.
+
+  Products with no reviews yet render nothing rather than "☆☆☆☆☆ 0", which would
+  read as a bad rating on the highest-intent part of the page.
+
+  Accepts:
+  - product {Object} product to show the rating for
+  - anchor  {String} optional href for the count link, defaults to #reviews
+
+  Usage:
+  {% render 'judgeme-product-rating', product: product %}
+{%- endcomment -%}
+
+{%- liquid
+  assign jm_count = product.metafields.reviews.rating_count.value | plus: 0
+  assign jm_rating = product.metafields.reviews.rating.value.rating
+  assign jm_anchor = anchor | default: '#reviews'
+-%}
+{%- if product != blank and jm_count > 0 -%}
+  <span class="pdp-stars">{%- render 'judgeme-stars', rating: jm_rating -%}</span>
+  <span class="pdp-rating-num">{{ jm_rating | round: 1 }}</span>
+  {%- if jm_count == 1 -%}
+    <a class="pdp-rev-count" href="{{ jm_anchor }}">1 review</a>
+  {%- else -%}
+    <a class="pdp-rev-count" href="{{ jm_anchor }}">{{ jm_count }} reviews</a>
+  {%- endif -%}
+{%- endif -%}
