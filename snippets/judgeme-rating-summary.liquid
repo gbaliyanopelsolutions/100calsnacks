@@ -1,0 +1,29 @@
+{%- comment -%}
+  Judge.me rating summary for a product card, e.g. "★★★★☆ (96)".
+
+  Emits bare text into whichever element the caller supplies so the card's
+  existing rating styling applies unchanged. The numbers come from the Shopify
+  product-rating metafields that the Judge.me app syncs on every review change,
+  so no request is made at render time.
+
+  Products with no reviews yet fall back to the caller's copy rather than
+  printing "☆☆☆☆☆ (0)", which would read as a bad rating.
+
+  Accepts:
+  - product  {Object} product to show the rating for
+  - fallback {String} optional copy for products without reviews, or for
+    product-grid cards that are configured without a linked product
+
+  Usage:
+  {% render 'judgeme-rating-summary', product: product, fallback: block.settings.rating %}
+{%- endcomment -%}
+
+{%- liquid
+  assign jm_rating = product.metafields.reviews.rating.value.rating
+  assign jm_count = product.metafields.reviews.rating_count.value | plus: 0
+-%}
+{%- if product != blank and jm_count > 0 -%}
+  {%- render 'judgeme-stars', rating: jm_rating %} ({{ jm_count }})
+{%- elsif fallback != blank -%}
+  {{ fallback | escape }}
+{%- endif -%}
