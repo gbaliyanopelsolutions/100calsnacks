@@ -22,6 +22,10 @@
   if product != blank and jm_count > 0
     assign jm_has_reviews = true
   endif
+
+  # Both "Read all" links used to point at #reviews, the id on this very
+  # section, so clicking them scrolled nowhere.
+  assign jm_cta_link = section.settings.cta_link | default: '/pages/reviews'
 -%}
 
 <section class="reviews-section" id="reviews">
@@ -35,7 +39,7 @@
           <div class="rev-headline">{{ section.settings.review_headline }}</div>
         </div>
       </div>
-      <a href="#reviews" class="rev-cta-link">{{ section.settings.review_cta }}</a>
+      <a href="{{ jm_cta_link }}" class="rev-cta-link">{{ section.settings.review_cta }}</a>
     </div>
     <div
       class="rev-grid"
@@ -69,7 +73,7 @@
       </div>
     </div>
     <div class="rev-footer">
-      <a href="#reviews" class="rev-footer-link">{{ section.settings.review_footer_cta | replace: '[count]', jm_count }}</a>
+      <a href="{{ jm_cta_link }}" class="rev-footer-link">{{ section.settings.review_footer_cta | replace: '[count]', jm_count }}</a>
     </div>
   </div>
 </section>
@@ -90,6 +94,7 @@
   "name": "100Cal Reviews",
   "settings": [
     { "type": "paragraph", "content": "Score, stars and review count come from Judge.me automatically. Use [count] in the text fields below to print the live review count. The three review cards are replaced with real Judge.me reviews when the product has them — the copy saved here is the fallback shown until then." },
+    { "type": "url", "id": "cta_link", "label": "\"Read all reviews\" link", "info": "Where both Read All links point. Falls back to /pages/reviews when empty." },
     { "type": "range", "id": "min_rating", "label": "Minimum star rating to feature", "min": 1, "max": 5, "step": 1, "default": 4 },
     { "type": "text", "id": "verified_label", "label": "Verified buyer label", "default": "Verified Purchase" },
     { "type": "text", "id": "review_score", "label": "Review score (fallback)", "default": "4.9" },
